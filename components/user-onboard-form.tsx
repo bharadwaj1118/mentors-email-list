@@ -79,6 +79,8 @@ const profileFormSchema = z.object({
   timezone: z.string({
     required_error: 'Please select timezone',
   }),
+  twitterUrl: z.string(),
+  linkedinUrl: z.string(),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -402,6 +404,38 @@ export function ProfileForm() {
                   </SelectContent>
                 </Select>
                 <FormDescription>Please pick industries</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
+          <FormField
+            control={form.control}
+            name="twitterUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Twitter</FormLabel>
+                <FormControl>
+                  <Input placeholder="http://twitter.com/user" {...field} />
+                </FormControl>
+                <FormDescription>This is your Twitter URL.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="linkedinUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>LinkedIn</FormLabel>
+                <FormControl>
+                  <Input placeholder="http://linkedin.com/user" {...field} />
+                </FormControl>
+                <FormDescription>This is your LinkedIn URL.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
