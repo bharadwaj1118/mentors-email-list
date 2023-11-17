@@ -5,7 +5,12 @@ import { MainNav } from '@/components/main-nav';
 import { Icons } from '@/components/icons';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
-import { ClerkProvider } from '@clerk/nextjs';
+import {
+  ClerkProvider,
+  SignOutButton,
+  SignedIn,
+  SignedOut,
+} from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import LeftSideBar from '@/components/leftside-bar';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -29,7 +34,9 @@ export default function RootLayout({
           <div className="flex flex-1 items-center space-x-4 sm:justify-end">
             <nav className="flex space-x-4">
               <ModeToggle />
-              <Button>Login</Button>
+              <SignOutButton>
+                <Button>Logout</Button>
+              </SignOutButton>
             </nav>
           </div>
         </div>
