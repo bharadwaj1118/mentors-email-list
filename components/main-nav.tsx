@@ -26,7 +26,7 @@ export function MainNav({ items, children }: MainNavProps) {
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
-        <Image src="/mentors-cx.png" width={32} height={32} />
+        <Image src="/mentors-cx.png" width={32} height={32} alt="CX" />
       </Link>
       {items?.length ? (
         <nav className="hidden gap-6 md:flex">
