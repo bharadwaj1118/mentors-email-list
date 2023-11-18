@@ -54,7 +54,7 @@ export default async function IndexPage() {
           </p>
           <div className="space-x-4">
             <Link
-              href="/sign-in"
+              href="/profile"
               className={cn(buttonVariants({ size: 'lg' }))}
             >
               Get Started
