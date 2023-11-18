@@ -21,97 +21,9 @@ import { Separator } from '@/components/ui/separator';
 
 export function DemoShareDocument() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Share this document</CardTitle>
-        <CardDescription>
-          Anyone with the link can view this document.
-        </CardDescription>
-      </CardHeader>
+    <Card className="m-3">
       <CardContent>
-        <div className="flex space-x-2">
-          <Input value="http://example.com/link/to/document" readOnly />
-          <Button variant="secondary" className="shrink-0">
-            Copy Link
-          </Button>
-        </div>
-        <Separator className="my-4" />
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium">People with access</h4>
-          <div className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar>
-                  <AvatarImage src="/avatars/03.png" />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">
-                    Olivia Martin
-                  </p>
-                  <p className="text-sm text-muted-foreground">m@example.com</p>
-                </div>
-              </div>
-              <Select defaultValue="edit">
-                <SelectTrigger className="ml-auto w-[110px]">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="edit">Can edit</SelectItem>
-                  <SelectItem value="view">Can view</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar>
-                  <AvatarImage src="/avatars/05.png" />
-                  <AvatarFallback>IN</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">
-                    Isabella Nguyen
-                  </p>
-                  <p className="text-sm text-muted-foreground">b@example.com</p>
-                </div>
-              </div>
-              <Select defaultValue="view">
-                <SelectTrigger className="ml-auto w-[110px]">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="edit">Can edit</SelectItem>
-                  <SelectItem value="view">Can view</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar>
-                  <AvatarImage src="/avatars/01.png" />
-                  <AvatarFallback>SD</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">
-                    Sofia Davis
-                  </p>
-                  <p className="text-sm text-muted-foreground">p@example.com</p>
-                </div>
-              </div>
-              <Select defaultValue="view">
-                <SelectTrigger className="ml-auto w-[110px]">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="edit">Can edit</SelectItem>
-                  <SelectItem value="view">Can view</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-        <Separator className="my-4" />
-        <div className="flex justify-between items-center space-x-3">
+        <div className="flex justify-between items-center space-x-3 pr-3 py-3">
           <div className="flex items-center space-x-4">
             <Avatar className="w-32 h-32">
               <AvatarImage src="/avatars/01.png" />
@@ -131,7 +43,7 @@ export function DemoShareDocument() {
           </div>
           <div>
             <div className="flex flex-col space-y-1 border-2 p-2 items-center">
-              <div className="flex space-x-1">
+              <div className="flex space-x-1 text-center">
                 <svg
                   className="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
@@ -144,15 +56,19 @@ export function DemoShareDocument() {
                 <p>4.9 / 5</p>
               </div>
               <Separator className="my-4" />
-              <div className="text-sm text-muted-foreground">315 reviews</div>
+              <div className="text-sm text-muted-foreground text-center">
+                315 reviews
+              </div>
               <Separator className="my-4" />
-              <div className="text-sm text-muted-foreground">360 sessions</div>
+              <div className="text-sm text-muted-foreground text-center">
+                360 sessions
+              </div>
             </div>
           </div>
         </div>
         <Separator className="my-4" />
         <div className="flex justify-between items-center space-x-3">
-          <div>
+          <div className="basis-3/4">
             <p className="font-light font-sans">
               As VP of Growth at EuroVPS, I had to make a LOT of decisions,
               daily. This got exhausting, especially if I had multiple good
@@ -161,7 +77,11 @@ export function DemoShareDocument() {
               resonate? If so, I would love to try and help you.{' '}
             </p>
           </div>
-          <div>Nah!This continues Boom end here</div>
+          <div className="border-2 basis-1/4 text-center">
+            Available at:
+            <div className="text-sm text-muted-foreground">Monday</div>
+            <div className="text-sm text-muted-foreground">8:00 PM</div>
+          </div>
         </div>
 
         <Separator className="my-4" />
