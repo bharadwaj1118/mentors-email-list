@@ -17,6 +17,15 @@ export const docsConfig: DocsConfig = {
   ],
   sidebarNav: [
     {
+      title: 'Profile',
+      items: [
+        {
+          title: 'Edit',
+          href: '/profile',
+        },
+      ],
+    },
+    {
       title: 'Bookings',
       items: [
         {
@@ -26,27 +35,6 @@ export const docsConfig: DocsConfig = {
         {
           title: 'History',
           href: '/bookings/history',
-        },
-      ],
-    },
-
-    {
-      title: 'Blog',
-      items: [
-        {
-          title: 'Introduction',
-          href: '/docs/in-progress',
-          disabled: true,
-        },
-        {
-          title: 'Build your own',
-          href: '/docs/in-progress',
-          disabled: true,
-        },
-        {
-          title: 'Writing Posts',
-          href: '/docs/in-progress',
-          disabled: true,
         },
       ],
     },
