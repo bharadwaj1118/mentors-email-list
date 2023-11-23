@@ -1,11 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { Select, SelectItem, Selection } from '@nextui-org/react';
 import * as z from 'zod';
+import axios from 'axios';
+import React, { useState } from 'react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,30 +18,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
 import { Separator } from '@/components/ui/separator';
 
-const languages = [
-  { label: 'English', value: 'en' },
-  { label: 'French', value: 'fr' },
-  { label: 'German', value: 'de' },
-  { label: 'Spanish', value: 'es' },
-  { label: 'Portuguese', value: 'pt' },
-  { label: 'Russian', value: 'ru' },
-  { label: 'Japanese', value: 'ja' },
-  { label: 'Korean', value: 'ko' },
-  { label: 'Chinese', value: 'zh' },
-] as const;
+import {
+  TIMEZONES,
+  LANGUAGES,
+  TOOLS,
+  EXPERTISE,
+  INDUSTRIES,
+} from '@/constants/data';
+
+import { useToast } from '@/components/ui/use-toast';
+import { Profile } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+
+interface ProfileFormProps {
+  initialData: Profile | null;
+}
 
 const profileFormSchema = z.object({
   username: z
@@ -65,21 +60,11 @@ const profileFormSchema = z.object({
     })
     .email(),
   bio: z.string().max(160).min(4),
-  language: z.string({
-    required_error: 'Please select a language.',
-  }),
-  toolkit: z.string({
-    required_error: 'Please select toolkit',
-  }),
-  industries: z.string({
-    required_error: 'Please select industries',
-  }),
-  expertise: z.string({
-    required_error: 'Please select industries',
-  }),
-  timezone: z.string({
-    required_error: 'Please select timezone',
-  }),
+  timezone: z.string().min(1, 'Choose one timezone'),
+  languages: z.string().min(1, 'Choose one language'),
+  tools: z.string().min(1, 'Choose one Tool'),
+  expertise: z.string().min(1, 'Choose one expertise'),
+  industries: z.string().min(1, 'Choose one industry'),
   twitterUrl: z.string(),
   linkedinUrl: z.string(),
 });
@@ -95,17 +80,77 @@ const defaultValues: Partial<ProfileFormValues> = {
   //   ],
 };
 
-export function ProfileForm() {
+export function ProfileForm({ initialData }: ProfileFormProps) {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: {
+      username: initialData?.username || '',
+      currentrole: initialData?.currentrole || '',
+      email: initialData?.email || '',
+      bio: initialData?.bio || '',
+      timezone: initialData?.timezone || '',
+      languages: initialData?.languages || '',
+      tools: initialData?.tools || '',
+      expertise: initialData?.expertise || '',
+      industries: initialData?.industries || '',
+      twitterUrl: initialData?.twitterUrl || '',
+      linkedinUrl: initialData?.linkedinUrl || '',
+    },
     mode: 'onChange',
   });
 
-  async function onSubmit(values: ProfileFormValues) {
+  const onSubmit = async (values: ProfileFormValues) => {
     console.log(values);
-    console.log('The click works');
-  }
+    try {
+      if (initialData) {
+        await axios.patch(`/api/profile/${initialData.id}`, values);
+      } else {
+        await axios.post('/api/profile', values);
+      }
+
+      toast({
+        description: 'Success.',
+        duration: 3000,
+      });
+
+      router.refresh();
+      router.push('/');
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: 'Something went wrong.',
+        duration: 3000,
+      });
+    }
+  };
+
+  const defaultValues = form.watch();
+  const [tools, setTools] = React.useState<Selection>(
+    new Set(defaultValues.tools == '' ? [] : defaultValues.tools.split(','))
+  );
+  const [expertise, setExpertise] = React.useState<Selection>(
+    new Set(
+      defaultValues.expertise == '' ? [] : defaultValues.expertise.split(',')
+    )
+  );
+  const [industries, setIndustries] = React.useState<Selection>(
+    new Set(
+      defaultValues.industries == '' ? [] : defaultValues.industries.split(',')
+    )
+  );
+  const [languages, setLanguages] = React.useState<Selection>(
+    new Set(
+      defaultValues.languages == '' ? [] : defaultValues.languages.split(',')
+    )
+  );
+  const [timezone, setTimezone] = React.useState<Selection>(
+    new Set(
+      defaultValues.timezone == '' ? [] : defaultValues.timezone.split(',')
+    )
+  );
 
   return (
     <Form {...form}>
@@ -173,108 +218,25 @@ export function ProfileForm() {
             name="timezone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>TimeZone</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="select a Timezone" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>North America</SelectLabel>
-                      <SelectItem value="est">
-                        Eastern Standard Time (EST)
-                      </SelectItem>
-                      <SelectItem value="cst">
-                        Central Standard Time (CST)
-                      </SelectItem>
-                      <SelectItem value="mst">
-                        Mountain Standard Time (MST)
-                      </SelectItem>
-                      <SelectItem value="pst">
-                        Pacific Standard Time (PST)
-                      </SelectItem>
-                      <SelectItem value="akst">
-                        Alaska Standard Time (AKST)
-                      </SelectItem>
-                      <SelectItem value="hst">
-                        Hawaii Standard Time (HST)
-                      </SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Europe & Africa</SelectLabel>
-                      <SelectItem value="gmt">
-                        Greenwich Mean Time (GMT)
-                      </SelectItem>
-                      <SelectItem value="cet">
-                        Central European Time (CET)
-                      </SelectItem>
-                      <SelectItem value="eet">
-                        Eastern European Time (EET)
-                      </SelectItem>
-                      <SelectItem value="west">
-                        Western European Summer Time (WEST)
-                      </SelectItem>
-                      <SelectItem value="cat">
-                        Central Africa Time (CAT)
-                      </SelectItem>
-                      <SelectItem value="eat">
-                        East Africa Time (EAT)
-                      </SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Asia</SelectLabel>
-                      <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
-                      <SelectItem value="ist">
-                        India Standard Time (IST)
-                      </SelectItem>
-                      <SelectItem value="cst_china">
-                        China Standard Time (CST)
-                      </SelectItem>
-                      <SelectItem value="jst">
-                        Japan Standard Time (JST)
-                      </SelectItem>
-                      <SelectItem value="kst">
-                        Korea Standard Time (KST)
-                      </SelectItem>
-                      <SelectItem value="ist_indonesia">
-                        Indonesia Central Standard Time (WITA)
-                      </SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Australia & Pacific</SelectLabel>
-                      <SelectItem value="awst">
-                        Australian Western Standard Time (AWST)
-                      </SelectItem>
-                      <SelectItem value="acst">
-                        Australian Central Standard Time (ACST)
-                      </SelectItem>
-                      <SelectItem value="aest">
-                        Australian Eastern Standard Time (AEST)
-                      </SelectItem>
-                      <SelectItem value="nzst">
-                        New Zealand Standard Time (NZST)
-                      </SelectItem>
-                      <SelectItem value="fjt">Fiji Time (FJT)</SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>South America</SelectLabel>
-                      <SelectItem value="art">Argentina Time (ART)</SelectItem>
-                      <SelectItem value="bot">Bolivia Time (BOT)</SelectItem>
-                      <SelectItem value="brt">Brasilia Time (BRT)</SelectItem>
-                      <SelectItem value="clt">
-                        Chile Standard Time (CLT)
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  You can manage email addresses in your{' '}
-                </FormDescription>
+                <FormLabel>Time Zone</FormLabel>
+                <FormControl>
+                  <div className="flex w-full max-w-xs flex-col gap-2 ">
+                    <Select
+                      size="sm"
+                      placeholder="Select timezone"
+                      selectedKeys={timezone}
+                      onSelectionChange={setTimezone}
+                      {...field}
+                    >
+                      {TIMEZONES.map((timezone) => (
+                        <SelectItem key={timezone.value} value={timezone.value}>
+                          {timezone.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </FormControl>
+                <FormDescription>Please choose your timezone.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -311,31 +273,33 @@ export function ProfileForm() {
           <Separator className="bg-primary/10" />
         </div>
 
-        <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-2">
+        <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
-            name="language"
+            name="languages"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Languages</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selact a language" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ENGLISH">English</SelectItem>
-                    <SelectItem value="GERMAN">German</SelectItem>
-                    <SelectItem value="SPANISH">Spanish</SelectItem>
-                    <SelectItem value="FRENCH">French</SelectItem>
-                    <SelectItem value="ITALIAN">Italian</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>Please pick a Language</FormDescription>
+                <FormControl>
+                  <div className="flex w-full max-w-xs flex-col gap-2">
+                    <Select
+                      size="sm"
+                      selectionMode="multiple"
+                      placeholder="Select an Language"
+                      selectedKeys={languages}
+                      className="max-w-xs"
+                      onSelectionChange={setLanguages}
+                      {...field}
+                    >
+                      {LANGUAGES.map((language) => (
+                        <SelectItem key={language.value} value={language.value}>
+                          {language.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </FormControl>
+                <FormDescription>Please choose the language</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -347,24 +311,26 @@ export function ProfileForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Expertise</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your expertise" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ENGLISH">English</SelectItem>
-                    <SelectItem value="GERMAN">German</SelectItem>
-                    <SelectItem value="SPANISH">Spanish</SelectItem>
-                    <SelectItem value="FRENCH">French</SelectItem>
-                    <SelectItem value="ITALIAN">Italian</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>Please pick your expertise</FormDescription>
+                <FormControl>
+                  <div className="flex w-full max-w-xs flex-col gap-2">
+                    <Select
+                      size="sm"
+                      selectionMode="multiple"
+                      placeholder="Select an expertise"
+                      selectedKeys={expertise}
+                      className="max-w-xs"
+                      onSelectionChange={setExpertise}
+                      {...field}
+                    >
+                      {EXPERTISE.map((expert) => (
+                        <SelectItem key={expert.value} value={expert.value}>
+                          {expert.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </FormControl>
+                <FormDescription>Please choose your expertise</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -374,28 +340,30 @@ export function ProfileForm() {
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
-            name="toolkit"
+            name="tools"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Toolkit</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a language" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ENGLISH">English</SelectItem>
-                    <SelectItem value="GERMAN">German</SelectItem>
-                    <SelectItem value="SPANISH">Spanish</SelectItem>
-                    <SelectItem value="FRENCH">French</SelectItem>
-                    <SelectItem value="ITALIAN">Italian</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>Please pick Toolkit</FormDescription>
+                <FormLabel>Tools</FormLabel>
+                <FormControl>
+                  <div className="flex w-full max-w-xs flex-col gap-2">
+                    <Select
+                      size="sm"
+                      selectionMode="multiple"
+                      placeholder="Select a tool"
+                      selectedKeys={tools}
+                      className="max-w-xs"
+                      onSelectionChange={setTools}
+                      {...field}
+                    >
+                      {TOOLS.map((tool) => (
+                        <SelectItem key={tool.value} value={tool.value}>
+                          {tool.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </FormControl>
+                <FormDescription>Please choose the Tools</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -406,25 +374,27 @@ export function ProfileForm() {
             name="industries"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Industries</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selact a language" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ENGLISH">English</SelectItem>
-                    <SelectItem value="GERMAN">German</SelectItem>
-                    <SelectItem value="SPANISH">Spanish</SelectItem>
-                    <SelectItem value="FRENCH">French</SelectItem>
-                    <SelectItem value="ITALIAN">Italian</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>Please pick industries</FormDescription>
+                <FormLabel>Industries:</FormLabel>
+                <FormControl>
+                  <div className="flex w-full max-w-xs flex-col gap-2">
+                    <Select
+                      size="sm"
+                      selectionMode="multiple"
+                      placeholder="Select an industry"
+                      selectedKeys={industries}
+                      className="max-w-xs"
+                      onSelectionChange={setIndustries}
+                      {...field}
+                    >
+                      {INDUSTRIES.map((industry) => (
+                        <SelectItem key={industry.value} value={industry.value}>
+                          {industry.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </FormControl>
+                <FormDescription>Please choose your industries</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

@@ -1,9 +1,9 @@
-import { ProfileForm } from '@/components/user-onboard-form';
 import React from 'react';
+import ProfileForm from './components/select-form';
 
 const page = () => {
   return (
-    <div className="container mx-auto">
+    <div>
       <ProfileForm />
     </div>
   );

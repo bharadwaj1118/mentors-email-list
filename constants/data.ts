@@ -1,3 +1,100 @@
+export interface timeZone {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const TIMEZONES: readonly timeZone[] = [
+  { value: 'UTC', label: 'Coordinated Universal Time' },
+  { value: 'EST', label: 'Eastern Standard Time (North America)' },
+  { value: 'CST', label: 'Central Standard Time (North America)' },
+  { value: 'MST', label: 'Mountain Standard Time (North America)' },
+  { value: 'PST', label: 'Pacific Standard Time (North America)' },
+  { value: 'IST', label: 'India Standard Time' },
+  { value: 'CET', label: 'Central European Time' },
+  { value: 'GMT', label: 'Greenwich Mean Time' },
+  { value: 'BST', label: 'British Summer Time' },
+  { value: 'JST', label: 'Japan Standard Time' },
+  { value: 'AEST', label: 'Australian Eastern Standard Time' },
+  // Add more timezones as needed
+];
+
+export interface language {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const LANGUAGES: readonly language[] = [
+  { value: 'zh', label: 'Mandarin Chinese' },
+  { value: 'es', label: 'Spanish' },
+  { value: 'en', label: 'English' },
+  { value: 'hi', label: 'Hindi' },
+  { value: 'bn', label: 'Bengali' },
+  { value: 'pt', label: 'Portuguese' },
+  { value: 'ru', label: 'Russian' },
+  { value: 'pa', label: 'Punjabi' },
+  { value: 'ar', label: 'Arabic' },
+  { value: 'id', label: 'Indonesian' },
+];
+
+export interface tool {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const TOOLS: readonly tool[] = [
+  { value: 'assembled', label: 'Assembled' },
+  { value: 'gorgias', label: 'Gorgias' },
+  { value: 'siena', label: 'Siena' },
+  { value: 'ultimate', label: 'Ultimate' },
+  { value: '8x8', label: '8x8' },
+  { value: 'absorb', label: 'Absorb' },
+  { value: 'acquire', label: 'Acquire' },
+  { value: 'ada', label: 'Ada' },
+  { value: 'aide', label: 'Aide' },
+  { value: 'aircall', label: 'Aircall' },
+];
+
+export interface expert {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const EXPERTISE: readonly expert[] = [
+  { value: 'expert1', label: 'Expert1' },
+  { value: 'expert2', label: 'Expert2' },
+  { value: 'expert3', label: 'Expert3' },
+  { value: 'expert4', label: 'Expert4' },
+  { value: 'expert5', label: 'Expert5' },
+];
+
+export interface industry {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const INDUSTRIES: readonly industry[] = [
+  { value: 'industry1', label: 'Industry1' },
+  { value: 'industry2', label: 'Industry2' },
+  { value: 'industry3', label: 'Industry3' },
+  { value: 'industry4', label: 'Industry4' },
+  { value: 'industry5', label: 'Industry5' },
+];
+
 export interface ColourOption {
   readonly value: string;
   readonly label: string;
@@ -138,5 +235,66 @@ export const groupedOptions: readonly GroupedOption[] = [
   {
     label: 'Flavours',
     options: flavourOptions,
+  },
+];
+
+export const animals = [
+  {
+    label: 'Cat',
+    value: 'cat',
+    description: 'The second most popular pet in the world',
+  },
+  {
+    label: 'Dog',
+    value: 'dog',
+    description: 'The most popular pet in the world',
+  },
+  {
+    label: 'Elephant',
+    value: 'elephant',
+    description: 'The largest land animal',
+  },
+  { label: 'Lion', value: 'lion', description: 'The king of the jungle' },
+  { label: 'Tiger', value: 'tiger', description: 'The largest cat species' },
+  {
+    label: 'Giraffe',
+    value: 'giraffe',
+    description: 'The tallest land animal',
+  },
+  {
+    label: 'Dolphin',
+    value: 'dolphin',
+    description: 'A widely distributed and diverse group of aquatic mammals',
+  },
+  {
+    label: 'Penguin',
+    value: 'penguin',
+    description: 'A group of aquatic flightless birds',
+  },
+  {
+    label: 'Zebra',
+    value: 'zebra',
+    description: 'A several species of African equids',
+  },
+  {
+    label: 'Shark',
+    value: 'shark',
+    description:
+      'A group of elasmobranch fish characterized by a cartilaginous skeleton',
+  },
+  {
+    label: 'Whale',
+    value: 'whale',
+    description: 'Diverse group of fully aquatic placental marine mammals',
+  },
+  {
+    label: 'Otter',
+    value: 'otter',
+    description: 'A carnivorous mammal in the subfamily Lutrinae',
+  },
+  {
+    label: 'Crocodile',
+    value: 'crocodile',
+    description: 'A large semiaquatic reptile',
   },
 ];
