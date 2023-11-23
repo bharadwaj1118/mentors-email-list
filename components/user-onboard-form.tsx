@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
+import { Separator } from '@/components/ui/separator';
 
 const languages = [
   { label: 'English', value: 'en' },
@@ -109,6 +110,15 @@ export function ProfileForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <div className="space-y-2 w-full col-span-2">
+          <div>
+            <h3 className="text-lg font-medium">General Information</h3>
+            <p className="text-sm text-muted-foreground">
+              General information about your Companion
+            </p>
+          </div>
+          <Separator className="bg-primary/10" />
+        </div>
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
@@ -141,6 +151,7 @@ export function ProfileForm() {
             )}
           />
         </div>
+
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
@@ -290,6 +301,16 @@ export function ProfileForm() {
           )}
         />
 
+        <div className="space-y-2 w-full col-span-2">
+          <div>
+            <h3 className="text-lg font-medium">Skill stack</h3>
+            <p className="text-sm text-muted-foreground">
+              Skills information about your profile
+            </p>
+          </div>
+          <Separator className="bg-primary/10" />
+        </div>
+
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-2">
           <FormField
             control={form.control}
@@ -410,6 +431,16 @@ export function ProfileForm() {
           />
         </div>
 
+        <div className="space-y-2 w-full col-span-2">
+          <div>
+            <h3 className="text-lg font-medium">Social information</h3>
+            <p className="text-sm text-muted-foreground">
+              Social information about your profile
+            </p>
+          </div>
+          <Separator className="bg-primary/10" />
+        </div>
+
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
@@ -442,7 +473,9 @@ export function ProfileForm() {
           />
         </div>
 
-        <Button type="submit">Update profile</Button>
+        <Button type="submit" className="px-4 py-3" size="lg">
+          CREATE PROFILE
+        </Button>
       </form>
     </Form>
   );
