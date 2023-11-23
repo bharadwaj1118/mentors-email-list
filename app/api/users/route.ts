@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/db'; // adjust the path according to your project structure
+import prisma from '@/lib/prismadb'; // adjust the path according to your project structure
 import { formUserSchema } from '@/lib/schemas'; // adjust the path according to your project structure
 
 export async function POST(request: NextRequest) {
