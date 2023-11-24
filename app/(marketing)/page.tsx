@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import SectionBanner from './section-quote';
 import SectionGallery from './section-gallery';
 import SectionBannerGrowing from './section-banner-growing';
+import SectionAboutUS from './section-about';
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -405,6 +406,10 @@ export default async function IndexPage() {
         </div>
       </section>
 
+      <div id="about-us">
+        <SectionAboutUS />
+      </div>
+
       <SectionBanner />
 
       <section
@@ -557,8 +562,8 @@ export default async function IndexPage() {
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
                   />
                 </svg>
@@ -590,8 +595,8 @@ export default async function IndexPage() {
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
                 />
               </svg>
@@ -621,8 +626,8 @@ export default async function IndexPage() {
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
                 />
               </svg>
@@ -650,8 +655,8 @@ export default async function IndexPage() {
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
                 />
               </svg>
