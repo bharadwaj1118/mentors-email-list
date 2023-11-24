@@ -515,7 +515,7 @@ export default async function IndexPage() {
 
       <SectionGallery />
 
-      <section className="container py-8 md:py-12 lg:py-24  w-3/4 text-center space-y-3 bg-primary/50 text-white">
+      <section className="container py-8 md:py-12 lg:py-24  md:w-3/4 text-center space-y-3 bg-primary/50 text-white">
         <div className="flex items-center justify-center md:justify-around md:items-start max-md:flex-col">
           <div className="md:basis-1/4 pt-3">
             <h2 className="text-semibold text-3xl md:text-5xl">35,000+</h2>
@@ -536,7 +536,7 @@ export default async function IndexPage() {
 
       <section
         id="faq"
-        className="container py-8 md:py-12 lg:py-24 space-y-3 w-3/4 bg-secondary"
+        className="container py-8 md:py-12 lg:py-24 space-y-3 md:w-3/4 bg-secondary"
       >
         <h2 className="font-bold text-2xl md:text-3xl">
           Still have questions?
