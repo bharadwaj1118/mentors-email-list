@@ -407,7 +407,10 @@ export default async function IndexPage() {
 
       <SectionBanner />
 
-      <section id="reviews" className="container py-8 md:py-12 lg:py-24 w-2/3">
+      <section
+        id="reviews"
+        className="container py-8 md:py-12 lg:py-24 md:w-3/4"
+      >
         <h2 className="font-bold text-center text-4xl mb-3">
           What mentees say about their results
         </h2>
