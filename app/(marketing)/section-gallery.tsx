@@ -2,7 +2,7 @@ import React from 'react';
 
 const SectionGallery = () => {
   return (
-    <div className="container py-8 md:py-12 lg:py-24  w-3/4 text-center space-y-3">
+    <div className="container py-8 md:py-12 lg:py-24 md:w-3/4 text-center space-y-3">
       <p className="text-2xl font-semibold text-start pb-3">
         Sorry AI, you may be impressive, but people make the world go round.
       </p>
