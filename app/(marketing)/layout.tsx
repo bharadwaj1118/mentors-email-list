@@ -22,11 +22,23 @@ export default async function MarketingLayout({
             <Link
               href="/profile"
               className={cn(
-                buttonVariants({ variant: 'secondary', size: 'sm' }),
-                'px-4'
+                buttonVariants({
+                  variant: 'secondary',
+                  size: 'lg',
+                }),
+                'px-4 rounded-full py-3 border-2 border-primary text-primary'
               )}
             >
               Login
+            </Link>
+            <Link
+              href="/profile"
+              className={cn(
+                buttonVariants({ size: 'lg' }),
+                'px-4 mx-3 rounded-full py-3'
+              )}
+            >
+              Browse members
             </Link>
           </nav>
         </div>

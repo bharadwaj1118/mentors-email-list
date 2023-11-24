@@ -53,9 +53,11 @@ export default function PricingPage() {
               Billed Monthly
             </p>
           </div>
-          <Link href="/login" className={cn(buttonVariants({ size: 'lg' }))}>
-            Get Started
-          </Link>
+          <div>
+            <Link href="/login" className={cn(buttonVariants({ size: 'lg' }))}>
+              Get Started
+            </Link>
+          </div>
         </div>
       </div>
       <div className="mx-auto flex w-full max-w-[58rem] flex-col gap-4">
