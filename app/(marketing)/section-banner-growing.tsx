@@ -3,7 +3,7 @@ import React from 'react';
 
 const SectionBannerGrowing = () => {
   return (
-    <section className="container my-6 py-4 md:py-6 lg:py-12 md:w-3/4 text-start bg-primary/50 rounded-lg">
+    <section className="container my-6 py-4 md:py-6 lg:py-12 md:w-3/4 text-start bg-primary/50 md:rounded-md">
       <div className="pl-3">
         <h2 className="text-4xl text-white font-bold md:text-4xl mb-3">
           Get unstuck with mentorship

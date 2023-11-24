@@ -546,7 +546,23 @@ export default async function IndexPage() {
         <Collapsible>
           <CollapsibleTrigger>
             <div>
-              <p>Can I use this in my project?</p>
+              <p className="text-left flex">
+                Can I use this in my project?{' '}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                  />
+                </svg>
+              </p>
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent className="pt-6 text-muted-foreground">
@@ -563,11 +579,25 @@ export default async function IndexPage() {
 
         <Collapsible>
           <CollapsibleTrigger>
-            <div>
-              <p>What kind of topics can I discuss with mentors?</p>
-            </div>
+            <p className="text-left flex">
+              What kind of topics can I discuss with mentors?
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </svg>
+            </p>
           </CollapsibleTrigger>
-          <CollapsibleContent className="pt-3 text-muted-foreground">
+          <CollapsibleContent className="pt-6 text-muted-foreground">
             Our mentors cover a wide range of expertise areas, from growth
             strategies, GTM strategies, B2B sales approaches, work/life balance,
             website analysis, to advice on funding. Whether you’re looking for
@@ -580,9 +610,25 @@ export default async function IndexPage() {
 
         <Collapsible>
           <CollapsibleTrigger>
-            <p>Can I get my company to pay for this?</p>
+            <p className="text-left flex">
+              Can I get my company to pay for this?
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </svg>
+            </p>
           </CollapsibleTrigger>
-          <CollapsibleContent className="pt-3 text-muted-foreground">
+          <CollapsibleContent className="pt-6 text-muted-foreground">
             Yep. Many of our members get their companies to sponsor membership
             for them as part of their learning and development budget. Here’s a
             template you can send to your boss.
@@ -593,9 +639,25 @@ export default async function IndexPage() {
 
         <Collapsible>
           <CollapsibleTrigger>
-            <p>Can I get a refund if I decide it’s not a right fit?</p>
+            <p className="text-left flex">
+              Can I get a refund if I decide it’s not a right fit?
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </svg>
+            </p>
           </CollapsibleTrigger>
-          <CollapsibleContent className="pt-3 text-muted-foreground">
+          <CollapsibleContent className="pt-6 text-muted-foreground">
             Yes. If it’s not for you, simply cancel your membership within 14
             days and contact support for a full refund. Refunds are not possible
             if you’ve scheduled any calls or have breached our terms of service.
