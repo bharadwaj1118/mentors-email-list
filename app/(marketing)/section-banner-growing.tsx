@@ -88,8 +88,8 @@ const SectionBannerGrowing = () => {
                   y2="4.773"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#fff"></stop>
-                  <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+                  <stop stopColor="#fff"></stop>
+                  <stop offset="1" stopColor="#fff" stopOpacity="0"></stop>
                 </linearGradient>
                 <linearGradient
                   id="paint1_linear_228_431"
@@ -99,9 +99,9 @@ const SectionBannerGrowing = () => {
                   y2="3.188"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#246151"></stop>
-                  <stop offset=".422" stop-color="#A7C6BC"></stop>
-                  <stop offset=".865" stop-color="#73CADC"></stop>
+                  <stop stopColor="#246151"></stop>
+                  <stop offset=".422" stopColor="#A7C6BC"></stop>
+                  <stop offset=".865" stopColor="#73CADC"></stop>
                 </linearGradient>
                 <linearGradient
                   id="paint2_linear_228_431"
@@ -111,9 +111,9 @@ const SectionBannerGrowing = () => {
                   y2="88.693"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#246151"></stop>
-                  <stop offset=".422" stop-color="#A7C6BC"></stop>
-                  <stop offset=".865" stop-color="#73CADC"></stop>
+                  <stop stopColor="#246151"></stop>
+                  <stop offset=".422" stopColor="#A7C6BC"></stop>
+                  <stop offset=".865" stopColor="#73CADC"></stop>
                 </linearGradient>
                 <linearGradient
                   id="paint3_linear_228_431"
@@ -123,9 +123,9 @@ const SectionBannerGrowing = () => {
                   y2="3.188"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#246151"></stop>
-                  <stop offset=".422" stop-color="#A7C6BC"></stop>
-                  <stop offset=".865" stop-color="#73CADC"></stop>
+                  <stop stopColor="#246151"></stop>
+                  <stop offset=".422" stopColor="#A7C6BC"></stop>
+                  <stop offset=".865" stopColor="#73CADC"></stop>
                 </linearGradient>
                 <linearGradient
                   id="paint4_linear_228_431"
@@ -135,9 +135,9 @@ const SectionBannerGrowing = () => {
                   y2="88.693"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#246151"></stop>
-                  <stop offset=".422" stop-color="#A7C6BC"></stop>
-                  <stop offset=".865" stop-color="#73CADC"></stop>
+                  <stop stopColor="#246151"></stop>
+                  <stop offset=".422" stopColor="#A7C6BC"></stop>
+                  <stop offset=".865" stopColor="#73CADC"></stop>
                 </linearGradient>
               </defs>
             </svg>
