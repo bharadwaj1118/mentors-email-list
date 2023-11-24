@@ -418,7 +418,7 @@ export default async function IndexPage() {
                 Very easy this was to integrate
               </h3>
               <p className="my-4">
-                If you care for your time, I hands down would go with this."
+                If you care for your time, I hands down would go with this.
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center ">
@@ -442,7 +442,7 @@ export default async function IndexPage() {
               </h3>
               <p className="my-4">
                 Designing with Figma components that can be easily translated to
-                the utility classes of Tailwind CSS is a huge timesaver!"
+                the utility classes of Tailwind CSS is a huge timesaver!
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center ">
@@ -466,7 +466,7 @@ export default async function IndexPage() {
               </h3>
               <p className="my-4">
                 Aesthetically, the well designed components are beautiful and
-                will undoubtedly level up your next application."
+                will undoubtedly level up your next application.
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center ">
@@ -490,7 +490,7 @@ export default async function IndexPage() {
               </h3>
               <p className="my-4">
                 You have many examples that can be used to create a fast
-                prototype for your team."
+                prototype for your team.
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center ">
