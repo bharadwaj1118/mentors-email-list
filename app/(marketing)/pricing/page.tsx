@@ -68,7 +68,7 @@ const pricing = [
       '24/7 Phone Support',
     ],
     button: {
-      text: 'Contact us',
+      text: 'Get started',
       link: '/contact',
     },
   },
@@ -77,7 +77,12 @@ const pricing = [
 export default function PricingPage() {
   return (
     <section className="container">
-      <div className="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12"></div>
+      <div className="flex items-center justify-center flex-col ">
+        <h2 className="font-bold text-3xl text-gray-800">Pricing</h2>
+        <p className="text-lg leading-relaxed text-slate-500 mt-3">
+          Simple & Predictable pricing. No Surprises.
+        </p>
+      </div>
       <div className="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
         {pricing.map((item, index) => (
           <Pricing plan={item} key={index} />
