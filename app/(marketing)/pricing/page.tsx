@@ -12,7 +12,12 @@ export const metadata = {
 const pricing = [
   {
     name: 'Eclipse',
-    price: '$39',
+    price: {
+      monthly: '$39',
+      annual: '$16',
+      discount: '10%',
+      original: '$24',
+    },
     popular: false,
     features: [
       '4 calls/month',

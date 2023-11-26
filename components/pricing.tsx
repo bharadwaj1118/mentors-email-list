@@ -2,23 +2,25 @@ import Link from 'next/link';
 import React from 'react';
 import { Button } from './ui/button';
 
-interface PlanProps {
-  name: string;
-  price: {
-    monthly: string;
-    annual: string;
-    discount: string;
-    original: string;
-  };
-  popular: boolean;
-  features: string[];
-  button: {
-    text: string;
-    link: string;
+interface PriceProps {
+  plan: {
+    name: string;
+    price: {
+      monthly: string;
+      annual: string;
+      discount: string;
+      original: string;
+    };
+    popular: boolean;
+    features: string[];
+    button: {
+      text: string;
+      link: string;
+    };
   };
 }
 
-const Pricing = ({ plan }: { plan: PlanProps }) => {
+const Pricing = ({ plan }: PriceProps) => {
   return (
     <div>
       <div className="flex flex-col w-full order-first lg:order-none border-2 border-[#D8DEE9] border-opacity-50 py-5 px-6 rounded-md h-[480px]">
