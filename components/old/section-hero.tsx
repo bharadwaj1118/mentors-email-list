@@ -28,7 +28,6 @@ const OldSectionHero = () => {
           <Link
             href={siteConfig.links.github}
             target="_blank"
-            rel="noreferrer"
             className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
           >
             GitHub
