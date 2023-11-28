@@ -21,7 +21,7 @@ const OldSectionHero = () => {
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
           Your gateway to a community that thrives on learning and growth.
         </p>
-        <div className="space-x-4">
+        <div className="space-x-4 ">
           <Link href="/profile" className={cn(buttonVariants({ size: 'lg' }))}>
             Grow your career
           </Link>

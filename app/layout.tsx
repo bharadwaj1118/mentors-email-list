@@ -13,8 +13,13 @@ import { Button } from '@/components/ui/button';
 import LeftSideBar from '@/components/leftside-bar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ModeToggle } from '@/components/mode-toggle';
+import Header from '@/components/header';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -29,7 +34,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body
+          className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}
+        >
           <Providers>
             <ThemeProvider
               attribute="class"
@@ -37,7 +44,10 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <main>{children}</main>
+              <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+                <Header />
+                {children}
+              </div>
             </ThemeProvider>
           </Providers>
         </body>
