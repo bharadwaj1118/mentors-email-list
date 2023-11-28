@@ -16,6 +16,7 @@ import LeftSideBar from '@/components/leftside-bar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { DocsSidebarNav } from '@/components/sidebar-nav';
 import { ModeToggle } from '@/components/mode-toggle';
+import Footer from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -52,6 +53,7 @@ export default function RootLayout({
           <main>{children}</main>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

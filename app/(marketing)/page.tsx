@@ -16,6 +16,9 @@ import SectionBanner from './section-quote';
 import SectionGallery from './section-gallery';
 import SectionBannerGrowing from './section-banner-growing';
 import SectionAboutUS from './section-about';
+import Cta from '@/components/cta';
+import FeaturesWorld from '@/components/features-world';
+import Faqs from '@/components/home/faq';
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -390,7 +393,7 @@ export default async function IndexPage() {
       </section>
 
       <div id="about-us">
-        <SectionAboutUS />
+        <Faqs />
       </div>
 
       <SectionBanner />
@@ -522,138 +525,9 @@ export default async function IndexPage() {
         </div>
       </section>
 
-      <section
-        id="faq"
-        className="container py-8 md:py-12 lg:py-24 space-y-3 md:w-3/4 bg-secondary"
-      >
-        <h2 className="font-bold text-2xl md:text-3xl">
-          Still have questions?
-        </h2>
-        <Separator />
+      <Cta />
 
-        <Collapsible>
-          <CollapsibleTrigger>
-            <div>
-              <p className="text-left flex">
-                Can I use this in my project?{' '}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                  />
-                </svg>
-              </p>
-            </div>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="pt-6 text-muted-foreground">
-            Our vetting process is our secret sauce. Only the top 3% of mentors
-            who apply are accepted into GrowthMentor. Each mentor undergoes a
-            rigorous vetting process to ensure they have real-world experience
-            and a genuine desire to help. GrowthMentor boasts a 97% session
-            5-star rating, a testament to the quality of mentorship provided.
-            Learn more about our vetting process here.
-          </CollapsibleContent>
-        </Collapsible>
-
-        <Separator />
-
-        <Collapsible>
-          <CollapsibleTrigger>
-            <p className="text-left flex">
-              What kind of topics can I discuss with mentors?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                />
-              </svg>
-            </p>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="pt-6 text-muted-foreground">
-            Our mentors cover a wide range of expertise areas, from growth
-            strategies, GTM strategies, B2B sales approaches, work/life balance,
-            website analysis, to advice on funding. Whether you’re looking for
-            strategic advice or practical insights, there’s a mentor ready to
-            help.
-          </CollapsibleContent>
-        </Collapsible>
-
-        <Separator />
-
-        <Collapsible>
-          <CollapsibleTrigger>
-            <p className="text-left flex">
-              Can I get my company to pay for this?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                />
-              </svg>
-            </p>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="pt-6 text-muted-foreground">
-            Yep. Many of our members get their companies to sponsor membership
-            for them as part of their learning and development budget. Here’s a
-            template you can send to your boss.
-          </CollapsibleContent>
-        </Collapsible>
-
-        <Separator />
-
-        <Collapsible>
-          <CollapsibleTrigger>
-            <p className="text-left flex">
-              Can I get a refund if I decide it’s not a right fit?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                />
-              </svg>
-            </p>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="pt-6 text-muted-foreground">
-            Yes. If it’s not for you, simply cancel your membership within 14
-            days and contact support for a full refund. Refunds are not possible
-            if you’ve scheduled any calls or have breached our terms of service.
-          </CollapsibleContent>
-        </Collapsible>
-
-        <Separator />
-      </section>
+      <FeaturesWorld />
 
       <section id="open-source" className="container py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
