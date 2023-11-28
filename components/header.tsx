@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Logo from './logo';
 import Dropdown from '@/components/utils/dropdown';
 import MobileMenu from './mobile-menu';
+import { siteConfig } from '@/config/site';
+import Image from 'next/image';
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
@@ -30,9 +32,18 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
-          <div className="shrink-0 mr-4">
-            <Logo />
-          </div>
+          <Link href="/" className="hidden items-center space-x-1 md:flex ">
+            <span className="hidden font-bold sm:inline-block text-lg">
+              {siteConfig.name}
+            </span>
+            <Image
+              src="/mentors-cx.png"
+              width={42}
+              height={42}
+              alt="CX"
+              className="ml-3"
+            />
+          </Link>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">

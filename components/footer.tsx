@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import Logo from './logo';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,7 +11,18 @@ export default function Footer() {
           {/* 1st block */}
           <div className="sm:col-span-12 lg:col-span-3">
             <div className="mb-2">
-              <Logo />
+              <Link href="/" className="hidden items-center space-x-1 md:flex ">
+                <span className="hidden font-bold sm:inline-block text-sm">
+                  Mentors
+                </span>
+                <Image
+                  src="/mentors-cx.png"
+                  width={32}
+                  height={32}
+                  alt="CX"
+                  className="ml-3"
+                />
+              </Link>
             </div>
             <div className="text-sm text-gray-600">
               <a
