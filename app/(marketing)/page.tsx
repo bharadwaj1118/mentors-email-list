@@ -21,6 +21,8 @@ import FeaturesWorld from '@/components/features-world';
 import Faqs from '@/components/home/faq';
 import TestimonialsCarousel from '@/components/home/testimonials-carousel';
 import FeaturesBlocks from '@/components/home/features-blocks';
+import Customers from '@/components/home/customers';
+import Clients from '@/components/home/clients';
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -181,6 +183,10 @@ export default async function IndexPage() {
       <FeaturesBlocks />
 
       <TestimonialsCarousel />
+
+      <Clients />
+
+      <Customers />
 
       <Faqs />
 
