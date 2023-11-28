@@ -3,7 +3,7 @@ import ModalVideo02 from './modal-video-02';
 
 export default function HeroWorld() {
   return (
-    <section className="relative bg-blue-700">
+    <section className="relative bg-slate-900">
       {/* Dark background */}
       <div
         className="absolute inset-0  pointer-events-none -z-10 mb-36 lg:mb-0 lg:h-[48rem] [clip-path:polygon(0_0,_5760px_0,_5760px_calc(100%_-_352px),_0_100%)]"

@@ -24,6 +24,7 @@ import FeaturesBlocks from '@/components/home/features-blocks';
 import Customers from '@/components/home/customers';
 import Clients from '@/components/home/clients';
 import HeroWorld from '@/components/home/hero-world';
+import CtaHome from '@/components/home/cta-home';
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -185,7 +186,7 @@ export default async function IndexPage() {
 
       <FeaturesBlocks />
 
-      <TestimonialsCarousel />
+      {/* <TestimonialsCarousel /> */}
 
       <Clients />
 
@@ -193,7 +194,7 @@ export default async function IndexPage() {
 
       <Faqs />
 
-      <section id="open-source" className="container py-8 md:py-12 lg:py-24">
+      {/* <section id="open-source" className="container py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
             Proudly Open Source
@@ -237,7 +238,9 @@ export default async function IndexPage() {
             </Link>
           )}
         </div>
-      </section>
+      </section> */}
+
+      <CtaHome />
     </>
   );
 }
