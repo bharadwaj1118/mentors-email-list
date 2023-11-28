@@ -6,7 +6,7 @@ import PlanetAvatar02 from '@/public/images/planet-avatar-02.png';
 export default function FeaturesWorld() {
   return (
     <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-screen">
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
