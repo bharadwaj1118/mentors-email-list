@@ -23,6 +23,7 @@ import TestimonialsCarousel from '@/components/home/testimonials-carousel';
 import FeaturesBlocks from '@/components/home/features-blocks';
 import Customers from '@/components/home/customers';
 import Clients from '@/components/home/clients';
+import HeroWorld from '@/components/home/hero-world';
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -179,6 +180,8 @@ export default async function IndexPage() {
       </section> */}
 
       {/* <SectionBannerGrowing /> */}
+
+      <HeroWorld />
 
       <FeaturesBlocks />
 
