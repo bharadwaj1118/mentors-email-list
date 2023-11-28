@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import Link from 'next/link';
+import { Button } from './ui/button';
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
@@ -135,15 +136,6 @@ export default function MobileMenu() {
                     Support center
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/404"
-                    className="text-sm flex font-medium text-gray-600 hover:text-gray-900 py-2"
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    404
-                  </Link>
-                </li>
               </ul>
             </li>
             <li>
@@ -152,27 +144,21 @@ export default function MobileMenu() {
                 className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center"
                 onClick={() => setMobileNavOpen(false)}
               >
-                Sign in
+                <Button
+                  variant="outline"
+                  className="w-full border-primary text-primary"
+                >
+                  Sign In
+                </Button>
               </Link>
             </li>
             <li>
               <Link
                 href="/signup"
-                className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
+                className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2"
                 onClick={() => setMobileNavOpen(false)}
               >
                 <span>Sign up</span>
-                <svg
-                  className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1"
-                  viewBox="0 0 12 12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                    fill="#999"
-                    fillRule="nonzero"
-                  />
-                </svg>
               </Link>
             </li>
           </ul>
