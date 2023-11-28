@@ -149,7 +149,7 @@ export default function PricingTables() {
                     className="btn-sm text-white bg-blue-600 hover:bg-blue-700 w-full"
                     href="#0"
                   >
-                    I’m ready 😊
+                    I&apos;m ready 😊
                   </a>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function PricingTables() {
                     className="btn-sm text-white bg-blue-600 hover:bg-blue-700 w-full"
                     href="#0"
                   >
-                    I'm ready 😊
+                    I&apos;m ready 😊
                   </a>
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function PricingTables() {
                     className="btn-sm text-white bg-blue-600 hover:bg-blue-700 w-full"
                     href="#0"
                   >
-                    I'm ready 😊
+                    I&apos;m ready 😊
                   </a>
                 </div>
               </div>
