@@ -18,5 +18,9 @@ export const marketingConfig: MarketingConfig = {
       title: 'Resources',
       href: '/resources',
     },
+    {
+      title: 'Contact Us',
+      href: '/support',
+    },
   ],
 };
