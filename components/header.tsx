@@ -77,14 +77,14 @@ export default function Header() {
               {/* 1st level: hover */}
               <Dropdown title="Resources">
                 {/* 2nd level: hover */}
-                <li>
+                {/* <li>
                   <Link
                     href="/documentation"
                     className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
                   >
                     Documentation
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     href="/support"
@@ -100,7 +100,7 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link
-                  href="/signin"
+                  href="/sign-in"
                   className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
                 >
                   <Button
@@ -112,9 +112,9 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/signup">
+                <Link href="/dashboard">
                   <Button variant="default" className="rounded-full">
-                    Browse Members
+                    Search Mentors
                   </Button>
                 </Link>
               </li>
