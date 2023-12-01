@@ -20,7 +20,7 @@ const LogoStory = () => {
           personally and professionally.{' '}
         </p>
 
-        <p className="text-lg text-gray-600 mt-6">
+        <p className="text-lg text-gray-600 mt-3">
           You’ll see other subtle Mayan references around. For example, our
           plans are named Eclipse, Moon, and Sun because of the relation Mayans
           had with Astronomy.{' '}
