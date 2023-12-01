@@ -10,7 +10,7 @@ const LogoStory = () => {
         </h2>
         <Image src="/mentors-cx.png" width={360} height={120} alt="Logo" />
         <div className="w-full flex justify-center"></div>
-        <p className="pb-6 text-lg text-gray-600">
+        <p className="pb-6 text-lg text-gray-600 mt-6 md:mt-9">
           Our logo is simple. CX is obvious 😀. Inspired by the Mayan
           civilization, number four represents the Cardinal Direction: North,
           East, South, and West. The four horizontal lines across the arrow/line
