@@ -2,12 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Select, SelectItem, Selection } from '@nextui-org/react';
 import * as z from 'zod';
-import axios from 'axios';
-import React, { useState } from 'react';
+import Select from 'react-select';
 
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
 import {
   Form,
   FormControl,
@@ -18,152 +18,165 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
+import { EXPERTISE, LANGUAGES, TIMEZONES, TOOLS } from '@/constants/data';
+import prismadb from '@/lib/prismadb';
 
-import {
-  TIMEZONES,
-  LANGUAGES,
-  TOOLS,
-  EXPERTISE,
-  INDUSTRIES,
-} from '@/constants/data';
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+  firstname: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+  lastname: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
 
-import { useToast } from '@/components/ui/use-toast';
-import { Profile } from '@prisma/client';
-import { useRouter } from 'next/navigation';
-
-interface ProfileFormProps {
-  initialData: Profile | null;
-}
-
-const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: 'Username must be at least 2 characters.',
+  email: z.string().email({
+    message: 'Please enter a valid email.',
+  }),
+  role: z.string().min(2, {
+    message: 'Role must be at least 2 characters.',
+  }),
+  bio: z.string().min(10, {
+    message: 'Bio must be at least 10 characters.',
+  }),
+  timezone: z.object({
+    label: z.string(),
+    value: z.string(),
+  }),
+  languages: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
     })
-    .max(30, {
-      message: 'Username must not be longer than 30 characters.',
-    }),
-  currentrole: z
-    .string()
-    .min(2, {
-      message: 'Role must be at least 2 characters.',
+  ),
+  expertise: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
     })
-    .max(30, {
-      message: 'Role must not be longer than 30 characters.',
-    }),
-  email: z
-    .string({
-      required_error: 'Please select an email to display.',
+  ),
+  toolkit: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
     })
-    .email(),
-  bio: z.string().max(160).min(4),
-  timezone: z.string().min(1, 'Choose one timezone'),
-  languages: z.string().min(1, 'Choose one language'),
-  tools: z.string().min(1, 'Choose one Tool'),
-  expertise: z.string().min(1, 'Choose one expertise'),
-  industries: z.string().min(1, 'Choose one industry'),
-  twitterUrl: z.string(),
-  linkedinUrl: z.string(),
+  ),
+  twitterUrl: z.string().url({
+    message: 'Please enter a valid url.',
+  }),
+  linkedinUrl: z.string().url({
+    message: 'Please enter a valid url.',
+  }),
 });
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
-
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  //   bio: 'I own a computer.',
-  //   urls: [
-  //     { value: 'https://shadcn.com' },
-  //     { value: 'http://twitter.com/shadcn' },
-  //   ],
-};
-
-export function ProfileForm({ initialData }: ProfileFormProps) {
-  const { toast } = useToast();
-  const router = useRouter();
-
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+export function ProfileForm() {
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      username: initialData?.username || '',
-      currentrole: initialData?.currentrole || '',
-      email: initialData?.email || '',
-      bio: initialData?.bio || '',
-      timezone: initialData?.timezone || '',
-      languages: initialData?.languages || '',
-      tools: initialData?.tools || '',
-      expertise: initialData?.expertise || '',
-      industries: initialData?.industries || '',
-      twitterUrl: initialData?.twitterUrl || '',
-      linkedinUrl: initialData?.linkedinUrl || '',
+      username: '',
+      firstname: '',
+      lastname: '',
+      email: '',
+      role: '',
+      languages: [],
+      expertise: [],
+      toolkit: [],
+      twitterUrl: '',
+      linkedinUrl: '',
     },
-    mode: 'onChange',
   });
 
-  const onSubmit = async (values: ProfileFormValues) => {
-    console.log(values);
+  // 2. Define a submit handler.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+
+    const {
+      username,
+      firstname,
+      lastname,
+      email,
+      role,
+      bio,
+      timezone,
+      languages,
+      expertise,
+      toolkit,
+      twitterUrl,
+      linkedinUrl,
+    } = values;
+
     try {
-      if (initialData) {
-        await axios.patch(`/api/profile/${initialData.id}`, values);
-      } else {
-        await axios.post('/api/profile', values);
-      }
-
-      toast({
-        description: 'Success.',
-        duration: 3000,
+      console.log(values);
+      const profile = await prismadb.profile.create({
+        data: {
+          username: 'emma567',
+          firstname: 'Emma',
+          lastname: 'Davis',
+          email: 'emma5.davis@example.com',
+          role: 'Marketing Specialist',
+          bio: 'Expert in digital marketing and social media strategies.',
+          timezone: { offset: '+0:00', region: 'Greenwich Mean Time' },
+          languages: [{ language: 'English', fluency: 'native' }],
+          expertise: [{ field: 'Digital Marketing', years: 6 }],
+          toolkit: [{ tool: 'Google Analytics', level: 'expert' }],
+          twitterUrl: 'https://twitter.com/emma567',
+          linkedinUrl: 'https://linkedin.com/in/emma567',
+        },
       });
-
-      router.refresh();
-      router.push('/');
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        description: 'Something went wrong.',
-        duration: 3000,
-      });
+      console.log(profile);
+    } catch (e) {
+      console.log(e);
     }
-  };
-
-  const defaultValues = form.watch();
-  const [tools, setTools] = React.useState<Selection>(
-    new Set(defaultValues.tools == '' ? [] : defaultValues.tools.split(','))
-  );
-  const [expertise, setExpertise] = React.useState<Selection>(
-    new Set(
-      defaultValues.expertise == '' ? [] : defaultValues.expertise.split(',')
-    )
-  );
-  const [industries, setIndustries] = React.useState<Selection>(
-    new Set(
-      defaultValues.industries == '' ? [] : defaultValues.industries.split(',')
-    )
-  );
-  const [languages, setLanguages] = React.useState<Selection>(
-    new Set(
-      defaultValues.languages == '' ? [] : defaultValues.languages.split(',')
-    )
-  );
-  const [timezone, setTimezone] = React.useState<Selection>(
-    new Set(
-      defaultValues.timezone == '' ? [] : defaultValues.timezone.split(',')
-    )
-  );
+  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-12">
         <div className="space-y-2 w-full col-span-2">
           <div>
-            <h3 className="text-lg font-medium">General Information</h3>
+            <h3 className="text-lg font-medium">Profile Information</h3>
             <p className="text-sm text-muted-foreground">
-              General information about your Companion
+              Profile information about you
             </p>
           </div>
           <Separator className="bg-primary/10" />
         </div>
+        <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
+          <FormField
+            control={form.control}
+            name="firstname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Elon" {...field} />
+                </FormControl>
+                <FormDescription>This is your first name.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Musk" {...field} />
+                </FormControl>
+                <FormDescription>This is your last name.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
@@ -181,33 +194,44 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
-            name="currentrole"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Current Role</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Marketing Manager" {...field} />
+                  <Input placeholder="shadcn" {...field} />
                 </FormControl>
-                <FormDescription>This is your current role.</FormDescription>
+                <FormDescription>This is your Email id.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
 
+        <div className="space-y-2 w-full col-span-2">
+          <div>
+            <h3 className="text-lg font-medium">Gereral Information</h3>
+            <p className="text-sm text-muted-foreground">
+              General information about you
+            </p>
+          </div>
+          <Separator className="bg-primary/10" />
+        </div>
+
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
-            name="email"
+            name="role"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>User email</FormLabel>
+                <FormLabel>Current role</FormLabel>
                 <FormControl>
                   <Input placeholder="Marketing Manager" {...field} />
                 </FormControl>
-                <FormDescription>Please enter your email.</FormDescription>
+                <FormDescription>This is your current role</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -218,46 +242,34 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             name="timezone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Time Zone</FormLabel>
+                <FormLabel>Select your timezone</FormLabel>
                 <FormControl>
-                  <div className="flex w-full max-w-xs flex-col gap-2 ">
-                    <Select
-                      size="sm"
-                      placeholder="Select timezone"
-                      selectedKeys={timezone}
-                      onSelectionChange={setTimezone}
-                      {...field}
-                    >
-                      {TIMEZONES.map((timezone) => (
-                        <SelectItem key={timezone.value} value={timezone.value}>
-                          {timezone.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
+                  <Select
+                    options={TIMEZONES}
+                    classNamePrefix="select"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>Please choose your timezone.</FormDescription>
+                <FormDescription>Select your timezone</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
+
         <FormField
           control={form.control}
           name="bio"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Description about you</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a little bit about yourself"
-                  className="resize-none"
+                  placeholder="I am a marketing manager..."
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
-                Please mention about yourself in 200 words.
-              </FormDescription>
+              <FormDescription>This is your current role</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -281,56 +293,14 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
               <FormItem>
                 <FormLabel>Languages</FormLabel>
                 <FormControl>
-                  <div className="flex w-full max-w-xs flex-col gap-2">
-                    <Select
-                      size="sm"
-                      selectionMode="multiple"
-                      placeholder="Select an Language"
-                      selectedKeys={languages}
-                      className="max-w-xs"
-                      onSelectionChange={setLanguages}
-                      {...field}
-                    >
-                      {LANGUAGES.map((language) => (
-                        <SelectItem key={language.value} value={language.value}>
-                          {language.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
+                  <Select
+                    isMulti
+                    options={LANGUAGES}
+                    classNamePrefix="select"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>Please choose the language</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="expertise"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Expertise</FormLabel>
-                <FormControl>
-                  <div className="flex w-full max-w-xs flex-col gap-2">
-                    <Select
-                      size="sm"
-                      selectionMode="multiple"
-                      placeholder="Select an expertise"
-                      selectedKeys={expertise}
-                      className="max-w-xs"
-                      onSelectionChange={setExpertise}
-                      {...field}
-                    >
-                      {EXPERTISE.map((expert) => (
-                        <SelectItem key={expert.value} value={expert.value}>
-                          {expert.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
-                </FormControl>
-                <FormDescription>Please choose your expertise</FormDescription>
+                <FormDescription>Languages you know</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -340,30 +310,19 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
         <div className="grid max-md:space-y-3 md:grid-cols-2 md:gap-6">
           <FormField
             control={form.control}
-            name="tools"
+            name="expertise"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tools</FormLabel>
+                <FormLabel>Expertise</FormLabel>
                 <FormControl>
-                  <div className="flex w-full max-w-xs flex-col gap-2">
-                    <Select
-                      size="sm"
-                      selectionMode="multiple"
-                      placeholder="Select a tool"
-                      selectedKeys={tools}
-                      className="max-w-xs"
-                      onSelectionChange={setTools}
-                      {...field}
-                    >
-                      {TOOLS.map((tool) => (
-                        <SelectItem key={tool.value} value={tool.value}>
-                          {tool.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
+                  <Select
+                    isMulti
+                    options={EXPERTISE}
+                    classNamePrefix="select"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>Please choose the Tools</FormDescription>
+                <FormDescription>Select your expertise</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -371,30 +330,19 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
 
           <FormField
             control={form.control}
-            name="industries"
+            name="toolkit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Industries:</FormLabel>
+                <FormLabel>Tool kit</FormLabel>
                 <FormControl>
-                  <div className="flex w-full max-w-xs flex-col gap-2">
-                    <Select
-                      size="sm"
-                      selectionMode="multiple"
-                      placeholder="Select an industry"
-                      selectedKeys={industries}
-                      className="max-w-xs"
-                      onSelectionChange={setIndustries}
-                      {...field}
-                    >
-                      {INDUSTRIES.map((industry) => (
-                        <SelectItem key={industry.value} value={industry.value}>
-                          {industry.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
+                  <Select
+                    isMulti
+                    options={TOOLS}
+                    classNamePrefix="select"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>Please choose your industries</FormDescription>
+                <FormDescription>Select your tool kit</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -417,11 +365,11 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             name="twitterUrl"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Twitter</FormLabel>
+                <FormLabel>Twitter URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="http://twitter.com/user" {...field} />
+                  <Input placeholder="twitter.com/user" {...field} />
                 </FormControl>
-                <FormDescription>This is your Twitter URL.</FormDescription>
+                <FormDescription>Enter your twitter URL</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -432,20 +380,18 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             name="linkedinUrl"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LinkedIn</FormLabel>
+                <FormLabel>LinkedIn URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="http://linkedin.com/user" {...field} />
+                  <Input placeholder="linkedin.url" {...field} />
                 </FormControl>
-                <FormDescription>This is your LinkedIn URL.</FormDescription>
+                <FormDescription>Enter your linkedIn URL</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
 
-        <Button type="submit" className="px-4 py-3" size="lg">
-          CREATE PROFILE
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

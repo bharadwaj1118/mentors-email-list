@@ -1,12 +1,12 @@
-generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  relationMode = "prisma"
+generator client {
+  provider = "prisma-client-js"
 }
 
 
@@ -23,22 +23,22 @@ enum Role {
   BOTH
 }
 
+
 model Profile {
-  id            String @id @default(uuid())
-  userId      String
-  username    String   @db.Text
-  currentrole String
-  email       String   @unique
-  bio         String   @db.Text
-  timezone    String
-  languages   String
-  tools       String   @db.Text
-  expertise   String   @db.Text
-  industries  String   @db.Text
-  twitterUrl  String?
-  linkedinUrl String?
+   id             String       @id @default(uuid())
+  username    String
+  firstname   String
+  lastname    String
+  email       String    @unique
+  role        String
+  bio         String
+  timezone      Json
+  languages   Json[]
+  expertise   Json[]
+  toolkit     Json[] 
+  twitterUrl  String
+  linkedinUrl String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-   @@fulltext([username, bio, timezone, languages, tools, expertise, industries])
 }
-  
+

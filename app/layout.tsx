@@ -11,8 +11,6 @@ import { siteConfig } from '@/config/site';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import LeftSideBar from '@/components/leftside-bar';
-import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/mode-toggle';
 import Header from '@/components/header';
 
 const inter = Inter({
@@ -38,17 +36,10 @@ export default function RootLayout({
           className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}
         >
           <Providers>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-                <Header />
-                {children}
-              </div>
-            </ThemeProvider>
+            <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+              <Header />
+              {children}
+            </div>
           </Providers>
         </body>
       </html>

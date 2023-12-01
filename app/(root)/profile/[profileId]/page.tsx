@@ -13,20 +13,20 @@ interface ProfileIdPageProps {
 }
 
 const profilePage = async ({ params }: ProfileIdPageProps) => {
-  const { userId, getToken } = auth();
+  // const { userId, getToken } = auth();
 
-  if (!userId) {
-    return redirectToSignIn();
-  }
-  const profile = await prismadb.profile.findUnique({
-    where: {
-      id: params.profileId,
-      userId,
-    },
-  });
+  // if (!userId) {
+  //   return redirectToSignIn();
+  // }
+  // const profile = await prismadb.profile.findUnique({
+  //   where: {
+  //     id: params.profileId,
+  //     userId,
+  //   },
+  // });
   return (
     <div className="container mx-auto">
-      <ProfileForm initialData={profile} />
+      <ProfileForm />
     </div>
   );
 };
