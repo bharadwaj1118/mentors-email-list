@@ -35,8 +35,8 @@ export default function AboutStory() {
                 alt="About us 02"
               />
             </figure>
-            <div className="sm:ml-8 lg:ml-16">
-              <h4 className="h4 mb-2">How this started?</h4>
+            <div className="sm:ml-8 lg:ml-16 flex justify-center items-center">
+              {/* <h4 className="h4 mb-2 invisible">How this started?</h4> */}
               <p className="text-lg text-gray-600 mb-8">
                 It suckssss when brands ruin our day, doesn’t it? There’s a lot
                 of bad CX practices out there, but trust me, sometimes it’s not
@@ -44,7 +44,7 @@ export default function AboutStory() {
                 that they’re unaware of how to improve the journey customers
                 follow through their touchpoints.
               </p>
-              <div className="flex  mb-8">
+              {/* <div className="flex  mb-8 invisible">
                 <Image
                   className="rounded-full self-start shrink-0 shadow-lg mr-4"
                   src={AboutLogo}
@@ -68,11 +68,11 @@ export default function AboutStory() {
                     </a>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto mt-6">
             <p className="text-lg text-gray-600">
               Some are stuck. We are building this platform because we want a
               better world, and we want to connect CX leaders with other
