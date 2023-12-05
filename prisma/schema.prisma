@@ -26,6 +26,7 @@ enum Role {
 
 model Profile {
    id             String       @id @default(uuid())
+   userId String?
   username    String
   firstname   String
   lastname    String

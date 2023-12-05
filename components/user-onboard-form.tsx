@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import axios from 'axios';
 import Select from 'react-select';
 
 import { Button } from '@/components/ui/button';
@@ -20,114 +21,50 @@ import {
 import { Input } from '@/components/ui/input';
 import { EXPERTISE, LANGUAGES, TIMEZONES, TOOLS } from '@/constants/data';
 import prismadb from '@/lib/prismadb';
+import { init } from 'aos';
+import { Profile } from '@prisma/client';
+import { profileFormSchema } from '@/lib/formSchema';
+import { profile } from 'console';
+import { parseArgs } from 'util';
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  firstname: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  lastname: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
+interface ProfileFormProps {
+  initialData: Profile | null;
+}
 
-  email: z.string().email({
-    message: 'Please enter a valid email.',
-  }),
-  role: z.string().min(2, {
-    message: 'Role must be at least 2 characters.',
-  }),
-  bio: z.string().min(10, {
-    message: 'Bio must be at least 10 characters.',
-  }),
-  timezone: z.object({
-    label: z.string(),
-    value: z.string(),
-  }),
-  languages: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  expertise: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  toolkit: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  twitterUrl: z.string().url({
-    message: 'Please enter a valid url.',
-  }),
-  linkedinUrl: z.string().url({
-    message: 'Please enter a valid url.',
-  }),
-});
+export function ProfileForm({ initialData }: ProfileFormProps) {
+  type profileType = z.infer<typeof profileFormSchema>;
+  const parsedValue = profileFormSchema.parse(initialData);
 
-export function ProfileForm() {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<profileType>({
+    resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: '',
-      firstname: '',
-      lastname: '',
-      email: '',
-      role: '',
-      languages: [],
-      expertise: [],
-      toolkit: [],
-      twitterUrl: '',
-      linkedinUrl: '',
+      username: parsedValue?.username || '',
+      firstname: parsedValue?.firstname || '',
+      lastname: parsedValue?.lastname || '',
+      email: parsedValue?.email || '',
+      role: parsedValue?.role || '',
+      bio: parsedValue?.bio || '',
+      timezone: parsedValue?.timezone || '',
+      languages: parsedValue?.languages || [],
+      expertise: parsedValue?.expertise || [],
+      toolkit: parsedValue?.toolkit || [],
+      twitterUrl: parsedValue?.twitterUrl || '',
+      linkedinUrl: parsedValue?.linkedinUrl || '',
     },
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof profileFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const {
-      username,
-      firstname,
-      lastname,
-      email,
-      role,
-      bio,
-      timezone,
-      languages,
-      expertise,
-      toolkit,
-      twitterUrl,
-      linkedinUrl,
-    } = values;
-
     try {
-      console.log(values);
-      const profile = await prismadb.profile.create({
-        data: {
-          username: 'emma567',
-          firstname: 'Emma',
-          lastname: 'Davis',
-          email: 'emma5.davis@example.com',
-          role: 'Marketing Specialist',
-          bio: 'Expert in digital marketing and social media strategies.',
-          timezone: { offset: '+0:00', region: 'Greenwich Mean Time' },
-          languages: [{ language: 'English', fluency: 'native' }],
-          expertise: [{ field: 'Digital Marketing', years: 6 }],
-          toolkit: [{ tool: 'Google Analytics', level: 'expert' }],
-          twitterUrl: 'https://twitter.com/emma567',
-          linkedinUrl: 'https://linkedin.com/in/emma567',
-        },
-      });
-      console.log(profile);
+      if (initialData) {
+        await axios.patch(`/api/profile/${initialData.id}`, values);
+      } else {
+        await axios.post('/api/profile', values);
+      }
     } catch (e) {
       console.log(e);
     }
