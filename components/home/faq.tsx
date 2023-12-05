@@ -12,38 +12,45 @@ export default function Faqs() {
 
           {/* Faqs */}
           <ul className="max-w-3xl mx-auto pl-12">
-            <Accordion title="Do I need coding knowledge to use this product?">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <Accordion title="Which subjects can I bring up with mentors?">
+              Customer Experience covers a wide spectrum of skills and
+              sub-categories. From customer support, onboarding, and customer
+              journey mapping, to customer loyalty and retention strategies.
+              Look for the perfect mentor using our filters (which include
+              skills, industry, and tools). Whether it’s strategic thinking or
+              hands-on tips, you’ll probably find someone who can help out.
+            </Accordion>
+            <Accordion title="How is the proficiency of mentors on the platform assured?">
+              Recruitment is our top talent. We learned the importance of a
+              top-notch recruiting process from the best practices at
+              PartnerHero - a BPO that stood out due to their retention rates,
+              low churn/attrition, culture, etc etc. Every mentor either has a
+              public proven record for being a CX advocate in the industry, has
+              worked in the CX space together with one of the founders, or has
+              gone through a thorough recruiting process responsible to vet
+              their skills and hands-on experience - plus the soft skills needed
+              to be a mentor.
             </Accordion>
             <Accordion title="Do you have student or non-profit discounts?">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </Accordion>
-            <Accordion title="Is there a way to become an Affiliate reseller of this product?">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Yes. We want to bring the best of the best to everyone possible.
+              If you are a student, are part of a non-profit, or consider you
+              have low income, we offer discounts. You can apply for a discount
+              here [google form].
             </Accordion>
             <Accordion
-              title="What is the difference between the Free and Paid versions?"
+              title="Can I upgrade to a different plan at a later time?"
               active
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Definintely! You can upgrade or downgrade your membership whenever
+              you want. The bill will be updated accordingly depending on which
+              action you take.
             </Accordion>
-            <Accordion title="How can I change the owner of a workspace?">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <Accordion title="Can I get a refund if I decide it’s not a right fit?">
+              We’d hate to see you go, but you can. If you decide our platform
+              is not a right fit, you can cancel your membership within 21 days.
+              Just contact our customer support team. Keep in mind that if you
+              have scheduled any calls or didn’t follow our terms & conditions
+              accordingly, we won’t process a refund.
             </Accordion>
             <span
               className="block border-t border-gray-200"
