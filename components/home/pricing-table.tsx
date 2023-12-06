@@ -67,18 +67,14 @@ export default function PricingTables() {
               </div>
             </div>
 
-            {annual ? (
-              <h2
-                className="h4 mb-6 text-center"
-                data-aos="zoom-y-out"
-                data-aos-delay="150"
-              >
-                Enroll in any plan and get two extra months on your first
-                purchase.
-              </h2>
-            ) : (
-              <div className="invisible">There is some text invisible</div>
-            )}
+            <h2
+              className="h4 mb-6 text-center"
+              data-aos="zoom-y-out"
+              data-aos-delay="150"
+            >
+              Enroll in any plan and get two extra months on your first
+              purchase.
+            </h2>
 
             <div className="max-w-sm md:max-w-2xl xl:max-w-none mx-auto grid gap-8 md:grid-cols-3 xl:gap-6 items-start">
               {/* Pricing table 1 */}
