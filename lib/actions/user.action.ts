@@ -87,10 +87,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
     const query: FilterQuery<typeof User> = {};
 
     if (searchQuery) {
-      query.$or = [
-        { name: { $regex: new RegExp(searchQuery, 'i') } },
-        { username: { $regex: new RegExp(searchQuery, 'i') } },
-      ];
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }];
     }
 
     let sortOptions = {};
