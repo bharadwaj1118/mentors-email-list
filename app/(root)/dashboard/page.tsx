@@ -1,9 +1,18 @@
 import React from 'react';
+import ProfileCard from './profiles/_components/profile-card';
 
 const DashboardPage = () => {
   return (
-    <div className="container h-screen grid lg:grid-cols-2 mt-16">
-      This is a dashboard page!
+    <div className="container space-y-6 mt-12">
+      {/* <ProfileCard />
+      <ProfileCard />
+      <ProfileCard />
+      <ProfileCard />
+      <ProfileCard />
+      <ProfileCard />
+      <ProfileCard />
+      <ProfileCard /> */}
+      Hello world
     </div>
   );
 };

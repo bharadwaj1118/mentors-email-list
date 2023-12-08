@@ -33,7 +33,12 @@ interface ProfileFormProps {
 
 export function ProfileForm({ initialData }: ProfileFormProps) {
   type profileType = z.infer<typeof profileFormSchema>;
-  const parsedValue = profileFormSchema.parse(initialData);
+
+  const result = profileFormSchema.safeParse(initialData);
+  let parsedValue: profileType = {} as profileType;
+  if (result.success) {
+    parsedValue = result.data;
+  }
 
   // 1. Define your form.
   const form = useForm<profileType>({

@@ -14,7 +14,7 @@ export default function RootLayout({
           <aside className="mt-16 fixed top-16 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r py-6 pr-2 md:sticky md:block lg:py-10">
             <DocsSidebarNav items={docsConfig.sidebarNav} />
           </aside>
-          <div className="w-5/6 mt-16">
+          <div className="mt-16">
             <main>{children}</main>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import exp from 'constants';
+
 export interface timeZone {
   readonly value: string;
   readonly label: string;
@@ -225,6 +227,38 @@ export const LANGUAGES: readonly language[] = [
   { value: 'yi', label: 'Yiddish' },
   { value: 'yo', label: 'Yoruba' },
   { value: 'zu', label: 'Zulu' },
+];
+
+export interface country {
+  readonly value: string;
+  readonly label: string;
+  readonly color?: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
+}
+
+export const COUNTRIES: readonly country[] = [
+  { value: 'Afghanistan', label: 'Afghanistan' },
+  { value: 'Albania', label: 'Albania' },
+  { value: 'Algeria', label: 'Algeria' },
+  { value: 'Andorra', label: 'Andorra' },
+  { value: 'Angola', label: 'Angola' },
+  { value: 'Antigua and Barbuda', label: 'Antigua and Barbuda' },
+  { value: 'Argentina', label: 'Argentina' },
+  { value: 'Armenia', label: 'Armenia' },
+  { value: 'Australia', label: 'Australia' },
+  { value: 'Austria', label: 'Austria' },
+  { value: 'Azerbaijan', label: 'Azerbaijan' },
+  { value: 'Bahamas', label: 'Bahamas' },
+  { value: 'Bahrain', label: 'Bahrain' },
+  { value: 'Bangladesh', label: 'Bangladesh' },
+  { value: 'Barbados', label: 'Barbados' },
+  { value: 'Belarus', label: 'Belarus' },
+  { value: 'Belgium', label: 'Belgium' },
+  { value: 'Belize', label: 'Belize' },
+  { value: 'Benin', label: 'Benin' },
+  { value: 'Bhutan', label: 'Bhutan' },
+  // ... and so on for all countries
 ];
 
 export interface tool {
