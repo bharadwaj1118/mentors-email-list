@@ -9,6 +9,7 @@ import MobileMenu from './mobile-menu';
 import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 import { Button } from './ui/button';
+import { UserButton } from '@clerk/nextjs';
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
@@ -117,6 +118,9 @@ export default function Header() {
                     Search Mentors
                   </Button>
                 </Link>
+              </li>
+              <li>
+                <UserButton />
               </li>
             </ul>
           </nav>
