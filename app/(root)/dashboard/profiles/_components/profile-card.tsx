@@ -50,7 +50,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 <div className="flex items-center justify-start">
                   <MapPinIcon className="h-4 w-4 mr-1" />
-                  {data.city}, {data.country!.label}
+                  {data.city}, Andorra
                 </div>
                 <div className="flex items-center ">
                   <LanguageIcon className="h-4 w-4 mr-1" />
@@ -61,7 +61,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 {/* <div className="flex items-center ">
                   <GlobeAltIcon className="h-4 w-4 mr-1" />
-                  {data.city}, {data.country.label}
+                  {data.city}, {data.country!.label}
                 </div> */}
                 <div className="flex items-center">
                   <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
@@ -107,7 +107,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             </div>
             <div className="flex items-center ">
               <GlobeAltIcon className="h-4 w-4 mr-1" />
-              {data.city}, {data.country.label}
+              {data.city}, {}
             </div>
             <div className="flex items-center ">
               <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
