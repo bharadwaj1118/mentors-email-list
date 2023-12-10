@@ -623,10 +623,10 @@ export default function ProfileBody() {
             {/* Sidebar */}
             <aside className="xl:min-w-[14rem] xl:w-[14rem] space-y-3">
               <div className="text-sm">
-                <h3 className="font-medium text-slate-800 dark:text-slate-100">
+                <h3 className="font-medium text-slate-800 dark:text-slate-100 capitalize">
                   Title
                 </h3>
-                <div>Senior Product Designer</div>
+                <div>Senior Product Developer</div>
               </div>
               <div className="text-sm">
                 <h3 className="font-medium text-slate-800 dark:text-slate-100">

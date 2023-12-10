@@ -70,7 +70,7 @@ const UserSchema = new Schema({
   industries: [{ value: String, label: String }],
 
   duration: { type: String },
-  price: { Type: String },
+  price: { type: String },
 
   joinedAt: { type: Date, default: Date.now },
 });

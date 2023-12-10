@@ -11,11 +11,9 @@ import {
 } from './shared.types';
 import { revalidatePath } from 'next/cache';
 
-export async function getUserById(params: any) {
+export async function getUserById(userId: string) {
   try {
     connectToDatabase();
-
-    const { userId } = params;
 
     const user = await User.findOne({ clerkId: userId });
 
@@ -77,45 +75,15 @@ export async function deleteUser(params: DeleteUserParams) {
   }
 }
 
-export async function getAllUsers(params: GetAllUsersParams) {
+export async function getAllUsers() {
   try {
     connectToDatabase();
 
-    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
-    const skipAmount = (page - 1) * pageSize;
-
-    const query: FilterQuery<typeof User> = {};
-
-    if (searchQuery) {
-      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }];
-    }
-
     let sortOptions = {};
 
-    switch (filter) {
-      case 'new_users':
-        sortOptions = { joinedAt: -1 };
-        break;
-      case 'old_users':
-        sortOptions = { joinedAt: 1 };
-        break;
-      case 'top_contributors':
-        sortOptions = { reputation: -1 };
-        break;
+    const users = await User.find();
 
-      default:
-        break;
-    }
-
-    const users = await User.find(query)
-      .sort(sortOptions)
-      .skip(skipAmount)
-      .limit(pageSize);
-
-    const totalUsers = await User.countDocuments(query);
-    const isNext = totalUsers > skipAmount + users.length;
-
-    return { users, isNext };
+    return { users };
   } catch (error) {
     console.log(error);
     throw error;

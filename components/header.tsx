@@ -9,7 +9,7 @@ import MobileMenu from './mobile-menu';
 import { siteConfig } from '@/config/site';
 import Image from 'next/image';
 import { Button } from './ui/button';
-import { UserButton } from '@clerk/nextjs';
+import { SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
@@ -98,19 +98,21 @@ export default function Header() {
             </ul>
 
             {/* Desktop sign in links */}
-            <ul className="flex grow justify-end flex-wrap items-center">
+            <ul className="flex grow justify-end flex-wrap items-center space-x-3">
               <li>
-                <Link
-                  href="/sign-in"
-                  className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
-                >
-                  <Button
-                    variant="outline"
-                    className="border-primary text-primary rounded-full"
+                <SignedOut>
+                  <Link
+                    href="/sign-in"
+                    className="font-medium text-gray-600 hover:text-gray-900  py-3 flex items-center transition duration-150 ease-in-out"
                   >
-                    Sign In
-                  </Button>
-                </Link>
+                    <Button
+                      variant="outline"
+                      className="border-primary text-primary rounded-full"
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
+                </SignedOut>
               </li>
               <li>
                 <Link href="/dashboard">

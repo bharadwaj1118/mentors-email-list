@@ -15,15 +15,15 @@ import { Button } from '@/components/ui/button';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Profile } from '@prisma/client';
-import { Separator } from '@/components/ui/separator';
-import { IProfile } from '@/database/profile.model';
+import { arrayToValuesString } from '@/lib/utils';
 
 interface ProfileCardProps {
-  profile: IProfile;
+  user: string;
 }
 
-const ProfileCard = ({ profile }: ProfileCardProps) => {
+const ProfileCard = ({ user }: ProfileCardProps) => {
+  const data = JSON.parse(user);
+  console.log(data);
   return (
     <div className="w-full mt-6">
       <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
@@ -36,30 +36,32 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
             <div className="block shrink-0">
               <img
                 alt="Paul Clapton"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                src={data.picture}
                 className="h-16 w-16 rounded-lg object-cover shadow-sm"
               />
             </div>
 
             {/* profile in medium devices*/}
             <div className="hidden md:block">
-              <h3 className="h3">{profile.username}</h3>
-              <h6 className="h6">{profile.role} @Google</h6>
+              <h3 className="h3">{data.name}</h3>
+              <h6 className="h6">
+                {data.position} @{data.organization}
+              </h6>
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 <div className="flex items-center justify-start">
                   <MapPinIcon className="h-4 w-4 mr-1" />
-                  Atens, Greece
+                  {data.city}, {data.country!.label}
                 </div>
                 <div className="flex items-center ">
                   <LanguageIcon className="h-4 w-4 mr-1" />
-                  English, Greek
+                  {arrayToValuesString(data.languages!)}
                 </div>
               </div>
 
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 <div className="flex items-center ">
                   <GlobeAltIcon className="h-4 w-4 mr-1" />
-                  Unitedstates, America
+                  {data.city}, {data.country.label}
                 </div>
                 <div className="flex items-center">
                   <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
@@ -82,7 +84,9 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
               516 sessions
             </p>
             <p className="flex justify-end items-center">
-              <span className="text-green-600 font-semibold mr-1">Free</span>
+              <span className="text-green-600 font-semibold mr-1">
+                ${data!.price}
+              </span>
               <CreditCardIcon className="h-4 w-4" />
             </p>
           </div>
@@ -90,8 +94,8 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
 
         {/* profile */}
         <div className="block mt-3 md:hidden ">
-          <p>{profile.username}</p>
-          <p>{profile.role}</p>
+          <p>{data.name}</p>
+          <p>{data.role}</p>
           <div className="md:flex md:flex-wrap md:space-x-4 text-muted-foreground justify-start">
             <div className="flex items-center ">
               <MapPinIcon className="h-4 w-4 mr-1" />
@@ -99,11 +103,11 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
             </div>
             <div className="flex items-center ">
               <LanguageIcon className="h-4 w-4 mr-1" />
-              English, Greek
+              {arrayToValuesString(data.languages)}
             </div>
             <div className="flex items-center ">
               <GlobeAltIcon className="h-4 w-4 mr-1" />
-              Unitedstates, America
+              {data.city}, {data.country.label}
             </div>
             <div className="flex items-center ">
               <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
@@ -114,7 +118,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
 
         {/* content */}
         <div className="my-4">
-          <p className=" text-sm text-gray-500">{profile.bio}</p>
+          <p className=" text-sm text-gray-500">{data.bio}</p>
         </div>
 
         {/* skills Tab */}
@@ -127,46 +131,37 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
               <TabsTrigger value="skills">Skills</TabsTrigger>
             </TabsList>
             <TabsContent value="expertise" className="space-x-4 space-y-2">
-              <Badge variant="outline" className="text-muted-foreground">
-                Java
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                C
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Python
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Node js
-              </Badge>
+              {data!.expertise!.map((expertise: any) => (
+                <Badge
+                  variant="outline"
+                  className="text-muted-foreground"
+                  key={expertise.value}
+                >
+                  {expertise.label}
+                </Badge>
+              ))}
             </TabsContent>
             <TabsContent value="industry" className="space-x-4 space-y-2">
-              <Badge variant="outline" className="text-muted-foreground">
-                Marketing
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Customer support
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Productivity
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                session Manager
-              </Badge>
+              {data!.industries!.map((industry: any) => (
+                <Badge
+                  variant="outline"
+                  className="text-muted-foreground"
+                  key={industry.value}
+                >
+                  {industry.label}
+                </Badge>
+              ))}
             </TabsContent>
             <TabsContent value="skills" className="space-x-4  space-y-2">
-              <Badge variant="outline" className="text-muted-foreground">
-                Zapier
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Outlook
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Microsoft word
-              </Badge>
-              <Badge variant="outline" className="text-muted-foreground">
-                Computers
-              </Badge>
+              {data!.toolkit!.map((skill: any) => (
+                <Badge
+                  variant="outline"
+                  className="text-muted-foreground"
+                  key={skill.value}
+                >
+                  {skill.label}
+                </Badge>
+              ))}
             </TabsContent>
           </Tabs>
         </div>
@@ -180,7 +175,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
             </div>
 
             <div className="flex flex-col-reverse">
-              <p className="text-xs text-gray-500">30 minute</p>
+              <p className="text-xs text-gray-500">{data.duration} minute</p>
               <p className="text-sm font-medium text-gray-600">Session time</p>
             </div>
           </div>
