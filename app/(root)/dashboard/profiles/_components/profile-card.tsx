@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { arrayToValuesString } from '@/lib/utils';
+import { profile } from 'console';
 
 interface ProfileCardProps {
   user: string;
@@ -59,10 +60,10 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               </div>
 
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
-                <div className="flex items-center ">
+                {/* <div className="flex items-center ">
                   <GlobeAltIcon className="h-4 w-4 mr-1" />
                   {data.city}, {data.country.label}
-                </div>
+                </div> */}
                 <div className="flex items-center">
                   <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
                   Usually responds in 8 hours
@@ -118,7 +119,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 
         {/* content */}
         <div className="my-4">
-          <p className=" text-sm text-gray-500">{data.bio}</p>
+          <p className="text-md  text-gray-700 line-clamp-3">{data.bio}</p>
         </div>
 
         {/* skills Tab */}
@@ -181,7 +182,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
 
           <div className="flex space-x-6 justify-center items-end">
-            <Link href="/">
+            <Link href={`/dashboard/profile/${data._id}`}>
               <Button variant="outline" className="text-blue-800" size="lg">
                 View Profile
               </Button>

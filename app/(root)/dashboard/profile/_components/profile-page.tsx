@@ -1,8 +1,33 @@
 'use client';
 
+import { formatDateToMonthYear } from '@/lib/utils';
+import { count } from 'console';
 import Image from 'next/image';
 
-export default function ProfileBody() {
+interface ProfileBodyProps {
+  user: string;
+}
+
+export default function ProfileBody({ user }: ProfileBodyProps) {
+  const data = JSON.parse(user);
+  const {
+    name,
+    shortBio,
+    bio,
+    lorem,
+    organization,
+    position,
+    city,
+    role,
+    industries,
+    toolkit,
+    expertise,
+    languages,
+    country,
+    joinedAt,
+  } = data;
+  console.log(lorem);
+
   return (
     <div className="max-w-5xl mx-auto mt-6">
       <div
@@ -82,7 +107,7 @@ export default function ProfileBody() {
             {/* Name */}
             <div className="inline-flex items-start mb-2">
               <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
-                Carolyn McNeail
+                {name}
               </h1>
               <svg
                 className="w-4 h-4 fill-current shrink-0 text-amber-500 ml-2"
@@ -92,10 +117,7 @@ export default function ProfileBody() {
               </svg>
             </div>
             {/* Bio */}
-            <div className="text-sm mb-3">
-              Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP
-              Lover.
-            </div>
+            <div className="text-sm mb-3">{shortBio}</div>
             {/* Meta */}
             <div className="flex flex-wrap justify-center sm:justify-start space-x-4">
               <div className="flex items-center">
@@ -106,7 +128,7 @@ export default function ProfileBody() {
                   <path d="M8 8.992a2 2 0 1 1-.002-3.998A2 2 0 0 1 8 8.992Zm-.7 6.694c-.1-.1-4.2-3.696-4.2-3.796C1.7 10.69 1 8.892 1 6.994 1 3.097 4.1 0 8 0s7 3.097 7 6.994c0 1.898-.7 3.697-2.1 4.996-.1.1-4.1 3.696-4.2 3.796-.4.3-1 .3-1.4-.1Zm-2.7-4.995L8 13.688l3.4-2.997c1-1 1.6-2.198 1.6-3.597 0-2.798-2.2-4.996-5-4.996S3 4.196 3 6.994c0 1.399.6 2.698 1.6 3.697 0-.1 0-.1 0 0Z" />
                 </svg>
                 <span className="text-sm font-medium whitespace-nowrap text-slate-500 dark:text-slate-400 ml-2">
-                  Milan, IT
+                  {city}, {country.label}
                 </span>
               </div>
               <div className="flex items-center">
@@ -162,19 +184,8 @@ export default function ProfileBody() {
                 <h2 className="text-slate-800 dark:text-slate-100 font-semibold mb-2">
                   About Me
                 </h2>
-                <div className="text-sm space-y-2">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
-                  </p>
-                  <p>
-                    Consectetur adipiscing elit, sed do eiusmod tempor magna
-                    aliqua.
-                  </p>
+                <div className="text-md space-y-2">
+                  <p>{bio}</p>
                 </div>
               </div>
 
@@ -325,71 +336,30 @@ export default function ProfileBody() {
                 </h2>
                 <div className="bg-white dark:bg-slate-800 p-4 border border-slate-200 dark:border-slate-700 rounded-sm shadow-sm">
                   <ul className="space-y-3">
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-amber-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Senior Product Designer
+                    {expertise.map((item: any) => (
+                      <li
+                        key={item.value}
+                        className="sm:flex sm:items-center sm:justify-between"
+                      >
+                        <div className="sm:grow flex items-center text-sm">
+                          {/* Icon */}
+                          <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
+                            <svg
+                              className="w-8 h-8 fill-current text-amber-50"
+                              viewBox="0 0 32 32"
+                            >
+                              <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
+                            </svg>
+                          </div>
+                          {/* Position */}
+                          <div>
+                            <div className="font-medium text-slate-800 dark:text-slate-100">
+                              {item.label}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -401,71 +371,30 @@ export default function ProfileBody() {
                 </h2>
                 <div className="bg-white dark:bg-slate-800 p-4 border border-slate-200 dark:border-slate-700 rounded-sm shadow-sm">
                   <ul className="space-y-3">
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-amber-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Google Ads
+                    {industries.map((item: any) => (
+                      <li
+                        key={item.value}
+                        className="sm:flex sm:items-center sm:justify-between"
+                      >
+                        <div className="sm:grow flex items-center text-sm">
+                          {/* Icon */}
+                          <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
+                            <svg
+                              className="w-8 h-8 fill-current text-amber-50"
+                              viewBox="0 0 32 32"
+                            >
+                              <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
+                            </svg>
+                          </div>
+                          {/* Position */}
+                          <div>
+                            <div className="font-medium text-slate-800 dark:text-slate-100">
+                              {item.label}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -477,71 +406,30 @@ export default function ProfileBody() {
                 </h2>
                 <div className="bg-white dark:bg-slate-800 p-4 border border-slate-200 dark:border-slate-700 rounded-sm shadow-sm">
                   <ul className="space-y-3">
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-amber-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Senior Product Designer
+                    {toolkit.map((item: any) => (
+                      <li
+                        key={item.value}
+                        className="sm:flex sm:items-center sm:justify-between"
+                      >
+                        <div className="sm:grow flex items-center text-sm">
+                          {/* Icon */}
+                          <div className="w-8 h-8 rounded-full shrink-0 bg-amber-500 my-2 mr-3">
+                            <svg
+                              className="w-8 h-8 fill-current text-amber-50"
+                              viewBox="0 0 32 32"
+                            >
+                              <path d="M21 14a.75.75 0 0 1-.75-.75 1.5 1.5 0 0 0-1.5-1.5.75.75 0 1 1 0-1.5 1.5 1.5 0 0 0 1.5-1.5.75.75 0 1 1 1.5 0 1.5 1.5 0 0 0 1.5 1.5.75.75 0 1 1 0 1.5 1.5 1.5 0 0 0-1.5 1.5.75.75 0 0 1-.75.75Zm-7 10a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 4 4 0 0 0 4-4 1 1 0 0 1 2 0 4 4 0 0 0 4 4 1 1 0 0 1 0 2 4 4 0 0 0-4 4 1 1 0 0 1-1 1Z" />
+                            </svg>
+                          </div>
+                          {/* Position */}
+                          <div>
+                            <div className="font-medium text-slate-800 dark:text-slate-100">
+                              {item.label}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
-
-                    {/* Item */}
-                    <li className="sm:flex sm:items-center sm:justify-between">
-                      <div className="sm:grow flex items-center text-sm">
-                        {/* Icon */}
-                        <div className="w-8 h-8 rounded-full shrink-0 bg-blue-500 my-2 mr-3">
-                          <svg
-                            className="w-8 h-8 fill-current text-blue-50"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M8.994 20.006a1 1 0 0 1-.707-1.707l4.5-4.5a1 1 0 0 1 1.414 0l3.293 3.293 4.793-4.793a1 1 0 1 1 1.414 1.414l-5.5 5.5a1 1 0 0 1-1.414 0l-3.293-3.293L9.7 19.713a1 1 0 0 1-.707.293Z" />
-                          </svg>
-                        </div>
-                        {/* Position */}
-                        <div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">
-                            Product Designer
-                          </div>
-                        </div>
-                      </div>
-                      {/* Tags */}
-                    </li>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -572,7 +460,7 @@ export default function ProfileBody() {
                 <h3 className="font-medium text-slate-800 dark:text-slate-100">
                   Joined Mentors CX
                 </h3>
-                <div>April, 2017</div>
+                <div>{formatDateToMonthYear(joinedAt)}</div>
               </div>
             </aside>
           </div>

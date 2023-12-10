@@ -2,7 +2,6 @@ import React from 'react';
 import Onboarding01 from './_components/profile-form';
 import { auth } from '@clerk/nextjs';
 import { getUserById } from '@/lib/actions/user.action';
-import { json } from 'stream/consumers';
 
 const Onboarding01Page = async () => {
   const { userId } = auth();

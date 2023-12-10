@@ -24,6 +24,19 @@ export async function getUserById(userId: string) {
   }
 }
 
+export async function getUserByProfileId(profileId: string) {
+  try {
+    connectToDatabase();
+
+    const user = await User.findOne({ _id: profileId });
+
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
