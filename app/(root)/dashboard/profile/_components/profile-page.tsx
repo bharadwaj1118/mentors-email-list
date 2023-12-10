@@ -441,19 +441,21 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                 <h3 className="font-medium text-slate-800 dark:text-slate-100 capitalize">
                   Title
                 </h3>
-                <div>Senior Product Developer</div>
+                <div>{position}</div>
               </div>
               <div className="text-sm">
                 <h3 className="font-medium text-slate-800 dark:text-slate-100 capitalize">
                   Organization
                 </h3>
-                <div>Google</div>
+                <div>{organization}</div>
               </div>
               <div className="text-sm">
                 <h3 className="font-medium text-slate-800 dark:text-slate-100">
                   Location
                 </h3>
-                <div>Berlin @Germany</div>
+                <div>
+                  {city} @{country.label}
+                </div>
               </div>
 
               <div className="text-sm">
