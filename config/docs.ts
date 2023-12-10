@@ -20,6 +20,10 @@ export const docsConfig: DocsConfig = {
       title: 'Profile',
       items: [
         {
+          title: 'Onboard',
+          href: '/onboarding-01',
+        },
+        {
           title: 'Edit',
           href: '/profile',
         },

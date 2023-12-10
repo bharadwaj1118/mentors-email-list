@@ -24,7 +24,6 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const data = JSON.parse(user);
-  console.log(data);
   return (
     <div className="w-full mt-6">
       <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
