@@ -8,6 +8,7 @@ import {
   Settings,
   User,
   CalendarClock,
+  Clock,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
@@ -17,12 +18,22 @@ const guestRoutes = [
   {
     icon: Layout,
     label: 'Dashboard',
-    href: '/',
+    href: '/dashboard/profiles',
   },
   {
-    icon: Compass,
-    label: 'Browse',
-    href: '/search',
+    icon: Clock,
+    label: 'Schedule',
+    href: '/dashboard/schedule',
+  },
+  {
+    icon: User,
+    label: 'Profile',
+    href: '/dashboard/profile',
+  },
+  {
+    icon: Settings,
+    label: 'Settings',
+    href: '/dashboard/settings',
   },
 ];
 

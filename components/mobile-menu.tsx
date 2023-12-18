@@ -140,7 +140,7 @@ export default function MobileMenu() {
             </li>
             <li>
               <Link
-                href="/signin"
+                href="/sign-in"
                 className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center"
                 onClick={() => setMobileNavOpen(false)}
               >
@@ -154,7 +154,7 @@ export default function MobileMenu() {
             </li>
             <li>
               <Link
-                href="/signup"
+                href="/sign-up"
                 className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2"
                 onClick={() => setMobileNavOpen(false)}
               >
