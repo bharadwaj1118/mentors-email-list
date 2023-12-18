@@ -1,24 +1,18 @@
-import Footer from '@/components/footer';
-import { DocsSidebarNav } from '@/components/sidebar-nav';
-import { docsConfig } from '@/config/docs';
+import { Navbar } from './_components/navbar';
+import { Sidebar } from './_components/sidebar';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <main>
-        <div className="flex-1 md:grid md:grid-cols-[220px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-10">
-          <aside className="mt-16 fixed top-16 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r py-6 pr-2 md:sticky md:block lg:py-10">
-            <DocsSidebarNav items={docsConfig.sidebarNav} />
-          </aside>
-          <div className="mt-16">
-            <main>{children}</main>
-          </div>
-        </div>
-      </main>
-    </>
+    <div className="h-full">
+      <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50">
+        <Navbar />
+      </div>
+      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">
+        <Sidebar />
+      </div>
+      <main className="md:pl-56 pt-[80px] h-full">{children}</main>
+    </div>
   );
-}
+};
+
+export default DashboardLayout;

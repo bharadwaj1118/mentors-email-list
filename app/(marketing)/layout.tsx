@@ -6,6 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import Footer from '@/components/footer';
+import Header from '@/components/header';
 
 export default function DefaultLayout({
   children,
@@ -23,8 +24,8 @@ export default function DefaultLayout({
 
   return (
     <>
+      <Header />
       <main className="grow">{children}</main>
-
       <Footer />
     </>
   );

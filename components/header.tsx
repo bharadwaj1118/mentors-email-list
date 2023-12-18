@@ -115,7 +115,7 @@ export default function Header() {
                 </SignedOut>
               </li>
               <li>
-                <Link href="/dashboard">
+                <Link href="/dashboard/profiles">
                   <Button variant="default" className="rounded-full">
                     Search Mentors
                   </Button>
