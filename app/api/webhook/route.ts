@@ -55,37 +55,36 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
+    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
     await db.user.create({
       data: {
-        clerkId: payload.data.id,
-        username: `${payload.data.first_name}${
-          payload.data.last_name ? ` ${payload.data.last_name}` : ''
-        }`,
-        imageUrl: payload.data.image_url,
-        email: payload.data.email,
+        clerkId: id,
+        username: `${first_name}${last_name ? ` ${last_name}` : ''}`,
+        imageUrl: image_url,
+        email: email_addresses[0].email_address,
       },
     });
   }
 
   if (eventType === 'user.updated') {
+    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
     await db.user.update({
       where: {
-        clerkId: payload.data.id,
+        clerkId: id,
       },
       data: {
-        username: `${payload.data.first_name}${
-          payload.data.last_name ? ` ${payload.data.last_name}` : ''
-        }`,
-        imageUrl: payload.data.image_url,
-        email: payload.data.email,
+        username: `${first_name}${last_name ? ` ${last_name}` : ''}`,
+        imageUrl: image_url,
+        email: email_addresses[0].email_address,
       },
     });
   }
 
   if (eventType === 'user.deleted') {
+    const { id } = evt.data;
     await db.user.delete({
       where: {
-        clerkId: payload.data.id,
+        clerkId: id,
       },
     });
   }
