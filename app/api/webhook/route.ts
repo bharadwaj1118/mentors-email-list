@@ -1,17 +1,16 @@
-/* eslint-disable camelcase */
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
-import { createUser, deleteUser, updateUser } from '@/lib/actions/user.action';
-import { NextResponse } from 'next/server';
+
+import { db } from '@/lib/db';
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
-      'Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local'
+      'Please add CLERK_WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local'
     );
   }
 
@@ -31,9 +30,8 @@ export async function POST(req: Request) {
   // Get the body
   const payload = await req.json();
   const body = JSON.stringify(payload);
-  console.log('body', body);
 
-  // Create a new SVIX instance with your secret.
+  // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
@@ -55,45 +53,40 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
-    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
-
-    // Create a new user in your database
-    const mongoUser = await createUser({
-      clerkId: id,
-      name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
-      email: email_addresses[0].email_address,
-      picture: image_url,
+    await db.user.create({
+      data: {
+        clerkId: payload.data.id,
+        username: `${payload.data.first_name}${
+          payload.data.last_name ? ` ${payload.data.last_name}` : ''
+        }`,
+        imageUrl: payload.data.image_url,
+        email: payload.data.email,
+      },
     });
-
-    return NextResponse.json({ message: 'OK', user: mongoUser });
   }
 
   if (eventType === 'user.updated') {
-    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
-
-    // Create a new user in your database
-    const mongoUser = await updateUser({
-      clerkId: id,
-      updateData: {
-        name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
-        email: email_addresses[0].email_address,
-        picture: image_url,
+    await db.user.update({
+      where: {
+        clerkId: payload.data.id,
       },
-      path: `/profile/${id}`,
+      data: {
+        username: `${payload.data.first_name}${
+          payload.data.last_name ? ` ${payload.data.last_name}` : ''
+        }`,
+        imageUrl: payload.data.image_url,
+        email: payload.data.email,
+      },
     });
-
-    return NextResponse.json({ message: 'OK', user: mongoUser });
   }
 
   if (eventType === 'user.deleted') {
-    const { id } = evt.data;
-
-    const deletedUser = await deleteUser({
-      clerkId: id!,
+    await db.user.delete({
+      where: {
+        clerkId: payload.data.id,
+      },
     });
-
-    return NextResponse.json({ message: 'OK', user: deletedUser });
   }
 
-  return NextResponse.json({ message: 'OK' });
+  return new Response('', { status: 200 });
 }
