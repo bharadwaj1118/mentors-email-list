@@ -1,21 +1,18 @@
 'use server';
 
-import { FilterQuery } from 'mongoose';
-import User from '@/database/user.model';
-import { connectToDatabase } from '../mongoose';
-import {
-  CreateUserParams,
-  DeleteUserParams,
-  GetAllUsersParams,
-  UpdateUserParams,
-} from './shared.types';
-import { revalidatePath } from 'next/cache';
+import { db } from "../db";
 
-export async function getUserById(userId: string) {
+
+export async function getUserByclerkId(userId: string) {
   try {
-    connectToDatabase();
 
-    const user = await User.findOne({ clerkId: userId });
+    const user = await db.user.findUnique({
+      where: {
+        clerkId: userId
+      }
+    })
+
+    if (!user) throw new Error('User not found');
 
     return user;
   } catch (error) {
@@ -24,81 +21,25 @@ export async function getUserById(userId: string) {
   }
 }
 
-export async function getUserByProfileId(profileId: string) {
+export async function updateUser(user: any) {
   try {
-    connectToDatabase();
+    
+    const {id} = user;
 
-    const user = await User.findOne({ _id: profileId });
+    if (!id) throw new Error('User id is required');
 
-    return user;
+    const updatedUser = await db.user.update({
+      where: {
+        id: user.id
+      },
+      data: {
+        ...user
+      }
+    })
+    return updatedUser;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
 
-export async function createUser(userData: CreateUserParams) {
-  try {
-    connectToDatabase();
-
-    const newUser = await User.create(userData);
-
-    return newUser;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function updateUser(params: UpdateUserParams) {
-  try {
-    connectToDatabase();
-
-    const { clerkId, updateData, path } = params;
-
-    await User.findOneAndUpdate({ clerkId }, updateData, {
-      new: true,
-    });
-
-    revalidatePath(path);
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function deleteUser(params: DeleteUserParams) {
-  try {
-    connectToDatabase();
-
-    const { clerkId } = params;
-
-    const user = await User.findOneAndDelete({ clerkId });
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    const deletedUser = await User.findByIdAndDelete(user._id);
-
-    return deletedUser;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function getAllUsers() {
-  try {
-    connectToDatabase();
-
-    let sortOptions = {};
-
-    const users = await User.find();
-
-    return { users };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}

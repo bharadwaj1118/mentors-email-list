@@ -27,6 +27,8 @@ model User {
   bio String? @db.Text
   shortBio String? @db.Text
   portfolioWebsite String? @db.Text
+  position String?
+  organization String?
   city String?
   country Json?
   role Role? @default(MENTOR)
@@ -34,8 +36,8 @@ model User {
   expertise Json?
   toolkit Json?
   industries Json?
-  duration Int?
-  price Int?
+  duration String?
+  price String?
 
   joinedAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -3,43 +3,28 @@
 import Image from 'next/image';
 
 interface ProfileBodyProps {
-  name: string;
-  picture: string;
-  languages: string;
-  expertise: string;
-  toolkit: string;
-  industries: string;
-  joinedAt: string;
-  bio: string;
-  organization: string;
-  position: string;
-  shortBio: string;
-  portfolioWebsite: string;
-  city: string;
-  role: string;
-  duration: string;
-  price: string;
+user: string
 }
 
-export default function ProfileBody({
-  name,
-  picture,
-  languages,
-  expertise,
-  toolkit,
-  industries,
-  joinedAt,
-  bio,
-  organization,
-  position,
-  shortBio,
-  portfolioWebsite,
-  city,
-  role,
-  duration,
-  price,
-}: ProfileBodyProps) {
-  console.log(bio);
+export default function ProfileBody({user}: ProfileBodyProps) {
+  const {
+    name,
+    picture,
+    languages,
+    expertise,
+    toolkit,
+    industries,
+    joinedAt,
+    bio,
+    organization,
+    position,
+    shortBio,
+    portfolioWebsite,
+    city,
+    role,
+    duration,
+    price,
+  } = JSON.parse(user);
   return (
     <div className="max-w-5xl mx-auto mt-6">
       <div

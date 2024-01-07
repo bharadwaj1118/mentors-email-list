@@ -43,26 +43,27 @@ const FormSchema = z.object({
       value: z.string(),
     })
   ),
-  role: z.enum(['mentor', 'mentee', 'both']),
+  role: z.enum(['MENTOR', 'MENTEE', 'BOTH']),
 });
 
 interface Props {
-  clerkId: string;
   user: string;
 }
 
-export default function Onboarding02({ clerkId, user }: Props) {
+export default function Onboarding02({ user }: Props) {
   const parsedUser = JSON.parse(user);
+  const {city, country, languages, role} = parsedUser;
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      city: parsedUser.city || '',
-      country: parsedUser.country || {},
-      languages: parsedUser.languages || {},
-      role: parsedUser.role || 'mentor',
+      city:  city || '',
+      country:  country || {},
+      languages: languages || {},
+      role:  role || 'mentor',
     },
   });
 
@@ -72,17 +73,8 @@ export default function Onboarding02({ clerkId, user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({
-        clerkId,
-        updateData: {
-          city: values.city,
-          country: values.country,
-          languages: values.languages,
-          role: values.role,
-        },
-        path: pathname,
-      });
-
+      await updateUser({...parsedUser, ...values});
+      console.log(values);
       router.push('/onboarding-03');
     } catch (error) {
       console.log(error);
@@ -165,7 +157,7 @@ export default function Onboarding02({ clerkId, user }: Props) {
                             >
                               <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
-                                  <RadioGroupItem value="mentor" />
+                                  <RadioGroupItem value="MENTOR" />
                                 </FormControl>
                                 <FormLabel className="font-normal">
                                   Mentor
@@ -173,7 +165,7 @@ export default function Onboarding02({ clerkId, user }: Props) {
                               </FormItem>
                               <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
-                                  <RadioGroupItem value="mentee" />
+                                  <RadioGroupItem value="MENTEE" />
                                 </FormControl>
                                 <FormLabel className="font-normal">
                                   Mentee
@@ -181,7 +173,7 @@ export default function Onboarding02({ clerkId, user }: Props) {
                               </FormItem>
                               <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
-                                  <RadioGroupItem value="both" />
+                                  <RadioGroupItem value="BOTH" />
                                 </FormControl>
                                 <FormLabel className="font-normal">
                                   Both

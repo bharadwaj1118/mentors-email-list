@@ -11,13 +11,15 @@ interface ProfileBodyProps {
 export default function ProfileBody({ user }: ProfileBodyProps) {
   const data = JSON.parse(user);
   const {
-    name,
+    username,
     shortBio,
+    imageUrl,
     bio,
     lorem,
     organization,
     position,
     city,
+    portfolioWebsite,
     role,
     industries,
     toolkit,
@@ -69,7 +71,7 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
               <div className="inline-flex -ml-1 -mt-1 mb-4 sm:mb-0">
                 <Image
                   className="rounded-full border-4 border-white dark:border-slate-900 object-fill"
-                  src="/images/customers-03.jpg"
+                  src={imageUrl}
                   width={128}
                   height={128}
                   alt="Avatar"
@@ -107,7 +109,7 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
             {/* Name */}
             <div className="inline-flex items-start mb-2">
               <h1 className="text-2xl text-slate-800 dark:text-slate-100 font-bold">
-                {name}
+                {username}
               </h1>
               <svg
                 className="w-4 h-4 fill-current shrink-0 text-amber-500 ml-2"
@@ -142,7 +144,7 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                   className="text-sm font-medium whitespace-nowrap text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 ml-2"
                   href="#0"
                 >
-                  carolinmcneail.com
+                  {portfolioWebsite}
                 </a>
               </div>
             </div>

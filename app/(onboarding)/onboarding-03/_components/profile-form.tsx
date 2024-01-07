@@ -22,8 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -51,12 +49,12 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  clerkId: string;
   user: string;
 }
 
-export default function Onboarding03({ clerkId, user }: Props) {
+export default function Onboarding03({  user }: Props) {
   const parsedUser = JSON.parse(user);
+  const {industries, expertise, toolkit} = parsedUser;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -64,9 +62,9 @@ export default function Onboarding03({ clerkId, user }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      industries: parsedUser.industries || [],
-      expertise: parsedUser.expertise || [],
-      toolkit: parsedUser.toolkit || [],
+      industries: industries || [],
+      expertise: expertise || [],
+      toolkit: toolkit || [],
     },
   });
 
@@ -75,16 +73,7 @@ export default function Onboarding03({ clerkId, user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({
-        clerkId,
-        updateData: {
-          industries: values.industries,
-          expertise: values.expertise,
-          toolkit: values.toolkit,
-        },
-        path: pathname,
-      });
-
+      await updateUser({...parsedUser, ...values});
       router.push('/onboarding-04');
     } catch (error) {
       console.log(error);

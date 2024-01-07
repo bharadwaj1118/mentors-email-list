@@ -1,18 +1,18 @@
 import React from 'react';
-import { auth } from '@clerk/nextjs';
-import mongoose from 'mongoose';
-import { getUserById } from '@/lib/actions/user.action';
-import { json } from 'stream/consumers';
+import { currentUser } from '@clerk/nextjs';
+
+import { getUserByclerkId } from '@/lib/actions/user.action';
+
 import Onboarding03 from './_components/profile-form';
 
 const Onboarding03Page = async () => {
-  const { userId } = auth();
-  if (!userId) return null;
-
-  const mongoUser = await getUserById(userId);
+  const clerkUser = await currentUser();
+  if (!clerkUser) return <div>Not logged in</div>;
+  
+  const user = await getUserByclerkId(clerkUser?.id);
   return (
     <div>
-      <Onboarding03 clerkId={userId} user={JSON.stringify(mongoUser)} />
+      <Onboarding03  user={JSON.stringify(user)} />
     </div>
   );
 };

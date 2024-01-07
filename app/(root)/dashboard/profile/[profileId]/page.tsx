@@ -1,7 +1,7 @@
-import { getUserByProfileId } from '@/lib/actions/user.action';
-import { auth } from '@clerk/nextjs';
+
 import React from 'react';
 import ProfileBody from '../_components/profile-page';
+import { db } from '@/lib/db';
 
 interface Props {
   params: {
@@ -12,15 +12,19 @@ interface Props {
 const page = async ({ params }: Props) => {
   const { profileId } = params;
 
-  const user = await getUserByProfileId(profileId);
-
   if (profileId == null) {
     return <div>Profile not found</div>;
   }
 
+  const users = await db.user.findUnique({
+    where: {
+      id: profileId,
+    },
+  });
+
   return (
     <div>
-      <ProfileBody user={JSON.stringify(user)} />
+      <ProfileBody user={JSON.stringify(users)} />
     </div>
   );
 };

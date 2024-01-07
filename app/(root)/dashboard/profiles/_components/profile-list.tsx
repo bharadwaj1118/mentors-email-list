@@ -1,16 +1,19 @@
-import { IProfile } from '@/database/profile.model';
-import ProfileCard from './profile-card';
-import { getProfiles } from '@/lib/actions/profile.action';
-import { getAllUsers } from '@/lib/actions/user.action';
 
-export default async function ProfileList() {
-  const result = await getAllUsers();
+import ProfileCard from './profile-card';
+
+interface ProfileListProps {
+  users: string;
+}
+
+export default async function ProfileList({users}: ProfileListProps) {
+  const parsedUsers = JSON.parse(users);
 
   return (
     <section className="max-w-[1100px] m-3 md:m-6">
-      {result.users.map((user) => (
+      {parsedUsers && Array.isArray(parsedUsers) && parsedUsers.map((user) => (
         <ProfileCard key={user._id} user={JSON.stringify(user)} />
       ))}
+
     </section>
   );
 }

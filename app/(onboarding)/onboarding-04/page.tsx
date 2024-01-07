@@ -1,16 +1,17 @@
 import React from 'react';
-import { auth } from '@clerk/nextjs';
-import { getUserById } from '@/lib/actions/user.action';
+import { currentUser } from '@clerk/nextjs';
+
+import { getUserByclerkId } from '@/lib/actions/user.action';
 import Onboarding04 from './_components/profile-form';
 
 const Onboarding04Page = async () => {
-  const { userId } = auth();
-  if (!userId) return null;
-
-  const mongoUser = await getUserById(userId);
+  const clerkUser = await currentUser();
+  if (!clerkUser) return <div>Not logged in</div>;
+  
+  const user = await getUserByclerkId(clerkUser?.id);
   return (
     <div>
-      <Onboarding04 clerkId={userId} user={JSON.stringify(mongoUser)} />
+      <Onboarding04 user={JSON.stringify(user)} />
     </div>
   );
 };

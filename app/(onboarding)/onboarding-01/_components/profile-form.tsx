@@ -21,7 +21,9 @@ import { useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
+
 import { updateUser } from '@/lib/actions/user.action';
+
 
 const onboard1Schema = z.object({
   shortBio: z.string().min(20, {
@@ -42,25 +44,26 @@ const onboard1Schema = z.object({
 });
 
 interface Props {
-  clerkId: string;
   user: string;
 }
 
-export default function Onboarding01({ clerkId, user }: Props) {
+export default function Onboarding01({ user }: Props) {
   const parsedUser = JSON.parse(user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
+  const {shortBio, organization, bio, position, portfolioWebsite} = parsedUser;
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof onboard1Schema>>({
     resolver: zodResolver(onboard1Schema),
     defaultValues: {
-      shortBio: parsedUser.shortBio || '',
-      organization: parsedUser.organization || '',
-      bio: parsedUser.bio || '',
-      position: parsedUser.position || '',
-      portfolioWebsite: parsedUser.portfolioWebsite || '',
+      shortBio: shortBio || '',
+      organization: organization|| '',
+      bio: bio || '',
+      position: position || '',
+      portfolioWebsite: portfolioWebsite || '',
     },
   });
 
@@ -70,18 +73,7 @@ export default function Onboarding01({ clerkId, user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({
-        clerkId,
-        updateData: {
-          shortBio: values.shortBio,
-          bio: values.bio,
-          position: values.position,
-          organization: values.organization,
-          portfolioWebsite: values.portfolioWebsite,
-        },
-        path: pathname,
-      });
-
+      await updateUser({...parsedUser, ...values});
       router.push('/onboarding-02');
     } catch (error) {
       console.log(error);

@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button';
 
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { updateUser } from '@/lib/actions/user.action';
 
@@ -34,22 +34,22 @@ const Onboarding4Schema = z.object({
 });
 
 interface Props {
-  clerkId: string;
   user: string;
 }
 
-export default function Onboarding04({ clerkId, user }: Props) {
+export default function Onboarding04({ user }: Props) {
   const parsedUser = JSON.parse(user);
+  const {duration, price} = parsedUser;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof Onboarding4Schema>>({
     resolver: zodResolver(Onboarding4Schema),
     defaultValues: {
-      duration: parsedUser.duration || '30',
-      price: parsedUser.price || 'Free',
+      duration: duration || '30',
+      price: price || 'Free',
     },
   });
 
@@ -59,15 +59,7 @@ export default function Onboarding04({ clerkId, user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({
-        clerkId,
-        updateData: {
-          duration: values.duration,
-          price: values.price,
-        },
-        path: pathname,
-      });
-
+      await updateUser({...parsedUser, ...values});
       router.push('/dashboard/profiles');
     } catch (error) {
       console.log(error);
