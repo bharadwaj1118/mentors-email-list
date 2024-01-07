@@ -28,12 +28,12 @@ model User {
   shortBio String? @db.Text
   portfolioWebsite String? @db.Text
   city String?
-  country String?
+  country Json
   role Role? @default(MENTOR)
-  languages Language[]
-  expertise Expertise[]
-  toolkit Toolkit[]
-  industries Industry[]
+  languages Json
+  expertise Json
+  toolkit Json
+  industries Json
   duration Int?
   price Int?
 
@@ -41,29 +41,8 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Language {
-  id String @id @default(uuid())
-  name String @unique
-  users User[]
-}
 
-model Expertise {
-  id String @id @default(uuid())
-  name String @unique
-  users User[]
-}
 
-model Toolkit {
-  id String @id @default(uuid())
-  name String @unique
-  users User[]
-}
-
-model Industry {
-  id String @id @default(uuid())
-  name String @unique
-  users User[]
-}
 
 
 
