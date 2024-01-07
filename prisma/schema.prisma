@@ -28,12 +28,12 @@ model User {
   shortBio String? @db.Text
   portfolioWebsite String? @db.Text
   city String?
-  country Json
+  country Json?
   role Role? @default(MENTOR)
-  languages Json
-  expertise Json
-  toolkit Json
-  industries Json
+  languages Json?
+  expertise Json?
+  toolkit Json?
+  industries Json?
   duration Int?
   price Int?
 
