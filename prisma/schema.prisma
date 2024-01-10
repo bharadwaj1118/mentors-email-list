@@ -39,7 +39,38 @@ model User {
   duration String?
   price String?
 
+  events Event[]
+
   joinedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Event {
+  id String @id @default(uuid())
+  title String
+  start DateTime
+  end DateTime
+
+  userId String
+  user   User    @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Session {
+  id String @id @default(uuid())
+  title String
+  description String
+  duration String
+  price String
+  mentorId String
+  menteeId String
+  status String @default("pending")
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 

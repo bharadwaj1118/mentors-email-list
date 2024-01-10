@@ -82,3 +82,32 @@ export function splitIntoIntervals(
 
   return intervals;
 }
+
+interface Event {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+}
+
+export function isEventOverlapping(newEvent: Event, existingEvents: Event[]): boolean {
+
+  for (const event of existingEvents) {
+    if (
+      (newEvent.start < event.end && newEvent.end > event.start) ||
+      (event.start < newEvent.end && event.end > newEvent.start)
+    ) {
+      // There is an overlap
+      return false;
+    }
+  }
+
+  // No overlap found
+  return true;
+}
+
+export function isEventInThePast(event: Event): boolean {
+  const currentTime = new Date();
+  return event.end < currentTime;
+}
+

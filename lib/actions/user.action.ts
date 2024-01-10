@@ -1,6 +1,26 @@
 'use server';
 
+import { auth } from '@clerk/nextjs';
 import { db } from "../db";
+
+
+export async function getSelf(){
+  try {
+    const {userId, getToken} = auth();
+    if(!userId){
+      throw new Error('User not logged in');
+    }
+    const user = await db.user.findUnique({
+      where: {
+        clerkId: userId
+      }
+    })
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 
 export async function getUserByclerkId(userId: string) {
