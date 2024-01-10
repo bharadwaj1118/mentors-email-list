@@ -111,3 +111,32 @@ export function isEventInThePast(event: Event): boolean {
   return event.end < currentTime;
 }
 
+
+export function splitEventToSessions(start: string,end: string, interval: number): { start: string, end: string }[] {
+  // Convert start and end times to Date objects
+  const startTime: Date = new Date(start);
+  const endTime: Date = new Date(end);
+
+  // Convert interval to milliseconds
+  const durationInMilliseconds: number = interval * 60000;
+
+  const intervals: { start: string, end: string }[] = [];
+  let currentStartTime: Date = startTime;
+
+  while (currentStartTime < endTime) {
+      const currentEndTime: Date = new Date(currentStartTime.getTime() + durationInMilliseconds);
+
+      // Make sure the current end time does not exceed the actual end time
+      const intervalEnd = currentEndTime < endTime ? currentEndTime : endTime;
+
+      intervals.push({
+          start: currentStartTime.toISOString(),
+          end: intervalEnd.toISOString()
+      });
+
+      // Update currentStartTime for the next iteration
+      currentStartTime = intervalEnd;
+  }
+
+  return intervals;
+}

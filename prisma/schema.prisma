@@ -40,6 +40,8 @@ model User {
   price String?
 
   events Event[]
+  sessionsGiven Session[] @relation("sessionsGiven")
+  sessionsReceived Session[] @relation("sessionsReceived")
 
   joinedAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -58,20 +60,47 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  session Session[]
+
   @@index([userId])
+}
+
+
+enum SessionStatus {
+  AVAILABLE
+  REQUESTED
+  ACCEPTED
+  DECLINED
+  CANCELLED
+  COMPLETED
 }
 
 model Session {
   id String @id @default(uuid())
-  title String
-  description String
-  duration String
-  price String
+  title String? @db.Text
+  description String? @db.Text
+  outcome String? @db.Text
+  duration String?
+  category String?
+  price String?
+
   mentorId String
-  menteeId String
-  status String @default("pending")
+  mentor User @relation("sessionsGiven", fields: [mentorId], references: [id])
+
+  menteeId String?
+  mentee User? @relation("sessionsReceived", fields: [menteeId], references: [id])
+
+  eventId String
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  start DateTime
+  end DateTime
+
+  status SessionStatus? @default(AVAILABLE)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([mentorId])
 }
 
 

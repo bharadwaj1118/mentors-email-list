@@ -188,14 +188,17 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
 
           <div className="flex space-x-6 justify-center items-end">
+          <Button asChild variant="outline" className="text-blue-800" size="lg">
             <Link href={`/dashboard/profile/${id}`}>
-              <Button variant="outline" className="text-blue-800" size="lg">
                 View Profile
-              </Button>
             </Link>
-            <Link href="/">
-              <Button size="lg">Book session</Button>
+          </Button>
+       
+          <Button size="lg" asChild>
+            <Link href={`/dashboard/schedule/${id}`}>
+              Book session
             </Link>
+          </Button>
           </div>
         </div> 
       </div>
