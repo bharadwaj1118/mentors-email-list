@@ -4,6 +4,7 @@ import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
 
 import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -64,9 +65,15 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
           !isEventInThePast(newEvent) &&
           isEventOverlapping(newEvent, myEvents)
         ) {
-          await addEvent(newEvent);
-          setEvents((prevEvents) => [...prevEvents, newEvent]);
-          console.log("comes inside");
+          try {
+            await addEvent(newEvent);
+            setEvents((prevEvents) => [...prevEvents, newEvent]);
+            toast.success("Event has been created", {
+              description: "Sunday, December 03, 2023 at 9:00 AM",
+            });
+          } catch (error) {
+            toast.error("Event not created");
+          }
         }
       }
     },
@@ -76,8 +83,15 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
   const handleSelectEvent = useCallback(
     async (event: Event) => {
       const { id } = event;
-      await deleteEvent({ ...event });
-      setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
+      try {
+        await deleteEvent({ ...event });
+        setEvents((prevEvents) =>
+          prevEvents.filter((event) => event.id !== id)
+        );
+        toast.success("Event has been deleted");
+      } catch (error) {
+        toast.error("Event not deleted");
+      }
     },
     [myEvents]
   );

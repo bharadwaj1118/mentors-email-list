@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { ca } from "date-fns/locale";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { updateSession } from "@/lib/actions/session.action";
 import { useRouter } from "next/navigation";
@@ -60,9 +60,10 @@ export function SessionForm({ session, user }: SessionFormProps) {
   } = sessionJSON;
   const { id: userId } = userJSON;
 
-  if (status === "AVAILABLE") {
+  useEffect(() => {
+    //Runs only on the first render
     setEnableEdit(true);
-  }
+  }, []);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
