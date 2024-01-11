@@ -77,7 +77,7 @@ enum SessionStatus {
 
 model Session {
   id String @id @default(uuid())
-  title String? @db.Text
+  objective String? @db.Text
   description String? @db.Text
   outcome String? @db.Text
   duration String?

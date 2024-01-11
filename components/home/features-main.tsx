@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import FeaturesImage02 from '@/public/images/features-home-3-01.jpg';
-import FeaturesImage01 from '@/public/images/features-home-3-02.jpg';
-import FeaturesImage03 from '@/public/images/features-home-3-03.jpg';
+import Image from "next/image";
+import FeaturesImage02 from "@/public/images/features-home-3-01.jpg";
+import FeaturesImage01 from "@/public/images/features-home-3-02.jpg";
+import FeaturesImage03 from "@/public/images/features-home-3-03.jpg";
 
 export default function FeaturesHome() {
   return (
@@ -12,15 +12,15 @@ export default function FeaturesHome() {
         aria-hidden="true"
       ></div> */}
 
-      <div className="bg-slate-900 w-screen">
-        <div className=" bg-slate-900 relative max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="w-screen bg-slate-900">
+        <div className=" relative mx-auto max-w-6xl bg-slate-900 px-4 sm:px-6">
           <div className="py-12 md:py-20">
             {/* Section header */}
-            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <h2 className="h2 font-playfair-display text-slate-100 mb-3">
+            <div className="mx-auto max-w-3xl pb-12 text-center md:pb-20">
+              <h2 className="h2 mb-3 text-slate-100">
                 Benefits of joining Mentors CX
               </h2>
-              <p className="text-xl font-playfair-display text-slate-100 text-muted">
+              <p className="text-xl muted text-slate-100">
                 Joining our Mentors CX community offers a unique opportunity to
                 gain valuable insights, foster meaningful connections, and
                 accelerate your professional growth in the dynamic field of
@@ -29,26 +29,26 @@ export default function FeaturesHome() {
             </div>
 
             {/* Section content */}
-            <div className="max-w-sm mx-auto md:max-w-none grid gap-12 md:grid-cols-3 md:gap-x-10 md:gap-y-10 items-start">
+            <div className="mx-auto grid max-w-sm items-start gap-12 md:max-w-none md:grid-cols-3 md:gap-10">
               {/* 1st article */}
               <article data-aos="fade-up">
-                <a className="relative block group mt-8 mb-4" href="#0">
+                <a className="group relative mb-4 mt-8 block" href="#0">
                   <div
-                    className="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10"
+                    className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
                   ></div>
                   <div className="overflow-hidden">
                     <Image
-                      className="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out"
+                      className="aspect-square w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                       src={FeaturesImage01}
                       width={342}
                       height={342}
                       alt="News 01"
                     />
                   </div>
-                  <div className="w-16 h-16 absolute bg-gradient-to-b from-blue-500 to-blue-600 rounded-full -top-8 left-8">
+                  <div className="absolute -top-8 left-8 h-16 w-16 rounded-full bg-gradient-to-b from-blue-500 to-blue-600">
                     <svg
-                      className="w-16 h-16 fill-current"
+                      className="h-16 w-16 fill-current"
                       viewBox="0 0 64 64"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -75,23 +75,23 @@ export default function FeaturesHome() {
 
               {/* 2nd article */}
               <article data-aos="fade-up" data-aos-delay="100">
-                <a className="relative block group mt-8 mb-4" href="#0">
+                <a className="group relative mb-4 mt-8 block" href="#0">
                   <div
-                    className="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10"
+                    className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
                   ></div>
                   <div className="overflow-hidden">
                     <Image
-                      className="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out"
+                      className="aspect-square w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                       src={FeaturesImage02}
                       width={342}
                       height={342}
                       alt="News 02"
                     />
                   </div>
-                  <div className="w-16 h-16 absolute bg-gradient-to-b from-blue-500 to-blue-600 rounded-full -top-8 left-8">
+                  <div className="absolute -top-8 left-8 h-16 w-16 rounded-full bg-gradient-to-b from-blue-500 to-blue-600">
                     <svg
-                      className="w-16 h-16 fill-current"
+                      className="h-16 w-16 fill-current"
                       viewBox="0 0 64 64"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -118,23 +118,23 @@ export default function FeaturesHome() {
 
               {/* 3rd article */}
               <article data-aos="fade-up" data-aos-delay="200">
-                <a className="relative block group mt-8 mb-4" href="#0">
+                <a className="group relative mb-4 mt-8 block" href="#0">
                   <div
-                    className="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10"
+                    className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
                   ></div>
                   <div className="overflow-hidden">
                     <Image
-                      className="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out"
+                      className="aspect-square w-full object-cover transition duration-700 ease-out group-hover:scale-105"
                       src={FeaturesImage03}
                       width={342}
                       height={342}
                       alt="News 03"
                     />
                   </div>
-                  <div className="w-16 h-16 absolute bg-gradient-to-b from-blue-500 to-blue-600 rounded-full -top-8 left-8">
+                  <div className="absolute -top-8 left-8 h-16 w-16 rounded-full bg-gradient-to-b from-blue-500 to-blue-600">
                     <svg
-                      className="w-16 h-16 fill-current"
+                      className="h-16 w-16 fill-current"
                       viewBox="0 0 64 64"
                       xmlns="http://www.w3.org/2000/svg"
                     >

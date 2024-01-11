@@ -1,15 +1,13 @@
-'use client';
+"use client";
 
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
-import { useRouter } from 'next/navigation'
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
-import React, { Fragment, useState, useCallback, useMemo } from 'react';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-
-
+import React, { Fragment, useState, useCallback, useMemo } from "react";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 const now = new Date();
 
@@ -20,40 +18,6 @@ type Event = {
   start: Date;
   end: Date;
 };
-
-function splitIntoIntervals(
-  start: string,
-  end: string,
-  intervalMinutes: number
-): Event[] {
-  const startTime = new Date(start);
-  const endTime = new Date(end);
-  const intervals: Event[] = [];
-  let id = 0;
-
-  while (startTime < endTime) {
-    const newStart = new Date(startTime);
-    startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
-    const newEnd = new Date(startTime);
-
-    if (newEnd > endTime) {
-      newEnd.setTime(endTime.getTime());
-    }
-
-    intervals.push({
-      id: uuidv4(),
-      title: 'Available',
-      start: newStart,
-      end: newEnd,
-    });
-
-    if (newEnd.getTime() === endTime.getTime()) {
-      break;
-    }
-  }
-
-  return intervals;
-}
 
 function isLessThanTwelveHours(start: string, end: string): boolean {
   const startTime = new Date(start);
@@ -75,7 +39,7 @@ interface BookingCalendarProps {
   sessions: string;
 }
 
-export const BookingCalendar = ({sessions}: BookingCalendarProps) => {
+export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
   const sessionsArray = JSON.parse(sessions);
   const result = sessionsArray.map((event: any) => ({
     id: event.id,
@@ -87,10 +51,10 @@ export const BookingCalendar = ({sessions}: BookingCalendarProps) => {
   const router = useRouter();
 
   const handleSelectEvent = useCallback(
-    async(event: Event) => {
-      const {id} = event;
+    async (event: Event) => {
+      const { id } = event;
       window.alert(`You clicked on event ${id}`);
-      router.push(`/dashboard/session/${id}`)
+      router.push(`/dashboard/session/${id}`);
     },
     [myEvents]
   );

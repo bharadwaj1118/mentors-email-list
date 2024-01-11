@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -11,7 +11,7 @@ type ValueLabelPair = {
 };
 
 export function arrayToValuesString(arr: ValueLabelPair[]): string {
-  return arr.map((pair) => pair.label).join(', ');
+  return arr.map((pair) => pair.label).join(", ");
 }
 
 export function formatDateToMonthYear(dateString: string): string {
@@ -20,18 +20,18 @@ export function formatDateToMonthYear(dateString: string): string {
 
   // Array of abbreviated month names
   const monthAbbreviations = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   // Extract the month and year from the Date object
@@ -49,40 +49,6 @@ interface TimeInterval {
   end: string;
 }
 
-export function splitIntoIntervals(
-  start: string,
-  end: string,
-  intervalMinutes: number
-): TimeInterval[] {
-  const startTime = new Date(start);
-  const endTime = new Date(end);
-  const intervals: TimeInterval[] = [];
-  let id = 0;
-
-  while (startTime < endTime) {
-    const newStart = new Date(startTime);
-    startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
-    const newEnd = new Date(startTime);
-
-    if (newEnd > endTime) {
-      newEnd.setTime(endTime.getTime());
-    }
-
-    intervals.push({
-      id: id++,
-      title: 'Available',
-      start: newStart.toISOString(),
-      end: newEnd.toISOString(),
-    });
-
-    if (newEnd.getTime() === endTime.getTime()) {
-      break;
-    }
-  }
-
-  return intervals;
-}
-
 interface Event {
   id: string;
   title: string;
@@ -90,8 +56,10 @@ interface Event {
   end: Date;
 }
 
-export function isEventOverlapping(newEvent: Event, existingEvents: Event[]): boolean {
-
+export function isEventOverlapping(
+  newEvent: Event,
+  existingEvents: Event[]
+): boolean {
   for (const event of existingEvents) {
     if (
       (newEvent.start < event.end && newEvent.end > event.start) ||
@@ -111,8 +79,11 @@ export function isEventInThePast(event: Event): boolean {
   return event.end < currentTime;
 }
 
-
-export function splitEventToSessions(start: string,end: string, interval: number): { start: string, end: string }[] {
+export function splitEventToSessions(
+  start: string,
+  end: string,
+  interval: number
+): { start: string; end: string }[] {
   // Convert start and end times to Date objects
   const startTime: Date = new Date(start);
   const endTime: Date = new Date(end);
@@ -120,22 +91,24 @@ export function splitEventToSessions(start: string,end: string, interval: number
   // Convert interval to milliseconds
   const durationInMilliseconds: number = interval * 60000;
 
-  const intervals: { start: string, end: string }[] = [];
+  const intervals: { start: string; end: string }[] = [];
   let currentStartTime: Date = startTime;
 
   while (currentStartTime < endTime) {
-      const currentEndTime: Date = new Date(currentStartTime.getTime() + durationInMilliseconds);
+    const currentEndTime: Date = new Date(
+      currentStartTime.getTime() + durationInMilliseconds
+    );
 
-      // Make sure the current end time does not exceed the actual end time
-      const intervalEnd = currentEndTime < endTime ? currentEndTime : endTime;
+    // Make sure the current end time does not exceed the actual end time
+    const intervalEnd = currentEndTime < endTime ? currentEndTime : endTime;
 
-      intervals.push({
-          start: currentStartTime.toISOString(),
-          end: intervalEnd.toISOString()
-      });
+    intervals.push({
+      start: currentStartTime.toISOString(),
+      end: intervalEnd.toISOString(),
+    });
 
-      // Update currentStartTime for the next iteration
-      currentStartTime = intervalEnd;
+    // Update currentStartTime for the next iteration
+    currentStartTime = intervalEnd;
   }
 
   return intervals;

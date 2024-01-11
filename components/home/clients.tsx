@@ -1,18 +1,18 @@
-import Image from 'next/image';
-import TestimonialImage01 from '@/public/images/testimonial-01.jpg';
-import TestimonialImage02 from '@/public/images/testimonial-02.jpg';
-import TestimonialImage03 from '@/public/images/testimonial-03.jpg';
-import TestimonialImage04 from '@/public/images/testimonial-04.jpg';
-import TestimonialImage05 from '@/public/images/testimonial-05.jpg';
-import TestimonialImage06 from '@/public/images/testimonial-06.jpg';
+import Image from "next/image";
+import TestimonialImage01 from "@/public/images/testimonial-01.jpg";
+import TestimonialImage02 from "@/public/images/testimonial-02.jpg";
+import TestimonialImage03 from "@/public/images/testimonial-03.jpg";
+import TestimonialImage04 from "@/public/images/testimonial-04.jpg";
+import TestimonialImage05 from "@/public/images/testimonial-05.jpg";
+import TestimonialImage06 from "@/public/images/testimonial-06.jpg";
 
 export default function Clients() {
   return (
     <section className="bg-slate-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}
-          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+          <div className="mx-auto max-w-3xl pb-12 text-center md:pb-20">
             <h2 className="h2 font-playfair-display text-slate-800">
               Get guidance from CX leaders with hands-on experience in
               forward-thinking brands.
@@ -20,27 +20,27 @@ export default function Clients() {
           </div>
           {/* Testimonials container */}
           <div
-            className="max-w-sm mx-auto sm:max-w-none grid gap-12 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-6 sm:gap-y-8 items-start mb-12 md:mb-16"
+            className="mx-auto mb-12 grid max-w-sm items-start gap-12 sm:max-w-none sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 md:mb-16 md:grid-cols-3"
             data-aos-id-testimonials
           >
             {/* 1st Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage01}
                       width={48}
                       height={48}
                       alt="Testimonial 01"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -63,15 +63,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Patrick Hills
@@ -82,23 +82,23 @@ export default function Clients() {
             </article>
             {/* 2nd Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
               data-aos-delay="100"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage02}
                       width={48}
                       height={48}
                       alt="Testimonial 02"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -121,15 +121,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Jeff Wong
@@ -140,23 +140,23 @@ export default function Clients() {
             </article>
             {/* 3rd Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
               data-aos-delay="200"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage03}
                       width={48}
                       height={48}
                       alt="Testimonial 03"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -179,15 +179,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Amy Tolinski
@@ -198,23 +198,23 @@ export default function Clients() {
             </article>
             {/* 4th Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
               data-aos-delay="300"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage04}
                       width={48}
                       height={48}
                       alt="Testimonial 04"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -237,15 +237,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Chris Mallard
@@ -256,23 +256,23 @@ export default function Clients() {
             </article>
             {/* 5th Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
               data-aos-delay="400"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage05}
                       width={48}
                       height={48}
                       alt="Testimonial 05"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -295,15 +295,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Cathie Wood
@@ -314,23 +314,23 @@ export default function Clients() {
             </article>
             {/* 6th Testimonial */}
             <article
-              className="h-full flex flex-col bg-white p-6 shadow-xl"
+              className="flex h-full flex-col bg-white p-6 shadow-xl"
               data-aos="fade-up"
               data-aos-anchor="[data-aos-id-testimonials]"
               data-aos-delay="500"
             >
               <header>
-                <div className="flex items-center mb-4">
+                <div className="mb-4 flex items-center">
                   <div className="relative mr-5">
                     <Image
-                      className="rounded-full shrink-0"
+                      className="shrink-0 rounded-full"
                       src={TestimonialImage06}
                       width={48}
                       height={48}
                       alt="Testimonial 06"
                     />
                     <div
-                      className="absolute top-0 right-0 -mr-2"
+                      className="absolute right-0 top-0 -mr-2"
                       aria-hidden="true"
                     >
                       <svg
@@ -353,15 +353,15 @@ export default function Clients() {
                   </svg>
                 </div>
               </header>
-              <div className="grow mb-3">
-                <p className="text-slate-500 italic">
+              <div className="mb-3 grow">
+                <p className="italic text-slate-500">
                   Tidy has been the system to drive change in collaboration on
                   content for our organisation.
                 </p>
               </div>
               <footer className="text-sm font-medium">
                 <a
-                  className="text-slate-800 hover:text-blue-600 transition duration-150 ease-in-out"
+                  className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
                   href="#0"
                 >
                   Mary Duncan
@@ -373,9 +373,9 @@ export default function Clients() {
           </div>
           {/* See All Customers */}
           <div className="text-center">
-            <button className="btn text-white bg-blue-600 hover:bg-blue-700 group">
-              Get started{' '}
-              <span className="ml-3 tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out text-xl">
+            <button className="btn group bg-blue-600 text-white hover:bg-blue-700">
+              Get started{" "}
+              <span className="ml-3 text-xl tracking-normal text-white transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
                 &gt;
               </span>
             </button>

@@ -1,28 +1,23 @@
-import { db } from '@/lib/db';
-import  {BookingCalendar}  from './_components/booking-calendar';
-import React from 'react';
+import { db } from "@/lib/db";
+import { BookingCalendar } from "./_components/booking-calendar";
+import React from "react";
 
-import { getSelf } from '@/lib/actions/user.action';
-import { getAllSessions } from '@/lib/actions/session.action';
-
+import { getSelf } from "@/lib/actions/user.action";
+import { getAllSessions } from "@/lib/actions/session.action";
 
 interface SchedulePageProps {
-    params: {
-      scheduleId: string;
-    };
-  }
+  params: {
+    scheduleId: string;
+  };
+}
 
-
-const SchedulePage = async({ params }: SchedulePageProps) => {
-
-    {/* check if premium */}
-
-    const { scheduleId } = params;
-    const sessions = await getAllSessions(scheduleId)
+const SchedulePage = async ({ params }: SchedulePageProps) => {
+  const { scheduleId } = params;
+  const sessions = await getAllSessions(scheduleId);
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <BookingCalendar sessions={JSON.stringify(sessions)}/>
+      <BookingCalendar sessions={JSON.stringify(sessions)} />
     </div>
   );
 };

@@ -1,6 +1,5 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 
 type AccordionpProps = {
   children: React.ReactNode;
@@ -11,12 +10,13 @@ type AccordionpProps = {
 
 export default function Accordion({
   children,
-  tag = 'li',
+  tag = "li",
   title,
   active = false,
 }: AccordionpProps) {
   const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
   const accordion = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line no-undef
   const Component = tag as keyof JSX.IntrinsicElements;
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Accordion({
   return (
     <Component>
       <button
-        className="flex items-center w-full text-lg font-medium text-left py-5 border-t border-gray-200"
+        className="flex w-full items-center border-t border-gray-200 py-5 text-left text-lg font-medium"
         onClick={(e) => {
           e.preventDefault();
           setAccordionOpen(!accordionOpen);
@@ -34,7 +34,7 @@ export default function Accordion({
         aria-expanded={accordionOpen}
       >
         <svg
-          className="w-4 h-4 fill-current text-blue-500 shrink-0 mr-8 -ml-12"
+          className="-ml-12 mr-8 h-4 w-4 shrink-0 fill-current text-blue-500"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -43,8 +43,8 @@ export default function Accordion({
             width="16"
             height="2"
             rx="1"
-            className={`transform origin-center transition duration-200 ease-out ${
-              accordionOpen && '!rotate-180'
+            className={`origin-center transition duration-200 ease-out${
+              accordionOpen && "!rotate-180"
             }`}
           />
           <rect
@@ -52,8 +52,8 @@ export default function Accordion({
             width="16"
             height="2"
             rx="1"
-            className={`transform origin-center rotate-90 transition duration-200 ease-out ${
-              accordionOpen && '!rotate-180'
+            className={`origin-center rotate-90 transition duration-200 ease-out${
+              accordionOpen && "!rotate-180"
             }`}
           />
         </svg>
@@ -61,7 +61,7 @@ export default function Accordion({
       </button>
       <div
         ref={accordion}
-        className="text-gray-600 overflow-hidden transition-all duration-300 ease-in-out"
+        className="overflow-hidden text-gray-600 transition-all duration-300 ease-in-out"
         style={
           accordionOpen
             ? { maxHeight: accordion.current?.scrollHeight, opacity: 1 }

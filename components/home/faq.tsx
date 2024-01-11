@@ -1,4 +1,4 @@
-import Accordion from '@/components/utils/accordion';
+import Accordion from "@/components/utils/accordion";
 
 export default function Faqs() {
   return (

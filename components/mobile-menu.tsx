@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Transition } from '@headlessui/react';
-import Link from 'next/link';
-import { Button } from './ui/button';
+import { useState, useRef, useEffect } from "react";
+import { Transition } from "@headlessui/react";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
@@ -23,8 +23,8 @@ export default function MobileMenu() {
         return;
       setMobileNavOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   // close the mobile menu if the esc key is pressed
@@ -33,8 +33,8 @@ export default function MobileMenu() {
       if (!mobileNavOpen || keyCode !== 27) return;
       setMobileNavOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -42,7 +42,7 @@ export default function MobileMenu() {
       {/* Hamburger button */}
       <button
         ref={trigger}
-        className={`hamburger ${mobileNavOpen && 'active'}`}
+        className={`hamburger ${mobileNavOpen && "active"}`}
         aria-controls="mobile-nav"
         aria-expanded={mobileNavOpen}
         onClick={() => setMobileNavOpen(!mobileNavOpen)}
@@ -59,7 +59,7 @@ export default function MobileMenu() {
         </svg>
       </button>
 
-      {/*Mobile navigation */}
+      {/* Mobile navigation */}
       <div ref={mobileNav}>
         <Transition
           show={mobileNavOpen}
@@ -110,7 +110,7 @@ export default function MobileMenu() {
                 Blog
               </Link>
             </li>
-            <li className="py-2 my-2 border-t border-b border-gray-200">
+            <li className="py-2 my-2 border-y border-gray-200">
               <span
                 className="flex text-gray-600 hover:text-gray-900 py-2"
                 onClick={() => setMobileNavOpen(false)}

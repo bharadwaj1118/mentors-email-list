@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
-import React, { Fragment, useState, useCallback, useMemo } from 'react';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { addEvent, deleteEvent } from '@/lib/actions/event.action';
-import { isEventInThePast, isEventOverlapping } from '@/lib/utils';
-
+import React, { Fragment, useState, useCallback, useMemo } from "react";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import { addEvent, deleteEvent } from "@/lib/actions/event.action";
+import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
 
 const now = new Date();
 
@@ -20,40 +19,6 @@ type Event = {
   start: Date;
   end: Date;
 };
-
-function splitIntoIntervals(
-  start: string,
-  end: string,
-  intervalMinutes: number
-): Event[] {
-  const startTime = new Date(start);
-  const endTime = new Date(end);
-  const intervals: Event[] = [];
-  let id = 0;
-
-  while (startTime < endTime) {
-    const newStart = new Date(startTime);
-    startTime.setMinutes(startTime.getMinutes() + intervalMinutes);
-    const newEnd = new Date(startTime);
-
-    if (newEnd > endTime) {
-      newEnd.setTime(endTime.getTime());
-    }
-
-    intervals.push({
-      id: uuidv4(),
-      title: 'Available',
-      start: newStart,
-      end: newEnd,
-    });
-
-    if (newEnd.getTime() === endTime.getTime()) {
-      break;
-    }
-  }
-
-  return intervals;
-}
 
 function isLessThanTwelveHours(start: string, end: string): boolean {
   const startTime = new Date(start);
@@ -75,8 +40,8 @@ interface MyCalendarProps {
   user: string;
 }
 
-export const MyCalendar = ({user}: MyCalendarProps) => {
-  const {events} = JSON.parse(user);
+export const MyCalendar = ({ user }: MyCalendarProps) => {
+  const { events } = JSON.parse(user);
   const result = events.map((event: any) => ({
     id: event.id,
     title: event.title,
@@ -86,20 +51,22 @@ export const MyCalendar = ({user}: MyCalendarProps) => {
 
   const [myEvents, setEvents] = useState<Event[]>(result);
 
-   const handleSelectSlot = useCallback(
-    async({ start, end }: any) => {
-      const title = 'Available';
-      console.log('added event');
+  const handleSelectSlot = useCallback(
+    async ({ start, end }: any) => {
+      const title = "Available";
+      console.log("added event");
       const addSlots: Boolean = isLessThanTwelveHours(start, end);
       if (addSlots) {
-
-        const newEvent = {id: uuidv4(), title: title, start: start, end: end}
+        const newEvent = { id: uuidv4(), title, start, end };
         console.log(isEventInThePast(newEvent));
         console.log(isEventOverlapping(newEvent, myEvents));
-        if (!isEventInThePast(newEvent) && isEventOverlapping(newEvent, myEvents)){
-          await addEvent(newEvent)
+        if (
+          !isEventInThePast(newEvent) &&
+          isEventOverlapping(newEvent, myEvents)
+        ) {
+          await addEvent(newEvent);
           setEvents((prevEvents) => [...prevEvents, newEvent]);
-          console.log('comes inside')
+          console.log("comes inside");
         }
       }
     },
@@ -107,10 +74,10 @@ export const MyCalendar = ({user}: MyCalendarProps) => {
   );
 
   const handleSelectEvent = useCallback(
-    async(event: Event) => {
-      const {id} = event;
-      await deleteEvent({...event});
-      setEvents((prevEvents) => prevEvents.filter(event => event.id !== id));
+    async (event: Event) => {
+      const { id } = event;
+      await deleteEvent({ ...event });
+      setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
     },
     [myEvents]
   );

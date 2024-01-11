@@ -1,8 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
-{
-  /* import map-pin from heroicons */
-}
+import Link from "next/link";
+import React from "react";
 import {
   MapPinIcon,
   LanguageIcon,
@@ -10,13 +7,12 @@ import {
   BoltIcon,
   StarIcon,
   CreditCardIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/button';
+} from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/button";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { arrayToValuesString } from '@/lib/utils';
-import { profile } from 'console';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { arrayToValuesString } from "@/lib/utils";
 
 interface ProfileCardProps {
   user: string;
@@ -27,10 +23,22 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
   console.log(data);
 
   const {
-    id, city, imageUrl,
-    username,duration, price, position,
-    organization, role, bio, toolkit,
-    industries, expertise, languages, country } = data;
+    id,
+    city,
+    imageUrl,
+    username,
+    duration,
+    price,
+    position,
+    organization,
+    role,
+    bio,
+    toolkit,
+    industries,
+    expertise,
+    languages,
+    country,
+  } = data;
   return (
     <div className="w-full mt-6 bg-white">
       <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
@@ -48,7 +56,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               />
             </div>
 
-            {/* profile in medium devices*/}
+            {/* profile in medium devices */}
             <div className="hidden md:block">
               <h3 className="h3">{username}</h3>
               <h6 className="h6">
@@ -171,10 +179,10 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               ))}
             </TabsContent>
           </Tabs>
-        </div> 
+        </div>
 
         {/* footer */}
-         <div className="md:flex md:justify-between mt-3">
+        <div className="md:flex md:justify-between mt-3">
           <div className="hidden mt-6 md:flex gap-4 sm:gap-6">
             <div className="flex flex-col-reverse">
               <p className="text-xs text-gray-500">31st June, 2021</p>
@@ -188,19 +196,20 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
 
           <div className="flex space-x-6 justify-center items-end">
-          <Button asChild variant="outline" className="text-blue-800" size="lg">
-            <Link href={`/dashboard/profile/${id}`}>
-                View Profile
-            </Link>
-          </Button>
-       
-          <Button size="lg" asChild>
-            <Link href={`/dashboard/schedule/${id}`}>
-              Book session
-            </Link>
-          </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="text-blue-800"
+              size="lg"
+            >
+              <Link href={`/dashboard/profile/${id}`}>View Profile</Link>
+            </Button>
+
+            <Button size="lg" asChild>
+              <Link href={`/dashboard/schedule/${id}`}>Book session</Link>
+            </Button>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   );

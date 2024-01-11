@@ -1,38 +1,38 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { buttonVariants } from '@/components/ui/button';
-import { CaretSortIcon } from '@radix-ui/react-icons';
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { buttonVariants } from "@/components/ui/button";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
-import { Separator } from '@/components/ui/separator';
-import SectionBanner from './section-quote';
-import SectionGallery from './section-gallery';
-import SectionBannerGrowing from './section-banner-growing';
-import SectionAboutUS from './section-about';
-import Cta from '@/components/cta';
-import FeaturesWorld from '@/components/features-world';
-import Faqs from '@/components/home/faq';
-import TestimonialsCarousel from '@/components/home/testimonials-carousel';
-import FeaturesBlocks from '@/components/home/features-blocks';
-import Customers from '@/components/home/customers';
-import Clients from '@/components/home/clients';
-import HeroWorld from '@/components/home/hero-world';
-import CtaHome from '@/components/home/cta-home';
-import HeroHome from '@/components/home/HeroHome';
-import FeaturesHome from '@/components/home/features-main';
+} from "@/components/ui/collapsible";
+import { Separator } from "@/components/ui/separator";
+import SectionBanner from "./section-quote";
+import SectionGallery from "./section-gallery";
+import SectionBannerGrowing from "./section-banner-growing";
+import SectionAboutUS from "./section-about";
+import Cta from "@/components/cta";
+import FeaturesWorld from "@/components/features-world";
+import Faqs from "@/components/home/faq";
+import TestimonialsCarousel from "@/components/home/testimonials-carousel";
+import FeaturesBlocks from "@/components/home/features-blocks";
+import Customers from "@/components/home/customers";
+import Clients from "@/components/home/clients";
+import HeroWorld from "@/components/home/hero-world";
+import CtaHome from "@/components/home/cta-home";
+import HeroHome from "@/components/home/HeroHome";
+import FeaturesHome from "@/components/home/features-main";
 
 async function getGitHubStars(): Promise<string | null> {
   try {
-    const response = await fetch('https://api.github.com/repos/shadcn', {
+    const response = await fetch("https://api.github.com/repos/shadcn", {
       headers: {
-        Accept: 'application/vnd.github+json',
+        Accept: "application/vnd.github+json",
         Authorization: `Bearer random random`,
       },
       next: {
@@ -46,7 +46,7 @@ async function getGitHubStars(): Promise<string | null> {
 
     const json = await response.json();
 
-    return parseInt(json['stargazers_count']).toLocaleString();
+    return parseInt(json.stargazers_count).toLocaleString();
   } catch (error) {
     return null;
   }

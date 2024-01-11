@@ -3,15 +3,15 @@ export default function FeaturesBlocks() {
     <section className="relative">
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div
-        className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-900 pointer-events-none"
+        className="pointer-events-none absolute inset-0 top-1/2 bg-gray-900 md:mt-24 lg:mt-0"
         aria-hidden="true"
       ></div>
-      <div className="absolute left-0 right-0 bottom-0 m-auto w-px p-px h-20 bg-gray-200 transform translate-y-1/2"></div>
+      <div className="absolute inset-x-0 bottom-0 m-auto h-20 w-px translate-y-1/2 bg-gray-200 p-px"></div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}
-          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+          <div className="mx-auto max-w-3xl pb-12 text-center md:pb-20">
             <h2 className="h2 mb-4">Benefits of joining Mentors CX</h2>
             <p className="text-xl text-gray-600">
               Joining our Mentors CX community offers a unique opportunity to
@@ -22,11 +22,11 @@ export default function FeaturesBlocks() {
           </div>
 
           {/* Items */}
-          <div className="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none">
+          <div className="mx-auto grid max-w-sm items-start gap-6 md:max-w-2xl md:grid-cols-2 lg:max-w-none lg:grid-cols-3">
             {/* 1st item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+            <div className="relative flex flex-col items-center rounded bg-white p-6 shadow-xl">
               <svg
-                className="w-16 h-16 p-1 -mt-1 mb-2"
+                className="-mt-1 mb-2 h-16 w-16 p-1"
                 viewBox="0 0 64 64"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -59,19 +59,19 @@ export default function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-6 text-center">
+              <h4 className="mb-6 text-center text-xl font-bold leading-snug tracking-tight">
                 Expand your network and fortify relationships
               </h4>
-              <p className="text-gray-600 text-start">
+              <p className="text-start text-gray-600">
                 Open the door to collaborative opportunities and lifelong
                 connections within our Mentors CX community
               </p>
             </div>
 
             {/* 2nd item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+            <div className="relative flex flex-col items-center rounded bg-white p-6 shadow-xl">
               <svg
-                className="w-16 h-16 p-1 -mt-1 mb-2"
+                className="-mt-1 mb-2 h-16 w-16 p-1"
                 viewBox="0 0 64 64"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -101,19 +101,19 @@ export default function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-6 text-center">
+              <h4 className="mb-6 text-center text-xl font-bold leading-snug tracking-tight">
                 Get unstuck with tailored guidance
               </h4>
-              <p className="text-gray-600 text-start">
+              <p className="text-start text-gray-600">
                 Receive personalized support to overcome challenges and propel
                 your professional journey forward.
               </p>
             </div>
 
             {/* 3rd item */}
-            <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+            <div className="relative flex flex-col items-center rounded bg-white p-6 shadow-xl">
               <svg
-                className="w-16 h-16 p-1 -mt-1 mb-2"
+                className="-mt-1 mb-2 h-16 w-16 p-1"
                 viewBox="0 0 64 64"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -146,10 +146,10 @@ export default function FeaturesBlocks() {
                   </g>
                 </g>
               </svg>
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-6 text-justify">
+              <h4 className="mb-6 text-justify text-xl font-bold leading-snug tracking-tight">
                 Career growth & development
               </h4>
-              <p className="text-gray-600 text-start">
+              <p className="text-start text-gray-600">
                 Utilize the collective wisdom of our community to empower your
                 success in the dynamic and ever-evolving realm of customer
                 experience.
