@@ -62,7 +62,9 @@ export function SessionForm({ session, user }: SessionFormProps) {
 
   useEffect(() => {
     //Runs only on the first render
-    setEnableEdit(true);
+    if (status === "AVAILABLE") {
+      setEnableEdit(true);
+    }
   }, []);
 
   // 1. Define your form.
@@ -88,6 +90,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "REQUESTED",
         menteeId: userId,
       });
+      setEnableEdit(false);
       router.push("/onboarding-02");
     } catch (error) {
       console.log(error);

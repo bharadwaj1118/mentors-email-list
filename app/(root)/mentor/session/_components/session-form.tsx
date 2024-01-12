@@ -20,6 +20,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { updateSession } from "@/lib/actions/session.action";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   objective: z.string().min(20, {
@@ -44,6 +45,7 @@ interface SessionFormProps {
 export function SessionForm({ session, user }: SessionFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableEdit, setEnableEdit] = useState(false);
+  const router = useRouter();
 
   const sessionJSON = JSON.parse(session);
   const userJSON = JSON.parse(user);
@@ -84,7 +86,9 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "REQUESTED",
         menteeId: userId,
       });
-      toast("❌ Declined the session ");
+      setEnableEdit(false);
+      router.push("/dashboard/session");
+      toast.success("Declined the session ");
     } catch (error) {
       console.log(error);
       toast("Unexpcted Error...");
@@ -104,10 +108,11 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "ACCEPTED",
         mentorId: userId,
       });
-      toast(" ✅  Accepted the session");
+      router.push("/dashboard/session");
+      toast.success(" Accepted the session");
     } catch (error) {
       console.log(error);
-      toast("Unexpcted Error...");
+      toast.error("Unexpcted Error...");
     } finally {
       setIsSubmitting(false);
     }
@@ -123,9 +128,10 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "DECLINED",
         mentorId: userId,
       });
-      toast("❌ Declined the session ");
+      toast.success("Declined the session ");
     } catch (error) {
       console.log(error);
+      toast.error("Unexpcted Error...");
     } finally {
       setIsSubmitting(false);
     }
@@ -231,7 +237,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
 
         <div className="mb-12 mt-3 flex justify-around">
           <Button
-            className="w-fit rounded-full bg-red-500"
+            className="w-fit rounded-full bg-red-500 hover:bg-red-200"
             disabled={isSubmitting}
             onClick={declineSession}
           >
@@ -241,7 +247,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
               : "Decline session Request"}
           </Button>
           <Button
-            className="w-fit rounded-full bg-green-600 "
+            className="w-fit rounded-full bg-green-600 hover:bg-green-200"
             disabled={isSubmitting}
             onClick={acceptSession}
           >

@@ -41,7 +41,12 @@ interface BookingCalendarProps {
 
 export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
   const sessionsArray = JSON.parse(sessions);
-  const result = sessionsArray.map((event: any) => ({
+
+  // Filter available session
+  const availableSessions = sessionsArray.filter((session: any) => {
+    return session.status === "AVAILABLE";
+  });
+  const result = availableSessions.map((event: any) => ({
     id: event.id,
     start: new Date(event.start),
     end: new Date(event.end),
@@ -53,7 +58,6 @@ export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
   const handleSelectEvent = useCallback(
     async (event: Event) => {
       const { id } = event;
-      window.alert(`You clicked on event ${id}`);
       router.push(`/dashboard/session/${id}`);
     },
     [myEvents]
