@@ -38,7 +38,7 @@ const guestRoutes = [
   },
   {
     icon: Settings,
-    label: "Settings",
+    label: "Account Settings",
     href: "/dashboard/settings",
   },
 ];
