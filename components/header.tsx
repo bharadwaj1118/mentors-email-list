@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import Link from 'next/link';
-import Logo from './logo';
-import Dropdown from '@/components/utils/dropdown';
-import MobileMenu from './mobile-menu';
-import { siteConfig } from '@/config/site';
-import Image from 'next/image';
-import { Button } from './ui/button';
-import { SignedOut, UserButton } from '@clerk/nextjs';
+import Link from "next/link";
+import Logo from "./logo";
+import Dropdown from "@/components/utils/dropdown";
+import MobileMenu from "./mobile-menu";
+import { siteConfig } from "@/config/site";
+import Image from "next/image";
+import { Button } from "./ui/button";
+import { SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
@@ -21,14 +21,14 @@ export default function Header() {
 
   useEffect(() => {
     scrollHandler();
-    window.addEventListener('scroll', scrollHandler);
-    return () => window.removeEventListener('scroll', scrollHandler);
+    window.addEventListener("scroll", scrollHandler);
+    return () => window.removeEventListener("scroll", scrollHandler);
   }, [top]);
 
   return (
     <header
       className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
-        !top ? 'bg-white backdrop-blur-sm shadow-lg' : ''
+        !top ? "bg-white backdrop-blur-sm shadow-lg" : ""
       }`}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
@@ -76,9 +76,8 @@ export default function Header() {
                 </Link>
               </li>
               {/* 1st level: hover */}
-              <Dropdown title="Resources">
-                {/* 2nd level: hover */}
-                {/* <li>
+              {/* 2nd level: hover */}
+              {/* <li>
                   <Link
                     href="/documentation"
                     className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
@@ -86,15 +85,14 @@ export default function Header() {
                     Documentation
                   </Link>
                 </li> */}
-                <li>
-                  <Link
-                    href="/support"
-                    className="font-medium text-sm text-gray-600 hover:text-gray-900 flex py-2 px-5 leading-tight"
-                  >
-                    Support center
-                  </Link>
-                </li>
-              </Dropdown>
+              <li>
+                <Link
+                  href="/support"
+                  className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
+                >
+                  Support center
+                </Link>
+              </li>
             </ul>
 
             {/* Desktop sign in links */}
