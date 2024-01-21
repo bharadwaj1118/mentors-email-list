@@ -146,37 +146,40 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               <TabsTrigger value="skills">Skills</TabsTrigger>
             </TabsList>
             <TabsContent value="expertise" className="space-x-4 space-y-2">
-              {data!.expertise!.map((expertise: any) => (
-                <Badge
-                  variant="outline"
-                  className="text-muted-foreground"
-                  key={expertise.value}
-                >
-                  {expertise.label}
-                </Badge>
-              ))}
+              {expertise &&
+                expertise.map((expertise: any) => (
+                  <Badge
+                    variant="outline"
+                    className="text-muted-foreground"
+                    key={expertise.value}
+                  >
+                    {expertise.label}
+                  </Badge>
+                ))}
             </TabsContent>
             <TabsContent value="industry" className="space-x-4 space-y-2">
-              {data!.industries!.map((industry: any) => (
-                <Badge
-                  variant="outline"
-                  className="text-muted-foreground"
-                  key={industry.value}
-                >
-                  {industry.label}
-                </Badge>
-              ))}
+              {industries &&
+                industries.map((industry: any) => (
+                  <Badge
+                    variant="outline"
+                    className="text-muted-foreground"
+                    key={industry.value}
+                  >
+                    {industry.label}
+                  </Badge>
+                ))}
             </TabsContent>
             <TabsContent value="skills" className="space-x-4  space-y-2">
-              {toolkit!.map((skill: any) => (
-                <Badge
-                  variant="outline"
-                  className="text-muted-foreground"
-                  key={skill.value}
-                >
-                  {skill.label}
-                </Badge>
-              ))}
+              {toolkit &&
+                toolkit!.map((skill: any) => (
+                  <Badge
+                    variant="outline"
+                    className="text-muted-foreground"
+                    key={skill.value}
+                  >
+                    {skill.label}
+                  </Badge>
+                ))}
             </TabsContent>
           </Tabs>
         </div>

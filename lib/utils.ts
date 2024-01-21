@@ -11,7 +11,7 @@ type ValueLabelPair = {
 };
 
 export function arrayToValuesString(arr: ValueLabelPair[]): string {
-  return arr.map((pair) => pair.label).join(", ");
+  return arr && arr.map((pair) => pair.label).join(", ");
 }
 
 export function formatDateToMonthYear(dateString: string): string {
