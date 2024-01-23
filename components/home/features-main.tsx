@@ -60,12 +60,9 @@ export default function FeaturesHome() {
                   </div>
                 </a>
                 <h3 className="h4 font-playfair-display mb-2">
-                  <a
-                    className="text-white hover:underline hover:decoration-blue-100"
-                    href="#0"
-                  >
+                  <span className="text-white hover:decoration-none">
                     Expand your network
-                  </a>
+                  </span>
                 </h3>
                 <p className="text-lg text-slate-300">
                   Open the door to collaborative opportunities and lifelong
@@ -103,12 +100,9 @@ export default function FeaturesHome() {
                   </div>
                 </a>
                 <h3 className="h4 font-playfair-display mb-2">
-                  <a
-                    className="text-white hover:underline hover:decoration-blue-100"
-                    href="#0"
-                  >
+                  <span className="text-white hover:decoration-none">
                     Get Tailored guidance
-                  </a>
+                  </span>
                 </h3>
                 <p className="text-lg text-slate-300">
                   Receive personalized support to overcome challenges and propel
@@ -146,12 +140,9 @@ export default function FeaturesHome() {
                   </div>
                 </a>
                 <h3 className="h4 font-playfair-display mb-2">
-                  <a
-                    className="text-white hover:underline hover:decoration-blue-100"
-                    href="#0"
-                  >
+                  <span className="text-white hover:decoration-none">
                     Career growth & development
-                  </a>
+                  </span>
                 </h3>
                 <p className="text-lg text-slate-300">
                   Utilize the collective wisdom of our community to empower your

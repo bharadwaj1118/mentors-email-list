@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useRef, Fragment } from 'react';
-import type { StaticImageData } from 'next/image';
-import { Dialog, Transition } from '@headlessui/react';
-import Image from 'next/image';
+import { useState, useRef, Fragment } from "react";
+import type { StaticImageData } from "next/image";
+import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 
 interface ModalVideoProps {
   thumb: StaticImageData;
@@ -111,7 +111,7 @@ export default function ModalVideo({
             </svg>
           </div>
           <button
-            className="absolute top-full flex items-center transform -translate-y-1/2 bg-white rounded-full font-medium group p-4 shadow-lg"
+            className="absolute top-full flex items-center -translate-y-1/2 bg-white rounded-full font-medium group p-4 shadow-lg"
             onClick={() => {
               setModalOpen(true);
             }}
@@ -124,7 +124,7 @@ export default function ModalVideo({
               <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0 2C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12z" />
               <path d="M10 17l6-5-6-5z" />
             </svg>
-            <span className="ml-3">Watch the introduction</span>
+            <span className="ml-3">See how to get unstuck</span>
           </button>
         </div>
       </div>
@@ -151,7 +151,7 @@ export default function ModalVideo({
 
           {/* Modal dialog */}
           <Transition.Child
-            className="fixed inset-0 z-[99999] overflow-hidden flex items-center justify-center transform px-4 sm:px-6"
+            className="fixed inset-0 z-[99999] overflow-hidden flex items-center justify-center px-4 sm:px-6"
             enter="transition ease-out duration-200"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"

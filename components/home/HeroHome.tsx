@@ -1,13 +1,13 @@
-import VideoThumb from '@/public/images/hero-image-01.png';
-import ModalVideo from '@/components/modal-video';
-import Link from 'next/link';
+import VideoThumb from "@/public/images/hero-image-01.png";
+import ModalVideo from "@/components/modal-video";
+import Link from "next/link";
 
 export default function HeroHome() {
   return (
     <section className="relative">
       {/* Illustration behind hero content */}
       <div
-        className="absolute left-1/2 transform -translate-x-1/2 bottom-0 pointer-events-none -z-1"
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none -z-1"
         aria-hidden="true"
       >
         <svg
@@ -42,7 +42,7 @@ export default function HeroHome() {
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16 ">
             <h1 className="h1 md:text-6xl" data-aos="zoom-y-out">
-              The CX Community that{' '}
+              The CX Community that{" "}
             </h1>
             <h1
               className="h1 md:text-6xl pb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"
@@ -70,14 +70,6 @@ export default function HeroHome() {
                     href="#0"
                   >
                     Get started
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    className="btn text-white bg-slate-900 hover:bg-slate-800 w-full sm:w-auto sm:ml-4"
-                    href="#0"
-                  >
-                    Learn more
                   </Link>
                 </div>
               </div>
