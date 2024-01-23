@@ -338,3 +338,16 @@
     @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
   }
 }
+
+/* Custom Swiper styles */
+.swiper-button-disabled {
+  @apply opacity-50 cursor-default pointer-events-none;
+}
+
+.stellar-carousel .swiper-slide {
+  @apply opacity-80;
+}
+
+.stellar-carousel .swiper-slide.swiper-slide-active {
+  @apply opacity-100;
+}
