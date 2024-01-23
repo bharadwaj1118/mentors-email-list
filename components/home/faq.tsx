@@ -1,4 +1,5 @@
 import Accordion from "@/components/utils/accordion";
+import Link from "next/link";
 
 export default function Faqs() {
   return (
@@ -34,8 +35,16 @@ export default function Faqs() {
             <Accordion title="Do you have student or non-profit discounts?">
               Yes. We want to bring the best of the best to everyone possible.
               If you are a student, are part of a non-profit, or consider you
-              have low income, we offer discounts. You can apply for a discount
-              here [google form].
+              have low income, we offer discounts. The special rate also applies
+              to people changing careers (getting started in the CX space). You
+              can apply for a discount{" "}
+              <Link
+                href="https://forms.gle/XdTkWBYvqpyjFojF8"
+                className="text-blue-400"
+              >
+                here
+              </Link>
+              .
             </Accordion>
             <Accordion
               title="Can I upgrade to a different plan at a later time?"
