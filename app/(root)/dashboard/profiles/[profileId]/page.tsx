@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ProfileIdPageProps {
   params: {
@@ -8,13 +8,8 @@ interface ProfileIdPageProps {
 
 const ProfileIdPage = async ({ params }: ProfileIdPageProps) => {
   if (params.profileId == null) {
-    return 'error';
+    return "error";
   }
-  // const user = await db.user.findUnique({
-  //   where: {
-  //     id: params.profileId,
-  //   },
-  // })
   return (
     <div>
       {/* <ProfileBody user={JSON.stringify(user)}

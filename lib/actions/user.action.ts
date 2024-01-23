@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs";
 import { db } from "../db";
+import { ca, th } from "date-fns/locale";
 
 export async function getSelf() {
   try {
@@ -17,7 +18,7 @@ export async function getSelf() {
     return user;
   } catch (error) {
     console.log(error);
-    throw error;
+    throw Error("GET_SELF_ERROR, " + error);
   }
 }
 
@@ -34,7 +35,7 @@ export async function getUserByclerkId(userId: string) {
     return user;
   } catch (error) {
     console.log(error);
-    throw error;
+    throw Error("GET_USER_BY_CLERK_ID_ERROR, " + error);
   }
 }
 
@@ -55,6 +56,20 @@ export async function updateUser(user: any) {
     return updatedUser;
   } catch (error) {
     console.log(error);
-    throw error;
+    throw Error("UPDATE_USER_ERROR, " + error);
+  }
+}
+
+export async function getAllMentors() {
+  try {
+    const mentors = await db.user.findMany({
+      where: {
+        role: "MENTOR" || "BOTH",
+      },
+    });
+    return mentors;
+  } catch (error) {
+    console.log(error);
+    throw Error("GET_ALL_MENTORS_ERROR, " + error);
   }
 }
