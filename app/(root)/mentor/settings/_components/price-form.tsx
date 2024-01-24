@@ -20,18 +20,20 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";
+import { updateUser } from "@/lib/actions/user.action";
 
 interface PriceFormProps {
-  initialData: string;
-  courseId: string;
+  user: string;
 }
 
 const formSchema = z.object({
   price: z.coerce.number(),
 });
 
-export const PriceForm = () => {
-  const initialData = { price: 25 };
+export const PriceForm = ({ user }: PriceFormProps) => {
+  const parsedUser = JSON.parse(user);
+  const { price: initialPrice } = parsedUser;
+
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -41,7 +43,7 @@ export const PriceForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      price: undefined,
+      price: initialPrice || undefined,
     },
   });
 
@@ -49,8 +51,8 @@ export const PriceForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
-      toast.success("Course updated");
+      await updateUser({ ...values, id: parsedUser.id });
+      toast.success("Price updated");
       toggleEdit();
       router.refresh();
     } catch {
@@ -77,10 +79,10 @@ export const PriceForm = () => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.price && "text-slate-500 italic"
+            !initialPrice && "text-slate-500 italic"
           )}
         >
-          {initialData.price ? formatPrice(initialData.price) : "No price"}
+          {initialPrice ? formatPrice(initialPrice) : "No price"}
         </p>
       )}
       {isEditing && (

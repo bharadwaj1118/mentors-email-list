@@ -22,31 +22,29 @@ import { Switch } from "@/components/ui/switch";
 import { updateUser } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
-  portfolioWebsite: z.string(),
+  zoomLink: z.string(),
 });
 
-interface AccountFormProps {
+interface ProfileFormProps {
   user: string;
 }
 
-export function AccountForm({ user }: AccountFormProps) {
+export function ProfileForm({ user }: ProfileFormProps) {
   const parsedUser = JSON.parse(user);
-  const { portfolioWebsite: initialWebsite } = parsedUser;
+  const { zoomLink: initialZoomLink } = parsedUser;
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      portfolioWebsite: initialWebsite || "",
+      zoomLink: initialZoomLink || "",
     },
   });
-
-  const { isSubmitting, isValid, isDirty } = form.formState;
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       await updateUser({ ...data, id: parsedUser.id });
-      toast.success("Details updated");
+      toast.success("Zoom updated");
       router.refresh();
     } catch {
       toast.error("Something went wrong");
@@ -58,9 +56,9 @@ export function AccountForm({ user }: AccountFormProps) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <p className="large">Please Enter your Account Details</p>
+            <p className="large">Connecting with mentees</p>
             <p className="muted">
-              You can enter the details. Please refer
+              You can connect with mentees using Zoom
               <Link href="/" className="text-blue-400 underline ">
                 (Learn more)
               </Link>
@@ -96,13 +94,13 @@ export function AccountForm({ user }: AccountFormProps) {
 
           <FormField
             control={form.control}
-            name="portfolioWebsite"
+            name="zoomLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Personal Website</FormLabel>
+                <FormLabel>Zoom</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Your website goes here.."
+                    placeholder="Your zoom goes here"
                     {...field}
                     className="w-full p-regular-16 bg-gray-50 px-4 py-3 placeholder:text-gray-500 focus-visible:ring-transparent focus-visible:ring-offset-0"
                   />
@@ -111,11 +109,7 @@ export function AccountForm({ user }: AccountFormProps) {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="rounded-full"
-            disabled={!isValid || isSubmitting || !isDirty}
-          >
+          <Button type="submit" className="rounded-full">
             Save
           </Button>
         </form>

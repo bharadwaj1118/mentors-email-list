@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -18,6 +19,9 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 
+import { updateUser } from "@/lib/actions/user.action";
+import router from "next/router";
+
 const appearanceFormSchema = z.object({
   duration: z.enum(["15", "30", "45", "60"], {
     invalid_type_error: "Select a duration",
@@ -27,18 +31,29 @@ const appearanceFormSchema = z.object({
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<AppearanceFormValues> = {};
+interface AppearanceFormProps {
+  user: string;
+}
 
-export function AppearanceForm() {
+export function AppearanceForm({ user }: AppearanceFormProps) {
+  const router = useRouter();
+
+  const parsedUser = JSON.parse(user);
+  const { duration: initialDuration } = parsedUser;
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues,
+    defaultValues: {
+      duration: initialDuration || "30",
+    },
   });
 
-  function onSubmit(data: AppearanceFormValues) {
+  const { isSubmitting, isValid, isDirty } = form.formState;
+
+  async function onSubmit(data: AppearanceFormValues) {
+    await updateUser({ ...data, id: parsedUser.id });
     console.log(data);
     toast.success("Preferences updated");
+    router.refresh();
   }
 
   return (
@@ -78,7 +93,9 @@ export function AppearanceForm() {
             )}
           />
 
-          <Button type="submit">Update Duration</Button>
+          <Button type="submit" disabled={!isValid || isSubmitting || !isDirty}>
+            Update Duration
+          </Button>
         </form>
       </Form>
     </div>

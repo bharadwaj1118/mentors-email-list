@@ -22,6 +22,27 @@ export async function getSelf() {
   }
 }
 
+export async function getSelfWithEvents() {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    const user = await db.user.findUnique({
+      where: {
+        clerkId: userId,
+      },
+      include: {
+        events: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("GET_SELF_ERROR, " + error);
+  }
+}
+
 export async function getUserByclerkId(userId: string) {
   try {
     const user = await db.user.findUnique({

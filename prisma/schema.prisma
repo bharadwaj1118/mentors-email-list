@@ -19,44 +19,45 @@ enum Role {
 }
 
 model User {
-  id String @id @default(uuid())
-  username String @unique
-  email String @unique
-  imageUrl String @db.Text
-  clerkId String @unique
-  bio String? @db.Text
-  shortBio String? @db.Text
+  id               String  @id @default(uuid())
+  username         String  @unique
+  email            String  @unique
+  imageUrl         String  @db.Text
+  clerkId          String  @unique
+  bio              String? @db.Text
+  shortBio         String? @db.Text
   portfolioWebsite String? @db.Text
-  position String?
-  organization String?
-  city String?
-  country Json?
-  role Role? @default(MENTOR)
-  languages Json?
-  expertise Json?
-  toolkit Json?
-  industries Json?
-  duration String?
-  price String?
+  position         String?
+  organization     String?
+  city             String?
+  country          Json?
+  role             Role?   @default(MENTOR)
+  languages        Json?
+  expertise        Json?
+  toolkit          Json?
+  industries       Json?
+  duration         String?
+  price            Float?
+  maxSessions      Int?
+  zoomLink         String?
 
-  events Event[]
-  sessionsGiven Session[] @relation("sessionsGiven")
+  events           Event[]
+  sessionsGiven    Session[] @relation("sessionsGiven")
   sessionsReceived Session[] @relation("sessionsReceived")
 
-  joinedAt DateTime @default(now())
+  joinedAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-
 model Event {
-  id String @id @default(uuid())
+  id    String   @id @default(uuid())
   title String
   start DateTime
-  end DateTime
+  end   DateTime
 
   userId String
-  user   User    @relation(fields: [userId], references: [id])
-  
+  user   User   @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -64,7 +65,6 @@ model Event {
 
   @@index([userId])
 }
-
 
 enum SessionStatus {
   AVAILABLE
@@ -76,35 +76,29 @@ enum SessionStatus {
 }
 
 model Session {
-  id String @id @default(uuid())
-  objective String? @db.Text
+  id          String  @id @default(uuid())
+  objective   String? @db.Text
   description String? @db.Text
-  outcome String? @db.Text
-  duration String?
-  category String?
-  price String?
+  outcome     String? @db.Text
+  duration    String?
+  category    String?
+  price       Float?
 
   mentorId String
-  mentor User @relation("sessionsGiven", fields: [mentorId], references: [id])
+  mentor   User   @relation("sessionsGiven", fields: [mentorId], references: [id])
 
   menteeId String?
-  mentee User? @relation("sessionsReceived", fields: [menteeId], references: [id])
+  mentee   User?   @relation("sessionsReceived", fields: [menteeId], references: [id])
 
   eventId String
-  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   start DateTime
-  end DateTime
+  end   DateTime
 
-  status SessionStatus? @default(AVAILABLE)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status    SessionStatus? @default(AVAILABLE)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 
   @@index([mentorId])
 }
-
-
-
-
-
-

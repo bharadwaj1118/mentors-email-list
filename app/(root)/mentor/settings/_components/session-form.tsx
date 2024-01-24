@@ -3,19 +3,23 @@ import { PriceForm } from "./price-form";
 import { WeeklySessionForm } from "./weekly-sessions-form";
 import { AppearanceForm } from "./duration-form";
 
-const SessionForm = () => {
+interface SessionFormProps {
+  user: string;
+}
+
+const SessionForm = ({ user }: SessionFormProps) => {
   return (
     <>
       <div className="w-full md:w-3/4">
-        <PriceForm />
+        <PriceForm user={user} />
       </div>
 
       <div className="w-full md:w-3/4">
-        <WeeklySessionForm />
+        <WeeklySessionForm user={user} />
       </div>
 
       <div className="w-full md:w-3/4">
-        <AppearanceForm />
+        <AppearanceForm user={user} />
       </div>
     </>
   );

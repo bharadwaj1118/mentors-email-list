@@ -1,17 +1,18 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, Bell, Video, LayoutList, Calendar } from "lucide-react";
-import { getSelf } from "@/lib/actions/user.action";
+import { getSelf, getSelfWithEvents } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
 import AvailabilityForm from "./_components/availability-form";
 import { DisplayForm } from "./_components/notification-form";
 import SessionForm from "./_components/session-form";
-import CalandarForm from "./_components/calandar-form";
-import AccountForm from "./_components/account-form";
+import { CalandarForm } from "./_components/calandar-form";
+import { AccountForm } from "./_components/account-form";
+import { db } from "@/lib/db";
 
 const SettingsPage = async () => {
-  const user = await getSelf();
+  const user = await getSelfWithEvents();
   if (!user) return redirect("/login");
 
   return (
@@ -41,19 +42,19 @@ const SettingsPage = async () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="sessions">
-            <SessionForm />
+            <SessionForm user={JSON.stringify(user)} />
           </TabsContent>
           <TabsContent value="availablity">
-            <AvailabilityForm />
+            <AvailabilityForm user={JSON.stringify(user)} />
           </TabsContent>
           <TabsContent value="account">
-            <AccountForm />
+            <AccountForm user={JSON.stringify(user)} />
           </TabsContent>
           <TabsContent value="notifications">
             <DisplayForm />
           </TabsContent>
           <TabsContent value="calandar">
-            <CalandarForm />
+            <CalandarForm user={JSON.stringify(user)} />
           </TabsContent>
         </Tabs>
       </section>

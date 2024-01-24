@@ -20,18 +20,19 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";
+import { updateUser } from "@/lib/actions/user.action";
 
 interface WeeklySessionFormProps {
-  initialData: string;
-  courseId: string;
+  user: string;
 }
 
 const formSchema = z.object({
-  price: z.coerce.number(),
+  maxSessions: z.coerce.number(),
 });
 
-export const WeeklySessionForm = () => {
-  const initialData = { price: 25 };
+export const WeeklySessionForm = ({ user }: WeeklySessionFormProps) => {
+  const parsedUser = JSON.parse(user);
+  const { maxSessions: initialSessions } = parsedUser;
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -41,7 +42,7 @@ export const WeeklySessionForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      price: undefined,
+      maxSessions: initialSessions || undefined,
     },
   });
 
@@ -49,10 +50,10 @@ export const WeeklySessionForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
-      toast.success("Course updated");
+      await updateUser({ ...values, id: parsedUser.id });
+      toast.success("Max Sessions updated");
       toggleEdit();
-      //   router.refresh();
+      router.refresh();
     } catch {
       toast.error("Something went wrong");
     }
@@ -77,10 +78,10 @@ export const WeeklySessionForm = () => {
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.price && "text-slate-500 italic"
+            !initialSessions && "text-slate-500 italic"
           )}
         >
-          {initialData.price ? initialData.price : "20"}
+          {initialSessions !== 0 ? initialSessions : "No max sessions"}
         </p>
       )}
       {isEditing && (
@@ -91,7 +92,7 @@ export const WeeklySessionForm = () => {
           >
             <FormField
               control={form.control}
-              name="price"
+              name="maxSessions"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
