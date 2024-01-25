@@ -1,4 +1,4 @@
-export default function Recruitment() {
+export default function HealthValues() {
   return (
     <section className="relative">
       {/* Blurred shape */}
@@ -35,11 +35,6 @@ export default function Recruitment() {
             <h2 className="h2 bg-clip-text  bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
               Our Health Pillars
             </h2>
-            <p className="text-lg text-gray-600 mt-3">
-              [TBD]We are makers at heart. Problem solvers and storytellers. We
-              are a diverse team of individuals who build things to make our
-              customers happy.
-            </p>
           </div>
 
           {/* Icons with text */}
