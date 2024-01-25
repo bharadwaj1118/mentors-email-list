@@ -1,5 +1,6 @@
 import Intro from "./intro";
 import LogoStory from "./logo-story";
+import Recruitment from "./our-values";
 import Story from "./story";
 import CoreValues from "./values";
 
@@ -15,6 +16,7 @@ export default function About() {
       <Story />
       <CoreValues />
       <LogoStory />
+      <Recruitment />
     </>
   );
 }
