@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import { Separator } from "../ui/separator";
 
 export default function PricingTables() {
   const [annual, setAnnual] = useState<boolean>(true);
@@ -11,15 +12,17 @@ export default function PricingTables() {
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12">
+            <h3 className="h3 mb-4">Plans & pricing</h3>
+            <Separator className="mb-3" />
             <h1 className="h1 mb-4" data-aos="zoom-y-out">
-              Pay as you grow. Switch at any time.
+              Continue growing your career
             </h1>
             <p
               className="text-xl text-gray-600"
               data-aos="zoom-y-out"
               data-aos-delay="150"
             >
-              Our pricing is simple, transparent, and fair.
+              Our plans are simple, transparent, and fair. Switch at any time.
             </p>
           </div>
 
@@ -37,14 +40,14 @@ export default function PricingTables() {
                   aria-hidden="true"
                 >
                   <span
-                    className={`absolute inset-0 w-1/2 bg-white rounded shadow transform transition duration-150 ease-in-out ${
-                      annual ? 'translate-x-0' : 'translate-x-full'
+                    className={`absolute inset-0 w-1/2 bg-white rounded shadow transition duration-150 ease-in-out${
+                      annual ? "translate-x-0" : "translate-x-full"
                     }`}
                   ></span>
                 </span>
                 <button
                   className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${
-                    !annual && 'text-gray-500'
+                    !annual && "text-gray-500"
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
@@ -55,7 +58,7 @@ export default function PricingTables() {
                 </button>
                 <button
                   className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${
-                    annual && 'text-gray-500'
+                    annual && "text-gray-500"
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
@@ -90,12 +93,12 @@ export default function PricingTables() {
                   <div className="inline-flex items-baseline mb-2">
                     <span className="text-3xl font-bold">$</span>
                     <span className="text-4xl font-bold">
-                      {annual ? '31' : '39'}
+                      {annual ? "31" : "39"}
                     </span>
                     <span className="text-gray-600 pl-2">/month</span>
                   </div>
                   <div className="text-lg text-gray-800">
-                    For larger teams that need to create, and collaborate.
+                    For those exploring the mentorship world
                   </div>
                 </div>
                 <ul className="text-gray-600 -mb-2 grow">
@@ -137,7 +140,7 @@ export default function PricingTables() {
                     >
                       <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
                     </svg>
-                    <span>Slack community</span>
+                    <span>Dedicated support</span>
                   </li>
                 </ul>
                 <div className="border-t border-gray-200 pt-5 mt-6">
@@ -170,7 +173,7 @@ export default function PricingTables() {
                   <div className="inline-flex items-baseline mb-2">
                     <span className="text-3xl font-bold">$</span>
                     <span className="text-4xl font-bold">
-                      {annual ? '49' : '59'}
+                      {annual ? "49" : "59"}
                     </span>
                     <span className="text-gray-600 pl-2">/month</span>
                   </div>
@@ -217,7 +220,9 @@ export default function PricingTables() {
                     >
                       <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
                     </svg>
-                    <span>Dedicated support</span>
+                    <span>
+                      Access to deals on tools that help your CX career
+                    </span>
                   </li>
                 </ul>
                 <div className="border-t border-gray-200 pt-5 mt-6">
@@ -237,16 +242,16 @@ export default function PricingTables() {
                 data-aos-delay="450"
               >
                 <div className="mb-4">
-                  <div className="text-lg font-bold mb-1">Sun</div>
+                  <div className="text-lg font-bold mb-1">Sun(coming soon)</div>
                   <div className="inline-flex items-baseline mb-2">
                     <span className="text-3xl font-bold">$</span>
                     <span className="text-4xl font-bold">
-                      {annual ? '79' : '99'}
+                      {annual ? "159" : "199"}
                     </span>
                     <span className="text-gray-600 pl-2">/month</span>
                   </div>
                   <div className="text-lg text-gray-800">
-                    For larger teams that need to create, and collaborate.
+                    For teams that want to grow & develop together
                   </div>
                 </div>
                 <ul className="text-gray-600 -mb-2 grow">
@@ -258,7 +263,7 @@ export default function PricingTables() {
                     >
                       <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
                     </svg>
-                    <span>Everything in Moon plus</span>
+                    <span>Everything in Moon</span>
                   </li>
                   <li className="flex items-center mb-2">
                     <svg
@@ -268,11 +273,9 @@ export default function PricingTables() {
                     >
                       <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
                     </svg>
-                    <span>
-                      Access to deals on tools that help your CX career
-                    </span>
+                    <span>5 seats (+$39/additional user)</span>
                   </li>
-                  <li className="flex items-center mb-2 invisible">
+                  <li className="flex items-center mb-2 ">
                     <svg
                       className="w-3 h-3 fill-current text-green-500 mr-3 shrink-0"
                       viewBox="0 0 12 12"
@@ -280,7 +283,7 @@ export default function PricingTables() {
                     >
                       <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
                     </svg>
-                    <span></span>
+                    <span>Transferable seats</span>
                   </li>
                   <li className="flex items-center mb-2 invisible">
                     <svg
