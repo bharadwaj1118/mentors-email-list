@@ -94,15 +94,6 @@ export default function MobileMenu() {
             </li>
             <li>
               <Link
-                href="/tutorials"
-                className="flex text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                Tutorials
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/blog"
                 className="flex text-gray-600 hover:text-gray-900 py-2"
                 onClick={() => setMobileNavOpen(false)}
@@ -110,7 +101,16 @@ export default function MobileMenu() {
                 Blog
               </Link>
             </li>
-            <li className="py-2 my-2 border-y border-gray-200">
+            <li>
+              <Link
+                href="/support"
+                className="flex text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                Support center
+              </Link>
+            </li>
+            {/* <li className="py-2 my-2 border-y border-gray-200">
               <span
                 className="flex text-gray-600 hover:text-gray-900 py-2"
                 onClick={() => setMobileNavOpen(false)}
@@ -137,6 +137,16 @@ export default function MobileMenu() {
                   </Link>
                 </li>
               </ul>
+            </li> */}
+
+            <li>
+              <Link
+                href="/subscribe"
+                className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                <span>Search Mentors</span>
+              </Link>
             </li>
             <li>
               <Link
@@ -150,15 +160,6 @@ export default function MobileMenu() {
                 >
                   Sign In
                 </Button>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/sign-up"
-                className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                <span>Sign up</span>
               </Link>
             </li>
           </ul>
