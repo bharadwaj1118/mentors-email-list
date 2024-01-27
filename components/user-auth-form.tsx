@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectTrigger,
@@ -13,12 +13,12 @@ import {
   SelectGroup,
   SelectLabel,
   SelectItem,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
-import * as z from 'zod';
-import { useForm, SubmitHandler, FormState } from 'react-hook-form';
-import { formUserSchema } from '@/lib/schemas';
-import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from "zod";
+import { useForm, SubmitHandler, FormState } from "react-hook-form";
+import { formUserSchema } from "@/lib/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormField,
@@ -27,9 +27,12 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import { addSubscribeUser } from "@/lib/actions/subscribe.action";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -38,7 +41,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const form = useForm<z.infer<typeof formUserSchema>>({
     resolver: zodResolver(formUserSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
 
@@ -49,23 +52,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formUserSchema>) {
     try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      console.log(values);
+      const result = await addSubscribeUser(values.email, values.role);
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (!result) {
+        toast.error("Something went wrong. Please try again.");
+      } else {
+        toast.success("You have been added to the waitlist!");
+        router.push("/");
       }
-
-      const data = await response.json();
-      console.log(data);
-      router.push('/sign-up/success');
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
+      toast.error("Something went wrong. Please try again.");
     }
   }
 
