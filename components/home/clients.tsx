@@ -5,6 +5,7 @@ import TestimonialImage03 from "@/public/images/testimonial-03.jpg";
 import TestimonialImage04 from "@/public/images/testimonial-04.jpg";
 import TestimonialImage05 from "@/public/images/testimonial-05.jpg";
 import TestimonialImage06 from "@/public/images/testimonial-06.jpg";
+import Link from "next/link";
 
 export default function Clients() {
   return (
@@ -253,12 +254,14 @@ export default function Clients() {
           </div>
           {/* See All Customers */}
           <div className="text-center">
-            <button className="btn group bg-blue-600 text-white hover:bg-blue-700">
-              Get started{" "}
-              <span className="ml-3 text-xl tracking-normal text-white transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
-                &gt;
-              </span>
-            </button>
+            <Link href="/subscribe">
+              <button className="btn group bg-blue-600 text-white hover:bg-blue-700">
+                Get started{" "}
+                <span className="ml-3 text-xl tracking-normal text-white transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
+                  &gt;
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
