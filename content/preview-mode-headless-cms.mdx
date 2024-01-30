@@ -2,16 +2,15 @@
 title: Preview Mode for Headless CMS
 description: How to implement preview mode in your headless CMS.
 date: "2023-04-09"
-image: /images/blog/blog-post-1.jpg
+image: "/images/blog-post-1.jpg"
+publishedAt: "2020-07-09"
+summary: "In this post, you will learn how to deploy a blog using Simple custom asset source plugin that uses the webcam to insert a photo in the image field."
+author: "Lisa Allison"
+authorImg: "/images/news-author-01.jpg"
+
 authors:
   - shadcn
 ---
-
-<Callout>
-  The text below is from the [Tailwind
-  CSS](https://play.tailwindcss.com/uj1vGACRJA?layout=preview) docs. I copied it
-  here to test the markdown styles. **Tailwind is awesome. You should use it.**
-</Callout>
 
 Until now, trying to style an article, document, or blog post with Tailwind has been a tedious task that required a keen eye for typography and a lot of complex custom CSS.
 
@@ -68,12 +67,7 @@ Something a wise person once told me about typography is:
 
 It's probably important that images look okay here by default as well:
 
-<Image
-  src="/images/blog/blog-post-4.jpg"
-  width="718"
-  height="404"
-  alt="Image"
-/>
+<Image src="/images/blog-post-4.jpg" width="718" height="404" alt="Image" />
 
 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
 
@@ -125,7 +119,7 @@ module.exports = {
   },
   variants: {},
   plugins: [],
-}
+};
 ```
 
 Hopefully that looks good enough to you.

@@ -1,39 +1,76 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import PostDate from '@/components/post-date'
+import Image from "next/image";
+import Link from "next/link";
+import { allPosts } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
 
-export default function PostItem({ ...props }) {
+export function formatDate(input: string | number): string {
+  const date = new Date(input);
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export const metadata = {
+  title: "Blog",
+};
+
+export default async function PostItem() {
+  const posts = allPosts
+    .filter((post) => post.publishedAt)
+    .sort((a, b) => {
+      return compareDesc(new Date(a.publishedAt), new Date(b.publishedAt));
+    });
+
   return (
-    <article className="flex items-center py-4 border-b border-gray-200">
-      <div>
-        <header>
-          <h2 className="h4 mb-2">
-            <Link href={`/blog/${props.slug}`} className="hover:underline">{props.title}</Link>
-          </h2>
-        </header>
-        <div className="text-lg text-gray-600 mb-4">{props.summary}</div>
-        <footer className="text-sm">
-          <div className="flex items-center">
-            <div className="flex shrink-0 mr-3">
-              <a className="relative" href="#0">
-                <span className="absolute inset-0 -m-px" aria-hidden="true"><span className="absolute inset-0 -m-px bg-white rounded-full"></span></span>
-                <Image className="relative rounded-full" src={props.authorImg} width={32} height={32} alt={props.author} />
-              </a>
-            </div>
-            <div>
-              <span className="text-gray-600">By </span>
-              <a className="font-medium hover:underline" href="#0">{props.author}</a>
-              <span className="text-gray-600"> · <PostDate dateString={props.publishedAt} /></span>
-            </div>
-          </div>
-        </footer>
+    <div className="container max-w-4xl py-6 lg:py-10">
+      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
+        <div className="flex-1 space-y-4">
+          <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
+            Blog
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            A blog built using Contentlayer. Posts are written in MDX.
+          </p>
+        </div>
       </div>
-      <Link href={`/blog/${props.slug}`} className="block shrink-0 ml-6">
-        <span className="sr-only">Read more</span>
-        <svg className="w-4 h-4 fill-current text-blue-600" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.3 14.7l-1.4-1.4L12.2 9H0V7h12.2L7.9 2.7l1.4-1.4L16 8z" />
-        </svg>
-      </Link>
-    </article>
-  )
+      <hr className="my-8" />
+      {posts?.length ? (
+        <div className="grid gap-10 sm:grid-cols-2">
+          {posts.map((post, index) => (
+            <article
+              key={post._id}
+              className="group relative flex flex-col space-y-2"
+            >
+              {post.authorImg && (
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={804}
+                  height={452}
+                  className="rounded-md border bg-muted transition-colors"
+                  priority={index <= 1}
+                />
+              )}
+              <h2 className="text-2xl font-extrabold">{post.title}</h2>
+              {post.summary && (
+                <p className="text-muted-foreground">{post.summary}</p>
+              )}
+              {post.publishedAt && (
+                <p className="text-sm text-muted-foreground">
+                  {formatDate(post.publishedAt)}
+                </p>
+              )}
+              <Link href={`/blog/${post.slug}`} className="absolute inset-0">
+                <span className="sr-only">View Article</span>
+              </Link>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>No posts published.</p>
+      )}
+    </div>
+  );
 }

@@ -17,23 +17,23 @@ export default function Blog() {
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+        <div className="pt-20 pb-3 md:pt-24 md:pb-6">
           {/* Page header */}
-          <div className="max-w-3xl pb-12 md:pb-20 text-center md:text-left">
+          {/* <div className="max-w-3xl pb-4 md:pb-4 text-center md:text-left">
             <h1 className="h1 mb-4">Type the way you talk</h1>
             <p className="text-xl text-gray-600">
               Stay up to date on the latest from Simple and best news from the
               Dev world.
             </p>
-          </div>
+          </div> */}
+
+          {/* <h1 className="h2 mb-4">Type the way you talk</h1> */}
 
           {/* Main content */}
           <div className="md:flex md:justify-between">
             {/* Articles container */}
             <div className="md:grow -mt-4">
-              {allPosts.map((post, postIndex) => (
-                <PostItem key={postIndex} {...post} />
-              ))}
+              <PostItem />
             </div>
 
             {/* Sidebar */}
