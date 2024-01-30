@@ -18,8 +18,10 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
   "include": [
@@ -27,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(root)/mentor/profile/_components/profile-basic-form.tsx"
+    "app/(root)/mentor/profile/_components/profile-basic-form.tsx",
+    ".contentlayer/generated"
   ],
   "exclude": ["node_modules"]
 }

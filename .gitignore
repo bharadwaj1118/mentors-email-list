@@ -37,3 +37,6 @@ yarn-error.log*
 next-env.d.ts
 lib/seed/*.js
 lib/seed/*.ts
+
+#contentlayer
+.contentlayer
