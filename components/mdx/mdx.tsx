@@ -6,6 +6,8 @@ import { cn } from "@nextui-org/react";
 import { MdxCard } from "@/components/mdx/mdx-card";
 
 import React from "react";
+import { Button } from "@/components/ui/button";
+import { MdxButton } from "./button";
 
 const mdxComponents = {
   Link: PostLink,
@@ -113,6 +115,7 @@ const mdxComponents = {
   //   />
   // ),
   Card: MdxCard,
+  Button: MdxButton,
 };
 
 interface MdxProps {
