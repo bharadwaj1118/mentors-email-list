@@ -28,6 +28,7 @@ import CtaHome from "@/components/home/cta-home";
 import HeroHome from "@/components/home/HeroHome";
 import FeaturesHome from "@/components/home/features-main";
 import Companies from "@/components/home/companies";
+import News from "./news";
 
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -69,6 +70,8 @@ export default async function IndexPage() {
       <Clients />
 
       <Customers />
+
+      <News />
 
       <Faqs />
 
