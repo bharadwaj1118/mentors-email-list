@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Logo from './logo';
-import Image from 'next/image';
+import Link from "next/link";
+import Logo from "./logo";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -11,8 +11,8 @@ export default function Footer() {
           {/* 1st block */}
           <div className="sm:col-span-12 lg:col-span-3">
             <div className="mb-2">
-              <Link href="/" className="hidden items-center space-x-1 md:flex ">
-                <span className="hidden font-bold sm:inline-block text-sm">
+              <Link href="/" className="items-center space-x-1 flex ">
+                <span className="font-bold sm:inline-block text-sm">
                   Mentors
                 </span>
                 <Image
@@ -24,14 +24,19 @@ export default function Footer() {
                 />
               </Link>
             </div>
+
+            <div className="text-sm text-muted-foreground mb-2">
+              Your gateway to a CX community that thrives on learning and
+              growth.
+            </div>
             <div className="text-sm text-gray-600">
               <a
                 href="#0"
                 className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
               >
                 Terms
-              </a>{' '}
-              ·{' '}
+              </a>{" "}
+              ·{" "}
               <a
                 href="#0"
                 className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
@@ -43,74 +48,11 @@ export default function Footer() {
 
           {/* 2nd block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h6 className="text-gray-800 font-medium mb-2">Products</h6>
-            <ul className="text-sm">
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Web Studio
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  DynamicBox Flex
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Programming Forms
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Integrations
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Command-line
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* 3rd block */}
-          <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-gray-800 font-medium mb-2">Resources</h6>
             <ul className="text-sm">
               <li className="mb-2">
                 <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Documentation
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Tutorials & Guides
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
+                  href="/blog"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   Blog
@@ -118,7 +60,7 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a
-                  href="#0"
+                  href="/support"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   Support Center
@@ -126,30 +68,38 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a
-                  href="#0"
+                  href="/terms"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Partners
+                  Terms & Conditions
+                </a>
+              </li>
+              <li className="mb-2">
+                <a
+                  href="/privacy"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li className="mb-2">
+                <a
+                  href="/community"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                >
+                  Community
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* 4th block */}
+          {/* 3rd block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-gray-800 font-medium mb-2">Company</h6>
             <ul className="text-sm">
               <li className="mb-2">
                 <a
-                  href="#0"
-                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Home
-                </a>
-              </li>
-              <li className="mb-2">
-                <a
-                  href="#0"
+                  href="/about"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   About us
@@ -157,15 +107,23 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a
-                  href="#0"
+                  href="/about/#core-values"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Company values
+                  Core Values
                 </a>
               </li>
               <li className="mb-2">
                 <a
-                  href="#0"
+                  href="/about#health-pillars"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                >
+                  Health Pillars
+                </a>
+              </li>
+              <li className="mb-2">
+                <a
+                  href="/pricing"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   Pricing
@@ -176,13 +134,21 @@ export default function Footer() {
                   href="#0"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
-                  Privacy Policy
+                  Become a mentor
+                </a>
+              </li>
+              <li className="mb-2">
+                <a
+                  href="#0"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
+                >
+                  Guest Blogging
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* 5th block */}
+          {/* 4th block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-3">
             <h6 className="text-gray-800 font-medium mb-2">Subscribe</h6>
             <p className="text-sm text-gray-600 mb-4">

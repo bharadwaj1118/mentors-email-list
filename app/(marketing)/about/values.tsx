@@ -1,7 +1,7 @@
 export default function CoreValues() {
   return (
-    <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 ">
+    <section id="core-values">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-12 md:py-16 border-t border-gray-200">
           <h3 className="h3 mb-3 text-center">Our core values</h3>
           {/* Items */}

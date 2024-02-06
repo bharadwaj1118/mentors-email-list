@@ -1,6 +1,6 @@
 export default function HealthValues() {
   return (
-    <section className="relative">
+    <section className="relative" id="health-pillars">
       {/* Blurred shape */}
       <div
         className="absolute top-0 -translate-y-1/3 left-1/2 -translate-x-1/2 ml-24 blur-2xl opacity-50 pointer-events-none -z-10"
