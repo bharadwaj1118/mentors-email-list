@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Support - Simple',
-  description: 'Page description',
+  title: "Support - Simple",
+  description: "Page description",
 };
 
 export default function Support() {
@@ -12,9 +12,7 @@ export default function Support() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Section header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-              <h1 className="h1">
-                Have a question about Simple? Contact us directly
-              </h1>
+              <h1 className="h1">Need help? Don’t hesitate to reach out! </h1>
             </div>
 
             {/* Contact form */}
@@ -111,11 +109,11 @@ export default function Support() {
               <div className="text-sm text-gray-600 mt-4">
                 By clicking send you consent to allow Simple to store and
                 process the personal information submitted above and agree to
-                our{' '}
+                our{" "}
                 <a className="underline" href="#0">
                   terms and conditions
-                </a>{' '}
-                as well as our{' '}
+                </a>{" "}
+                as well as our{" "}
                 <a className="underline" href="#0">
                   Privacy Policy
                 </a>
