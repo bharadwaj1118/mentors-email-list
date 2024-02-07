@@ -14,7 +14,7 @@ export default function Clients() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="mx-auto max-w-3xl pb-12 text-center md:pb-20">
-            <h2 className="h2 font-playfair-display text-slate-800">
+            <h2 className="h2 text-slate-800">
               Get guidance from CX leaders with hands-on experience in
               forward-thinking brands.
             </h2>

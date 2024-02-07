@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import NewsImage01 from "@/public/images/blog-post-1.jpg";
-import NewsImage02 from "@/public/images/blog-post-2.jpg";
-import NewsImage03 from "@/public/images/blog-post-3.jpg";
-import NewsAuthor01 from "@/public/images/news-author-01.jpg";
-import NewsAuthor02 from "@/public/images/news-author-02.jpg";
+import NewsAuthor from "@/public/mentors-cx.png";
+import NewsImage1 from "@/public/images/blog-post-1.jpg";
+import NewsImage2 from "@/public/images/blog-post-2.jpg";
+import NewsImage3 from "@/public/images/blog-post-3.jpg";
 
 export default function News() {
   return (
@@ -13,7 +12,9 @@ export default function News() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2">The best of blogs to know more </h2>
+            <h2 className="h2">
+              The best of blogs to know more about Mentors CX{" "}
+            </h2>
           </div>
 
           {/* Articles list */}
@@ -26,7 +27,7 @@ export default function News() {
                     <figure className="relative h-full overflow-hidden rounded">
                       <Image
                         className="w-full h-full object-cover scale-105 hover:-translate-y-1 transition duration-700 ease-out"
-                        src={NewsImage01}
+                        src={NewsImage1}
                         width={352}
                         height={198}
                         alt="News 01"
@@ -40,10 +41,10 @@ export default function News() {
                           className="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-blue-500 hover:bg-blue-600 transition duration-150 ease-in-out"
                           href="#0"
                         >
-                          Case studies
+                          Tips & tricks - mentoring
                         </a>
                       </li>
-                      <li className="m-1">
+                      <li className="m-1 hidden">
                         <a
                           className="inline-flex text-center text-gray-800 py-1 px-3 rounded-full bg-white hover:bg-gray-100 shadow-sm transition duration-150 ease-in-out"
                           href="#0"
@@ -55,8 +56,7 @@ export default function News() {
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
                     <a href="#0" className="hover:underline">
-                      “How HubSpot saved 25% on developing costs by switching to
-                      Simple.”
+                      “Actionable tips to master the art of online mentoring”
                     </a>
                   </h3>
                 </header>
@@ -70,8 +70,8 @@ export default function News() {
                         <span className="absolute inset-0 -m-px bg-white rounded-full"></span>
                       </span>
                       <Image
-                        className="relative rounded-full"
-                        src={NewsAuthor01}
+                        className="relative rounded-full bg-white"
+                        src={NewsAuthor}
                         width="32"
                         height="32"
                         alt="Author 01"
@@ -81,7 +81,7 @@ export default function News() {
                   <div>
                     <span className="text-gray-600">By </span>
                     <a className="font-medium hover:underline" href="#0">
-                      Lisa Allison
+                      Mentors CX
                     </a>
                   </div>
                 </footer>
@@ -98,7 +98,7 @@ export default function News() {
                     <figure className="relative overflow-hidden  rounded">
                       <Image
                         className=" w-full h-full object-cover scale-105  hover:-translate-y-1 transition duration-700 ease-out"
-                        src={NewsImage02}
+                        src={NewsImage2}
                         width={352}
                         height={198}
                         alt="News 02"
@@ -112,10 +112,10 @@ export default function News() {
                           className="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-blue-500 hover:bg-blue-600 transition duration-150 ease-in-out"
                           href="#0"
                         >
-                          Case studies
+                          Revenue ops
                         </a>
                       </li>
-                      <li className="m-1">
+                      <li className="m-1 hidden">
                         <a
                           className="inline-flex text-center text-gray-800 py-1 px-3 rounded-full bg-white hover:bg-gray-100 shadow-sm transition duration-150 ease-in-out"
                           href="#0"
@@ -127,8 +127,7 @@ export default function News() {
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
                     <a href="#0" className="hover:underline">
-                      “How Facebook brought 13% cost savings to their bottom
-                      line with Simple’s products.”
+                      “Maximizing revenue: the power of customer experience”
                     </a>
                   </h3>
                 </header>
@@ -143,7 +142,7 @@ export default function News() {
                       </span>
                       <Image
                         className="relative rounded-full"
-                        src={NewsAuthor02}
+                        src={NewsAuthor}
                         width="32"
                         height="32"
                         alt="Author 03"
@@ -153,7 +152,7 @@ export default function News() {
                   <div>
                     <span className="text-gray-600">By </span>
                     <a className="font-medium hover:underline" href="#0">
-                      Knut Mayer
+                      Mentors CX
                     </a>
                   </div>
                 </footer>
@@ -170,7 +169,7 @@ export default function News() {
                     <figure className=" overflow-hidden  rounded">
                       <Image
                         className=" w-full h-full object-cover scale-105  hover:-translate-y-1 transition duration-700 ease-out"
-                        src={NewsImage03}
+                        src={NewsImage3}
                         width={352}
                         height={198}
                         alt="News 03"
@@ -184,10 +183,10 @@ export default function News() {
                           className="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-blue-500 hover:bg-blue-600 transition duration-150 ease-in-out"
                           href="#0"
                         >
-                          Case studies
+                          Tips & tricks - mentoring
                         </a>
                       </li>
-                      <li className="m-1">
+                      <li className="m-1 hidden">
                         <a
                           className="inline-flex text-center text-gray-800 py-1 px-3 rounded-full bg-white hover:bg-gray-100 shadow-sm transition duration-150 ease-in-out"
                           href="#0"
@@ -199,8 +198,8 @@ export default function News() {
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
                     <a href="#0" className="hover:underline">
-                      “How Tinder grew 115% and saved 120 Hours each week by
-                      outsourcing to Simple.”
+                      “Turning Customers into Clients: Building Loyalty and
+                      Repeat Business”
                     </a>
                   </h3>
                 </header>
@@ -215,7 +214,7 @@ export default function News() {
                       </span>
                       <Image
                         className="relative rounded-full"
-                        src={NewsAuthor01}
+                        src={NewsAuthor}
                         width="32"
                         height="32"
                         alt="Author 01"
@@ -225,7 +224,7 @@ export default function News() {
                   <div>
                     <span className="text-gray-600">By </span>
                     <a className="font-medium hover:underline" href="#0">
-                      Lisa Allison
+                      Mentors CX
                     </a>
                   </div>
                 </footer>

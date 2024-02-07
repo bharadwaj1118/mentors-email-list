@@ -47,7 +47,7 @@ export default function Companies() {
           <div className="overflow-hidden">
             {/* Carousel built with Swiper.js [https://swiperjs.com/] */}
             {/* * Custom styles in src/css/additional-styles/theme.scss */}
-            <div className="clients-carousel swiper-container relative before:absolute before:inset-0 before:w-32 before:z-10 before:pointer-events-none before:bg-gradient-to-r before:from-blue-900 after:absolute after:inset-0 after:left-auto after:w-32 after:z-10 after:pointer-events-none after:bg-gradient-to-l after:from-blue-900">
+            <div className="clients-carousel swiper-container relative before:absolute before:inset-0 before:w-1/2 before:z-10 before:pointer-events-none before:bg-gradient-to-r  after:absolute after:inset-0 after:left-auto after:w-1/2  after:z-10 after:pointer-events-none after:bg-gradient-to-l ">
               <div className="swiper-wrapper !ease-linear select-none items-center">
                 {/* Carousel items */}
                 <div className="swiper-slide !w-auto">
