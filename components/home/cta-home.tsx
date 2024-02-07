@@ -12,9 +12,9 @@ export default function CtaDark() {
               </h2>
 
               <p className="mb-8 text-xl text-slate-400">
-                Join Mentors CX and start{" "}
+                Join Mentors CX and continue{" "}
                 <span className="text-emerald-500">
-                  building your career today
+                  growing your career today.
                 </span>
                 .
               </p>
