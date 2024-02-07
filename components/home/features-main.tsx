@@ -32,7 +32,7 @@ export default function FeaturesHome() {
             <div className="mx-auto grid max-w-sm items-start gap-12 md:max-w-none md:grid-cols-3 md:gap-10">
               {/* 1st article */}
               <article data-aos="fade-up">
-                <a className="group relative mb-4 mt-8 block" href="#0">
+                <div className="group relative mb-4 mt-8 block">
                   <div
                     className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
@@ -58,11 +58,9 @@ export default function FeaturesHome() {
                       />
                     </svg>
                   </div>
-                </a>
-                <h3 className="h4 font-playfair-display mb-2">
-                  <span className="text-white hover:decoration-none">
-                    Expand your network
-                  </span>
+                </div>
+                <h3 className="h4 mb-2">
+                  <span className="text-white">Expand your network</span>
                 </h3>
                 <p className="text-lg text-slate-300">
                   Open the door to collaborative opportunities and lifelong
@@ -72,7 +70,7 @@ export default function FeaturesHome() {
 
               {/* 2nd article */}
               <article data-aos="fade-up" data-aos-delay="100">
-                <a className="group relative mb-4 mt-8 block" href="#0">
+                <div className="group relative mb-4 mt-8 block">
                   <div
                     className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
@@ -98,12 +96,10 @@ export default function FeaturesHome() {
                       />
                     </svg>
                   </div>
-                </a>
-                <h3 className="h4 font-playfair-display mb-2">
-                  <span className="text-white hover:decoration-none">
-                    Get Tailored guidance
-                  </span>
-                </h3>
+                </div>
+                <p className="h4 mb-2">
+                  <span className="text-white ">Get tailored guidance</span>
+                </p>
                 <p className="text-lg text-slate-300">
                   Receive personalized support to overcome challenges and propel
                   your professional journey forward.
@@ -112,7 +108,7 @@ export default function FeaturesHome() {
 
               {/* 3rd article */}
               <article data-aos="fade-up" data-aos-delay="200">
-                <a className="group relative mb-4 mt-8 block" href="#0">
+                <div className="group relative mb-4 mt-8 block">
                   <div
                     className="pointer-events-none absolute inset-0 -z-10 -translate-y-4 translate-x-4 border-2 border-slate-500 opacity-20 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                     aria-hidden="true"
@@ -138,9 +134,9 @@ export default function FeaturesHome() {
                       />
                     </svg>
                   </div>
-                </a>
-                <h3 className="h4 font-playfair-display mb-2">
-                  <span className="text-white hover:decoration-none">
+                </div>
+                <h3 className="h4 mb-2">
+                  <span className="text-white">
                     Career growth & development
                   </span>
                 </h3>
