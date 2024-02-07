@@ -4,15 +4,24 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Particles from "./particles";
 
-import Client01 from "@/public/images/client-01.svg";
-import Client02 from "@/public/images/client-02.svg";
-import Client03 from "@/public/images/client-03.svg";
-import Client04 from "@/public/images/client-04.svg";
-import Client05 from "@/public/images/client-05.svg";
-import Client06 from "@/public/images/client-06.svg";
-import Client07 from "@/public/images/client-07.svg";
-import Client08 from "@/public/images/client-08.svg";
-import Client09 from "@/public/images/client-09.svg";
+import Client01 from "@/public/logos/appcues.svg";
+import Client02 from "@/public/logos/apple.svg";
+import Client03 from "@/public/logos/automattic.svg";
+import Client04 from "@/public/logos/goodEggs.svg";
+import Client05 from "@/public/logos/google.svg";
+import Client06 from "@/public/logos/handshake.svg";
+import Client07 from "@/public/logos/hubspot.svg";
+import Client08 from "@/public/logos/klaus.svg";
+import Client09 from "@/public/logos/loom.svg";
+import Client10 from "@/public/logos/meetup.svg";
+import Client11 from "@/public/logos/partnerhero.svg";
+import Client12 from "@/public/logos/prezzee.svg";
+import Client13 from "@/public/logos/sanaa.svg";
+import Client14 from "@/public/logos/shopify.svg";
+import Client15 from "@/public/logos/trello.svg";
+import Client16 from "@/public/logos/wistia.svg";
+import Client17 from "@/public/logos/zapier.svg";
+import Client18 from "@/public/logos/zf.svg";
 
 import Swiper, { Autoplay } from "swiper";
 import "swiper/swiper.min.css";
@@ -120,6 +129,87 @@ export default function Companies() {
                     className="mt-2"
                     src={Client09}
                     alt="Client 09"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client10}
+                    alt="Client 10"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client11}
+                    alt="Client 11"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client12}
+                    alt="Client 12"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client13}
+                    alt="Client 13"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client14}
+                    alt="Client 14"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client15}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client16}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client17}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client18}
+                    alt="Client 15"
                     width={92}
                     height={28}
                   />

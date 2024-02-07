@@ -41,6 +41,7 @@ export default function Faqs() {
               <Link
                 href="https://forms.gle/XdTkWBYvqpyjFojF8"
                 className="text-blue-400"
+                target="_blank"
               >
                 here
               </Link>
