@@ -44,7 +44,7 @@ const testimonials = [
     title: "Customer Success Manager, PartnerHero",
     description:
       "Favorite hobby: Shopping second-hand: I run a local group for yard sales.",
-    image: "/clients/RaquelPropic.jpg",
+    image: "/clients/RaqPropic.jpg",
   },
 
   {
