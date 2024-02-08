@@ -23,7 +23,10 @@ export default function News() {
               {/* 1st article */}
               <article className="flex flex-col h-full" data-aos="zoom-y-out">
                 <header>
-                  <a href="#0" className="block mb-6">
+                  <a
+                    href="/blog/master-the-art-of-online-mentoring"
+                    className="block mb-6"
+                  >
                     <figure className="relative h-full overflow-hidden rounded">
                       <Image
                         className="w-full h-full object-cover scale-105 hover:-translate-y-1 transition duration-700 ease-out"
@@ -55,7 +58,10 @@ export default function News() {
                     </ul>
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
-                    <a href="#0" className="hover:underline">
+                    <a
+                      href="/blog/master-the-art-of-online-mentoring"
+                      className="hover:underline"
+                    >
                       “Actionable tips to master the art of online mentoring”
                     </a>
                   </h3>

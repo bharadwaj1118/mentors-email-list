@@ -1,9 +1,4 @@
 import Image from "next/image";
-import TestimonialImage01 from "@/public/images/testimonial-01.jpg";
-import TestimonialImage02 from "@/public/images/testimonial-02.jpg";
-import TestimonialImage03 from "@/public/images/testimonial-03.jpg";
-import TestimonialImage04 from "@/public/images/testimonial-04.jpg";
-import TestimonialImage05 from "@/public/images/testimonial-05.jpg";
 import TestimonialImage06 from "@/public/images/testimonial-06.jpg";
 import Link from "next/link";
 
@@ -130,7 +125,7 @@ export default function Clients() {
               //   </div>
               // </article>
               <article
-                className="rounded-xl bg-white p-4 ring ring-blue-50 sm:p-6 lg:p-8 min-h-[250px]"
+                className="rounded-xl bg-white p-4 ring ring-blue-50 sm:p-6 lg:p-8 min-h-[220px]"
                 key={testimonial.name}
                 //   className="flex h-full flex-col bg-white p-6 shadow-xl"
                 data-aos="fade-up"
