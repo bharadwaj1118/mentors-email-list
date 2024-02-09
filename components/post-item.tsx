@@ -31,7 +31,7 @@ export default async function PostItem() {
             Mentors CX Blog
           </h1>
           <p className="text-xl text-muted-foreground">
-            A blog about Mentors CX and the world of customer experience.
+            Blogs about Mentors CX and the world of customer experience.
           </p>
         </div>
       </div>
