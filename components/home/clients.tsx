@@ -11,7 +11,7 @@ const testimonials = [
   {
     name: "Hilary Dudek",
     title: "Senior Director, Sana Benefits",
-    description: "Favorite hobby:  Roller Derby!",
+    description: "Favorite hobby:  Roller Derby..!",
     image: "/clients/HilaryPropic.jpeg",
   },
   {
@@ -24,13 +24,13 @@ const testimonials = [
     name: "Olaf Jacobson",
     title: "CEO, Soon",
     description:
-      "Favorite hobby: Water sports: scuba diving, snorkeling, and kite surfing. ",
+      "Favorite hobby: Water sports: scuba diving, snorkeling, and kite surfing.",
     image: "/clients/OlafPropic.jpg",
   },
   {
     name: "Sheena OhUiginn",
     title: " Product & Support Experience, ex-Shopify",
-    description: "Favorite hobby: Building Lego sets",
+    description: "Favorite hobby: Building Lego sets.",
     image: "/clients/SheenaPropic.jpg",
   },
   {
@@ -44,21 +44,21 @@ const testimonials = [
   {
     name: "Elissa Chandler ",
     title: "VP of Marketing & Operations, Odyssey Energy Solutions",
-    description: "Favorite hobby: Cooking",
+    description: "Favorite hobby: Cooking.",
     image: "/clients/ElissaPropic.jpg",
   },
 
   {
     name: "Killian Alexandre",
     title: "Community Success Manager, ChangeX",
-    description: "Favorite hobby: yet to be added...",
+    description: "Favorite hobby: Gardening and my gang of 5 dogs. ",
     image: "/clients/KillianPropic.jpeg",
   },
 
   {
     name: "Bhavini Raju",
     title: "Director of Customer Service, NOBULL",
-    description: "Favorite hobby: yet to be added...",
+    description: "Favorite hobby: Training boxing.",
     image: "/clients/BhaviniPropic.jpeg",
   },
 ];
@@ -81,48 +81,6 @@ export default function Clients() {
             data-aos-id-testimonials
           >
             {testimonials.map((testimonial) => (
-              // <article
-              //   key={testimonial.name}
-              //   className="flex h-full flex-col bg-white p-6 shadow-xl"
-              //   data-aos="fade-up"
-              //   data-aos-anchor="[data-aos-id-testimonials]"
-              //   data-aos-delay="100"
-              // >
-              //   <header>
-              //     <div className="mb-4 flex items-center">
-              //       <div className="relative mr-5">
-              //         <Image
-              //           src={testimonial.image}
-              //           alt={testimonial.name}
-              //           className="rounded-full shadow-lg shrink-0 shadow-blue-500/50"
-              //           height={48}
-              //           layout="fixed"
-              //           width={48}
-              //           objectFit="cover"
-              //           objectPosition="center"
-              //         />
-              //       </div>
-              //       {/* Acme Inc. logo */}
-              //       <div className="text-sm font-medium ">
-              //         <a
-              //           className="text-slate-800 transition duration-150 ease-in-out hover:text-blue-600"
-              //           href="#0"
-              //         >
-              //           {testimonial.name}
-              //         </a>
-              //         <span className="text-slate-300"> · </span>
-              //         <span className="text-slate-500">
-              //           {testimonial.title}
-              //         </span>
-              //       </div>
-              //     </div>
-              //   </header>
-              //   <div className="mb-3 grow">
-              //     <p className="italic text-slate-500">
-              //       {testimonial.description}
-              //     </p>
-              //   </div>
-              // </article>
               <article
                 className="rounded-xl bg-white p-4 ring ring-blue-50 sm:p-6 lg:p-8 min-h-[220px]"
                 key={testimonial.name}
