@@ -138,7 +138,7 @@ export default function ModalVideo({
         <Dialog initialFocus={videoRef} onClose={() => setModalOpen(false)}>
           {/* Modal backdrop */}
           <Transition.Child
-            className="fixed inset-0 z-[99999] bg-black bg-opacity-75 transition-opacity"
+            className="fixed inset-0 z-[99999] bg-black/75 transition-opacity"
             enter="transition ease-out duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"

@@ -42,7 +42,7 @@ export default function HeroHome() {
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16 ">
             <h1 className="h1 md:text-6xl" data-aos="zoom-y-out">
-              The CX Community that{" "}
+              The CX community that{" "}
             </h1>
             <h1
               className="h1 md:text-6xl pb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"

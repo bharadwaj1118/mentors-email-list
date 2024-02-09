@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import NewsAuthor from "@/public/mentors-cx.svg";
-import NewsImage1 from "@/public/images/blog-post-1.jpg";
-import NewsImage2 from "@/public/images/blog-post-2.jpg";
-import NewsImage3 from "@/public/images/blog-post-3.jpg";
+import NewsImage1 from "@/public/images/blog/MasteringTheArtOfOnlineMentoring.jpg";
+import NewsImage2 from "@/public/images/blog/IncreasingRevenueThroughCustomerExperience.jpg";
+import NewsImage3 from "@/public/images/blog/IncreasingRevenueThroughCustomerExperience3.jpg";
 
 export default function News() {
   return (
@@ -31,8 +31,8 @@ export default function News() {
                       <Image
                         className="w-full h-full object-cover scale-105 hover:-translate-y-1 transition duration-700 ease-out"
                         src={NewsImage1}
-                        width={352}
-                        height={198}
+                        width={200}
+                        height={150}
                         alt="News 01"
                       />
                     </figure>
@@ -62,7 +62,7 @@ export default function News() {
                       href="/blog/master-the-art-of-online-mentoring"
                       className="hover:underline"
                     >
-                      “Actionable tips to master the art of online mentoring”
+                      Actionable tips to master the art of online mentoring
                     </a>
                   </h3>
                 </header>
@@ -105,8 +105,8 @@ export default function News() {
                       <Image
                         className=" w-full h-full object-cover scale-105  hover:-translate-y-1 transition duration-700 ease-out"
                         src={NewsImage2}
-                        width={352}
-                        height={198}
+                        width={200}
+                        height={150}
                         alt="News 02"
                       />
                     </figure>
@@ -133,7 +133,7 @@ export default function News() {
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
                     <a href="#0" className="hover:underline">
-                      “Maximizing revenue: the power of customer experience”
+                      Maximizing revenue: the power of customer experience
                     </a>
                   </h3>
                 </header>
@@ -176,8 +176,8 @@ export default function News() {
                       <Image
                         className=" w-full h-full object-cover scale-105  hover:-translate-y-1 transition duration-700 ease-out"
                         src={NewsImage3}
-                        width={352}
-                        height={198}
+                        width={200}
+                        height={150}
                         alt="News 03"
                       />
                     </figure>
@@ -204,8 +204,8 @@ export default function News() {
                   </div>
                   <h3 className="text-xl font-bold leading-snug tracking-tight">
                     <a href="#0" className="hover:underline">
-                      “Turning Customers into Clients: Building Loyalty and
-                      Repeat Business”
+                      Turning Customers into Clients: Building Loyalty and
+                      Repeat Business
                     </a>
                   </h3>
                 </header>
