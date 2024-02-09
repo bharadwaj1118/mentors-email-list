@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import NewsAuthor from "@/public/mentors-cx.png";
+import NewsAuthor from "@/public/mentors-cx.svg";
 import NewsImage1 from "@/public/images/blog-post-1.jpg";
 import NewsImage2 from "@/public/images/blog-post-2.jpg";
 import NewsImage3 from "@/public/images/blog-post-3.jpg";
@@ -69,14 +69,14 @@ export default function News() {
                 <footer className="text-sm flex items-center mt-4">
                   <div className="flex shrink-0 mr-3">
                     <a className="relative" href="#0">
-                      <span
+                      {/* <span
                         className="absolute inset-0 -m-px"
                         aria-hidden="true"
                       >
                         <span className="absolute inset-0 -m-px bg-white rounded-full"></span>
-                      </span>
+                      </span> */}
                       <Image
-                        className="relative rounded-full bg-white"
+                        className="relative rounded-full"
                         src={NewsAuthor}
                         width="32"
                         height="32"
@@ -144,7 +144,7 @@ export default function News() {
                         className="absolute inset-0 -m-px"
                         aria-hidden="true"
                       >
-                        <span className="absolute inset-0 -m-px bg-white rounded-full"></span>
+                        {/* <span className="absolute inset-0 -m-px bg-white rounded-full"></span> */}
                       </span>
                       <Image
                         className="relative rounded-full"
@@ -216,7 +216,7 @@ export default function News() {
                         className="absolute inset-0 -m-px"
                         aria-hidden="true"
                       >
-                        <span className="absolute inset-0 -m-px bg-white rounded-full"></span>
+                        {/* <span className="absolute inset-0 -m-px bg-white rounded-full"></span> */}
                       </span>
                       <Image
                         className="relative rounded-full"

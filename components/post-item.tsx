@@ -28,10 +28,10 @@ export default async function PostItem() {
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
-            Blog
+            Mentors CX Blog
           </h1>
           <p className="text-xl text-muted-foreground">
-            A blog built using Contentlayer. Posts are written in MDX.
+            A blog about Mentors CX and the world of customer experience.
           </p>
         </div>
       </div>
@@ -54,14 +54,17 @@ export default async function PostItem() {
                 />
               )}
               <h2 className="text-2xl font-extrabold">{post.title}</h2>
-              {post.summary && (
-                <p className="text-muted-foreground">{post.summary}</p>
-              )}
               {post.publishedAt && (
                 <p className="text-sm text-muted-foreground">
                   {formatDate(post.publishedAt)}
                 </p>
               )}
+              {post.summary && (
+                <p className="text-muted-foreground line-clamp-4">
+                  {post.summary}
+                </p>
+              )}
+
               <Link href={`/blog/${post.slug}`} className="absolute inset-0">
                 <span className="sr-only">View Article</span>
               </Link>
