@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import AboutImage from '@/public/images/about-01.jpg';
+import Image from "next/image";
+import AboutImage from "@/public/images/website/founders2.jpg";
 
 export default function AboutIntro() {
   return (

@@ -1,6 +1,5 @@
-import Image from 'next/image';
-import AboutImage from '@/public/images/about-02.jpg';
-import AboutLogo from '@/public/images/about-logo.png';
+import Image from "next/image";
+import AboutImage from "@/public/images/website/OurStoryReason.jpg";
 
 export default function AboutStory() {
   return (

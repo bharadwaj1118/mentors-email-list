@@ -13,6 +13,7 @@ const LogoStory = () => {
           <p className="text-lg text-gray-600 mt-6 md:mt-9">
             Our logo is simple.
           </p>
+          <br />
           <p className="text-lg text-gray-600">
             The “CX” part is kinda obvious 😀- it stands for customer
             experience.
