@@ -1,5 +1,4 @@
 import Image from "next/image";
-import TestimonialImage06 from "@/public/images/testimonial-06.jpg";
 import Link from "next/link";
 
 const testimonials = [

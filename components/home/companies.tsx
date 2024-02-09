@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Particles from "./particles";
 
-import Client01 from "@/public/logos/appcues.svg";
+import Client01 from "@/public/logos/appcues.png";
 import Client02 from "@/public/logos/apple.svg";
 import Client03 from "@/public/logos/automattic.svg";
 import Client04 from "@/public/logos/goodEggs.svg";
@@ -16,12 +16,16 @@ import Client09 from "@/public/logos/loom.svg";
 import Client10 from "@/public/logos/meetup.svg";
 import Client11 from "@/public/logos/partnerhero.svg";
 import Client12 from "@/public/logos/prezzee.svg";
-import Client13 from "@/public/logos/sanaa.svg";
 import Client14 from "@/public/logos/shopify.svg";
 import Client15 from "@/public/logos/trello.svg";
 import Client16 from "@/public/logos/wistia.svg";
 import Client17 from "@/public/logos/zapier.svg";
 import Client18 from "@/public/logos/zf.svg";
+import Client19 from "@/public/logos/changex.png";
+import Client20 from "@/public/logos/lovepop.png";
+import Client21 from "@/public/logos/nobull.svg";
+import Client22 from "@/public/logos/SanaBenefits.png";
+import Client23 from "@/public/logos/soon.png";
 
 import Swiper, { Autoplay } from "swiper";
 import "swiper/swiper.min.css";
@@ -59,6 +63,7 @@ export default function Companies() {
             <div className="clients-carousel swiper-container relative before:absolute before:inset-0 before:w-1/2 before:z-10 before:pointer-events-none before:bg-gradient-to-r  after:absolute after:inset-0 after:left-auto after:w-1/2  after:z-10 after:pointer-events-none after:bg-gradient-to-l ">
               <div className="swiper-wrapper !ease-linear select-none items-center">
                 {/* Carousel items */}
+
                 <div className="swiper-slide !w-auto">
                   <Image
                     src={Client01}
@@ -163,15 +168,6 @@ export default function Companies() {
                 <div className="swiper-slide !w-auto">
                   <Image
                     className="mt-2"
-                    src={Client13}
-                    alt="Client 13"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
                     src={Client14}
                     alt="Client 14"
                     width={92}
@@ -209,6 +205,51 @@ export default function Companies() {
                   <Image
                     className="mt-2"
                     src={Client18}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client19}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client20}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client21}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client22}
+                    alt="Client 15"
+                    width={92}
+                    height={28}
+                  />
+                </div>
+                <div className="swiper-slide !w-auto">
+                  <Image
+                    className="mt-2"
+                    src={Client23}
                     alt="Client 15"
                     width={92}
                     height={28}
