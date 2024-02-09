@@ -22,7 +22,7 @@ const mdxComponents = {
   h2: ({ ...props }) => (
     <h2
       className={cn(
-        "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0"
+        "mt-10 scroll-m-20  text-3xl font-semibold tracking-tight first:mt-0"
       )}
       {...props}
     />
@@ -51,9 +51,7 @@ const mdxComponents = {
       {...props}
     />
   ),
-  a: ({ ...props }) => (
-    <a className={cn("font-medium underline underline-offset-4")} {...props} />
-  ),
+  a: ({ ...props }) => <a className={cn("font-medium ")} {...props} />,
   p: ({ ...props }) => (
     <p className={cn("leading-7 [&:not(:first-child)]:mt-6")} {...props} />
   ),
