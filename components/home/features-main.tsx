@@ -1,7 +1,7 @@
 import Image from "next/image";
-import FeaturesImage02 from "@/public/images/features-home-3-01.jpg";
-import FeaturesImage01 from "@/public/images/features-home-3-02.jpg";
-import FeaturesImage03 from "@/public/images/features-home-3-03.jpg";
+import FeaturesImage02 from "@/public/images/website/GetTailoredGuidance2.jpg";
+import FeaturesImage01 from "@/public/images/website/ExpandYourNetwork.jpg";
+import FeaturesImage03 from "@/public/images/website/CareerGrowthAndDevelopment.jpg";
 
 export default function FeaturesHome() {
   return (

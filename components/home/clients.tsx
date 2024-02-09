@@ -52,15 +52,15 @@ const testimonials = [
   {
     name: "Killian Alexandre",
     title: "Community Success Manager, ChangeX",
-    description: "Favorite hobby: I have a lot in my list",
-    image: TestimonialImage06,
+    description: "Favorite hobby: yet to be added...",
+    image: "/clients/KillianPropic.jpeg",
   },
 
   {
     name: "Bhavini Raju",
     title: "Director of Customer Service, NOBULL",
-    description: "Favorite hobby: Trying Indian Food...",
-    image: TestimonialImage06,
+    description: "Favorite hobby: yet to be added...",
+    image: "/clients/BhaviniPropic.jpeg",
   },
 ];
 
