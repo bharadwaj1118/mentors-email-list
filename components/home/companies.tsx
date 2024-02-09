@@ -24,7 +24,7 @@ import Client18 from "@/public/logos/zf.svg";
 import Client19 from "@/public/logos/changex.png";
 import Client20 from "@/public/logos/lovepop.png";
 import Client21 from "@/public/logos/nobull.svg";
-import Client22 from "@/public/logos/SanaBenefits.png";
+import Client22 from "@/public/logos/sanaBenefits.png";
 import Client23 from "@/public/logos/soon.png";
 
 import Swiper, { Autoplay } from "swiper";
