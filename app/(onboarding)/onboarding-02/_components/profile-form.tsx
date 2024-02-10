@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import OnboardingImage from '../../onboarding-image';
-import OnboardingProgress from '../../onboarding-progress';
+import OnboardingImage from "../../onboarding-image";
+import OnboardingProgress from "../../onboarding-progress";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,22 +16,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import Select from 'react-select';
-import { COUNTRIES, LANGUAGES } from '@/constants/data';
+import Select from "react-select";
+import { COUNTRIES, LANGUAGES } from "@/constants/data";
 
-import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-import { updateUser } from '@/lib/actions/user.action';
-import Link from 'next/link';
+import { updateUser } from "@/lib/actions/user.action";
+import Link from "next/link";
 
 const FormSchema = z.object({
   city: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
+    message: "Username must be at least 2 characters.",
   }),
   country: z.object({
     label: z.string(),
@@ -43,7 +43,7 @@ const FormSchema = z.object({
       value: z.string(),
     })
   ),
-  role: z.enum(['MENTOR', 'MENTEE', 'BOTH']),
+  role: z.enum(["MENTOR", "MENTEE", "BOTH"]),
 });
 
 interface Props {
@@ -52,18 +52,18 @@ interface Props {
 
 export default function Onboarding02({ user }: Props) {
   const parsedUser = JSON.parse(user);
-  const {city, country, languages, role} = parsedUser;
-  
+  const { city, country, languages, role } = parsedUser;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      city:  city || '',
-      country:  country || {},
+      city: city || "",
+      country: country || {},
       languages: languages || {},
-      role:  role || 'mentor',
+      role: role || "mentor",
     },
   });
 
@@ -73,9 +73,9 @@ export default function Onboarding02({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({...parsedUser, ...values});
+      await updateUser({ ...parsedUser, ...values });
       console.log(values);
-      router.push('/onboarding-03');
+      router.push("/onboarding-03");
     } catch (error) {
       console.log(error);
     } finally {
@@ -84,7 +84,7 @@ export default function Onboarding02({ user }: Props) {
   }
 
   return (
-    <main className="bg-white dark:bg-slate-900 mt-24">
+    <section className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="relative flex">
         {/* Content */}
         <div className="w-full md:w-2/3">
@@ -213,8 +213,8 @@ export default function Onboarding02({ user }: Props) {
                         </Button>
                       </Link>
                       <Button type="submit" disabled={isSubmitting}>
-                        {' '}
-                        {isSubmitting ? 'Saving...' : 'Next'}
+                        {" "}
+                        {isSubmitting ? "Saving..." : "Next"}
                       </Button>
                     </div>
                   </form>
@@ -226,6 +226,6 @@ export default function Onboarding02({ user }: Props) {
 
         <OnboardingImage />
       </div>
-    </main>
+    </section>
   );
 }

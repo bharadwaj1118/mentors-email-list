@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
-
-import { docsConfig } from "@/config/docs";
-import { MainNav } from "@/components/main-nav";
-import { Icons } from "@/components/icons";
-import Link from "next/link";
-import { siteConfig } from "@/config/site";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
-import LeftSideBar from "@/components/leftside-bar";
-import Header from "@/components/header";
+
+import { Providers } from "./providers";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],

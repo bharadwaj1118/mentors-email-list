@@ -1,11 +1,11 @@
-'use client';
-import Link from 'next/link';
+"use client";
+import Link from "next/link";
 
-import OnboardingImage from '../../onboarding-image';
-import OnboardingProgress from '../../onboarding-progress';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import OnboardingImage from "../../onboarding-image";
+import OnboardingProgress from "../../onboarding-progress";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 import {
   Form,
@@ -15,21 +15,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { updateUser } from '@/lib/actions/user.action';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { updateUser } from "@/lib/actions/user.action";
 
 const Onboarding4Schema = z.object({
-  duration: z.enum(['15', '30', '60'], {
-    required_error: 'You need to select a notification type.',
+  duration: z.enum(["15", "30", "60"], {
+    required_error: "You need to select a notification type.",
   }),
-  price: z.enum(['Free', '25', '50', '75', '100'], {
-    required_error: 'You need to select a price type.',
+  price: z.enum(["Free", "25", "50", "75", "100"], {
+    required_error: "You need to select a price type.",
   }),
 });
 
@@ -39,7 +39,7 @@ interface Props {
 
 export default function Onboarding04({ user }: Props) {
   const parsedUser = JSON.parse(user);
-  const {duration, price} = parsedUser;
+  const { duration, price } = parsedUser;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -48,8 +48,8 @@ export default function Onboarding04({ user }: Props) {
   const form = useForm<z.infer<typeof Onboarding4Schema>>({
     resolver: zodResolver(Onboarding4Schema),
     defaultValues: {
-      duration: duration || '30',
-      price: price || 'Free',
+      duration: duration || "30",
+      price: price || "Free",
     },
   });
 
@@ -59,8 +59,8 @@ export default function Onboarding04({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({...parsedUser, ...values});
-      router.push('/dashboard/profiles');
+      await updateUser({ ...parsedUser, ...values });
+      router.push("/dashboard/profiles");
     } catch (error) {
       console.log(error);
     } finally {
@@ -69,7 +69,7 @@ export default function Onboarding04({ user }: Props) {
   }
 
   return (
-    <main className="bg-white dark:bg-slate-900 mt-24 h-screen">
+    <section className="bg-white dark:bg-slate-900 h-screen min-h-screen">
       <div className="relative flex">
         {/* Content */}
         <div className="w-full md:w-2/3">
@@ -200,8 +200,8 @@ export default function Onboarding04({ user }: Props) {
                           </Button>
                         </Link>
                         <Button type="submit" disabled={isSubmitting}>
-                          {' '}
-                          {isSubmitting ? 'Saving...' : 'Complete your profile'}
+                          {" "}
+                          {isSubmitting ? "Saving..." : "Complete your profile"}
                         </Button>
                       </div>
                     </div>
@@ -214,6 +214,6 @@ export default function Onboarding04({ user }: Props) {
 
         <OnboardingImage />
       </div>
-    </main>
+    </section>
   );
 }

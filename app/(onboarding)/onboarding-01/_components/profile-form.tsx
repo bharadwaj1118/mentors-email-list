@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import OnboardingImage from '../../onboarding-image';
-import OnboardingProgress from '../../onboarding-progress';
-import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import OnboardingImage from "../../onboarding-image";
+import OnboardingProgress from "../../onboarding-progress";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,31 +14,29 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-
-import { updateUser } from '@/lib/actions/user.action';
-
+import { updateUser } from "@/lib/actions/user.action";
 
 const onboard1Schema = z.object({
   shortBio: z.string().min(20, {
-    message: 'your short must be at least 20 characters',
+    message: "your short must be at least 20 characters",
   }),
   organization: z.string().min(2, {
-    message: 'organization must be at least 2 characters',
+    message: "organization must be at least 2 characters",
   }),
   bio: z.string().min(20, {
-    message: 'your bio must be at least 20 characters',
+    message: "your bio must be at least 20 characters",
   }),
   position: z.string().min(2, {
-    message: 'position must be at least 2 characters',
+    message: "position must be at least 2 characters",
   }),
   portfolioWebsite: z.string().min(2, {
-    message: 'portfolioWebsite must be at least 2 characters',
+    message: "portfolioWebsite must be at least 2 characters",
   }),
 });
 
@@ -52,17 +50,18 @@ export default function Onboarding01({ user }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const {shortBio, organization, bio, position, portfolioWebsite} = parsedUser;
+  const { shortBio, organization, bio, position, portfolioWebsite } =
+    parsedUser;
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof onboard1Schema>>({
     resolver: zodResolver(onboard1Schema),
     defaultValues: {
-      shortBio: shortBio || '',
-      organization: organization|| '',
-      bio: bio || '',
-      position: position || '',
-      portfolioWebsite: portfolioWebsite || '',
+      shortBio: shortBio || "",
+      organization: organization || "",
+      bio: bio || "",
+      position: position || "",
+      portfolioWebsite: portfolioWebsite || "",
     },
   });
 
@@ -72,8 +71,8 @@ export default function Onboarding01({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({...parsedUser, ...values});
-      router.push('/onboarding-02');
+      await updateUser({ ...parsedUser, ...values });
+      router.push("/onboarding-02");
     } catch (error) {
       console.log(error);
     } finally {
@@ -82,7 +81,7 @@ export default function Onboarding01({ user }: Props) {
   }
 
   return (
-    <main className="bg-white dark:bg-slate-900 mt-24">
+    <section className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="relative flex">
         {/* Content */}
         <div className="w-full md:w-2/3">
@@ -192,8 +191,8 @@ export default function Onboarding01({ user }: Props) {
                     />
                     <div className="flex justify-end">
                       <Button type="submit" disabled={isSubmitting}>
-                        {' '}
-                        {isSubmitting ? 'Saving...' : 'Next'}
+                        {" "}
+                        {isSubmitting ? "Saving..." : "Next"}
                       </Button>
                     </div>
                   </form>
@@ -205,6 +204,6 @@ export default function Onboarding01({ user }: Props) {
 
         <OnboardingImage />
       </div>
-    </main>
+    </section>
   );
 }

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import OnboardingImage from '../../onboarding-image';
-import OnboardingProgress from '../../onboarding-progress';
+import OnboardingImage from "../../onboarding-image";
+import OnboardingProgress from "../../onboarding-progress";
 
-import Select from 'react-select';
-import { EXPERTISE, INDUSTRIES, TOOLS } from '@/constants/data';
+import Select from "react-select";
+import { EXPERTISE, INDUSTRIES, TOOLS } from "@/constants/data";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -21,11 +21,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { updateUser } from '@/lib/actions/user.action';
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { updateUser } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
   industries: z.array(
@@ -52,9 +52,9 @@ interface Props {
   user: string;
 }
 
-export default function Onboarding03({  user }: Props) {
+export default function Onboarding03({ user }: Props) {
   const parsedUser = JSON.parse(user);
-  const {industries, expertise, toolkit} = parsedUser;
+  const { industries, expertise, toolkit } = parsedUser;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -73,8 +73,8 @@ export default function Onboarding03({  user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({...parsedUser, ...values});
-      router.push('/onboarding-04');
+      await updateUser({ ...parsedUser, ...values });
+      router.push("/onboarding-04");
     } catch (error) {
       console.log(error);
     } finally {
@@ -83,7 +83,7 @@ export default function Onboarding03({  user }: Props) {
   }
 
   return (
-    <main className="bg-white dark:bg-slate-900 mt-24 h-full">
+    <section className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="relative flex">
         {/* Content */}
         <div className="w-full md:w-2/3">
@@ -174,8 +174,8 @@ export default function Onboarding03({  user }: Props) {
                         </Button>
                       </Link>
                       <Button type="submit" disabled={isSubmitting}>
-                        {' '}
-                        {isSubmitting ? 'Saving...' : 'Next'}
+                        {" "}
+                        {isSubmitting ? "Saving..." : "Next"}
                       </Button>
                     </div>
                   </form>
@@ -187,6 +187,6 @@ export default function Onboarding03({  user }: Props) {
 
         <OnboardingImage />
       </div>
-    </main>
+    </section>
   );
 }

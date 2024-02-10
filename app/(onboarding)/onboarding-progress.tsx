@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function OnboardingProgress({ step = 1 }: { step?: number }) {
   return (
@@ -12,50 +12,50 @@ export default function OnboardingProgress({ step = 1 }: { step?: number }) {
           <ul className="relative flex justify-between w-full">
             <li>
               <Link
-                className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold ${
+                className={`px-3 py-1 flex items-center justify-center w-fit h-fit rounded-full text-xs font-semibold ${
                   step >= 1
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                 }`}
                 href="/onboarding-01"
               >
-                1
+                Basic
               </Link>
             </li>
             <li>
               <Link
-                className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold ${
+                className={`flex items-center justify-center w-fit h-fit px-3 py-1 rounded-full text-xs font-semibold ${
                   step >= 2
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                 }`}
                 href="/onboarding-02"
               >
-                2
+                Personal
               </Link>
             </li>
             <li>
               <Link
-                className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold ${
+                className={`flex items-center justify-center w-fit h-fit px-3 py-1 rounded-full text-xs font-semibold ${
                   step >= 3
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                 }`}
                 href="/onboarding-03"
               >
-                3
+                Skills
               </Link>
             </li>
             <li>
               <Link
-                className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold ${
+                className={`flex items-center justify-center w-fit h-fit px-3 py-1 rounded-full text-xs font-semibold ${
                   step >= 4
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                 }`}
                 href="/onboarding-04"
               >
-                4
+                session
               </Link>
             </li>
           </ul>
