@@ -1,11 +1,20 @@
+import Link from "next/link";
+
 const popularPostsData = [
   {
     title: "Actionable tips to master the art of online mentoring",
     Author: "Mentors CX",
+    link: "/blog/master-the-art-of-online-mentoring",
   },
   {
     title: "Actionable tips to Maximize revenue",
     Author: "Mentors CX",
+    link: "/blog/maximize-revenue",
+  },
+  {
+    title: "Turning customers into clients",
+    Author: "Mentors CX",
+    link: "/blog/turning-customers-into-clients",
   },
 ];
 
@@ -27,9 +36,9 @@ export default function PopularPosts() {
             </svg>
             <article>
               <h3 className="font-medium mb-1">
-                <a href="#0" className="hover:underline">
+                <Link href={post.link} className="hover:underline">
                   {post.title}
-                </a>
+                </Link>
               </h3>
               <div className="text-sm text-gray-800">
                 <span className="text-gray-600">By </span>
