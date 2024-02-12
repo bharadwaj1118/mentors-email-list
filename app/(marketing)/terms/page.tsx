@@ -49,9 +49,10 @@ const TermsPage = () => {
           </p>
           <p>
             <span style={{ fontSize: "14pt" }}>
-              When the terms 'us,' 'we,' 'our' are used, they refer to Mentors
-              CX LLC, the entity operating and providing this website and its
-              services to members, users, mentees, mentors, and customers.&nbsp;
+              When the terms &apos;us,&apos; &apos;we,&apos; &apos;our&apos; are
+              used, they refer to Mentors CX LLC, the entity operating and
+              providing this website and its services to members, users,
+              mentees, mentors, and customers.&nbsp;
             </span>
           </p>
           <p>
@@ -544,7 +545,7 @@ const TermsPage = () => {
           <p>
             <span style={{ fontSize: "14pt" }}>
               To cancel your membership, log into the billing area in settings
-              and select 'cancel subscription.'&nbsp;
+              and select &apos;cancel subscription.&apos;&nbsp;
             </span>
           </p>
           <p>

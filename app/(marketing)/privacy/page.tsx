@@ -69,10 +69,10 @@ const PrivacyPage = () => {
           <p>
             <span style={{ color: "rgb(0, 0, 0)", fontSize: "14pt" }}>
               Many jurisdictions mandate the disclosure of the lawful basis for
-              processing your Data, which is detailed in the "Data We Process
-              and How We Use It" section and throughout this Privacy Policy.
-              Generally, our processing of your Data relies on your explicit
-              consent or contractual agreement with us.
+              processing your Data, which is detailed in the &quot;Data We
+              Process and How We Use It&quot; section and throughout this
+              Privacy Policy. Generally, our processing of your Data relies on
+              your explicit consent or contractual agreement with us.
             </span>
           </p>
           <p>
@@ -84,10 +84,10 @@ const PrivacyPage = () => {
               processing of your Data as outlined in this Privacy Policy. If our
               processing is based on your consent, you can withdraw it anytime,
               although this may affect your access to the Services. Withdrawal
-              of consent doesn't limit our use of Anonymized Data for legitimate
-              business efforts in the future. Additionally, withdrawal may not
-              prevent processing based on other lawful bases or to preserve
-              legal claims.
+              of consent doesn&apos;t limit our use of Anonymized Data for
+              legitimate business efforts in the future. Additionally,
+              withdrawal may not prevent processing based on other lawful bases
+              or to preserve legal claims.
             </span>
           </p>
           <p>
@@ -228,10 +228,11 @@ const PrivacyPage = () => {
             <span style={{ color: "rgb(0, 0, 0)", fontSize: "14pt" }}>
               : Engagement Data encompasses all information you input, record,
               or furnish while utilizing the Services, excluding data qualifying
-              as "Usage Data" (as defined below). It comprises proprietary
-              information related to your use of the Services, including the
-              content of text, personal preferences, and other inputs like
-              feedback, comments, questions, video, audio, pictures, etc.
+              as &quot;Usage Data&quot; (as defined below). It comprises
+              proprietary information related to your use of the Services,
+              including the content of text, personal preferences, and other
+              inputs like feedback, comments, questions, video, audio, pictures,
+              etc.
             </span>
           </p>
           <p>
@@ -265,9 +266,9 @@ const PrivacyPage = () => {
               Services. Third parties receiving your Engagement Data are
               obligated to maintain its confidentiality. Upon your request, we
               may share Engagement Data with other third parties. Additionally,
-              both during our agreement's term and afterward, Engagement Data
-              may be transformed into Anonymized Data, solely owned by us for
-              discretionary use (including sale or sharing, as it is not
+              both during our agreement&apos;s term and afterward, Engagement
+              Data may be transformed into Anonymized Data, solely owned by us
+              for discretionary use (including sale or sharing, as it is not
               considered Data). In cases where we are required to delete any
               Engagement Data about you, retained Anonymized Data may have
               originated from your Engagement Data.
@@ -380,7 +381,7 @@ const PrivacyPage = () => {
               parties receiving your Usage Data are obligated to maintain its
               confidentiality. We may also share Usage Data with other third
               parties at your specific request. Usage Data may be used to
-              enhance the Services. Both during our agreement's term and
+              enhance the Services. Both during our agreement&apos;s term and
               afterward, Usage Data may be converted to Anonymized Data, owned
               solely by us for discretionary use (including sale or sharing, as
               it is not considered Data). In cases where we are required to
@@ -480,8 +481,8 @@ const PrivacyPage = () => {
               party, except as expressly disclosed in this policy. Clicking or
               viewing an ad on our Services implies your consent for the
               advertiser to assume that you meet the targeting criteria used to
-              display such ads. You will be subject to the advertiser's privacy
-              policy and information collection practices, if any.
+              display such ads. You will be subject to the advertiser&apos;s
+              privacy policy and information collection practices, if any.
             </span>
           </p>
           <p>
@@ -585,7 +586,7 @@ const PrivacyPage = () => {
               </span>
             </strong>
             <span style={{ color: "rgb(0, 0, 0)", fontSize: "14pt" }}>
-              &nbsp;A cookie is a small file placed on your computer's hard
+              &nbsp;A cookie is a small file placed on your computer&apos;s hard
               drive. You can choose to refuse browser cookies by adjusting the
               appropriate setting on your browser. However, if you opt for this
               setting, you may be unable to access certain parts of our
@@ -629,7 +630,7 @@ const PrivacyPage = () => {
               &nbsp;We may utilize GPS (or other similar) technology when you
               use our Services to determine your current location. If you prefer
               not to have us use your location for providing the Services, you
-              can disable your location services in your device's settings.
+              can disable your location services in your device&apos;s settings.
             </span>
           </p>
           <p>
@@ -676,16 +677,16 @@ const PrivacyPage = () => {
           <h2 className="h2-medium">Do Not Track Option</h2>
           <p>
             <span style={{ color: "rgb(0, 0, 0)", fontSize: "14pt" }}>
-              Your internet browser(s) may provide a "Do Not Track" option,
-              enabling individuals to indicate to website and web application
-              operators, as well as services (including behavioral advertising
-              services), that they prefer not to have such operators track
-              specific online activities over time and across different
+              Your internet browser(s) may provide a &quot;Do Not Track&quot;
+              option, enabling individuals to indicate to website and web
+              application operators, as well as services (including behavioral
+              advertising services), that they prefer not to have such operators
+              track specific online activities over time and across different
               websites. While we strive to accommodate Do Not Track requests, we
               cannot guarantee comprehensive support due to the diversity of
               internet browsers and technologies. Consequently, we may process
               information about your online activity both during your use of the
-              Services and after you've concluded your use of the Services.
+              Services and after you&apos;ve concluded your use of the Services.
             </span>
           </p>
           <p>
@@ -757,8 +758,8 @@ const PrivacyPage = () => {
             </strong>
             <span style={{ color: "rgb(0, 0, 0)", fontSize: "14pt" }}>
               &nbsp;You have the right to opt-out of marketing communications.
-              Use the "Unsubscribe" or "Opt-Out" link in these communications to
-              exercise this right.
+              Use the &quot;Unsubscribe&quot; or &quot;Opt-Out&quot; link in
+              these communications to exercise this right.
             </span>
           </p>
           <p>
