@@ -48,7 +48,6 @@ export default function Onboarding01({ user }: Props) {
   const parsedUser = JSON.parse(user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
 
   const { shortBio, organization, bio, position, portfolioWebsite } =
     parsedUser;

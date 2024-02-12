@@ -24,9 +24,9 @@ import Select from "react-select";
 import { COUNTRIES, LANGUAGES } from "@/constants/data";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUserOnboarding02 } from "@/lib/actions/user.action";
 import Link from "next/link";
 
 const FormSchema = z.object({
@@ -51,30 +51,41 @@ interface Props {
 }
 
 export default function Onboarding02({ user }: Props) {
-  const parsedUser = JSON.parse(user);
-  const { city, country, languages, role } = parsedUser;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
+
+  const parsedUser = JSON.parse(user);
+  // const LANGUAGES = JSON.parse(languagesList);
+  const { city, languages, country, role } = parsedUser;
+
+  // convert the country to match the select input
+  const countryJSON = { label: country, value: country };
+  const initialLanguages = languages.map((language: any) => ({
+    label: language.name,
+    value: language.name,
+  }));
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       city: city || "",
-      country: country || {},
-      languages: languages || {},
+      country: countryJSON || {},
+      languages: initialLanguages || [],
       role: role || "mentor",
     },
   });
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     setIsSubmitting(true);
-
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     try {
-      await updateUser({ ...parsedUser, ...values });
-      console.log(values);
+      // convert back React select values to strings and Arrays
+      const { country } = values;
+      await updateUserOnboarding02({
+        ...values,
+        id: parsedUser.id,
+        country: country.label,
+      });
+      router.refresh();
       router.push("/onboarding-03");
     } catch (error) {
       console.log(error);
@@ -84,7 +95,7 @@ export default function Onboarding02({ user }: Props) {
   }
 
   return (
-    <section className="bg-white dark:bg-slate-900 min-h-screen">
+    <div className="bg-white dark:bg-slate-900 min-h-screen">
       <div className="relative flex">
         {/* Content */}
         <div className="w-full md:w-2/3">
@@ -226,6 +237,6 @@ export default function Onboarding02({ user }: Props) {
 
         <OnboardingImage />
       </div>
-    </section>
+    </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { auth } from "@clerk/nextjs";
 import { db } from "../db";
-import { ca, th } from "date-fns/locale";
 
 export async function getSelf() {
   try {
@@ -57,6 +56,44 @@ export async function getUserByclerkId(userId: string) {
   } catch (error) {
     console.log(error);
     throw Error("GET_USER_BY_CLERK_ID_ERROR, " + error);
+  }
+}
+
+export async function updateUserOnboarding02(user: any) {
+  try {
+    const { id } = user;
+
+    if (!id) throw new Error("User id is required");
+
+    const { city, country, languages, role } = user;
+
+    const deleteLanguages = await db.language.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    const insertLanguages = await db.language.createMany({
+      data: languages.map((language: any) => ({
+        name: language.value,
+        userId: user.id,
+      })),
+    });
+
+    const updatedUser = await db.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        city,
+        country,
+        role,
+      },
+    });
+    return updatedUser;
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING02, " + error);
   }
 }
 

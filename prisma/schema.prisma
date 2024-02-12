@@ -19,20 +19,20 @@ enum Role {
 }
 
 model User {
-  id               String  @id @default(uuid())
-  username         String  @unique
-  email            String  @unique
-  imageUrl         String  @db.Text
-  clerkId          String  @unique
-  bio              String? @db.Text
-  shortBio         String? @db.Text
-  portfolioWebsite String? @db.Text
+  id               String     @id @default(uuid())
+  username         String     @unique
+  email            String     @unique
+  imageUrl         String     @db.Text
+  clerkId          String     @unique
+  bio              String?    @db.Text
+  shortBio         String?    @db.Text
+  portfolioWebsite String?    @db.Text
   position         String?
   organization     String?
   city             String?
-  country          Json?
-  role             Role?   @default(MENTOR)
-  languages        Json?
+  country          String?
+  role             Role?      @default(MENTOR)
+  languages        language[]
   expertise        Json?
   toolkit          Json?
   industries       Json?
@@ -47,6 +47,19 @@ model User {
 
   joinedAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model language {
+  id   String @id @default(uuid())
+  name String @unique
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Event {

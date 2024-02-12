@@ -1,7 +1,7 @@
 import React from "react";
 
 const OnboardingLayout = ({ children }: { children: React.ReactNode }) => {
-  return <main className="min-h-screen">{children}</main>;
+  return <section className="min-h-screen">{children}</section>;
 };
 
 export default OnboardingLayout;
