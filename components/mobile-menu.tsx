@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
@@ -74,6 +75,24 @@ export default function MobileMenu() {
           leaveTo="opacity-0"
         >
           <ul className="px-5 py-2">
+            <li>
+              <Link
+                href="/"
+                className="flex text-gray-600 hover:text-gray-900 py-2 items-center"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                <span className="font-bold sm:inline-block text-lg text-black">
+                  Mentors
+                </span>
+                <Image
+                  src="/mentors-cx.png"
+                  width={42}
+                  height={42}
+                  alt="CX"
+                  className="ml-1"
+                />
+              </Link>
+            </li>
             <li>
               <Link
                 href="/pricing"
