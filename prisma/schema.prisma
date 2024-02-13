@@ -160,7 +160,7 @@ model Session {
 
 model Subscribe {
   id        String   @id @default(uuid())
-  email     String   @unique
+  email     String
   role      String   @default("MENTEE")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

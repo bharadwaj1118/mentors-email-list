@@ -20,9 +20,22 @@ export default function AuthenticationPage() {
                 duration: 0.8,
                 ease: "easeInOut",
               }}
-              className="mt-8 bg-gradient-to-br from-white to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+              className="mt-8  "
             >
-              Mentors CX
+              <div className="flex items-center gap-2 justify-center">
+                <div className="font-serif bg-gradient-to-br from-slate-500 to-slate-100  bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
+                  Mentors
+                </div>
+                <div className="flex items-center">
+                  <Image
+                    src="/mentors-cx.png"
+                    width={120}
+                    height={120}
+                    alt="Mentors CX"
+                    className="invert fill-slate-500"
+                  />
+                </div>
+              </div>
             </motion.h1>
           </LampContainer>
           <div className="flex md:hidden">
