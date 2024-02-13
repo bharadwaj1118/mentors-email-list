@@ -91,7 +91,7 @@ export default function Onboarding01({ user }: Props) {
             </div>
 
             <div className="px-4 py-8">
-              <div className="max-w-md mx-auto">
+              <div className="max-w-lg mx-auto">
                 <h1 className="text-3xl text-slate-800 dark:text-slate-100 font-bold mb-6">
                   Tell us what&apos;s your situation ✨
                 </h1>
@@ -101,51 +101,56 @@ export default function Onboarding01({ user }: Props) {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-8"
                   >
-                    <FormField
-                      control={form.control}
-                      name="position"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Current position</FormLabel>
-                          <FormControl>
-                            <Input placeholder="shadcn" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            This is your current position
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 md:space-x-3 max-md:space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="position"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Current position</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Director" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              This is your current position
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                    <FormField
-                      control={form.control}
-                      name="organization"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Current Organization</FormLabel>
-                          <FormControl>
-                            <Input placeholder="shadcn" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            Enter the Organization you work for
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                      <FormField
+                        control={form.control}
+                        name="organization"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Current organization</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Amazon" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              Enter the organization you work for
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
                     <FormField
                       control={form.control}
                       name="shortBio"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Short Bio</FormLabel>
+                          <FormLabel>Short bio</FormLabel>
                           <FormControl>
-                            <Input placeholder="shadcn" {...field} />
+                            <Input
+                              placeholder="Short description about you"
+                              {...field}
+                            />
                           </FormControl>
                           <FormDescription>
-                            Enter your short Bio about you
+                            Enter your short bio about you
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
@@ -165,7 +170,7 @@ export default function Onboarding01({ user }: Props) {
                             />
                           </FormControl>
                           <FormDescription>
-                            Enter your Bio in detail
+                            Enter your bio in detail
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
@@ -177,18 +182,21 @@ export default function Onboarding01({ user }: Props) {
                       name="portfolioWebsite"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>portfolioWebsite</FormLabel>
+                          <FormLabel>Portfolio website</FormLabel>
                           <FormControl>
-                            <Input placeholder="shadcn" {...field} />
+                            <Input
+                              placeholder="https://profile.com"
+                              {...field}
+                            />
                           </FormControl>
                           <FormDescription>
-                            Enter your portfolioWebsite
+                            Enter your portfolio website
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <div className="flex justify-end">
+                    <div className="flex justify-end my-auto">
                       <Button type="submit" disabled={isSubmitting}>
                         {" "}
                         {isSubmitting ? "Saving..." : "Next"}

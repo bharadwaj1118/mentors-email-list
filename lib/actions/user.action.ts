@@ -166,6 +166,29 @@ export async function updateUserOnboarding05(values: any) {
   }
 }
 
+export async function updateUserOnboarding06(values: any) {
+  try {
+    const { id, price, duration } = values;
+    console.log(values);
+    if (!id) throw new Error("User id is required");
+
+    const updatedUser = await db.user.update({
+      where: {
+        id: values.id,
+      },
+      data: {
+        price,
+        duration,
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING06, " + error);
+  }
+}
+
 export async function updateUser(user: any) {
   try {
     const { id } = user;

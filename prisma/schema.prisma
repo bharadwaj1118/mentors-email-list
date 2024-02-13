@@ -36,8 +36,8 @@ model User {
   expertise        expertise[]
   toolkit          tool[]
   industries       industry[]
-  duration         String?
-  price            Float?
+  duration         Int?
+  price            Int?
   maxSessions      Int?
   zoomLink         String?
 
@@ -135,9 +135,9 @@ model Session {
   objective   String? @db.Text
   description String? @db.Text
   outcome     String? @db.Text
-  duration    String?
+  duration    Int?
   category    String?
-  price       Float?
+  price       Int?
 
   mentorId String
   mentor   User   @relation("sessionsGiven", fields: [mentorId], references: [id])

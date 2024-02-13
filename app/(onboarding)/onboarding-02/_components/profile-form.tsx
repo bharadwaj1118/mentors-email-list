@@ -147,7 +147,7 @@ export default function Onboarding02({ user }: Props) {
                             />
                           </FormControl>
                           <FormDescription>
-                            Country you are from
+                            Please select country you are from
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
@@ -211,7 +211,9 @@ export default function Onboarding02({ user }: Props) {
                               {...field}
                             />
                           </FormControl>
-                          <FormDescription>Languages you know</FormDescription>
+                          <FormDescription>
+                            Please select languages you know
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

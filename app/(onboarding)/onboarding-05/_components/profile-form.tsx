@@ -91,7 +91,7 @@ export default function Onboarding05({ user }: Props) {
             <div className="px-4 py-8">
               <div className="max-w-md mx-auto">
                 <h1 className="text-3xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                  Industry information ✨
+                  Tools ✨
                 </h1>
                 {/* htmlForm */}
                 <Form {...form}>
@@ -113,7 +113,9 @@ export default function Onboarding05({ user }: Props) {
                               isMulti
                             />
                           </FormControl>
-                          <FormDescription>Select your toolkit</FormDescription>
+                          <FormDescription>
+                            Please select the tool
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

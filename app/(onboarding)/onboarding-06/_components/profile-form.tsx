@@ -17,21 +17,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { toast } from "sonner";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { updateUser } from "@/lib/actions/user.action";
-
-const Onboarding06Schema = z.object({
-  duration: z.enum(["15", "30", "60"], {
-    required_error: "You need to select a notification type.",
-  }),
-  price: z.enum(["Free", "25", "50", "75", "100"], {
-    required_error: "You need to select a price type.",
-  }),
-});
+import { updateUserOnboarding06 } from "@/lib/actions/user.action";
+import { Onboarding06Schema } from "@/lib/validation";
 
 interface Props {
   user: string;
@@ -48,21 +42,32 @@ export default function Onboarding06({ user }: Props) {
   const form = useForm<z.infer<typeof Onboarding06Schema>>({
     resolver: zodResolver(Onboarding06Schema),
     defaultValues: {
-      duration: duration || "30",
-      price: price || "Free",
+      duration: duration.toString() || "30",
+      price: price.toString() || "0",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof Onboarding06Schema>) {
+    const { duration, price } = values;
+
     setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({ ...parsedUser, ...values });
+      const data = await updateUserOnboarding06({
+        duration: parseInt(duration),
+        price: parseInt(price),
+        id: parsedUser.id,
+      });
+      if (!data) {
+        toast.error("Something went wrong, please try again");
+      }
       router.push("/dashboard/profiles");
+      toast.success("Onboarding completed successfully");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong, please try again");
     } finally {
       setIsSubmitting(false);
     }
@@ -137,56 +142,18 @@ export default function Onboarding06({ user }: Props) {
                         control={form.control}
                         name="price"
                         render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel>Select the price ...</FormLabel>
+                          <FormItem>
+                            <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex space-x-3 flex-wrap"
-                              >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="Free" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    Free
-                                  </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="25" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    25$
-                                  </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="50" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    50$
-                                  </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="75" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    75$
-                                  </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="100" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    100$
-                                  </FormLabel>
-                                </FormItem>
-                              </RadioGroup>
+                              <Input
+                                placeholder="49"
+                                {...field}
+                                type="number"
+                              />
                             </FormControl>
+                            <FormDescription>
+                              Please enter the price
+                            </FormDescription>
                             <FormMessage />
                           </FormItem>
                         )}

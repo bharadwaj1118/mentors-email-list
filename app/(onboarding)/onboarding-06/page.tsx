@@ -1,17 +1,32 @@
 import React from "react";
-import { currentUser } from "@clerk/nextjs";
 
-import { getUserByclerkId } from "@/lib/actions/user.action";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
 import Onboarding06 from "./_components/profile-form";
 
 const Onboarding06Page = async () => {
-  const clerkUser = await currentUser();
-  if (!clerkUser) return <div>Not logged in</div>;
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/sign-in");
+  }
 
-  const user = await getUserByclerkId(clerkUser?.id);
+  const user = await db.user.findUnique({
+    where: {
+      clerkId: userId,
+    },
+  });
+
   return (
     <div>
-      <Onboarding06 user={JSON.stringify(user)} />
+      <Onboarding06
+        user={JSON.stringify({
+          id: user && user.id,
+          duration: user && user.duration?.toString(),
+          price: user && user.price?.toString(),
+        })}
+      />
     </div>
   );
 };

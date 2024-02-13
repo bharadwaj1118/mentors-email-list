@@ -92,7 +92,7 @@ export default function Onboarding04({ user }: Props) {
             <div className="px-4 py-8">
               <div className="max-w-md mx-auto">
                 <h1 className="text-3xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                  Industry information ✨
+                  Expertise ✨
                 </h1>
                 {/* htmlForm */}
                 <Form {...form}>
