@@ -26,16 +26,13 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUserOnboarding03 } from "@/lib/actions/user.action";
-import RichTextEditor from "@/components/ui/rich-texteditor";
-import { draftToMarkdown } from "markdown-draft-js";
+import { Textarea } from "@/components/ui/textarea";
 
 const FormSchema = z.object({
-  industries: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
+  industry: z.object({
+    label: z.string(),
+    value: z.string(),
+  }),
   description: z.string(),
 });
 
@@ -47,18 +44,26 @@ export default function Onboarding03({ user }: Props) {
   const parsedUser = JSON.parse(user);
   const { industries } = parsedUser;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
   // Convert the industries to match the select input
-  const initialIndustries = industries.map((industry: any) => ({
-    label: industry.name,
-    value: industry.name,
-  }));
+  const initialIndustries = industries.length > 0 && {
+    value: industries[0].name,
+    label: industries[0].name,
+  };
+  const description = industries.length > 0 && industries[0].description;
+  const industryId = industries.length > 0 && industries[0].id;
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      industries: initialIndustries || [],
+      industry: initialIndustries || {},
+      description: description || "",
     },
   });
 
@@ -69,7 +74,8 @@ export default function Onboarding03({ user }: Props) {
     try {
       await updateUserOnboarding03({
         id: parsedUser.id,
-        industries: values.industries,
+        name: values.industry.value,
+        description: values.description,
       });
 
       router.refresh();
@@ -105,7 +111,7 @@ export default function Onboarding03({ user }: Props) {
                   >
                     <FormField
                       control={form.control}
-                      name="industries"
+                      name="industry"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Industries:</FormLabel>
@@ -114,7 +120,6 @@ export default function Onboarding03({ user }: Props) {
                               options={INDUSTRIES}
                               classNamePrefix="select"
                               {...field}
-                              isMulti
                             />
                           </FormControl>
                           <FormDescription>
@@ -134,11 +139,10 @@ export default function Onboarding03({ user }: Props) {
                             Description
                           </FormLabel>
                           <FormControl>
-                            <RichTextEditor
-                              onChange={(draft) =>
-                                field.onChange(draftToMarkdown(draft))
-                              }
-                              ref={field.ref}
+                            <Textarea
+                              placeholder="Tell more about the experience"
+                              className="h-32"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />

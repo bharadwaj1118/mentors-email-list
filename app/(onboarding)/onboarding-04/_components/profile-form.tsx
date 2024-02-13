@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import Link from "next/link";
+import { Textarea } from "@/components/ui/textarea";
 
 import OnboardingImage from "../../onboarding-image";
 import OnboardingProgress from "../../onboarding-progress";
@@ -30,12 +31,10 @@ import RichTextEditor from "@/components/ui/rich-texteditor";
 import { draftToMarkdown } from "markdown-draft-js";
 
 const FormSchema = z.object({
-  expertise: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
+  expertise: z.object({
+    label: z.string(),
+    value: z.string(),
+  }),
   description: z.string(),
 });
 
@@ -50,15 +49,17 @@ export default function Onboarding04({ user }: Props) {
   const router = useRouter();
 
   // Convert the expertise to match the select input
-  const initialExpertise = expertise.map((expert: any) => ({
-    label: expert.name,
-    value: expert.name,
-  }));
+  const initialExpertise = expertise.length > 0 && {
+    value: expertise[0].name,
+    label: expertise[0].name,
+  };
+  const initialDescription = expertise.length > 0 && expertise[0].description;
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      expertise: initialExpertise || [],
+      expertise: initialExpertise || {},
+      description: initialDescription || "",
     },
   });
 
@@ -69,10 +70,10 @@ export default function Onboarding04({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      window.alert(values.description);
       await updateUserOnboarding04({
         id: parsedUser.id,
-        expertise: values.expertise,
+        name: values.expertise.value,
+        description: values.description,
       });
 
       router.refresh();
@@ -117,7 +118,6 @@ export default function Onboarding04({ user }: Props) {
                               options={EXPERTISE}
                               classNamePrefix="select"
                               {...field}
-                              isMulti
                             />
                           </FormControl>
                           <FormDescription>
@@ -137,11 +137,10 @@ export default function Onboarding04({ user }: Props) {
                             Description
                           </FormLabel>
                           <FormControl>
-                            <RichTextEditor
-                              onChange={(draft) =>
-                                field.onChange(draftToMarkdown(draft))
-                              }
-                              ref={field.ref}
+                            <Textarea
+                              placeholder="Tell more about the experience"
+                              className="h-32"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -150,7 +149,7 @@ export default function Onboarding04({ user }: Props) {
                     />
 
                     <div className="flex justify-between">
-                      <Link href="/onboarding-02">
+                      <Link href="/onboarding-03">
                         <Button type="button" variant="outline">
                           Back
                         </Button>

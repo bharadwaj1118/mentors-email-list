@@ -121,7 +121,7 @@ export default function Onboarding05({ user }: Props) {
                       )}
                     />
                     <div className="flex justify-between">
-                      <Link href="/onboarding-02">
+                      <Link href="/onboarding-04">
                         <Button type="button" variant="outline">
                           Back
                         </Button>

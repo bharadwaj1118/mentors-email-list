@@ -12,7 +12,7 @@ const Onboarding04Page = async () => {
     redirect("/sign-in");
   }
 
-  const user = await db.user.findUnique({
+  const user = await db.user.findFirst({
     where: {
       clerkId: userId,
     },

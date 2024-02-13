@@ -132,10 +132,18 @@ export async function updateUserOnboarding02(user: any) {
   }
 }
 
-export async function updateUserOnboarding03(values: any) {
+interface IOnboarding03User {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export async function updateUserOnboarding03(data: IOnboarding03User) {
   try {
-    const { id, industries } = values;
+    const { id, name, description } = data;
     if (!id) throw new Error("User id is required");
+
+    console.log(description);
 
     await db.industry.deleteMany({
       where: {
@@ -143,11 +151,12 @@ export async function updateUserOnboarding03(values: any) {
       },
     });
 
-    await db.industry.createMany({
-      data: industries.map((industry: any) => ({
-        name: industry.value,
+    await db.industry.create({
+      data: {
+        name,
+        description,
         userId: id,
-      })),
+      },
     });
   } catch (error) {
     console.log(error);
@@ -155,9 +164,15 @@ export async function updateUserOnboarding03(values: any) {
   }
 }
 
-export async function updateUserOnboarding04(values: any) {
+interface IOnboarding04User {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export async function updateUserOnboarding04(data: IOnboarding04User) {
   try {
-    const { id, expertise } = values;
+    const { id, name, description } = data;
     if (!id) throw new Error("User id is required");
 
     await db.expertise.deleteMany({
@@ -166,11 +181,12 @@ export async function updateUserOnboarding04(values: any) {
       },
     });
 
-    await db.expertise.createMany({
-      data: expertise.map((expert: any) => ({
-        name: expert.value,
+    await db.expertise.create({
+      data: {
+        name,
+        description,
         userId: id,
-      })),
+      },
     });
   } catch (error) {
     console.log(error);
