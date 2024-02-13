@@ -12,7 +12,8 @@ export default function Support() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Section header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-              <h1 className="h1">Need help? Don’t hesitate to reach out! </h1>
+              <h1 className="h1">Need help? </h1>
+              <h1 className="h1"> Don’t hesitate to reach out!</h1>
             </div>
 
             {/* Contact form */}
@@ -89,7 +90,7 @@ export default function Support() {
                     className="block text-gray-800 text-sm font-medium mb-1"
                     htmlFor="message"
                   >
-                    Message
+                    Message <span className="text-red-600">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -107,14 +108,14 @@ export default function Support() {
                 </div>
               </div>
               <div className="text-sm text-gray-600 mt-4">
-                By clicking send you consent to allow Simple to store and
+                By clicking send you consent to allow Mentors CX to store and
                 process the personal information submitted above and agree to
                 our{" "}
-                <a className="underline" href="#0">
+                <a className="underline" href="/terms" target="_blank">
                   terms and conditions
                 </a>{" "}
                 as well as our{" "}
-                <a className="underline" href="#0">
+                <a className="underline" href="/privacy" target="_blank">
                   Privacy Policy
                 </a>
                 .

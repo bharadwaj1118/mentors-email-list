@@ -78,7 +78,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="mentors@cx.com" {...field} />
                 </FormControl>
                 <FormDescription>
                   Please enter your email address.
@@ -110,7 +110,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </Select>
                 <FormDescription>
                   select a role you are interested in
-                  <Link href="/examples/forms">email settings</Link>.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
