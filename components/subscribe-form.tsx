@@ -1,24 +1,18 @@
 import * as React from "react";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
-  SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
-
-import * as z from "zod";
-import { useForm, SubmitHandler, FormState } from "react-hook-form";
-import { formUserSchema } from "@/lib/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormField,
@@ -28,17 +22,16 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/ui/form";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { formUserSchema } from "@/lib/schemas";
 import { addSubscribeUser } from "@/lib/actions/subscribe.action";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface SubscribeFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export function SubscribeForm({ className, ...props }: SubscribeFormProps) {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formUserSchema>>({
+  const form = useForm<z.z.infer<typeof formUserSchema>>({
     resolver: zodResolver(formUserSchema),
     defaultValues: {
       email: "",
@@ -78,7 +71,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="mentors@cx.com" {...field} />
+                  <Input placeholder="example@mentors.cx" {...field} />
                 </FormControl>
                 <FormDescription>
                   Please enter your email address.

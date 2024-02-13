@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { LampContainer } from "@/components/ui/lamp";
 
-import { UserAuthForm } from "@/components/user-auth-form";
+import { SubscribeForm } from "@/components/subscribe-form";
 
 export default function AuthenticationPage() {
   return (
@@ -64,7 +64,7 @@ export default function AuthenticationPage() {
                 wave.{" "}
               </p>
             </div>
-            <UserAuthForm />
+            <SubscribeForm />
           </div>
         </div>
       </div>
