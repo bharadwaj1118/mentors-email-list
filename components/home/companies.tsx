@@ -4,31 +4,32 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Particles from "./particles";
 
-import Client01 from "@/public/logos/appcues.png";
-import Client02 from "@/public/logos/apple.svg";
-import Client03 from "@/public/logos/automattic.svg";
-import Client04 from "@/public/logos/goodEggs.svg";
-import Client05 from "@/public/logos/google.svg";
-import Client06 from "@/public/logos/handshake.svg";
-import Client07 from "@/public/logos/hubspot.svg";
-import Client08 from "@/public/logos/klaus.svg";
-import Client09 from "@/public/logos/loom.svg";
-import Client10 from "@/public/logos/meetup.svg";
-import Client11 from "@/public/logos/partnerhero.svg";
-import Client12 from "@/public/logos/prezzee.svg";
-import Client14 from "@/public/logos/shopify.svg";
-import Client15 from "@/public/logos/trello.svg";
-import Client16 from "@/public/logos/wistia.svg";
-import Client17 from "@/public/logos/zapier.svg";
-import Client18 from "@/public/logos/zf.svg";
-import Client19 from "@/public/logos/changex.png";
-import Client20 from "@/public/logos/lovepop.png";
-import Client21 from "@/public/logos/nobull.svg";
-import Client22 from "@/public/logos/sanaBenefits.png";
-import Client23 from "@/public/logos/soon.png";
-
 import Swiper, { Autoplay } from "swiper";
 import "swiper/swiper.min.css";
+
+const logos = [
+  "/logos/appcues.png",
+  "/logos/apple.svg",
+  "/logos/goodEggs.svg",
+  "/logos/google.svg",
+  "/logos/handshake.svg",
+  "/logos/hubspot.svg",
+  "/logos/loom.svg",
+  "/logos/meetup.svg",
+  "/logos/partnerhero.svg",
+  "/logos/prezzee.svg",
+  "/logos/shopify.svg",
+  "/logos/trello.svg",
+  "/logos/wistia.svg",
+  "/logos/automattic.svg",
+  "/logos/zapier.svg",
+  "/logos/zf.svg",
+  "/logos/changex.png",
+  "/logos/lovepop.png",
+  "/logos/nobull.svg",
+  "/logos/sanaBenefits.png",
+  "/logos/soon.png",
+];
 Swiper.use([Autoplay]);
 
 export default function Companies() {
@@ -64,197 +65,11 @@ export default function Companies() {
               <div className="swiper-wrapper !ease-linear select-none items-center">
                 {/* Carousel items */}
 
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client01}
-                    alt="Client 01"
-                    width={110}
-                    height={21}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client02}
-                    alt="Client 02"
-                    width={70}
-                    height={25}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-1"
-                    src={Client03}
-                    alt="Client 03"
-                    width={107}
-                    height={33}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client04}
-                    alt="Client 04"
-                    width={85}
-                    height={36}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client05}
-                    alt="Client 05"
-                    width={86}
-                    height={18}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client06}
-                    alt="Client 06"
-                    width={78}
-                    height={34}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client07}
-                    alt="Client 07"
-                    width={83}
-                    height={23}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    src={Client08}
-                    alt="Client 08"
-                    width={98}
-                    height={26}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client09}
-                    alt="Client 09"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client10}
-                    alt="Client 10"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client11}
-                    alt="Client 11"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client12}
-                    alt="Client 12"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client14}
-                    alt="Client 14"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client15}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client16}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client17}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client18}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client19}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client20}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client21}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client22}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
-                <div className="swiper-slide !w-auto">
-                  <Image
-                    className="mt-2"
-                    src={Client23}
-                    alt="Client 15"
-                    width={92}
-                    height={28}
-                  />
-                </div>
+                {logos.map((logo, key) => (
+                  <div key={key} className="swiper-slide !w-auto ">
+                    <Image src={logo} alt="Client 01" width={110} height={21} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

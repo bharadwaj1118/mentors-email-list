@@ -64,7 +64,7 @@ export default function FeaturesHome() {
                 </h3>
                 <p className="text-lg text-slate-300">
                   Open the door to collaborative opportunities and lifelong
-                  connections within our Mentors CX community
+                  connections within our Mentors CX community.
                 </p>
               </article>
 

@@ -29,21 +29,6 @@ export default function Footer() {
               Your gateway to a CX community that thrives on learning and
               growth.
             </div>
-            <div className="text-sm text-gray-600">
-              <a
-                href="#0"
-                className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
-              >
-                Terms
-              </a>{" "}
-              ·{" "}
-              <a
-                href="#0"
-                className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out"
-              >
-                Privacy Policy
-              </a>
-            </div>
           </div>
 
           {/* 2nd block */}

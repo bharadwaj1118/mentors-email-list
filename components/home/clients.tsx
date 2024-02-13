@@ -44,7 +44,7 @@ const testimonials = [
   {
     name: "Elissa Chandler ",
     title: "VP of Marketing & Operations, Odyssey Energy Solutions",
-    description: "Favorite hobby: Cooking.",
+    description: "Favorite hobby: I love cooking!",
     image: "/clients/ElissaPropic.jpg",
   },
 
@@ -127,6 +127,11 @@ export default function Clients() {
             ))}
           </div>
           {/* See All Customers */}
+          <div className="text-center mb-3">
+            <p className="text-xl text-slate-700 md:text-2xl">
+              Have a 1:1 video call with CX leaders to get unstuck
+            </p>
+          </div>
           <div className="text-center">
             <Link href="/subscribe">
               <button className="btn group bg-blue-600 text-white hover:bg-blue-700">
