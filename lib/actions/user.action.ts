@@ -97,6 +97,75 @@ export async function updateUserOnboarding02(user: any) {
   }
 }
 
+export async function updateUserOnboarding03(values: any) {
+  try {
+    const { id, industries } = values;
+    if (!id) throw new Error("User id is required");
+
+    await db.industry.deleteMany({
+      where: {
+        userId: id,
+      },
+    });
+
+    await db.industry.createMany({
+      data: industries.map((industry: any) => ({
+        name: industry.value,
+        userId: id,
+      })),
+    });
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING03, " + error);
+  }
+}
+
+export async function updateUserOnboarding04(values: any) {
+  try {
+    const { id, expertise } = values;
+    if (!id) throw new Error("User id is required");
+
+    await db.expertise.deleteMany({
+      where: {
+        userId: id,
+      },
+    });
+
+    await db.expertise.createMany({
+      data: expertise.map((expert: any) => ({
+        name: expert.value,
+        userId: id,
+      })),
+    });
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING04, " + error);
+  }
+}
+
+export async function updateUserOnboarding05(values: any) {
+  try {
+    const { id, toolkit } = values;
+    if (!id) throw new Error("User id is required");
+
+    await db.tool.deleteMany({
+      where: {
+        userId: id,
+      },
+    });
+
+    await db.tool.createMany({
+      data: toolkit.map((tool: any) => ({
+        name: tool.value,
+        userId: id,
+      })),
+    });
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING03, " + error);
+  }
+}
+
 export async function updateUser(user: any) {
   try {
     const { id } = user;

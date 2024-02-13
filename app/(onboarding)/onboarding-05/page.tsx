@@ -4,9 +4,9 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
-import Onboarding04 from "./_components/profile-form";
+import Onboarding05 from "./_components/profile-form";
 
-const Onboarding04Page = async () => {
+const Onboarding05Page = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -17,15 +17,15 @@ const Onboarding04Page = async () => {
       clerkId: userId,
     },
     include: {
-      expertise: true,
+      toolkit: true,
     },
   });
 
   return (
     <div>
-      <Onboarding04 user={JSON.stringify(user)} />
+      <Onboarding05 user={JSON.stringify(user)} />
     </div>
   );
 };
 
-export default Onboarding04Page;
+export default Onboarding05Page;

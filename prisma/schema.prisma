@@ -19,23 +19,23 @@ enum Role {
 }
 
 model User {
-  id               String     @id @default(uuid())
-  username         String     @unique
-  email            String     @unique
-  imageUrl         String     @db.Text
-  clerkId          String     @unique
-  bio              String?    @db.Text
-  shortBio         String?    @db.Text
-  portfolioWebsite String?    @db.Text
+  id               String      @id @default(uuid())
+  username         String      @unique
+  email            String      @unique
+  imageUrl         String      @db.Text
+  clerkId          String      @unique
+  bio              String?     @db.Text
+  shortBio         String?     @db.Text
+  portfolioWebsite String?     @db.Text
   position         String?
   organization     String?
   city             String?
   country          String?
-  role             Role?      @default(MENTOR)
+  role             Role?       @default(MENTOR)
   languages        language[]
-  expertise        Json?
-  toolkit          Json?
-  industries       Json?
+  expertise        expertise[]
+  toolkit          tool[]
+  industries       industry[]
   duration         String?
   price            Float?
   maxSessions      Int?
@@ -52,6 +52,48 @@ model User {
 model language {
   id   String @id @default(uuid())
   name String @unique
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model tool {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String? @db.Text
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model expertise {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String? @db.Text
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model industry {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String? @db.Text
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])

@@ -10,7 +10,7 @@ import OnboardingImage from "../../onboarding-image";
 import OnboardingProgress from "../../onboarding-progress";
 
 import Select from "react-select";
-import { EXPERTISE, INDUSTRIES, TOOLS } from "@/constants/data";
+import { TOOLS } from "@/constants/data";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,10 +25,10 @@ import {
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { updateUserOnboarding04 } from "@/lib/actions/user.action";
+import { updateUserOnboarding05 } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
-  expertise: z.array(
+  toolkit: z.array(
     z.object({
       label: z.string(),
       value: z.string(),
@@ -40,22 +40,22 @@ interface Props {
   user: string;
 }
 
-export default function Onboarding04({ user }: Props) {
+export default function Onboarding05({ user }: Props) {
   const parsedUser = JSON.parse(user);
-  const { expertise } = parsedUser;
+  const { toolkit } = parsedUser;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  // Convert the expertise to match the select input
-  const initialExpertise = expertise.map((expert: any) => ({
-    label: expert.name,
-    value: expert.name,
+  // Convert the toolkit to match the select input
+  const initialToolkit = toolkit.map((tool: any) => ({
+    label: tool.name,
+    value: tool.name,
   }));
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      expertise: initialExpertise || [],
+      toolkit: initialToolkit || [],
     },
   });
 
@@ -64,13 +64,12 @@ export default function Onboarding04({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      console.log(values);
-      await updateUserOnboarding04({
+      await updateUserOnboarding05({
         id: parsedUser.id,
-        expertise: values.expertise,
+        toolkit: values.toolkit,
       });
       router.refresh();
-      router.push("/onboarding-05");
+      router.push("/onboarding-06");
     } catch (error) {
       console.log(error);
     } finally {
@@ -102,26 +101,23 @@ export default function Onboarding04({ user }: Props) {
                   >
                     <FormField
                       control={form.control}
-                      name="expertise"
+                      name="toolkit"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Expertise:</FormLabel>
+                          <FormLabel>Toolkit:</FormLabel>
                           <FormControl>
                             <Select
-                              options={EXPERTISE}
+                              options={TOOLS}
                               classNamePrefix="select"
                               {...field}
                               isMulti
                             />
                           </FormControl>
-                          <FormDescription>
-                            Select your expertise
-                          </FormDescription>
+                          <FormDescription>Select your toolkit</FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-
                     <div className="flex justify-between">
                       <Link href="/onboarding-02">
                         <Button type="button" variant="outline">

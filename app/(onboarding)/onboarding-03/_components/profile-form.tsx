@@ -23,24 +23,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUserOnboarding03 } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
   industries: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  expertise: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
-  toolkit: z.array(
     z.object({
       label: z.string(),
       value: z.string(),
@@ -54,26 +42,32 @@ interface Props {
 
 export default function Onboarding03({ user }: Props) {
   const parsedUser = JSON.parse(user);
-  const { industries, expertise, toolkit } = parsedUser;
+  const { industries } = parsedUser;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
+
+  // Convert the industries to match the select input
+  const initialIndustries = industries.map((industry: any) => ({
+    label: industry.name,
+    value: industry.name,
+  }));
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      industries: industries || [],
-      expertise: expertise || [],
-      toolkit: toolkit || [],
+      industries: initialIndustries || [],
     },
   });
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     setIsSubmitting(true);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     try {
-      await updateUser({ ...parsedUser, ...values });
+      await updateUserOnboarding03({
+        id: parsedUser.id,
+        industries: values.industries,
+      });
+
+      router.refresh();
       router.push("/onboarding-04");
     } catch (error) {
       console.log(error);
@@ -126,47 +120,6 @@ export default function Onboarding03({ user }: Props) {
                       )}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name="expertise"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Expertise:</FormLabel>
-                          <FormControl>
-                            <Select
-                              options={EXPERTISE}
-                              classNamePrefix="select"
-                              {...field}
-                              isMulti
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Select your expertise
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="toolkit"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Toolkit:</FormLabel>
-                          <FormControl>
-                            <Select
-                              options={TOOLS}
-                              classNamePrefix="select"
-                              {...field}
-                              isMulti
-                            />
-                          </FormControl>
-                          <FormDescription>Select your toolkit</FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
                     <div className="flex justify-between">
                       <Link href="/onboarding-02">
                         <Button type="button" variant="outline">
