@@ -41,6 +41,10 @@ model User {
   maxSessions      Int?
   zoomLink         String?
 
+  isVerified  Boolean @default(false)
+  isArchived  Boolean @default(false)
+  isOnboarded Boolean @default(false)
+
   events           Event[]
   sessionsGiven    Session[] @relation("sessionsGiven")
   sessionsReceived Session[] @relation("sessionsReceived")

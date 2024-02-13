@@ -230,6 +230,7 @@ export async function updateUserOnboarding06(values: any) {
       data: {
         price,
         duration,
+        isOnboarded: true,
       },
     });
 
