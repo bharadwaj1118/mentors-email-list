@@ -1,31 +1,31 @@
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { LampContainer } from "@/components/ui/lamp";
 
 import { UserAuthForm } from "@/components/user-auth-form";
 
 export default function AuthenticationPage() {
   return (
     <>
-      {/* <div className="lg:hidden">
-        <Image
-          src="/authentication-light.png"
-          width={1280}
-          height={843}
-          alt="Authentication"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/authentication-light.png"
-          width={1280}
-          height={843}
-          alt="Authentication"
-          className="hidden dark:block"
-        />
-      </div> */}
       <div className="relative min-h-screen h-full flex-col items-center justify-center md:grid md:max-w-none md:grid-cols-2 sm:px-0 max-md:mb-10">
-        <div className="relative h-[1/3] flex-col items-center justify-center bg-muted p-10 text-white dark:border-r flex md:h-full max-md:mb-3">
+        <div className="relative h-[1/3] flex-col items-center justify-center bg-muted text-white dark:border-r flex md:h-full max-md:mb-3">
           <div className="absolute inset-0 bg-zinc-900" />
-          <div className="flex">
+          <LampContainer className="max-md:hidden">
+            <motion.h1
+              initial={{ opacity: 0.5, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.3,
+                duration: 0.8,
+                ease: "easeInOut",
+              }}
+              className="mt-8 bg-gradient-to-br from-white to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+            >
+              Mentors CX
+            </motion.h1>
+          </LampContainer>
+          <div className="flex md:hidden">
             <Image
               src="/mentors-cx.png"
               width={500}

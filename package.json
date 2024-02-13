@@ -51,7 +51,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.13.1",
-    "framer-motion": "^10.16.5",
+    "framer-motion": "^10.18.0",
     "lucide-react": "^0.292.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
