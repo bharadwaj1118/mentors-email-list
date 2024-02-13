@@ -20,7 +20,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { updateUser } from "@/lib/actions/user.action";
+import { updateUserOnboarding01 } from "@/lib/actions/user.action";
+import { user } from "@nextui-org/react";
+import { User } from "@prisma/client";
 
 const onboard1Schema = z.object({
   shortBio: z.string().min(20, {
@@ -40,17 +42,16 @@ const onboard1Schema = z.object({
   }),
 });
 
-interface Props {
+interface Onboarding01Props {
   user: string;
 }
 
-export default function Onboarding01({ user }: Props) {
-  const parsedUser = JSON.parse(user);
+export default function Onboarding01(user: Onboarding01Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const { shortBio, organization, bio, position, portfolioWebsite } =
-    parsedUser;
+  const { shortBio, organization, bio, position, portfolioWebsite, id } =
+    JSON.parse(user.user);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof onboard1Schema>>({
@@ -70,7 +71,7 @@ export default function Onboarding01({ user }: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      await updateUser({ ...parsedUser, ...values });
+      await updateUserOnboarding01({ ...values, id });
       router.push("/onboarding-02");
     } catch (error) {
       console.log(error);

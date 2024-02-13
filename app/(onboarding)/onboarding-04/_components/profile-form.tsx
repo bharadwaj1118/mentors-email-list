@@ -10,7 +10,7 @@ import OnboardingImage from "../../onboarding-image";
 import OnboardingProgress from "../../onboarding-progress";
 
 import Select from "react-select";
-import { EXPERTISE, INDUSTRIES, TOOLS } from "@/constants/data";
+import { EXPERTISE } from "@/constants/data";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUserOnboarding04 } from "@/lib/actions/user.action";
+import RichTextEditor from "@/components/ui/rich-texteditor";
+import { draftToMarkdown } from "markdown-draft-js";
 
 const FormSchema = z.object({
   expertise: z.array(
@@ -34,6 +36,7 @@ const FormSchema = z.object({
       value: z.string(),
     })
   ),
+  description: z.string(),
 });
 
 interface Props {
@@ -59,16 +62,19 @@ export default function Onboarding04({ user }: Props) {
     },
   });
 
+  const { setFocus } = form;
+
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
-      console.log(values);
+      window.alert(values.description);
       await updateUserOnboarding04({
         id: parsedUser.id,
         expertise: values.expertise,
       });
+
       router.refresh();
       router.push("/onboarding-05");
     } catch (error) {
@@ -117,6 +123,27 @@ export default function Onboarding04({ user }: Props) {
                           <FormDescription>
                             Select your expertise
                           </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel onClick={() => setFocus("description")}>
+                            Description
+                          </FormLabel>
+                          <FormControl>
+                            <RichTextEditor
+                              onChange={(draft) =>
+                                field.onChange(draftToMarkdown(draft))
+                              }
+                              ref={field.ref}
+                            />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}

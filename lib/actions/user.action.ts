@@ -59,6 +59,41 @@ export async function getUserByclerkId(userId: string) {
   }
 }
 
+interface IOnboarding01User {
+  id: string;
+  position: string;
+  organization: string;
+  shortBio: string;
+  bio: string;
+  portfolioWebsite: string;
+}
+
+export async function updateUserOnboarding01(data: IOnboarding01User) {
+  try {
+    const { id, position, organization, shortBio, bio, portfolioWebsite } =
+      data;
+    if (!id) throw new Error("User id is required");
+
+    const updatedUser = await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        position,
+        organization,
+        shortBio,
+        bio,
+        portfolioWebsite,
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_ERROR_ONBOARING01, " + error);
+  }
+}
+
 export async function updateUserOnboarding02(user: any) {
   try {
     const { id } = user;

@@ -10,7 +10,7 @@ import OnboardingImage from "../../onboarding-image";
 import OnboardingProgress from "../../onboarding-progress";
 
 import Select from "react-select";
-import { EXPERTISE, INDUSTRIES, TOOLS } from "@/constants/data";
+import { INDUSTRIES } from "@/constants/data";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUserOnboarding03 } from "@/lib/actions/user.action";
+import RichTextEditor from "@/components/ui/rich-texteditor";
+import { draftToMarkdown } from "markdown-draft-js";
 
 const FormSchema = z.object({
   industries: z.array(
@@ -34,6 +36,7 @@ const FormSchema = z.object({
       value: z.string(),
     })
   ),
+  description: z.string(),
 });
 
 interface Props {
@@ -58,6 +61,8 @@ export default function Onboarding03({ user }: Props) {
       industries: initialIndustries || [],
     },
   });
+
+  const { setFocus } = form;
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     setIsSubmitting(true);
@@ -115,6 +120,27 @@ export default function Onboarding03({ user }: Props) {
                           <FormDescription>
                             Select your Industry
                           </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel onClick={() => setFocus("description")}>
+                            Description
+                          </FormLabel>
+                          <FormControl>
+                            <RichTextEditor
+                              onChange={(draft) =>
+                                field.onChange(draftToMarkdown(draft))
+                              }
+                              ref={field.ref}
+                            />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}

@@ -16,8 +16,17 @@ const Onboarding02Page = async () => {
     where: {
       clerkId: userId,
     },
-    include: {
-      languages: true,
+
+    select: {
+      id: true,
+      city: true,
+      role: true,
+      country: true,
+      languages: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 
