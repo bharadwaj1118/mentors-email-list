@@ -76,7 +76,7 @@ export default function Onboarding06({ user }: Props) {
           <div className="flex flex-col after:flex-1">
             <div className="flex-1">
               {/* <OnboardingHeader /> */}
-              <OnboardingProgress step={4} />
+              <OnboardingProgress step={6} />
             </div>
 
             <div className="px-4 py-8">

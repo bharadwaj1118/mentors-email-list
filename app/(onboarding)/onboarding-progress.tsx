@@ -19,7 +19,7 @@ export default function OnboardingProgress({ step = 1 }: { step?: number }) {
                 }`}
                 href="/onboarding-01"
               >
-                Basic
+                1
               </Link>
             </li>
             <li>
@@ -31,7 +31,7 @@ export default function OnboardingProgress({ step = 1 }: { step?: number }) {
                 }`}
                 href="/onboarding-02"
               >
-                Personal
+                2
               </Link>
             </li>
             <li>
@@ -43,7 +43,7 @@ export default function OnboardingProgress({ step = 1 }: { step?: number }) {
                 }`}
                 href="/onboarding-03"
               >
-                Skills
+                3
               </Link>
             </li>
             <li>
@@ -55,7 +55,31 @@ export default function OnboardingProgress({ step = 1 }: { step?: number }) {
                 }`}
                 href="/onboarding-04"
               >
-                session
+                4
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`flex items-center justify-center w-fit h-fit px-3 py-1 rounded-full text-xs font-semibold ${
+                  step >= 5
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                }`}
+                href="/onboarding-05"
+              >
+                5
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`flex items-center justify-center w-fit h-fit px-3 py-1 rounded-full text-xs font-semibold ${
+                  step >= 6
+                    ? "bg-blue-500 text-white"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                }`}
+                href="/onboarding-06"
+              >
+                6
               </Link>
             </li>
           </ul>
