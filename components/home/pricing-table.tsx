@@ -29,23 +29,44 @@ export default function PricingTables() {
           {/* Pricing tables */}
           <div>
             {/* Pricing toggle */}
-            <div className="flex justify-center max-w-xs m-auto mb-16" data-aos="zoom-y-out" data-aos-delay="300">
+            <div
+              className="flex justify-center max-w-xs m-auto mb-16"
+              data-aos="zoom-y-out"
+              data-aos-delay="300"
+            >
               <div className="relative flex w-full mx-6 p-1 bg-gray-200 rounded">
                 <span
                   className="absolute inset-0 m-1 pointer-events-none"
                   aria-hidden="true"
                 >
-                  <span className={`absolute inset-0 w-1/2 bg-white rounded shadow transform! transition duration-150 ease-in-out ${annual ? 'translate-x-0' : 'translate-x-full'}`}></span>
+                  <span
+                    className={`absolute inset-0 w-1/2 bg-white rounded shadow transform! transition duration-150 ease-in-out ${
+                      annual ? "translate-x-0" : "translate-x-full"
+                    }`}
+                  ></span>
                 </span>
                 <button
-                  className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${!annual && 'text-gray-500'}`}
-                  onClick={(e) => { e.preventDefault(); setAnnual(true); }}
-                >Bill Yearly <span className="text-green-500">-20%</span>
+                  className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${
+                    !annual && "text-gray-500"
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setAnnual(true);
+                  }}
+                >
+                  Bill Yearly <span className="text-green-500">-20%</span>
                 </button>
                 <button
-                  className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${annual && 'text-gray-500'}`}
-                  onClick={(e) => { e.preventDefault(); setAnnual(false); }}
-                >Bill Monthly</button>
+                  className={`relative flex-1 text-sm font-medium p-1 transition duration-150 ease-in-out ${
+                    annual && "text-gray-500"
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setAnnual(false);
+                  }}
+                >
+                  Bill Monthly
+                </button>
               </div>
             </div>
 
@@ -157,7 +178,7 @@ export default function PricingTables() {
                     <span className="text-gray-600 pl-2">/month</span>
                   </div>
                   <div className="text-lg text-gray-800">
-                    For larger teams that need to create, and collaborate.
+                    For those committed to a more sustainable growth
                   </div>
                 </div>
                 <ul className="text-gray-600 -mb-2 grow">

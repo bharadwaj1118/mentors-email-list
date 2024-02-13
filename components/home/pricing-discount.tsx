@@ -39,6 +39,7 @@ const PricingDiscount = () => {
           <a
             className="btn-sm text-white bg-blue-600 hover:bg-blue-700 w-full"
             href="https://forms.gle/XdTkWBYvqpyjFojF8"
+            target="_blank"
           >
             Apply now 😊
           </a>

@@ -164,10 +164,11 @@ export default function HealthValues() {
               already embedded in the company’s dynamic.
             </p>
             <p className="text-lg text-gray-600 mt-3 md:mt-6">
-              PS: Even though these were inspired by many articles, published
-              studies, docuseries, books, and documentaries, we decided to add
-              this as our company’s health pillars after reading a NYT article
-              written by Dana G. Smith on Jan 4th. It was simple and updated.
+              <span className="italic text-lg font-semibold">PS</span>: Even
+              though these were inspired by many articles, published studies,
+              docuseries, books, and documentaries, we decided to add this as
+              our company’s health pillars after reading a NYT article written
+              by Dana G. Smith on Jan 4th. It was simple and updated.
             </p>
           </div>
         </div>

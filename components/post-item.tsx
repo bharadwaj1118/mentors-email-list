@@ -47,9 +47,9 @@ export default async function PostItem() {
                 <Image
                   src={post.image}
                   alt={post.title}
-                  width={804}
-                  height={452}
-                  className="rounded-md border bg-muted transition-colors"
+                  width={200}
+                  height={150}
+                  className="rounded-md border bg-muted transition-colors w-full h-[220px] object-fill"
                   priority={index <= 1}
                 />
               )}
