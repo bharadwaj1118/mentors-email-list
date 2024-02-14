@@ -7,12 +7,13 @@ const popularPostsData = [
     link: "/blog/master-the-art-of-online-mentoring",
   },
   {
-    title: "Actionable tips to Maximize revenue",
+    title: "Maximizing revenue: the power of customer experience",
     Author: "Mentors CX",
     link: "/blog/maximize-revenue",
   },
   {
-    title: "Turning customers into clients",
+    title:
+      "Turning customers into clients: building lasting loyalty and repeat business",
     Author: "Mentors CX",
     link: "/blog/turning-customers-into-clients",
   },
