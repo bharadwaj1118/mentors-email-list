@@ -99,8 +99,8 @@ export default async function SinglePost({
                     <hr className="w-full h-px pt-px mt-8 bg-gray-200 border-0" />
                     <div className="mt-8">
                       Interested in more tips like this? Check out{" "}
-                      <a className="text-gray-900 underline" href="#0">
-                        Introducing the Testing Field Guide
+                      <a className="text-blue-600" href="/blog">
+                        Mentors CX blog
                       </a>
                       .
                     </div>
