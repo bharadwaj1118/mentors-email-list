@@ -46,10 +46,10 @@ export default async function PostItem() {
               {post.authorImg && (
                 <Image
                   src={post.image}
-                  alt={post.title}
                   width={200}
                   height={150}
-                  className="rounded-md border bg-muted transition-colors w-full h-[220px] object-fill"
+                  alt={post.title}
+                  className="rounded-md border bg-muted transition-colors w-full h-[250px] object-cover object-top"
                   priority={index <= 1}
                 />
               )}
