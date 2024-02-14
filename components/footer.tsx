@@ -53,7 +53,7 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a
-                  href="/terms"
+                  href="/docs/terms"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   Terms & Conditions
@@ -61,7 +61,7 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a
-                  href="/privacy"
+                  href="/docs/privacy"
                   className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out"
                 >
                   Privacy Policy

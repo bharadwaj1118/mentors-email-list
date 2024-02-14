@@ -174,11 +174,11 @@ export default function SupportForm() {
                 By clicking send you consent to allow Mentors CX to store and
                 process the personal information submitted above and agree to
                 our{" "}
-                <a className="underline" href="/terms" target="_blank">
+                <a className="underline" href="/docs/terms" target="_blank">
                   terms and conditions
                 </a>{" "}
                 as well as our{" "}
-                <a className="underline" href="/privacy" target="_blank">
+                <a className="underline" href="/docs/privacy" target="_blank">
                   Privacy Policy
                 </a>
                 .

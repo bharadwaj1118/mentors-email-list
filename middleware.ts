@@ -9,7 +9,7 @@ export default authMiddleware({
     "/blog/(.*)",
     "/subscribe",
     "/support",
-    "/terms",
+    "/docs/(.*)",
     "/privacy",
     "/about",
     "/pricing",
