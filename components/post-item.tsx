@@ -19,6 +19,7 @@ export const metadata = {
 export default async function PostItem() {
   const posts = allPosts
     .filter((post) => post.publishedAt)
+    .filter((post) => post.articleType === "blog")
     .sort((a, b) => {
       return compareDesc(new Date(a.publishedAt), new Date(b.publishedAt));
     });

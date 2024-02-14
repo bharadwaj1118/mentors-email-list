@@ -7,10 +7,10 @@ import PostDate from "@/components/post-date";
 import { Mdx } from "@/components/mdx/mdx";
 import PostNav from "@/components/mdx/post-nav";
 
-const allBlogs = allPosts.filter((post: Post) => post.articleType === "blog");
+const allDocs = allPosts.filter((post: Post) => post.articleType === "docs");
 
 export async function generateStaticParams() {
-  return allBlogs.map((post) => ({
+  return allDocs.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -20,7 +20,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata | undefined> {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+  const post = allDocs.find((post) => post.slug === `docs/${params.slug}`);
 
   if (!post) return;
 
@@ -37,13 +37,13 @@ export default async function SinglePost({
 }: {
   params: { slug: string };
 }) {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+  const post = allDocs.find((post) => post.slug === `docs/${params.slug}`);
 
   if (!post) notFound();
 
   return (
     <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           <div className="max-w-3xl mx-auto lg:max-w-none">
             <article>
@@ -56,41 +56,10 @@ export default async function SinglePost({
               {/* Article content */}
               <div className="lg:flex lg:justify-between">
                 {/* Sidebar */}
-                <PostNav />
 
                 {/* Main content */}
                 <div>
                   {/* Article meta */}
-                  <div className="flex items-center mb-6">
-                    <div className="flex shrink-0 mr-3">
-                      <a className="relative" href="#0">
-                        <span
-                          className="absolute inset-0 -m-px"
-                          aria-hidden="true"
-                        >
-                          <span className="absolute inset-0 -m-px"></span>
-                        </span>
-                        <Image
-                          className="relative rounded-full"
-                          src={post.authorImg}
-                          width={32}
-                          height={32}
-                          alt={post.author}
-                        />
-                      </a>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">By </span>
-                      <a className="font-medium hover:underline" href="#0">
-                        {post.author}
-                      </a>
-                      <span className="text-gray-600">
-                        {" "}
-                        · <PostDate dateString={post.publishedAt} />
-                      </span>
-                    </div>
-                  </div>
-                  <hr className="w-16 h-px pt-px bg-gray-200 border-0 mb-6" />
 
                   {/* Article body */}
                   <div>
@@ -98,17 +67,9 @@ export default async function SinglePost({
                   </div>
 
                   <div className="text-lg text-gray-600">
-                    <hr className="w-full h-px pt-px mt-8 bg-gray-200 border-0" />
-                    <div className="mt-8">
-                      Interested in more tips like this? Check out{" "}
-                      <a className="text-blue-600" href="/blog">
-                        Mentors CX blog
-                      </a>
-                      .
-                    </div>
                     <div className="mt-6">
                       <Link
-                        href="/blog"
+                        href="/"
                         className="inline-flex items-center text-base text-blue-600 font-medium hover:underline"
                       >
                         <svg
@@ -118,7 +79,7 @@ export default async function SinglePost({
                         >
                           <path d="M.293 5.282L5 .5l1.414 1.436-3 3.048H12v2.032H3.414l3 3.048L5 11.5.293 6.718a1.027 1.027 0 010-1.436z" />
                         </svg>
-                        <span>Back to the blog</span>
+                        <span>Back to the website</span>
                       </Link>
                     </div>
                   </div>

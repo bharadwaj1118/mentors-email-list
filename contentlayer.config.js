@@ -35,6 +35,10 @@ const Post = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
+    articleType: {
+      type: "string",
+      required: true,
+    },
   },
   computedFields: {
     slug: {
