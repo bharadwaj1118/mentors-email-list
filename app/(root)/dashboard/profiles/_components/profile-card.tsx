@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 import {
   MapPinIcon,
   LanguageIcon,
@@ -20,7 +21,6 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const data = JSON.parse(user);
-  console.log(data);
 
   const {
     id,
@@ -49,11 +49,15 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           <div className="flex  space-x-3">
             {/* image */}
             <div className="block shrink-0">
-              <img
-                alt={username}
-                src={imageUrl}
-                className="h-16 w-16 rounded-lg object-cover shadow-sm"
-              />
+              <div className="h-16 w-16">
+                <Image
+                  alt={username}
+                  src={imageUrl}
+                  className="rounded-lg object-cover shadow-sm"
+                  height={64}
+                  width={64}
+                />
+              </div>
             </div>
 
             {/* profile in medium devices */}
@@ -65,11 +69,11 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 <div className="flex items-center justify-start">
                   <MapPinIcon className="h-4 w-4 mr-1" />
-                  {city}, {country && country!.label}
+                  {city}, {country}
                 </div>
                 <div className="flex items-center ">
                   <LanguageIcon className="h-4 w-4 mr-1" />
-                  {arrayToValuesString(languages)}
+                  {languages.map((lang: any) => lang.name).join(", ")}
                 </div>
               </div>
 
@@ -78,10 +82,10 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                   <GlobeAltIcon className="h-4 w-4 mr-1" />
                   {data.city}, {data.country!.label}
                 </div> */}
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
-                  Usually responds in 8 hours
-                </div>
+                  Usually responds fast
+                </div> */}
               </div>
             </div>
           </div>
@@ -126,7 +130,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             </div>
             <div className="flex items-center ">
               <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />
-              Usually responds in 8 hours
+              Usually Active
             </div>
           </div>
         </div>
@@ -146,7 +150,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               <TabsTrigger value="skills">Skills</TabsTrigger>
             </TabsList>
             <TabsContent value="expertise" className="space-x-4 space-y-2">
-              {expertise &&
+              {/* {expertise &&
                 expertise.map((expertise: any) => (
                   <Badge
                     variant="outline"
@@ -154,6 +158,16 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                     key={expertise.value}
                   >
                     {expertise.label}
+                  </Badge>
+                ))} */}
+              {expertise &&
+                expertise.map((expertise: any) => (
+                  <Badge
+                    variant="outline"
+                    className="text-muted-foreground"
+                    key={expertise.name}
+                  >
+                    {expertise.name}
                   </Badge>
                 ))}
             </TabsContent>
@@ -163,9 +177,9 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                   <Badge
                     variant="outline"
                     className="text-muted-foreground"
-                    key={industry.value}
+                    key={industry.name}
                   >
-                    {industry.label}
+                    {industry.name}
                   </Badge>
                 ))}
             </TabsContent>
@@ -175,9 +189,9 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                   <Badge
                     variant="outline"
                     className="text-muted-foreground"
-                    key={skill.value}
+                    key={skill.name}
                   >
-                    {skill.label}
+                    {skill.name}
                   </Badge>
                 ))}
             </TabsContent>

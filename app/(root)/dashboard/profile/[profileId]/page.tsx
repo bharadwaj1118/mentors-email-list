@@ -1,7 +1,6 @@
-
-import React from 'react';
-import ProfileBody from '../_components/profile-page';
-import { db } from '@/lib/db';
+import React from "react";
+import ProfileBody from "../_components/profile-page";
+import { db } from "@/lib/db";
 
 interface Props {
   params: {
@@ -19,6 +18,12 @@ const page = async ({ params }: Props) => {
   const users = await db.user.findUnique({
     where: {
       id: profileId,
+    },
+    include: {
+      expertise: true,
+      industries: true,
+      languages: true,
+      toolkit: true,
     },
   });
 

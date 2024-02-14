@@ -9,11 +9,9 @@ export default async function ProfileList({ users }: ProfileListProps) {
 
   return (
     <section className="max-w-[1100px] m-3 md:m-6">
-      {parsedUsers &&
-        Array.isArray(parsedUsers) &&
-        parsedUsers.map((user) => (
-          <ProfileCard key={user._id} user={JSON.stringify(user)} />
-        ))}
+      {parsedUsers.map((user: any) => (
+        <ProfileCard key={user.id} user={JSON.stringify(user)} />
+      ))}
     </section>
   );
 }

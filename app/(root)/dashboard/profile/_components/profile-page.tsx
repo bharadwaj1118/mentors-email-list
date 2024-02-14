@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { formatDateToMonthYear } from '@/lib/utils';
-import { count } from 'console';
-import Image from 'next/image';
+import { formatDateToMonthYear } from "@/lib/utils";
+import { count } from "console";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProfileBodyProps {
   user: string;
@@ -11,6 +12,7 @@ interface ProfileBodyProps {
 export default function ProfileBody({ user }: ProfileBodyProps) {
   const data = JSON.parse(user);
   const {
+    id,
     username,
     shortBio,
     imageUrl,
@@ -28,7 +30,8 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
     country,
     joinedAt,
   } = data;
-  console.log(lorem);
+
+  const router = useRouter();
 
   return (
     <div className="max-w-5xl mx-auto mt-6">
@@ -130,7 +133,7 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                   <path d="M8 8.992a2 2 0 1 1-.002-3.998A2 2 0 0 1 8 8.992Zm-.7 6.694c-.1-.1-4.2-3.696-4.2-3.796C1.7 10.69 1 8.892 1 6.994 1 3.097 4.1 0 8 0s7 3.097 7 6.994c0 1.898-.7 3.697-2.1 4.996-.1.1-4.1 3.696-4.2 3.796-.4.3-1 .3-1.4-.1Zm-2.7-4.995L8 13.688l3.4-2.997c1-1 1.6-2.198 1.6-3.597 0-2.798-2.2-4.996-5-4.996S3 4.196 3 6.994c0 1.399.6 2.698 1.6 3.697 0-.1 0-.1 0 0Z" />
                 </svg>
                 <span className="text-sm font-medium whitespace-nowrap text-slate-500 dark:text-slate-400 ml-2">
-                  {city}, {country.label}
+                  {city}, {country}
                 </span>
               </div>
               <div className="flex items-center">
@@ -355,8 +358,22 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                           </div>
                           {/* Position */}
                           <div>
-                            <div className="font-medium text-slate-800 dark:text-slate-100">
-                              {item.label}
+                            <div className="font-medium">
+                              <div className="text-slate-800">{item.name}</div>
+                              <div className="text-slate-600">
+                                {item.description}
+                              </div>
+                            </div>
+                            <div className="font-medium">
+                              <div className="text-slate-800">{item.name}</div>
+                              <div className="text-slate-600">
+                                at InnerLayoutRouter
+                                (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:240:11)
+                                at RedirectErrorBoundary
+                                (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:71:9)
+                                at RedirectBoundary
+                                (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:79:11)
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -390,8 +407,11 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                           </div>
                           {/* Position */}
                           <div>
-                            <div className="font-medium text-slate-800 dark:text-slate-100">
-                              {item.label}
+                            <div className="font-medium">
+                              <div className="text-slate-800">{item.name}</div>
+                              <div className="text-slate-600">
+                                {item.description}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -426,7 +446,8 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                           {/* Position */}
                           <div>
                             <div className="font-medium text-slate-800 dark:text-slate-100">
-                              {item.label}
+                              <div>{item.name}</div>
+                              <div> {item.description}</div>
                             </div>
                           </div>
                         </div>
@@ -456,7 +477,7 @@ export default function ProfileBody({ user }: ProfileBodyProps) {
                   Location
                 </h3>
                 <div>
-                  {city} @{country.label}
+                  {city} @{country}
                 </div>
               </div>
 

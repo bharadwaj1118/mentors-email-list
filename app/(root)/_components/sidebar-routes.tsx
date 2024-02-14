@@ -14,6 +14,7 @@ import {
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
+import { useState, useEffect } from "react";
 
 const guestRoutes = [
   {
