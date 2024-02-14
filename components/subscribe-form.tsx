@@ -71,7 +71,7 @@ export function SubscribeForm({ className, ...props }: SubscribeFormProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@mentors.cx" {...field} />
+                  <Input placeholder="mentors@cx.com" {...field} />
                 </FormControl>
                 <FormDescription>
                   Please enter your email address.

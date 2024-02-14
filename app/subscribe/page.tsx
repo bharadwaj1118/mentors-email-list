@@ -11,7 +11,7 @@ export default function AuthenticationPage() {
       <div className="relative min-h-screen h-full flex-col items-center justify-center md:grid md:max-w-none md:grid-cols-2 sm:px-0 max-md:mb-10">
         <div className="relative h-[1/3] flex-col items-center justify-center bg-muted text-white dark:border-r flex md:h-full max-md:mb-3">
           <div className="absolute inset-0 bg-zinc-900" />
-          <LampContainer className="max-md:hidden">
+          {/* <LampContainer className="max-md:hidden">
             <motion.h1
               initial={{ opacity: 0.5, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -37,8 +37,8 @@ export default function AuthenticationPage() {
                 </div>
               </div>
             </motion.h1>
-          </LampContainer>
-          <div className="flex md:hidden">
+          </LampContainer> */}
+          <div className="flex">
             <Image
               src="/mentors-cx.png"
               width={500}
