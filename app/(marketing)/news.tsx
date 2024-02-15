@@ -41,9 +41,7 @@ export default function News() {
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2">
-              The best of blogs to know more about Mentors CX{" "}
-            </h2>
+            <h2 className="h2">Your customer experience go-to blog</h2>
           </div>
 
           {/* Articles list */}
