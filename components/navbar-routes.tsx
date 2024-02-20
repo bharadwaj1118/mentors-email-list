@@ -1,27 +1,30 @@
-'use client';
+"use client";
 
-import { UserButton, useAuth } from '@clerk/nextjs';
-import { usePathname } from 'next/navigation';
-import { LogOut } from 'lucide-react';
-import Link from 'next/link';
+import Link from "next/link";
+import { LogOut } from "lucide-react";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
-import { Button } from '@/components/ui/button';
-
-import { SearchInput } from './search-input';
-import { is } from 'date-fns/locale';
+import { Button } from "@/components/ui/button";
 
 export const NavbarRoutes = () => {
   const { userId } = useAuth();
   const pathname = usePathname();
 
-  const isMentorPage = pathname?.includes('/mentor');
+  const isMentorPage = pathname?.includes("/mentor");
 
   return (
     <>
-      <div className="hidden md:block">
-        <SearchInput />
+      <div className="h-16 flex items-center">
+        <Link
+          href="/"
+          className="p-6 flex space-x-1 items-center justify-center"
+        >
+          <span className="text-2xl">Mentors</span>
+          <Image src="/mentors-cx.svg" alt="Mentors" width={45} height={45} />
+        </Link>
       </div>
-
       <div className="flex gap-x-2 ml-auto">
         {isMentorPage ? (
           <Link href="/dashboard/profiles">

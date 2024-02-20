@@ -6,6 +6,8 @@ import OnboardingProgress from "../../onboarding-progress";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import {
   Form,
@@ -22,8 +24,6 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { updateUserOnboarding06 } from "@/lib/actions/user.action";
 import { Onboarding06Schema } from "@/lib/validation";
 
@@ -42,8 +42,8 @@ export default function Onboarding06({ user }: Props) {
   const form = useForm<z.infer<typeof Onboarding06Schema>>({
     resolver: zodResolver(Onboarding06Schema),
     defaultValues: {
-      duration: duration.toString() || "30",
-      price: price.toString() || "0",
+      duration: (duration && duration.toString()) || "30",
+      price: (price && price.toString()) || "0",
     },
   });
 
