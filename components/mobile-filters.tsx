@@ -9,20 +9,30 @@ import { Button } from "@/components/ui/button";
 
 import FilterMultiSelect from "@/components/filter-multi-select";
 import FilterSingleSelect from "@/components/filter-single-select";
+import Filter from "@/components/filter-button";
 
 interface MobileFiltersProps {
-  languages: any[];
-  countries: any[];
+  languages?: any[];
+  countries?: any[];
+  expertise?: any[];
+  skills?: any[];
+  prices?: any[];
+  industries?: any[];
 }
 
 const MobileFilters: React.FC<MobileFiltersProps> = ({
-  languages,
-  countries,
+  languages = [],
+  countries = [],
+  expertise = [],
+  skills = [],
+  prices = [],
+  industries = [],
 }) => {
   const [open, setOpen] = useState(false);
 
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
+  console.log(prices);
 
   return (
     <>
@@ -62,6 +72,18 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({
                 name="Languages"
                 data={languages}
               />
+              <FilterMultiSelect
+                valueKey="industries"
+                name="Industries"
+                data={industries}
+              />
+              <FilterMultiSelect
+                valueKey="expertise"
+                name="Expertise"
+                data={expertise}
+              />
+              <FilterMultiSelect valueKey="tools" name="Tools" data={skills} />
+              <Filter data={prices} name="Price" valueKey="price" />
             </div>
           </Dialog.Panel>
         </div>

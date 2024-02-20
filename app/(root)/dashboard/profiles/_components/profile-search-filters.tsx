@@ -3,10 +3,13 @@ import React from "react";
 import { SearchInput } from "./search-input";
 import FilterSingleSelect from "@/components/filter-single-select";
 import MobileFilters from "@/components/mobile-filters";
+import { Price } from "./profile-filters";
 
 interface Option {
+  id?: string;
   value: string;
   label: string;
+  name?: string;
 }
 export interface Country {
   id: string;
@@ -22,6 +25,21 @@ const sortData: Option[] = [
   {
     value: "desc",
     label: "Price: high to low",
+  },
+];
+
+const prices: Option[] = [
+  {
+    id: "Free",
+    name: "Free",
+    value: "Free",
+    label: "Free",
+  },
+  {
+    id: "Paid",
+    name: "Paid",
+    value: "Paid",
+    label: "Paid",
   },
 ];
 
@@ -48,15 +66,7 @@ const countries: Country[] = [
   },
 ];
 
-const products: any[] = [];
-
-export interface Language {
-  id: string;
-  label: string;
-  value: string;
-}
-
-const languages: Language[] = [
+const languages: Option[] = [
   {
     id: "1",
     label: "English",
@@ -79,6 +89,60 @@ const languages: Language[] = [
   },
 ];
 
+const skills: Option[] = [
+  {
+    id: "1",
+    label: "HelpScout",
+    value: "HelpScout",
+  },
+  {
+    id: "2",
+    label: "Zendesk",
+    value: "Zendesk",
+  },
+  {
+    id: "3",
+    label: "Freshdesk",
+    value: "Freshdesk",
+  },
+];
+
+const expertise: Option[] = [
+  {
+    id: "1",
+    label: "Building a Team",
+    value: "Building a Team",
+  },
+  {
+    id: "2",
+    label: "Remote Work",
+    value: "Remote Work",
+  },
+  {
+    id: "3",
+    label: "User Experience (UX) Design",
+    value: "User Experience (UX) Design",
+  },
+];
+
+const industries: Option[] = [
+  {
+    id: "1",
+    label: "Industry1",
+    value: "Industry1",
+  },
+  {
+    id: "2",
+    label: "Industry2",
+    value: "Industry2",
+  },
+  {
+    id: "3",
+    label: "Industry3",
+    value: "Industry3",
+  },
+];
+
 interface ProfileSearchFiltersProps {
   searchParams: {
     query?: string;
@@ -94,7 +158,14 @@ const ProfileSearchFilters = () => {
           <SearchInput />
         </div>
         <div className="flex md:block justify-between items-center p-1 h-fit ">
-          <MobileFilters languages={languages} countries={countries} />
+          <MobileFilters
+            languages={languages}
+            countries={countries}
+            expertise={expertise}
+            skills={skills}
+            prices={prices}
+            industries={industries}
+          />
 
           <div className="w-[200px]">
             <FilterSingleSelect
