@@ -10,7 +10,7 @@ const testimonials = [
   },
   {
     name: "Hilary Dudek",
-    title: "Senior Director, Sana Benefits",
+    title: "Head of Support & Community, Gamma",
     description: "Favorite hobby:  Roller Derby..!",
     image: "/clients/HilaryPropic.jpeg",
   },
