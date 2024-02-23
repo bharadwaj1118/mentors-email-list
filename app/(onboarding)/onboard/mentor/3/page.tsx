@@ -177,10 +177,8 @@ const ProfileInfoPage = () => {
             {/* Form footer */}
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
-                <Button>
-                  <Link href="/onboard/mentor/2" type="button">
-                    Back
-                  </Link>
+                <Button type="button">
+                  <Link href="/onboard/mentor/2">Back</Link>
                 </Button>
                 <Button type="submit">Next</Button>
               </div>
