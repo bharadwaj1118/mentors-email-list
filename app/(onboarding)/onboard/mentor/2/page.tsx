@@ -169,8 +169,9 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      Are you planning on charging for your mentorship?{" "}
-                      <span className="text-red-500">*</span>
+                      Do you have at least 5 years of experience working in
+                      customer experience, customer support, with startups, or
+                      in tech companies? <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <RadioGroup
@@ -189,14 +190,6 @@ const ProfileInfoPage = () => {
                             <RadioGroupItem value="no" />
                           </FormControl>
                           <FormLabel className="font-normal">No</FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Maybe Later" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Maybe Later
-                          </FormLabel>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>
