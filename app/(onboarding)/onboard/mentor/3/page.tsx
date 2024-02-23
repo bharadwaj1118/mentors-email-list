@@ -7,7 +7,6 @@ import React from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,15 +16,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
+const sessionCountOptions = [
+  { label: "1", value: "1" },
+  { label: "2", value: "2" },
+  { label: "3", value: "3" },
+  { label: "4", value: "4" },
+  { label: "5", value: "5" },
+];
+
+const priceOptions = [
+  { label: "Free", value: "Free" },
+  { label: "1-25", value: "1-25" },
+  { label: "26-50", value: "26-50" },
+  { label: "51-75", value: "51-75" },
+  { label: "76-100", value: "76-100" },
+  { label: "100+", value: "100+" },
+];
+
 const FormSchema = z.object({
-  sessionCount: z.number().gte(0, { message: "Please enter a valid sessions" }),
-  price: z.number().gte(0, { message: "Please enter a valid price" }),
+  price: z.string().min(1, { message: "Please enter a valid number" }),
+  sessionCount: z.string().min(1, { message: "Please select a valid number" }),
   priceAcceptance: z.string().min(1, { message: "Please select an option" }),
 });
 
@@ -50,8 +65,8 @@ const ProfileInfoPage = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      sessionCount: sessionCount || 5,
-      price: price || 0,
+      sessionCount: sessionCount || undefined,
+      price: price || undefined,
       priceAcceptance: priceAcceptance || "",
     },
   });
@@ -78,22 +93,33 @@ const ProfileInfoPage = () => {
                 control={form.control}
                 name="price"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
+                      {" "}
                       What hourly rate do you anticipate setting for your
                       mentoring sessions on Mentors CX? ($USD){" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="0"
-                        {...field}
-                        className="w-1/3 md:w-1/4"
-                        type="number"
-                        onChange={(event) =>
-                          field.onChange(+event.target.value)
-                        }
-                      />
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-row space-x-3"
+                      >
+                        {priceOptions.map((option) => (
+                          <FormItem
+                            key={option.value}
+                            className="flex items-center space-x-1 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={option.value} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {option.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -106,23 +132,53 @@ const ProfileInfoPage = () => {
                 control={form.control}
                 name="sessionCount"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
+                      {" "}
                       How much does the financial incentive of compensated
                       mentoring sessions serve as a motivating factor for you to
                       become a CX mentor?{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="5"
-                        {...field}
-                        className="w-1/3 md:w-1/4"
-                        type="number"
-                        onChange={(event) =>
-                          field.onChange(+event.target.value)
-                        }
-                      />
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-row space-x-3"
+                      >
+                        {sessionCountOptions.map((option) => (
+                          <FormItem
+                            key={option.value}
+                            className="flex items-center space-x-1 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={option.value} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {option.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+
+                        {/* <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="yes" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Yes</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="no" />
+                          </FormControl>
+                          <FormLabel className="font-normal">No</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Unsure" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Unsure</FormLabel>
+                        </FormItem> */}
+                      </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -137,7 +193,10 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      Are you planning on charging for your mentorship?{" "}
+                      You won&apos;t have the ability to set a fee until you
+                      receive your initial three reviews. Additionally, you
+                      won&apos;t be able to charge more than $100 per hour until
+                      you accumulate ten reviews. Is this acceptable to you?{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -160,11 +219,9 @@ const ProfileInfoPage = () => {
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="Maybe Later" />
+                            <RadioGroupItem value="Unsure" />
                           </FormControl>
-                          <FormLabel className="font-normal">
-                            Maybe Later
-                          </FormLabel>
+                          <FormLabel className="font-normal">Unsure</FormLabel>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>

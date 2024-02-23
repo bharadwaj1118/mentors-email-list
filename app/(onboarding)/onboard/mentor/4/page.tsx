@@ -78,12 +78,55 @@ const roles = [
   },
 ] as const;
 
+const sessionOptions = [
+  {
+    label: "1",
+    value: "1",
+  },
+  {
+    label: "2",
+    value: "2",
+  },
+  {
+    label: "3",
+    value: "3",
+  },
+  {
+    label: "4",
+    value: "4",
+  },
+  {
+    label: "5",
+    value: "5",
+  },
+  {
+    label: "6",
+    value: "6",
+  },
+  {
+    label: "7",
+    value: "7",
+  },
+  {
+    label: "8",
+    value: "8",
+  },
+  {
+    label: "9",
+    value: "9",
+  },
+  {
+    label: "10",
+    value: "10",
+  },
+] as const;
+
 const FormSchema = z.object({
   videoAccepted: z.string().min(2, {
     message: "Please choose an option.",
   }),
-  sessions: z.number().gte(0, {
-    message: "Please enter a valid number",
+  sessions: z.string().min(0, {
+    message: "Please enter a valid option",
   }),
   priorExperience: z.string().min(2, { message: "Please choose an option." }),
   firstPersonView: z
@@ -202,15 +245,25 @@ const ProfileInfoPage = () => {
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="0"
-                        {...field}
-                        className="w-1/3 md:w-1/4"
-                        type="number"
-                        onChange={(event) =>
-                          field.onChange(+event.target.value)
-                        }
-                      />
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-row space-x-3 py-3"
+                      >
+                        {sessionOptions.map((option) => (
+                          <FormItem
+                            key={option.value}
+                            className="flex items-center space-x-1 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={option.value} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {option.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
