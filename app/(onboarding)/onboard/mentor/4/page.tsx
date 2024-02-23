@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -22,6 +22,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
+
+import { useRouter } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const roles = [
   {
@@ -96,6 +100,7 @@ const FormSchema = z.object({
 
 const ProfileInfoPage = () => {
   const isClient = useIsClient();
+  const router = useRouter();
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
     {},
@@ -132,6 +137,8 @@ const ProfileInfoPage = () => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setMentorOnboardData({ ...mentorOnboardData, ...data });
+    toast.success("Your data has been submitted successfully!");
+    router.push("/");
   }
 
   if (!isClient) return null;
