@@ -351,3 +351,15 @@
 .stellar-carousel .swiper-slide.swiper-slide-active {
   @apply opacity-100;
 }
+
+.full-screen {
+  @apply min-h-screen w-full;
+}
+
+.form-container {
+  @apply max-w-3xl mx-auto px-6 lg:px-8;
+}
+
+.card-block {
+  @apply bg-white shadow-md rounded-lg p-6;
+}
