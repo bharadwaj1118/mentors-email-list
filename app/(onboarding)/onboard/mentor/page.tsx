@@ -1,10 +1,24 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 const OnboardingMentorPage = () => {
+  const isClient = useIsClient();
+  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
+    "mentorOnboardingData",
+    {},
+    { initializeWithValue: false }
+  );
+
+  const handleClickClearStorage = () => {
+    setMentorOnboardData({});
+  };
+
   return (
-    <div className="h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]">
+    <div className="min-h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]">
       {/* Form content here */}
       <div className="form-container pt-10">
         <div className="card-block space-y-4">
@@ -52,7 +66,9 @@ const OnboardingMentorPage = () => {
           <Link href="/onboard/mentor/1">Next</Link>
         </Button>
 
-        <Button variant="link">Clear form</Button>
+        <Button variant="link" onClick={handleClickClearStorage}>
+          Clear form
+        </Button>
       </div>
     </div>
   );

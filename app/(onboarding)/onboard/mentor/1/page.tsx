@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React from "react";
+import React, { use } from "react";
 import {
   Form,
   FormControl,
@@ -20,6 +20,10 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { fi } from "date-fns/locale";
+import { link } from "fs";
+import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
+import { set } from "mongoose";
 
 const FormSchema = z.object({
   lastname: z.string().min(2, {
@@ -41,22 +45,41 @@ const FormSchema = z.object({
 
 const ProfileInfoPage = () => {
   const router = useRouter();
+  const isClient = useIsClient();
+
+  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
+    "mentorOnboardingData",
+    {},
+    { initializeWithValue: false }
+  );
+
+  const data = useReadLocalStorage("mentorOnboardingData");
+  const { firstname, lastname, email, linkedinUrl, experienced } = JSON.parse(
+    JSON.stringify(data || {})
+  );
+
+  const handleClickStorage = () => {
+    // setMentorOnboardData({});
+    console.log(JSON.stringify(mentorOnboardData));
+  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      linkedinUrl: "",
-      experienced: undefined,
+      firstname: firstname || "",
+      lastname: lastname || "",
+      email: email || "",
+      linkedinUrl: linkedinUrl || "",
+      experienced: experienced || undefined,
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert(JSON.stringify(data));
+    setMentorOnboardData({ ...mentorOnboardData, ...data });
     router.push("/onboard/mentor/2");
   }
+
+  if (!isClient) return null;
 
   return (
     <div className="min-h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] mb-12">
@@ -103,6 +126,10 @@ const ProfileInfoPage = () => {
                         placeholder="Your Last Name"
                         {...field}
                         className="w-full md:w-1/2"
+                        defaultValue={
+                          mentorOnboardData &&
+                          JSON.parse(JSON.stringify(mentorOnboardData)).lastname
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -201,7 +228,9 @@ const ProfileInfoPage = () => {
                 <Button type="submit">Next</Button>
               </div>
 
-              <Button variant="link">Clear form</Button>
+              <Button variant="link" onClick={handleClickStorage}>
+                Clear form
+              </Button>
             </div>
           </form>
         </Form>

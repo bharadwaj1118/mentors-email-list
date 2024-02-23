@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
 const roles = [
   {
@@ -94,24 +95,46 @@ const FormSchema = z.object({
 });
 
 const ProfileInfoPage = () => {
+  const isClient = useIsClient();
+  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
+    "mentorOnboardingData",
+    {},
+    { initializeWithValue: false }
+  );
+
+  const data = useReadLocalStorage("mentorOnboardingData");
+  const {
+    videoAccepted,
+    sessions,
+    priorExperience,
+    firstPersonView,
+    cxDefination,
+    challangeSolved,
+    menteePreference,
+  } = JSON.parse(JSON.stringify(data || {}));
+
+  const handleClickClearStorage = () => {
+    console.log(JSON.stringify(mentorOnboardData));
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      videoAccepted: "",
-      sessions: 0,
-      priorExperience: "",
-      firstPersonView: "",
-      cxDefination: "",
-      challangeSolved: "",
-      menteePreference: [],
+      videoAccepted: videoAccepted || "",
+      sessions: sessions || 0,
+      priorExperience: priorExperience || "",
+      firstPersonView: firstPersonView || "",
+      cxDefination: cxDefination || "",
+      challangeSolved: challangeSolved || "",
+      menteePreference: menteePreference || [],
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    alert(JSON.stringify(data));
-    console.log(data);
+    setMentorOnboardData({ ...mentorOnboardData, ...data });
   }
+
+  if (!isClient) return null;
 
   return (
     <div className="min-h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] mb-12">
@@ -362,7 +385,11 @@ const ProfileInfoPage = () => {
                 <Button type="submit">Next</Button>
               </div>
 
-              <Button variant="link" type="button">
+              <Button
+                variant="link"
+                type="button"
+                onClick={handleClickClearStorage}
+              >
                 Clear form
               </Button>
             </div>

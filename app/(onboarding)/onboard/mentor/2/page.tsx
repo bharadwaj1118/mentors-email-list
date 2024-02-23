@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
 const FormSchema = z.object({
   role: z.string().min(2, {
@@ -36,19 +37,35 @@ const FormSchema = z.object({
 
 const ProfileInfoPage = () => {
   const router = useRouter();
+  const isClient = useIsClient();
+  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
+    "mentorOnboardingData",
+    {},
+    { initializeWithValue: false }
+  );
+
+  const data = useReadLocalStorage("mentorOnboardingData");
+  const { role, reason, charge } = JSON.parse(JSON.stringify(data || {}));
+
+  const handleClickStorage = () => {
+    console.log(JSON.stringify(mentorOnboardData));
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      role: "",
-      reason: "",
-      charge: "",
+      role: role || "",
+      reason: reason || "",
+      charge: charge || "",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert(JSON.stringify(data));
+    setMentorOnboardData({ ...mentorOnboardData, ...data });
     router.push("/onboard/mentor/3");
   }
+
+  if (!isClient) return null;
 
   return (
     <div className="min-h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] mb-12">
@@ -193,12 +210,16 @@ const ProfileInfoPage = () => {
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
                 <Button>
-                  <Link href="/onboard/mentor/1">Back</Link>
+                  <Link href="/onboard/mentor/1" type="button">
+                    Back
+                  </Link>
                 </Button>
                 <Button type="submit">Next</Button>
               </div>
 
-              <Button variant="link">Clear form</Button>
+              <Button variant="link" onClick={handleClickStorage} type="button">
+                Clear form
+              </Button>
             </div>
           </form>
         </Form>
