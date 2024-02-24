@@ -104,7 +104,7 @@ const ProfileInfoPage = () => {
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="flex flex-row space-x-3"
+                        className="flex flex-row gap-4 flex-wrap "
                       >
                         {priceOptions.map((option) => (
                           <FormItem
