@@ -1,11 +1,32 @@
 import React from "react";
-import { OnboardStepFourForm } from "./_components/step4-form";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
+import { OnboardChallengeForm } from "./_components/onboard-challenge-form";
 import OnboardHeading from "../_components/onboard-heading";
 import AlertComponent from "@/components/shared/AlertComponent";
-import { Separator } from "@/components/ui/separator";
-import Onboard3Page from "./page";
 
-const Onboard4Page = () => {
+const OnboardChallengePage = async () => {
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      clerkId: userId,
+    },
+    select: {
+      id: true,
+      challenge: true,
+    },
+  });
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
       <div className="form-container pt-10">
@@ -15,9 +36,10 @@ const Onboard4Page = () => {
             title="Your #1 growth challenge right now?"
           />
 
-          <OnboardStepFourForm />
-
-          <Separator className="h-[1px] my-3" />
+          <OnboardChallengeForm
+            userId={user.id}
+            challenge={user.challenge || ""}
+          />
 
           <AlertComponent
             title="Why are we asking this?"
@@ -30,4 +52,4 @@ const Onboard4Page = () => {
   );
 };
 
-export default Onboard4Page;
+export default OnboardChallengePage;

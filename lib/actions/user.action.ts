@@ -437,3 +437,53 @@ export async function getAllMentors() {
     throw Error("GET_ALL_MENTORS_ERROR, " + error);
   }
 }
+
+interface IsaveUserReferenceById {
+  userId: string;
+  recommendedBy: string;
+}
+
+export async function saveUserReferenceById({
+  userId,
+  recommendedBy,
+}: IsaveUserReferenceById) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        recommendedBy,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_USER_REFERENCE_ERROR, " + error);
+  }
+}
+
+interface IsaveUserChallengeById {
+  userId: string;
+  challenge: string;
+}
+
+export async function saveUserChallengeById({
+  userId,
+  challenge,
+}: IsaveUserChallengeById) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        challenge,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_USER_CHALLENGE_ERROR, " + error);
+  }
+}

@@ -32,6 +32,7 @@ model User {
   organization     String?
   city             String?
   country          String?
+  location         String?
   role             Role?       @default(MENTOR)
   languages        language[]
   expertise        expertise[]
@@ -41,6 +42,9 @@ model User {
   price            Int?
   maxSessions      Int?
   zoomLink         String?
+  challenge        String?
+  recommendedBy    String?
+  companySize      String?
 
   isVerified  Boolean @default(false)
   isArchived  Boolean @default(false)

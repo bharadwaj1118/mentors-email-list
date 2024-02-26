@@ -14,11 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
-import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import { saveUserChallengeById } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
   challenge: z.string().min(20, {
@@ -26,17 +24,30 @@ const FormSchema = z.object({
   }),
 });
 
-export function OnboardStepFourForm() {
+interface RecommendedByFormProps {
+  userId: string;
+  challenge: string;
+}
+
+export function OnboardChallengeForm({
+  userId,
+  challenge,
+}: RecommendedByFormProps) {
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      challenge: "",
+      challenge,
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert(JSON.stringify(data));
+    saveUserChallengeById({
+      userId,
+      challenge: data.challenge,
+    });
+
+    router.refresh();
     router.push("/onboard/4");
   }
 

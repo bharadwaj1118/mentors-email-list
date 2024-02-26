@@ -1,5 +1,4 @@
 import React from "react";
-
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -14,17 +13,12 @@ const Onboard1Page = async () => {
     redirect("/sign-in");
   }
 
-  const user = await db.user.findUnique({
+  const user = await db.user.findFirst({
     where: {
       clerkId: userId,
     },
-    select: {
-      id: true,
-      position: true,
-      organization: true,
-      shortBio: true,
-      bio: true,
-      portfolioWebsite: true,
+    include: {
+      languages: true,
     },
   });
 
@@ -34,7 +28,7 @@ const Onboard1Page = async () => {
         <div className="card-block space-y-4">
           <OnboardHeading step={1} title="Welcome to the Onboarding Process" />
 
-          <OnboardStepOneForm />
+          <OnboardStepOneForm user={JSON.stringify(user)} />
 
           <AlertComponent
             title="Why are we asking this?"

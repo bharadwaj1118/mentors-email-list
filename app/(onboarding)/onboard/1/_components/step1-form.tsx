@@ -34,20 +34,34 @@ const FormSchema = z.object({
   ),
 });
 
-export function OnboardStepOneForm() {
+interface Props {
+  user: string;
+}
+
+export function OnboardStepOneForm({ user }: Props) {
   const [value, setState] = React.useState({});
   const router = useRouter();
+
+  const parsedUser = JSON.parse(user);
+  const { location, languages } = parsedUser;
+
+  const initialLocation = { label: location, value: location };
+  const initialLanguages = languages.map((language: any) => ({
+    label: language.name,
+    value: language.name,
+  }));
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      location: {},
-      languages: [],
+      location: initialLocation || {},
+      languages: initialLanguages || [],
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     alert(JSON.stringify(data));
-    router.push("/onboard/2");
+    // router.push("/onboard/2");
   }
 
   return (

@@ -53,16 +53,30 @@ const FormSchema = z.object({
   }),
 });
 
-export function OnboardStepTwoForm() {
+interface Props {
+  user: string;
+}
+
+export function OnboardStepTwoForm({ user }: Props) {
   const router = useRouter();
+
+  const { organization, companySize, position, portfolioWebsite, industries } =
+    JSON.parse(user);
+
+  // convert the indutries to match the select input
+  const initialIndustries = industries.map((language: any) => ({
+    label: language.name,
+    value: language.name,
+  }));
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      company: "",
-      companySize: "",
-      role: {},
-      linkedinProfile: "",
-      industries: [],
+      company: organization || "",
+      companySize: companySize || "",
+      role: position || {},
+      linkedinProfile: portfolioWebsite || "",
+      industries: initialIndustries || [],
     },
   });
 

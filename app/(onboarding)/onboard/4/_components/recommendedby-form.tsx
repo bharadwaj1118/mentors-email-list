@@ -19,6 +19,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { saveUserReferenceById } from "@/lib/actions/user.action";
 
 const options = [
   { value: "Google search", label: "Google search" },
@@ -32,22 +33,35 @@ const options = [
 ] as const;
 
 const FormSchema = z.object({
-  reference: z.string().min(2, {
+  recommendedBy: z.string().min(2, {
     message: "Please choose an option",
   }),
 });
 
-export function OnboardStepFiveForm() {
+interface RecommendedByFormProps {
+  userId: string;
+  recommenedBy: string;
+}
+
+export function RecommendedByForm({
+  userId,
+  recommenedBy,
+}: RecommendedByFormProps) {
+  console.log(recommenedBy);
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      reference: "",
+      recommendedBy: recommenedBy || "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert(JSON.stringify(data));
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    saveUserReferenceById({
+      userId,
+      recommendedBy: data.recommendedBy,
+    });
+    router.refresh();
     router.push("/onboard/code-of-conduct");
   }
 
@@ -56,7 +70,7 @@ export function OnboardStepFiveForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="reference"
+          name="recommendedBy"
           render={({ field }) => (
             <FormItem className="space-y-3">
               <FormControl>
