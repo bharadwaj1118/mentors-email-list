@@ -28,6 +28,7 @@ const Onboard2Page = async () => {
         },
       },
       portfolioWebsite: true,
+      companySize: true,
     },
   });
 

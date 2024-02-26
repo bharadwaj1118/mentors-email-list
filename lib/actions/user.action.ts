@@ -487,3 +487,94 @@ export async function saveUserChallengeById({
     throw Error("SAVE_USER_CHALLENGE_ERROR, " + error);
   }
 }
+
+interface ISaveUserBasicDetailsById {
+  userId: string;
+  location: string;
+  languages: any;
+}
+
+export async function saveUserBasicDetailsById({
+  userId,
+  location,
+  languages,
+}: ISaveUserBasicDetailsById) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        location,
+      },
+    });
+
+    await db.language.deleteMany({
+      where: {
+        userId,
+      },
+    });
+
+    await db.language.createMany({
+      data: languages.map((language: any) => ({
+        name: language.value,
+        userId,
+      })),
+    });
+
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_USER_BASIC_DETAILS_ERROR, " + error);
+  }
+}
+
+interface ISaveUserCompanyAndRoleById {
+  userId: string;
+  company: string;
+  companySize: string;
+  currentRole: string;
+  industries: any;
+  linkedinProfile: string;
+}
+
+export async function saveUserCompanyAndRoleById({
+  userId,
+  company,
+  companySize,
+  currentRole,
+  industries,
+  linkedinProfile,
+}: ISaveUserCompanyAndRoleById) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        organization: company,
+        companySize,
+        position: currentRole,
+        linkedinProfile,
+      },
+    });
+
+    await db.industry.deleteMany({
+      where: {
+        userId,
+      },
+    });
+
+    await db.industry.createMany({
+      data: industries.map((industry: any) => ({
+        name: industry.value,
+        userId,
+      })),
+    });
+
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_USER_COMPANY_AND_ROLE_ERROR, " + error);
+  }
+}

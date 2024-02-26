@@ -20,6 +20,7 @@ import {
 import { locationData } from "@/constants/location-data";
 import { languageData } from "@/constants/data";
 import Select from "react-select";
+import { saveUserBasicDetailsById } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
   location: z.object({
@@ -42,9 +43,7 @@ export function OnboardStepOneForm({ user }: Props) {
   const [value, setState] = React.useState({});
   const router = useRouter();
 
-  const parsedUser = JSON.parse(user);
-  const { location, languages } = parsedUser;
-
+  const { id, location, languages } = JSON.parse(user);
   const initialLocation = { label: location, value: location };
   const initialLanguages = languages.map((language: any) => ({
     label: language.name,
@@ -60,8 +59,13 @@ export function OnboardStepOneForm({ user }: Props) {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert(JSON.stringify(data));
-    // router.push("/onboard/2");
+    saveUserBasicDetailsById({
+      userId: id,
+      location: data.location.value,
+      languages: data.languages,
+    });
+
+    router.push("/onboard/2");
   }
 
   return (

@@ -22,7 +22,7 @@ const Onboard5Page = () => {
   };
 
   const handleClick = () => {
-    if (role === "mentor") {
+    if (role === "mentee") {
       router.push("/pricing");
     } else {
       router.push("/dashboard/profiles");

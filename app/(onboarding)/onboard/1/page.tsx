@@ -17,8 +17,14 @@ const Onboard1Page = async () => {
     where: {
       clerkId: userId,
     },
-    include: {
-      languages: true,
+    select: {
+      id: true,
+      location: true,
+      languages: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 

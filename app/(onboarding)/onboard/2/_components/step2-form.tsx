@@ -22,6 +22,7 @@ import { ROLES, industryData } from "@/constants/data";
 import Select from "react-select";
 
 import { useRouter } from "next/navigation";
+import { saveUserCompanyAndRoleById } from "@/lib/actions/user.action";
 
 const rangeOptions = [
   { label: "Solo", value: "Solo" },
@@ -60,10 +61,17 @@ interface Props {
 export function OnboardStepTwoForm({ user }: Props) {
   const router = useRouter();
 
-  const { organization, companySize, position, portfolioWebsite, industries } =
-    JSON.parse(user);
+  const {
+    id,
+    organization,
+    companySize,
+    position,
+    portfolioWebsite,
+    industries,
+  } = JSON.parse(user);
 
   // convert the indutries to match the select input
+  const initialRole = { label: position, value: position };
   const initialIndustries = industries.map((language: any) => ({
     label: language.name,
     value: language.name,
@@ -74,15 +82,24 @@ export function OnboardStepTwoForm({ user }: Props) {
     defaultValues: {
       company: organization || "",
       companySize: companySize || "",
-      role: position || {},
+      role: initialRole || {},
       linkedinProfile: portfolioWebsite || "",
       industries: initialIndustries || [],
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    // console.log(data);
+
     alert(JSON.stringify(data));
+    saveUserCompanyAndRoleById({
+      userId: id,
+      company: data.company,
+      companySize: data.companySize,
+      currentRole: data.role.value,
+      industries: data.industries,
+      linkedinProfile: data.linkedinProfile,
+    });
     router.push("/onboard/3");
   }
 
