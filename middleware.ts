@@ -13,6 +13,7 @@ export default authMiddleware({
     "/privacy",
     "/about",
     "/pricing",
+    "/api/uploadthing",
   ],
   ignoredRoutes: ["/api/webhook", "/api/chatgpt", "/", "/subscribe"],
 });

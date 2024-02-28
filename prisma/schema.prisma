@@ -20,25 +20,26 @@ enum Role {
 }
 
 model User {
-  id               String      @id @default(uuid())
-  username         String      @unique
-  email            String      @unique
-  imageUrl         String      @db.Text
-  clerkId          String      @unique
-  bio              String?     @db.Text
-  shortBio         String?     @db.Text
-  portfolioWebsite String?     @db.Text
-  linkedinProfile  String?     @db.Text
+  id               String       @id @default(uuid())
+  username         String       @unique
+  email            String       @unique
+  imageUrl         String       @db.Text
+  clerkId          String       @unique
+  bio              String?      @db.Text
+  shortBio         String?      @db.Text
+  portfolioWebsite String?      @db.Text
+  linkedinProfile  String?      @db.Text
   position         String?
   organization     String?
   city             String?
   country          String?
   location         String?
-  role             Role?       @default(MENTOR)
+  role             Role?        @default(MENTOR)
   languages        language[]
   expertise        expertise[]
   toolkit          tool[]
   industries       industry[]
+  experiences      Experience[]
   duration         Int?
   price            Int?
   maxSessions      Int?
@@ -58,6 +59,8 @@ model User {
   joinedAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([id])
+  @@index([clerkId])
   @@fulltext([username, bio, shortBio])
 }
 
@@ -78,6 +81,7 @@ model tool {
   id          String  @id @default(uuid())
   name        String
   description String? @db.Text
+  imageUrl    String? @db.Text
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -92,6 +96,7 @@ model expertise {
   id          String  @id @default(uuid())
   name        String
   description String? @db.Text
+  imageUrl    String? @db.Text
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -106,6 +111,7 @@ model industry {
   id          String  @id @default(uuid())
   name        String
   description String? @db.Text
+  imageUrl    String? @db.Text
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -188,4 +194,21 @@ model Support {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Experience {
+  id          String    @id @default(uuid())
+  companyName String
+  description String    @db.Text
+  imageUrl    String    @db.Text
+  start       DateTime?
+  end         DateTime?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
