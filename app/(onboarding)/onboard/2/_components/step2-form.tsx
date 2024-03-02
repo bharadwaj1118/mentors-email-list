@@ -87,9 +87,6 @@ export function OnboardStepTwoForm({ user }: Props) {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // console.log(data);
-
-    alert(JSON.stringify(data));
     saveUserCompanyAndRoleById({
       userId: id,
       company: data.company,

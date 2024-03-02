@@ -3,6 +3,28 @@
 import { auth } from "@clerk/nextjs";
 import { db } from "../db";
 
+export async function getSelfId() {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    const user = await db.user.findUnique({
+      where: {
+        clerkId: userId,
+      },
+      select: {
+        id: true,
+        clerkId: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("GET_SELF_ERROR, " + error);
+  }
+}
+
 export async function getSelf() {
   try {
     const { userId } = auth();
@@ -576,5 +598,35 @@ export async function saveUserCompanyAndRoleById({
   } catch (error) {
     console.log(error);
     throw Error("SAVE_USER_COMPANY_AND_ROLE_ERROR, " + error);
+  }
+}
+
+interface IUpdateProfessionalUserByClerkId {
+  companyName: string;
+  companySize: string;
+  role: string;
+  linkedinProfile: string;
+}
+
+export async function updateProfessionalUserByClerkId(
+  clerkId: string,
+  data: IUpdateProfessionalUserByClerkId
+) {
+  try {
+    const user = await db.user.update({
+      where: {
+        clerkId,
+      },
+      data: {
+        organization: data.companyName,
+        companySize: data.companySize,
+        position: data.role,
+        linkedinProfile: data.linkedinProfile,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("UPDATE_USER_BY_CLERK_ID_ERROR, " + error);
   }
 }

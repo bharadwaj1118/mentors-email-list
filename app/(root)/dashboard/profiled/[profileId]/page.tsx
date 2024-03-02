@@ -12,7 +12,7 @@ interface Props {
 const page = async ({ params }: Props) => {
   const { profileId } = params;
 
-  if (profileId == null) {
+  if (profileId === null) {
     return <div>Profile not found</div>;
   }
 
@@ -30,7 +30,7 @@ const page = async ({ params }: Props) => {
 
   return (
     <div>
-      <ProfileDisplayPage user={JSON.stringify(user)} />
+      <ProfileDisplayPage user={JSON.stringify(user)} profileId={profileId} />
     </div>
   );
 };

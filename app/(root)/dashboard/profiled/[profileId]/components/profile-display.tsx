@@ -7,6 +7,7 @@ import {
   LucideFacebook,
   MapPin,
   MessageCircleIcon,
+  PencilIcon,
   PhoneIcon,
   StarIcon,
   UserPlus as UserRoundPlus,
@@ -22,16 +23,37 @@ import Footer from "@/components/footer";
 import ProfileTestmonialPage from "./profile-testmonials";
 import ProfileExperience from "./profile-experience";
 import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import ProfileSkillList from "./profile-skill-list";
+import { getSelfId } from "@/lib/actions/user.action";
+import { EditProfileButton } from "./profile-item-action";
 
 interface ProfileDisplayPageProps {
   user: string;
+  profileId: string;
 }
 
-const ProfileDisplayPage = ({ user }: ProfileDisplayPageProps) => {
-  const { username, imageUrl, position, organization } = JSON.parse(user);
+const ProfileDisplayPage = async ({
+  user,
+  profileId,
+}: ProfileDisplayPageProps) => {
+  const { username, imageUrl, position, organization, industries } =
+    JSON.parse(user);
+
+  // Get the self account
+  const selfAccount = await getSelfId();
+  if (!selfAccount) {
+    return null;
+  }
+
+  // Check if the person can edit the profile
+  const canEdit = profileId === selfAccount.id;
+
   return (
-    <div>
+    <div className="relative">
       {/* Profile Details */}
+      <div className="absolute right-4 top-4">
+        {canEdit && <EditProfileButton />}
+      </div>
       <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6">
         <div>
           <Image
@@ -187,6 +209,11 @@ const ProfileDisplayPage = ({ user }: ProfileDisplayPageProps) => {
       <ProfileExperience />
 
       <ProfileTestmonialPage title="Reviews (5)" />
+
+      <ProfileSkillList
+        industries={JSON.stringify(industries)}
+        canEdit={canEdit}
+      />
 
       <div className="mt-12">
         {" "}

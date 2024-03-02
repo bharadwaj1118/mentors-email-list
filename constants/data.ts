@@ -909,6 +909,14 @@ export const languageData: Option[] = [
   { label: "Zulu", value: "Zulu" },
 ];
 
+export const companySizeOptions: Option[] = [
+  { label: "Solo", value: "Solo" },
+  { label: "2-5", value: "2-5" },
+  { label: "6-20", value: "6-20" },
+  { label: "21-50", value: "21-50" },
+  { label: "50+", value: "50+" },
+];
+
 export const industryData: Option[] = [
   { label: "Agriculture", value: "Agriculture" },
   { label: "Architecture", value: "Architecture" },

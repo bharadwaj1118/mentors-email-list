@@ -1,6 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
+import { Button } from "@/components/ui/button";
+import { PencilIcon, TrashIcon } from "lucide-react";
+
 interface Props {
   heading: string;
 }

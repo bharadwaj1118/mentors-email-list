@@ -1,4 +1,4 @@
-import { industry as Industry, expertise as Expertise } from "@prisma/client";
+import { expertise as Expertise } from "@prisma/client";
 import { create } from "zustand";
 
 enum ChannelType {
@@ -7,12 +7,33 @@ enum ChannelType {
   VIDEO,
 }
 
-export type ModalType = "addIndustry" | "addExpertise" | "addExperience";
+export type ModalType =
+  | "addIndustry"
+  | "addExpertise"
+  | "addExperience"
+  | "editProfile"
+  | "deleteIndustry"
+  | "editIndustry";
+
+interface Industry {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface ProfessionalDetails {
+  companyName: string;
+  role: string;
+  companySize: string;
+  linkedinUrl: string;
+}
 
 interface ModalData {
   industry?: Industry;
   expertise?: Expertise;
   channelType?: ChannelType;
+  UserDetails?: ProfessionalDetails;
 }
 
 interface ModalStore {
@@ -24,7 +45,7 @@ interface ModalStore {
 }
 
 export const useModal = create<ModalStore>((set) => ({
-  type: "addExpertise",
+  type: "editProfile",
   data: {},
   userId: " ",
   isOpen: false,
