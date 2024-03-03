@@ -1,6 +1,7 @@
 import React from "react";
-import ProfileBody from "../_components/profile-page";
+
 import { db } from "@/lib/db";
+import ProfileDisplayPage from "./components/profile-display";
 
 interface Props {
   params: {
@@ -11,11 +12,11 @@ interface Props {
 const page = async ({ params }: Props) => {
   const { profileId } = params;
 
-  if (profileId == null) {
+  if (profileId === null) {
     return <div>Profile not found</div>;
   }
 
-  const users = await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       id: profileId,
     },
@@ -29,7 +30,7 @@ const page = async ({ params }: Props) => {
 
   return (
     <div>
-      <ProfileBody user={JSON.stringify(users)} />
+      <ProfileDisplayPage user={JSON.stringify(user)} profileId={profileId} />
     </div>
   );
 };
