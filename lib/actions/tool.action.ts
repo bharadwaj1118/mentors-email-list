@@ -1,18 +1,18 @@
 "use server";
 import { db } from "@/lib/db";
 
-interface AddExpertiseProps {
+interface AddToolProps {
   userId: string;
   name: string;
   description: string;
   imageUrl: string;
 }
-export async function addExpertise({
+export async function addTool({
   userId,
   name,
   description,
   imageUrl,
-}: AddExpertiseProps) {
+}: AddToolProps) {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -27,7 +27,7 @@ export async function addExpertise({
       throw new Error("User not found");
     }
 
-    const expertise = await db.expertise.create({
+    const tool = await db.tool.create({
       data: {
         userId: user.id,
         name,
@@ -36,42 +36,42 @@ export async function addExpertise({
       },
     });
 
-    return expertise;
+    return tool;
   } catch (error) {
-    console.log("error in ADD_EXPERTISE_FUNCTION", error);
+    console.log("error in ADD_TOOL_FUNCTION", error);
     throw error;
   }
 }
 
-export async function deleteExpertiseById(id: string) {
+export async function deleteToolById(id: string) {
   try {
-    const expertise = await db.expertise.delete({
+    const tool = await db.tool.delete({
       where: {
         id,
       },
     });
-    return expertise;
+    return tool;
   } catch (error) {
-    console.log("error in DELETE_EXPERTISE_FUNCTION", error);
+    console.log("error in DELETE_TOOL_FUNCTION", error);
     throw error;
   }
 }
 
-interface IUpdateExpertise {
+interface IUpdateTool {
   id: string;
   name: string;
   description: string;
   imageUrl: string;
 }
 
-export async function updateExpertise({
+export async function updateTool({
   id,
   name,
   description,
   imageUrl,
-}: IUpdateExpertise) {
+}: IUpdateTool) {
   try {
-    const expertise = await db.expertise.update({
+    const tool = await db.tool.update({
       where: {
         id,
       },
@@ -81,9 +81,9 @@ export async function updateExpertise({
         imageUrl,
       },
     });
-    return expertise;
+    return tool;
   } catch (error) {
-    console.log("error in UPDATE_EXPERTISE_FUNCTION", error);
+    console.log("error in UPDATE_TOOL_FUNCTION", error);
     throw error;
   }
 }

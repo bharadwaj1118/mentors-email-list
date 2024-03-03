@@ -35,10 +35,10 @@ model User {
   country          String?
   location         String?
   role             Role?        @default(MENTOR)
-  languages        language[]
-  expertise        expertise[]
-  toolkit          tool[]
-  industries       industry[]
+  languages        Language[]
+  expertise        Expertise[]
+  toolkit          Tool[]
+  industries       Industry[]
   experiences      Experience[]
   duration         Int?
   price            Int?
@@ -64,7 +64,7 @@ model User {
   @@fulltext([username, bio, shortBio])
 }
 
-model language {
+model Language {
   id   String @id @default(uuid())
   name String
 
@@ -78,14 +78,14 @@ model language {
   @@index([userId])
 }
 
-model tool {
-  id          String  @id @default(uuid())
+model Tool {
+  id          String @id @default(uuid())
   name        String
-  description String? @db.Text
-  imageUrl    String? @db.Text
+  description String @db.Text
+  imageUrl    String @db.Text
 
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -94,14 +94,14 @@ model tool {
   @@index([userId])
 }
 
-model expertise {
-  id          String  @id @default(uuid())
+model Expertise {
+  id          String @id @default(uuid())
   name        String
-  description String? @db.Text
-  imageUrl    String? @db.Text
+  description String @db.Text
+  imageUrl    String @db.Text
 
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -110,14 +110,14 @@ model expertise {
   @@index([userId])
 }
 
-model industry {
-  id          String  @id @default(uuid())
+model Industry {
+  id          String @id @default(uuid())
   name        String
-  description String? @db.Text
-  imageUrl    String? @db.Text
+  description String @db.Text
+  imageUrl    String @db.Text
 
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

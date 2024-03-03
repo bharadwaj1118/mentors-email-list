@@ -1,4 +1,3 @@
-import { expertise as Expertise } from "@prisma/client";
 import { create } from "zustand";
 
 enum ChannelType {
@@ -13,9 +12,30 @@ export type ModalType =
   | "addExperience"
   | "editProfile"
   | "deleteIndustry"
-  | "editIndustry";
+  | "editIndustry"
+  | "addTool"
+  | "editExpertise"
+  | "deleteExpertise"
+  | "editExperience"
+  | "deleteExperience"
+  | "editTool"
+  | "deleteTool";
 
 interface Industry {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface Tool {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+interface Expertise {
   id: string;
   name: string;
   description: string;
@@ -34,6 +54,7 @@ interface ModalData {
   expertise?: Expertise;
   channelType?: ChannelType;
   UserDetails?: ProfessionalDetails;
+  tool?: Tool;
 }
 
 interface ModalStore {

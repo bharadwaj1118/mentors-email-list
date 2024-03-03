@@ -4,10 +4,17 @@ import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 
-const AddItemAction = () => {
+interface AddItemActionProps {
+  dataType: string;
+}
+
+const AddItemAction = ({ dataType }: AddItemActionProps) => {
   const { onOpen } = useModal();
   const hadleClick = () => {
-    onOpen("addIndustry");
+    if (dataType === "industry") onOpen("addIndustry");
+    else if (dataType === "expertise") onOpen("addExpertise");
+    else if (dataType === "experience") onOpen("addExperience");
+    else if (dataType === "tool") onOpen("addTool");
   };
 
   return (

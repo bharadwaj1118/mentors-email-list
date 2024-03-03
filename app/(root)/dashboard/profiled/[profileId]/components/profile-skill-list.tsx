@@ -1,25 +1,32 @@
 import React from "react";
 
 import Image from "next/image";
+import { Industry, Expertise, Tool } from "@prisma/client";
 
 import AddItemAction from "./add-item-action";
 import ProfileSkillItem from "./profile-skill-item";
 interface ProfileSkillListProps {
+  dataType: string;
+  name: string;
   canEdit: boolean;
-  industries: string;
+  data: Industry[] | Expertise[] | Tool[];
 }
-const ProfileSkillList = ({ canEdit, industries }: ProfileSkillListProps) => {
-  const industriesList = JSON.parse(industries);
+const ProfileSkillList = ({
+  name,
+  dataType,
+  canEdit,
+  data,
+}: ProfileSkillListProps) => {
   return (
     <div className="max-w-5xl mx-auto w-full p-3 bg-white mt-6">
       <div>
         <div className="flex justify-between items-center">
-          <h3 className="h3 ml-3">Industry</h3>
-          {canEdit && <AddItemAction />}
+          <h3 className="h3 ml-3">{name}</h3>
+          {canEdit && <AddItemAction dataType={dataType} />}
         </div>
         <hr className="my-3 h-[1px]" />
 
-        {industriesList.length === 0 && (
+        {data.length === 0 && (
           <div className="flex justify-center items-center flex-col gap-4">
             <Image
               src="/assets/waiting.svg"
@@ -27,20 +34,22 @@ const ProfileSkillList = ({ canEdit, industries }: ProfileSkillListProps) => {
               width={100}
               height={100}
             />
-            <p> Will be added soon!</p>
+            <p>{name} will be added!</p>
           </div>
         )}
 
-        {industriesList.map((industry: any) => (
-          <ProfileSkillItem
-            imageUrl={industry.imageUrl}
-            name={industry.name}
-            description={industry.description}
-            key={industry.id}
-            id={industry.id}
-            canEdit={canEdit}
-          />
-        ))}
+        {data.length !== 0 &&
+          data.map((industry: Industry) => (
+            <ProfileSkillItem
+              imageUrl={industry.imageUrl}
+              name={industry.name}
+              description={industry.description}
+              key={industry.id}
+              id={industry.id}
+              canEdit={canEdit}
+              dataType={dataType}
+            />
+          ))}
       </div>
     </div>
   );

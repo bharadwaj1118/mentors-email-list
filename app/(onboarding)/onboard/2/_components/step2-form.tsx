@@ -41,12 +41,6 @@ const FormSchema = z.object({
     label: z.string(),
     value: z.string(),
   }),
-  industries: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
   linkedinProfile: z.string().url({
     message: "Please enter a valid URL.",
   }),
@@ -59,21 +53,14 @@ interface Props {
 export function OnboardStepTwoForm({ user }: Props) {
   const router = useRouter();
 
-  const {
-    id,
-    organization,
-    companySize,
-    position,
-    portfolioWebsite,
-    industries,
-  } = JSON.parse(user);
+  const { id, organization, companySize, position, portfolioWebsite } =
+    JSON.parse(user);
 
   // convert the indutries to match the select input
-  const initialRole = { label: position, value: position };
-  const initialIndustries = industries.map((language: any) => ({
-    label: language.name,
-    value: language.name,
-  }));
+  let initialRole = {};
+  if (position !== null) {
+    initialRole = { label: position, value: position };
+  }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -82,7 +69,6 @@ export function OnboardStepTwoForm({ user }: Props) {
       companySize: companySize || "",
       role: initialRole || {},
       linkedinProfile: portfolioWebsite || "",
-      industries: initialIndustries || [],
     },
   });
 
@@ -92,7 +78,6 @@ export function OnboardStepTwoForm({ user }: Props) {
       company: data.company,
       companySize: data.companySize,
       currentRole: data.role.value,
-      industries: data.industries,
       linkedinProfile: data.linkedinProfile,
     });
     router.push("/onboard/3");
@@ -160,26 +145,6 @@ export function OnboardStepTwoForm({ user }: Props) {
             </FormItem>
           )}
         />
-
-        <div>
-          <FormField
-            control={form.control}
-            name="industries"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Industries</FormLabel>
-                <FormControl>
-                  <Select {...field} isMulti={true} options={industryData} />
-                </FormControl>
-                <FormDescription>
-                  Type a industry name in the above and select industries from
-                  the dropdown
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
 
         <FormField
           control={form.control}

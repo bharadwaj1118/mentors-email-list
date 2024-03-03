@@ -7,11 +7,13 @@ import {
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import ProfileItemAction from "./profile-item-action";
 import { id } from "date-fns/locale";
 import { title } from "process";
+import Profile from "@/database/profile.model";
+import ProfileItemAction from "./profile-item-action";
 
 interface ProfileSkillItemProps {
+  dataType: string;
   imageUrl: string;
   name: string;
   description: string;
@@ -25,9 +27,10 @@ const ProfileSkillItem = ({
   name,
   description,
   canEdit,
+  dataType,
 }: ProfileSkillItemProps) => {
   console.log("imageUrl", imageUrl);
-  if (!imageUrl) {
+  if (!imageUrl || !name || !description || !id) {
     return null;
   }
   return (
@@ -62,6 +65,7 @@ const ProfileSkillItem = ({
                   description,
                   imageUrl,
                 }}
+                dataType={dataType}
               />
             )}
           </div>

@@ -25,7 +25,7 @@ import ProfileExperience from "./profile-experience";
 import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import ProfileSkillList from "./profile-skill-list";
 import { getSelfId } from "@/lib/actions/user.action";
-import { EditProfileButton } from "./profile-item-action";
+import { EditProfileAction } from "./edit-profile-action";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -36,8 +36,15 @@ const ProfileDisplayPage = async ({
   user,
   profileId,
 }: ProfileDisplayPageProps) => {
-  const { username, imageUrl, position, organization, industries } =
-    JSON.parse(user);
+  const {
+    username,
+    imageUrl,
+    position,
+    organization,
+    industries,
+    expertise,
+    toolkit,
+  } = JSON.parse(user);
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -52,7 +59,7 @@ const ProfileDisplayPage = async ({
     <div className="relative">
       {/* Profile Details */}
       <div className="absolute right-4 top-4">
-        {canEdit && <EditProfileButton />}
+        {canEdit && <EditProfileAction />}
       </div>
       <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6">
         <div>
@@ -202,21 +209,32 @@ const ProfileDisplayPage = async ({
 
       <ProfileBioPage />
 
-      <ListLeadingImageThreeLines heading="Expertise" />
-      <ListLeadingImageThreeLines heading="Tools" />
-      <ListLeadingImageThreeLines heading="Industry" />
+      <ProfileSkillList
+        data={expertise}
+        canEdit={canEdit}
+        dataType="expertise"
+        name="Expertise"
+      />
+
+      <ProfileSkillList
+        data={industries}
+        canEdit={canEdit}
+        dataType="industry"
+        name="Industry"
+      />
+
+      <ProfileSkillList
+        data={toolkit}
+        canEdit={canEdit}
+        dataType="tool"
+        name="Toolkit"
+      />
 
       <ProfileExperience />
 
       <ProfileTestmonialPage title="Reviews (5)" />
 
-      <ProfileSkillList
-        industries={JSON.stringify(industries)}
-        canEdit={canEdit}
-      />
-
       <div className="mt-12">
-        {" "}
         <Footer />
       </div>
     </div>

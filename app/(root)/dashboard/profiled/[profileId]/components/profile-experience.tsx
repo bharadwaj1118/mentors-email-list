@@ -4,7 +4,7 @@ import React from "react";
 const ProfileExperience = () => {
   return (
     <>
-      <div className="max-w-5xl mx-auto p-3 bg-white shadow">
+      <div className="max-w-5xl mx-auto p-3 bg-white shadow mt-6">
         <h2 className="h2 ml-3">Experience</h2>
 
         <div className="mt-3 space-y-3 ml-3 rounded-md border border-gray-200 shadow-sm p-6">

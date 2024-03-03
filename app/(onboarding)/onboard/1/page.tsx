@@ -28,6 +28,8 @@ const Onboard1Page = async () => {
     },
   });
 
+  console.log("user", user);
+
   return (
     <div className="min-h-screen bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
       <div className="form-container pt-10">

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useModal } from "@/hooks/use-modal-store";
-import { industry } from "@prisma/client";
+import { Expertise, Tool } from "@prisma/client";
 
 interface Industry {
   id: string;
@@ -23,11 +23,48 @@ interface Industry {
 }
 
 interface ProfileItemActionProps {
-  data: Industry;
+  data: Industry | Expertise | Tool;
+  dataType: string;
 }
 
-const ProfileItemAction = ({ data }: ProfileItemActionProps) => {
+export default function ProfileItemAction({
+  data,
+  dataType,
+}: ProfileItemActionProps) {
   const { onOpen } = useModal();
+
+  const handleEdit = () => {
+    if (dataType === "industry") {
+      onOpen("editIndustry", {
+        industry: data,
+      });
+    } else if (dataType === "tool") {
+      onOpen("editTool", {
+        tool: data,
+      });
+    } else if (dataType === "expertise") {
+      onOpen("editExpertise", {
+        expertise: data,
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    if (dataType === "industry") {
+      onOpen("deleteIndustry", {
+        industry: data,
+      });
+    } else if (dataType === "tool") {
+      onOpen("deleteTool", {
+        tool: data,
+      });
+    } else if (dataType === "expertise") {
+      onOpen("deleteExpertise", {
+        expertise: data,
+      });
+    }
+  };
+
   return (
     <div>
       <DropdownMenu>
@@ -39,11 +76,7 @@ const ProfileItemAction = ({ data }: ProfileItemActionProps) => {
         <DropdownMenuContent className="flex items-center flex-col">
           <DropdownMenuItem
             className="flex gap-1 items-center cursor-pointer"
-            onClick={() => {
-              onOpen("editIndustry", {
-                industry: data,
-              });
-            }}
+            onClick={handleEdit}
           >
             <div className="flex gap-1 text-primary items-center cursor-pointer">
               <PencilIcon className="w-4 h-4 mr-1" />
@@ -53,11 +86,7 @@ const ProfileItemAction = ({ data }: ProfileItemActionProps) => {
           <DropdownMenuSeparator className="h-[1px]" />
           <DropdownMenuItem
             className="flex gap-1 items-center cursor-pointer"
-            onClick={() => {
-              onOpen("deleteIndustry", {
-                industry: data,
-              });
-            }}
+            onClick={handleDelete}
           >
             <div className="flex gap-1 text-red-600 items-center cursor-pointer">
               <TrashIcon className="w-4 h-4 mr-1" />
@@ -68,22 +97,4 @@ const ProfileItemAction = ({ data }: ProfileItemActionProps) => {
       </DropdownMenu>
     </div>
   );
-};
-
-export function EditProfileButton() {
-  const { onOpen } = useModal();
-  return (
-    <Button
-      variant="outline"
-      className="flex items-center"
-      onClick={() => {
-        onOpen("editProfile");
-      }}
-    >
-      <PencilIcon className="w-4 h-4 mr-1" />
-      Edit
-    </Button>
-  );
 }
-
-export default ProfileItemAction;

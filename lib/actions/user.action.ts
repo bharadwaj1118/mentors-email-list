@@ -341,6 +341,7 @@ export async function updateUserOnboarding03(data: IOnboarding03User) {
         name,
         description,
         userId: id,
+        imageUrl: "",
       },
     });
   } catch (error) {
@@ -371,6 +372,7 @@ export async function updateUserOnboarding04(data: IOnboarding04User) {
         name,
         description,
         userId: id,
+        imageUrl: "",
       },
     });
   } catch (error) {
@@ -556,7 +558,6 @@ interface ISaveUserCompanyAndRoleById {
   company: string;
   companySize: string;
   currentRole: string;
-  industries: any;
   linkedinProfile: string;
 }
 
@@ -565,7 +566,6 @@ export async function saveUserCompanyAndRoleById({
   company,
   companySize,
   currentRole,
-  industries,
   linkedinProfile,
 }: ISaveUserCompanyAndRoleById) {
   try {
@@ -579,19 +579,6 @@ export async function saveUserCompanyAndRoleById({
         position: currentRole,
         linkedinProfile,
       },
-    });
-
-    await db.industry.deleteMany({
-      where: {
-        userId,
-      },
-    });
-
-    await db.industry.createMany({
-      data: industries.map((industry: any) => ({
-        name: industry.value,
-        userId,
-      })),
     });
 
     return user;

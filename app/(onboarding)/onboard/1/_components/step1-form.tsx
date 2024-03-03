@@ -40,15 +40,20 @@ interface Props {
 }
 
 export function OnboardStepOneForm({ user }: Props) {
-  const [value, setState] = React.useState({});
   const router = useRouter();
 
   const { id, location, languages } = JSON.parse(user);
-  const initialLocation = { label: location, value: location };
-  const initialLanguages = languages.map((language: any) => ({
-    label: language.name,
-    value: language.name,
-  }));
+  let initialLocation = {};
+  let initialLanguages = [];
+  if (location !== null) {
+    initialLocation = { label: location, value: location };
+  }
+  if (languages !== null) {
+    initialLanguages = languages.map((language: any) => ({
+      label: language.name,
+      value: language.name,
+    }));
+  }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
