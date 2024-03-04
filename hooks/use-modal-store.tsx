@@ -20,7 +20,8 @@ export type ModalType =
   | "deleteExperience"
   | "editTool"
   | "deleteTool"
-  | "editBio";
+  | "editBio"
+  | "editSocials";
 
 interface Industry {
   id: string;
@@ -53,6 +54,9 @@ interface ProfessionalDetails {
 interface User {
   bio?: string;
   id: string;
+  linkedinProfile?: string;
+  twitterProfile?: string;
+  facebookProfile?: string;
 }
 
 interface Experience {
@@ -81,7 +85,7 @@ interface ModalStore {
 }
 
 export const useModal = create<ModalStore>((set) => ({
-  type: "editProfile",
+  type: "editSocials",
   data: {},
   userId: " ",
   isOpen: false,

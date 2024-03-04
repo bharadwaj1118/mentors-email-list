@@ -25,8 +25,13 @@ import ProfileExperience from "./profile-experience";
 import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import ProfileSkillList from "./profile-skill-list";
 import { getSelfId } from "@/lib/actions/user.action";
-import { EditProfileAction } from "./edit-profile-action";
+import {
+  EditProfileAction,
+  EditProfileImageAction,
+  EditSocialsAction,
+} from "./edit-profile-action";
 import Profile from "@/database/profile.model";
+import Link from "next/link";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -48,6 +53,9 @@ const ProfileDisplayPage = async ({
     expertise,
     toolkit,
     experiences,
+    linkedinProfile,
+    twitterProfile,
+    facebookProfile,
   } = JSON.parse(user);
   console.log(imageUrl, "imageUrl");
 
@@ -67,14 +75,16 @@ const ProfileDisplayPage = async ({
         {canEdit && <EditProfileAction />}
       </div>
       <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6">
-        <div>
-          <Image
-            src={imageUrl}
-            alt="avatar"
-            width={100}
-            height={100}
-            className="h-32 w-32 rounded-full object-cover overflow-hidden mt-12"
-          />
+        <div className="flex items-center ">
+          <div className="relative mt-12">
+            <Image
+              src={imageUrl}
+              alt="avatar"
+              width={100}
+              height={100}
+              className="h-32 w-32 rounded-full object-cover overflow-hidden"
+            />
+          </div>
         </div>
 
         <div className="flex justify-center items-center flex-col">
@@ -169,15 +179,60 @@ const ProfileDisplayPage = async ({
             </Button>
           </div>
 
-          <div className="max-md:!mt-6 space-x-2 flex items-center">
-            <div className="text-primary">
-              <TwitterLogoIcon className="w-6 h-6" />
+          <div className="max-md:!mt-6 flex items-center">
+            <div>
+              {linkedinProfile && (
+                <Button
+                  variant="link"
+                  size="icon"
+                  className="flex items-center justify-center"
+                  asChild
+                >
+                  <Link href={linkedinProfile}>
+                    <LinkedInLogoIcon className="w-6 h-6" />
+                  </Link>
+                </Button>
+              )}
             </div>
             <div className="text-primary">
-              <LinkedInLogoIcon className="w-6 h-6" />
+              {twitterProfile && (
+                <Button
+                  variant="link"
+                  size="icon"
+                  className="flex items-center justify-center"
+                  asChild
+                >
+                  <Link href={linkedinProfile}>
+                    <TwitterLogoIcon className="w-6 h-6" />
+                  </Link>
+                </Button>
+              )}
             </div>
+
             <div className="text-primary">
-              <LucideFacebook className="w-6 h-6" />
+              {facebookProfile && (
+                <Button
+                  variant="link"
+                  size="icon"
+                  className="flex items-center justify-center"
+                  asChild
+                >
+                  <Link href={linkedinProfile}>
+                    <LucideFacebook className="w-6 h-6" />
+                  </Link>
+                </Button>
+              )}
+            </div>
+            <div>
+              {canEdit && (
+                <EditSocialsAction
+                  id={id}
+                  dataType="socials"
+                  linkedinProfile={linkedinProfile}
+                  twitterProfile={twitterProfile}
+                  facebookProfile={facebookProfile}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -242,7 +297,7 @@ const ProfileDisplayPage = async ({
         name="Toolkit"
       />
 
-      <ProfileExperience />
+      {/* <ProfileExperience /> */}
 
       <ProfileTestmonialPage title="Reviews (5)" />
 

@@ -29,6 +29,8 @@ model User {
   shortBio         String?      @db.Text
   portfolioWebsite String?      @db.Text
   linkedinProfile  String?      @db.Text
+  twitterProfile   String?      @db.Text
+  facebookProfile  String?      @db.Text
   position         String?
   organization     String?
   city             String?
