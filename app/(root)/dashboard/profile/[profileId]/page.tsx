@@ -20,11 +20,17 @@ const page = async ({ params }: Props) => {
     where: {
       id: profileId,
     },
-    include: {
+    select: {
+      id: true,
+      imageUrl: true,
+      position: true,
+      organization: true,
+      bio: true,
       expertise: true,
       industries: true,
       languages: true,
       toolkit: true,
+      experiences: true,
     },
   });
 

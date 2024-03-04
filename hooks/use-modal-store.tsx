@@ -19,7 +19,8 @@ export type ModalType =
   | "editExperience"
   | "deleteExperience"
   | "editTool"
-  | "deleteTool";
+  | "deleteTool"
+  | "editBio";
 
 interface Industry {
   id: string;
@@ -49,12 +50,26 @@ interface ProfessionalDetails {
   linkedinUrl: string;
 }
 
+interface User {
+  bio?: string;
+  id: string;
+}
+
+interface Experience {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
 interface ModalData {
   industry?: Industry;
   expertise?: Expertise;
   channelType?: ChannelType;
   UserDetails?: ProfessionalDetails;
   tool?: Tool;
+  user?: User;
+  experience?: Experience;
 }
 
 interface ModalStore {

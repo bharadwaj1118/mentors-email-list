@@ -202,7 +202,7 @@ model Support {
 
 model Experience {
   id          String    @id @default(uuid())
-  companyName String
+  name        String
   description String    @db.Text
   imageUrl    String    @db.Text
   start       DateTime?
@@ -214,6 +214,6 @@ model Experience {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, companyName])
+  @@unique([userId, name])
   @@index([userId])
 }

@@ -14,6 +14,7 @@ import {
 
 import { useModal } from "@/hooks/use-modal-store";
 import { Expertise, Tool } from "@prisma/client";
+import { useEditProfileStore } from "@/hooks/use-edit-profile-store";
 
 interface Industry {
   id: string;
@@ -32,6 +33,7 @@ export default function ProfileItemAction({
   dataType,
 }: ProfileItemActionProps) {
   const { onOpen } = useModal();
+  const { isActive, toggleActive } = useEditProfileStore();
 
   const handleEdit = () => {
     if (dataType === "industry") {
@@ -45,6 +47,10 @@ export default function ProfileItemAction({
     } else if (dataType === "expertise") {
       onOpen("editExpertise", {
         expertise: data,
+      });
+    } else if (dataType === "experience") {
+      onOpen("editExperience", {
+        experience: data,
       });
     }
   };
@@ -62,8 +68,15 @@ export default function ProfileItemAction({
       onOpen("deleteExpertise", {
         expertise: data,
       });
+    } else if (dataType === "experience") {
+      onOpen("deleteExperience", {
+        experience: data,
+      });
     }
   };
+  if (!isActive) {
+    return null;
+  }
 
   return (
     <div>

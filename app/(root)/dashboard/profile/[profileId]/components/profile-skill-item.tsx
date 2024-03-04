@@ -29,7 +29,6 @@ const ProfileSkillItem = ({
   canEdit,
   dataType,
 }: ProfileSkillItemProps) => {
-  console.log("imageUrl", imageUrl);
   if (!imageUrl || !name || !description || !id) {
     return null;
   }

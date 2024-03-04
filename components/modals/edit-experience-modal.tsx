@@ -3,7 +3,6 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
 import { useUser } from "@clerk/clerk-react";
 
 import {
@@ -21,14 +20,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import Select from "react-select";
+import { useEffect } from "react";
+import { Textarea } from "../ui/textarea";
+
 import { FileUpload } from "@/components/shared/file-upload";
-import { addExperience } from "@/lib/actions/experience.action";
+import { updateExperience } from "@/lib/actions/experience.action";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -38,48 +41,60 @@ const formSchema = z.object({
     message: "Description is required.",
   }),
   imageUrl: z.string().min(1, {
-    message: "Upload company Logo",
+    message: "Upload Logo",
   }),
 });
 
-export const AddExperienceModal = () => {
+export const EditExperienceModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const { isLoaded, user } = useUser();
   const router = useRouter();
   const params = useParams();
 
-  const isModalOpen = isOpen && type === "addExperience";
+  const isModalOpen = isOpen && type === "editExperience";
+  const experience = data?.experience;
+  console.log(experience);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      imageUrl: "",
+      name: experience?.name || "",
+      description: experience?.description || "",
+      imageUrl: experience?.imageUrl || "",
     },
   });
+
+  useEffect(() => {
+    if (experience) {
+      const name = {
+        label: experience.name,
+        value: experience.name,
+      };
+
+      form.setValue("description", experience?.description);
+      form.setValue("imageUrl", experience?.imageUrl);
+      form.setValue("name", experience?.name);
+    }
+  }, [experience, form]);
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const experience = await addExperience({
-        ...values,
-        userId: user?.id as string,
-      });
-
+      const id = experience?.id;
+      if (id) {
+        updateExperience({
+          id,
+          ...values,
+        });
+      }
+      onClose();
       form.reset();
       router.refresh();
-      onClose();
-      console.log(experience);
-      if (experience !== null) {
-        toast.success("Added successfully");
-      } else {
-        toast.success("Failed to add");
-      }
+      toast.success("Updated successfully");
     } catch (error) {
       console.log(error);
-      toast.success("Failed to add");
+      toast.error("Failed to update");
     }
   };
 
@@ -87,13 +102,6 @@ export const AddExperienceModal = () => {
     form.reset();
     onClose();
   };
-
-  if (!isLoaded) {
-    // Handle loading state however you like
-    return null;
-  }
-
-  if (!user) return null;
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -112,8 +120,8 @@ export const AddExperienceModal = () => {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="uppercase text-base font-bold text-zinc-500 dark:text-secondary/70">
-                        Company Logo
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Add Logo
                       </FormLabel>
                       <FormControl>
                         <FileUpload
@@ -134,12 +142,12 @@ export const AddExperienceModal = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      COMPANY
+                      Experience
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 "
                         placeholder="Enter company name"
                         {...field}
                       />
@@ -161,7 +169,7 @@ export const AddExperienceModal = () => {
                       <Textarea
                         disabled={isLoading}
                         className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 md:h-24"
-                        placeholder="Enter description about role"
+                        placeholder="Enter description"
                         {...field}
                       />
                     </FormControl>
@@ -171,7 +179,7 @@ export const AddExperienceModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Add</Button>
+              <Button disabled={isLoading}>Save</Button>
             </DialogFooter>
           </form>
         </Form>

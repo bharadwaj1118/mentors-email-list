@@ -3,13 +3,13 @@ import { db } from "@/lib/db";
 
 interface AddExperienceProps {
   userId: string;
-  companyName: string;
+  name: string;
   description: string;
   imageUrl: string;
 }
 export async function addExperience({
   userId,
-  companyName,
+  name,
   description,
   imageUrl,
 }: AddExperienceProps) {
@@ -30,7 +30,7 @@ export async function addExperience({
     const experience = await db.experience.create({
       data: {
         userId: user.id,
-        companyName,
+        name,
         description,
         imageUrl,
       },
@@ -39,5 +39,51 @@ export async function addExperience({
     return experience;
   } catch (error) {
     console.log("error in ADD_EXPERIENCE_FUNCTION", error);
+    throw error;
+  }
+}
+
+export async function deleteExperienceById(id: string) {
+  try {
+    const experience = await db.experience.delete({
+      where: {
+        id,
+      },
+    });
+    return experience;
+  } catch (error) {
+    console.log("error in DELETE_EXPERIENCE_FUNCTION", error);
+    throw error;
+  }
+}
+
+interface IUpdateExperience {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+export async function updateExperience({
+  id,
+  name,
+  description,
+  imageUrl,
+}: IUpdateExperience) {
+  try {
+    const experience = await db.experience.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+        imageUrl,
+      },
+    });
+    return experience;
+  } catch (error) {
+    console.log("error in UPDATE_EXPERIENCE_FUNCTION", error);
+    throw error;
   }
 }

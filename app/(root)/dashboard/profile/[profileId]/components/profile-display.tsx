@@ -26,6 +26,7 @@ import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import ProfileSkillList from "./profile-skill-list";
 import { getSelfId } from "@/lib/actions/user.action";
 import { EditProfileAction } from "./edit-profile-action";
+import Profile from "@/database/profile.model";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -37,14 +38,18 @@ const ProfileDisplayPage = async ({
   profileId,
 }: ProfileDisplayPageProps) => {
   const {
+    id,
     username,
+    bio,
     imageUrl,
     position,
     organization,
     industries,
     expertise,
     toolkit,
+    experiences,
   } = JSON.parse(user);
+  console.log(imageUrl, "imageUrl");
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -58,7 +63,7 @@ const ProfileDisplayPage = async ({
   return (
     <div className="relative">
       {/* Profile Details */}
-      <div className="absolute right-4 top-4">
+      <div className="absolute right-8 top-8">
         {canEdit && <EditProfileAction />}
       </div>
       <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6">
@@ -207,7 +212,14 @@ const ProfileDisplayPage = async ({
 
       <ProfileReviewPage />
 
-      <ProfileBioPage />
+      <ProfileBioPage canEdit={canEdit} bio={bio} dataType="bio" id={id} />
+
+      <ProfileSkillList
+        data={experiences}
+        canEdit={canEdit}
+        dataType="experience"
+        name="Experience"
+      />
 
       <ProfileSkillList
         data={expertise}
