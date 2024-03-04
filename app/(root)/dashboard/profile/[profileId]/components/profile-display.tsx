@@ -241,19 +241,22 @@ const ProfileDisplayPage = async ({
 
         {/* Profile Navigation */}
         <div className="flex items-center flex-col max-md:space-y-3 md:space-x-6 md:flex-row md:justify-start w-full md:w-2/3 p-3">
-          <a href="#" className="text-primary text-lg">
-            Profile
+          <a href="#bio" className="text-primary text-lg">
+            Bio
           </a>
-          <a href="#" className="text-primary text-lg">
-            Content Library
+          <a href="#experience" className="text-primary text-lg">
+            Experience
           </a>
-          <a href="#" className="text-primary text-lg">
+          <a href="#expertise" className="text-primary text-lg">
             Expertise
           </a>
-          <a href="#" className="text-primary text-lg">
+          <a href="#industry" className="text-primary text-lg">
+            Industry
+          </a>
+          <a href="#toolkit" className="text-primary text-lg">
             Toolkit
           </a>
-          <a href="#" className="text-primary text-lg">
+          <a href="#reviews" className="text-primary text-lg">
             Reviews
           </a>
           <a
@@ -267,8 +270,10 @@ const ProfileDisplayPage = async ({
 
       <ProfileReviewPage />
 
+      <div id="bio"></div>
       <ProfileBioPage canEdit={canEdit} bio={bio} dataType="bio" id={id} />
 
+      <div id="experience"></div>
       <ProfileSkillList
         data={experiences}
         canEdit={canEdit}
@@ -276,6 +281,7 @@ const ProfileDisplayPage = async ({
         name="Experience"
       />
 
+      <div id="expertise"></div>
       <ProfileSkillList
         data={expertise}
         canEdit={canEdit}
@@ -283,6 +289,7 @@ const ProfileDisplayPage = async ({
         name="Expertise"
       />
 
+      <div id="industry"></div>
       <ProfileSkillList
         data={industries}
         canEdit={canEdit}
@@ -290,6 +297,7 @@ const ProfileDisplayPage = async ({
         name="Industry"
       />
 
+      <div id="toolkit"></div>
       <ProfileSkillList
         data={toolkit}
         canEdit={canEdit}
@@ -299,6 +307,7 @@ const ProfileDisplayPage = async ({
 
       {/* <ProfileExperience /> */}
 
+      <div id="reviews" className="h-3x"></div>
       <ProfileTestmonialPage title="Reviews (5)" />
 
       <div className="mt-12">

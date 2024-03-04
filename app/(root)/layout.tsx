@@ -6,11 +6,11 @@ import React from "react";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full">
-      <div className="h-[80px] fixed inset-0 w-full z-50">
+      <div className="h-[80px] inset-0 w-full z-50">
         <Navbar />
       </div>
 
-      <div className="pt-[80px] h-full max-w-7xl mx-auto">{children}</div>
+      <div className="h-full max-w-7xl mx-auto">{children}</div>
     </div>
   );
 };
