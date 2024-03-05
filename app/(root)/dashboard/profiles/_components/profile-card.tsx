@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { arrayToValuesString } from "@/lib/utils";
+import { formatMonthYear } from "@/lib/format";
 
 interface ProfileCardProps {
   user: string;
@@ -38,6 +39,8 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
     expertise,
     languages,
     country,
+    joinedAt,
+    location,
   } = data;
   return (
     <div className="mb-6 bg-white max-w-5xl mx-auto">
@@ -68,11 +71,11 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               </h6>
               <div className="flex md:space-x-4 text-muted-foreground justify-start">
                 <div className="flex items-center justify-start">
-                  <MapPinIcon className="h-4 w-4 mr-1" />
-                  {city}, {country}
+                  <MapPinIcon className="h-4 w-4 mr-1 text-primary" />
+                  {location}
                 </div>
                 <div className="flex items-center ">
-                  <LanguageIcon className="h-4 w-4 mr-1" />
+                  <LanguageIcon className="h-4 w-4 mr-1 text-primary" />
                   {languages.map((lang: any) => lang.name).join(", ")}
                 </div>
               </div>
@@ -103,8 +106,8 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               516 sessions
             </p>
             <p className="flex justify-end items-center">
-              <span className="text-green-600 font-semibold mr-1">
-                ${price}
+              <span className="text-green-600 font-semibold mr-1 ">
+                {price === null ? "Free" : `${price}`}
               </span>
               <CreditCardIcon className="h-4 w-4" />
             </p>
@@ -202,12 +205,16 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
         <div className="md:flex md:justify-between mt-3">
           <div className="hidden mt-6 md:flex gap-4 sm:gap-6">
             <div className="flex flex-col-reverse">
-              <p className="text-xs text-gray-500">31st June, 2021</p>
+              <p className="text-xs text-gray-500">
+                {formatMonthYear(joinedAt)}
+              </p>
               <p className="text-sm font-medium text-gray-600">Joined</p>
             </div>
 
             <div className="flex flex-col-reverse">
-              <p className="text-xs text-gray-500">{duration} minute</p>
+              <p className="text-xs text-gray-500">
+                {duration === null ? "30" : duration} minute
+              </p>
               <p className="text-sm font-medium text-gray-600">Session time</p>
             </div>
           </div>

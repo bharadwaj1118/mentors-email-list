@@ -32,6 +32,7 @@ import {
 } from "./edit-profile-action";
 import Profile from "@/database/profile.model";
 import Link from "next/link";
+import { formatMonthYear } from "@/lib/format";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -45,10 +46,12 @@ const ProfileDisplayPage = async ({
   const {
     id,
     username,
+    location,
     bio,
     imageUrl,
     position,
     organization,
+    languages,
     industries,
     expertise,
     toolkit,
@@ -56,6 +59,7 @@ const ProfileDisplayPage = async ({
     linkedinProfile,
     twitterProfile,
     facebookProfile,
+    joinedAt,
   } = JSON.parse(user);
   console.log(imageUrl, "imageUrl");
 
@@ -95,21 +99,21 @@ const ProfileDisplayPage = async ({
         </div>
 
         <div className="flex flex-col items-center justify-center muted max-md:space-y-1 md:flex-row md:justify-between md:space-x-6">
-          <p className="text-base flex items-center">
+          {/* <p className="text-base flex items-center">
             <Globe className="h-4 w-4 text-blue-500 mr-1" />
             Athens, Greece
-          </p>
+          </p> */}
           <p className="text-base flex items-center">
             <Languages className="h-4 w-4 text-blue-500 mr-1" />
-            English, Greek
+            {languages.map((language: any) => language.name).join(", ")}
           </p>
           <p className="text-base flex items-center">
             <MapPin className="h-4 w-4 text-blue-500 mr-1" />
-            from Florida, United States
+            {location}
           </p>
           <p className="text-base flex items-center">
             <BuildingIcon className="h-4 w-4 text-blue-500 mr-1" />
-            Joined August, 2018
+            Joined {formatMonthYear(joinedAt)}
           </p>
         </div>
 
