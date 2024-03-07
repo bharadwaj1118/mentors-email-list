@@ -21,7 +21,8 @@ export type ModalType =
   | "editTool"
   | "deleteTool"
   | "editBio"
-  | "editSocials";
+  | "editSocials"
+  | "editProfession";
 
 interface Industry {
   id: string;
@@ -57,6 +58,8 @@ interface User {
   linkedinProfile?: string;
   twitterProfile?: string;
   facebookProfile?: string;
+  position?: string;
+  organization?: string;
 }
 
 interface Experience {

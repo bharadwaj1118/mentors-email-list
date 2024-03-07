@@ -110,34 +110,41 @@ export function EditSocialsAction({
   );
 }
 
-export function EditProfileImageAction() {
-  const [open, setOpen] = useState(false);
+interface EditProfileDetailsActionProps {
+  id: string;
+  position: string;
+  organization: string;
+}
+
+export function EditProfileDetailsAction({
+  id,
+  position,
+  organization,
+}: EditProfileDetailsActionProps) {
+  const { onOpen } = useModal();
+  const { isActive } = useEditProfileStore();
 
   const handleClick = () => {
-    setOpen(!open);
+    onOpen("editProfession", {
+      user: {
+        id,
+        position,
+        organization,
+      },
+    });
   };
-  const { isActive } = useEditProfileStore();
 
   if (!isActive) {
     return null;
   }
-
-  if (open) {
-    return (
-      <div>
-        <UserProfile />
-      </div>
-    );
-  }
-
   return (
     <Button
       variant="outline"
-      className="flex items-center rounded-full p-1"
+      className="flex items-center"
       onClick={handleClick}
-      size="icon"
+      size="sm"
     >
-      <PencilIcon className="w-4 h-4" />
+      <PencilIcon className="w-4 h-4 mr-1" />
     </Button>
   );
 }

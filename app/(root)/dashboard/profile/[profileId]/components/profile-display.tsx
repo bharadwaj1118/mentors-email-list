@@ -27,7 +27,7 @@ import ProfileSkillList from "./profile-skill-list";
 import { getSelfId } from "@/lib/actions/user.action";
 import {
   EditProfileAction,
-  EditProfileImageAction,
+  EditProfileDetailsAction,
   EditSocialsAction,
 } from "./edit-profile-action";
 import Profile from "@/database/profile.model";
@@ -61,7 +61,6 @@ const ProfileDisplayPage = async ({
     facebookProfile,
     joinedAt,
   } = JSON.parse(user);
-  console.log(imageUrl, "imageUrl");
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -93,9 +92,18 @@ const ProfileDisplayPage = async ({
 
         <div className="flex justify-center items-center flex-col">
           <h3 className="h3">{username}</h3>
-          <p className="large text-muted-foreground">
-            {position} @ {organization}
-          </p>
+          <div className="flex items-center justify-center space-x-2">
+            <p className="large text-muted-foreground">
+              {position} @ {organization}
+            </p>
+            {canEdit && (
+              <EditProfileDetailsAction
+                position={position}
+                organization={organization}
+                id={id}
+              />
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col items-center justify-center muted max-md:space-y-1 md:flex-row md:justify-between md:space-x-6">

@@ -16,6 +16,7 @@ import { EditBioModal } from "@/components/modals/edit-bio-modal";
 import { DeleteExperienceModal } from "@/components/modals/delete-experience-modal";
 import { EditExperienceModal } from "@/components/modals/edit-experience-modal";
 import { EditSocialsModal } from "../modals/edit-socials-modal";
+import { EditProfessionModal } from "../modals/edit-professional-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -45,6 +46,7 @@ export const ModalProvider = () => {
       <EditBioModal />
       <EditExperienceModal />
       <EditSocialsModal />
+      <EditProfessionModal />
     </>
   );
 };

@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { arrayToValuesString } from "@/lib/utils";
 import { formatMonthYear } from "@/lib/format";
+import { PencilIcon } from "lucide-react";
 
 interface ProfileCardProps {
   user: string;
@@ -117,19 +118,21 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
         {/* profile */}
         <div className="block mt-3 md:hidden ">
           <p>{username}</p>
-          <p>{role}</p>
+          <p>
+            {position} @{organization}
+          </p>
           <div className="md:flex md:flex-wrap md:space-x-4 text-muted-foreground justify-start">
-            <div className="flex items-center ">
+            {/* <div className="flex items-center ">
               <MapPinIcon className="h-4 w-4 mr-1" />
               Atens, Greece
-            </div>
+            </div> */}
             <div className="flex items-center ">
               <LanguageIcon className="h-4 w-4 mr-1" />
-              {arrayToValuesString(languages)}
+              {languages.map((lang: any) => lang.name).join(", ")}
             </div>
             <div className="flex items-center ">
               <GlobeAltIcon className="h-4 w-4 mr-1" />
-              {city}, {}
+              {location}
             </div>
             <div className="flex items-center ">
               <BoltIcon className="h-4 w-4 mr-1 text-green-600 fill-green-600 outline-green-600" />

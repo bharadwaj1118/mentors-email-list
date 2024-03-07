@@ -3,7 +3,7 @@ import React from "react";
 import { SearchInput } from "./search-input";
 import FilterSingleSelect from "@/components/filter-single-select";
 import MobileFilters from "@/components/mobile-filters";
-import { Price } from "./profile-filters";
+import { industryData, languageData } from "@/constants/data";
 
 interface Option {
   id?: string;
@@ -159,12 +159,12 @@ const ProfileSearchFilters = () => {
         </div>
         <div className="flex md:block justify-between items-center p-1 h-fit ">
           <MobileFilters
-            languages={languages}
+            languages={languageData}
             countries={countries}
             expertise={expertise}
             skills={skills}
             prices={prices}
-            industries={industries}
+            industries={industryData}
           />
 
           <div className="w-[200px]">
