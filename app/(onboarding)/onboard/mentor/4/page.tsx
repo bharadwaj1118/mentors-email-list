@@ -4,6 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Form,
   FormControl,
@@ -138,7 +146,9 @@ const FormSchema = z.object({
   challangeSolved: z
     .string()
     .min(20, { message: "Please enter short description." }),
-  menteePreference: z.array(z.string()),
+  menteePreference: z.string().min(0, {
+    message: "Please choose a valid option",
+  }),
 });
 
 const ProfileInfoPage = () => {
@@ -159,6 +169,7 @@ const ProfileInfoPage = () => {
     cxDefination,
     challangeSolved,
     menteePreference,
+    charge,
   } = JSON.parse(JSON.stringify(data || {}));
 
   const handleClickClearStorage = () => {
@@ -174,15 +185,15 @@ const ProfileInfoPage = () => {
       firstPersonView: firstPersonView || "",
       cxDefination: cxDefination || "",
       challangeSolved: challangeSolved || "",
-      menteePreference: menteePreference || [],
+      menteePreference: menteePreference || "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    setMentorOnboardData({ ...mentorOnboardData, ...data });
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    await setMentorOnboardData({ ...mentorOnboardData, ...data });
     toast.success("Your data has been submitted successfully!");
-    router.push("/");
-  }
+    router.push("/onboard/mentor/thankyou");
+  };
 
   if (!isClient) return null;
 
@@ -245,7 +256,7 @@ const ProfileInfoPage = () => {
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <RadioGroup
+                      {/* <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex flex-row flex-wrap gap-4"
@@ -263,7 +274,24 @@ const ProfileInfoPage = () => {
                             </FormLabel>
                           </FormItem>
                         ))}
-                      </RadioGroup>
+                      </RadioGroup> */}
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-[100px]">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {sessionOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -314,17 +342,15 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
-                      Please share a brief self-description in a few sentences
-                      (in first person). If you become a mentor, your response
-                      to this question will be featured in a mentor announcement
-                      blog post later on.
+                      If you become a mentor, your response to this question
+                      will be added to your mentor profile
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Your answer"
                         {...field}
-                        className="w-full"
+                        className="w-full h-[150px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -347,7 +373,7 @@ const ProfileInfoPage = () => {
                       <Textarea
                         placeholder="Your answer"
                         {...field}
-                        className="w-full"
+                        className="w-full h-[150px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -372,7 +398,7 @@ const ProfileInfoPage = () => {
                       <Textarea
                         placeholder="Your answer"
                         {...field}
-                        className="w-full"
+                        className="w-full h-[150px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -381,55 +407,37 @@ const ProfileInfoPage = () => {
               />
             </div>
 
-            <div className="card-block">
+            <div className="card-block ">
               <FormField
                 control={form.control}
                 name="menteePreference"
-                render={() => (
-                  <FormItem>
-                    <div className="mb-4">
-                      <FormLabel className="text-base">
-                        Which groups of people looking for guidance are you most
-                        excited to support as a mentor?{" "}
-                        <span className="text-red-500">*</span>
-                      </FormLabel>
-                    </div>
-                    {roles.map((item) => (
-                      <FormField
-                        key={item.id}
-                        control={form.control}
-                        name="menteePreference"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={item.id}
-                              className="flex flex-row items-start space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(item.id)}
-                                  onCheckedChange={(checked) => {
-                                    return checked
-                                      ? field.onChange([
-                                          ...field.value,
-                                          item.id,
-                                        ])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== item.id
-                                          )
-                                        );
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {item.label}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    ))}
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel className="md:text-base">
+                      Have you had any prior experience mentoring others?{" "}
+                      <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-1"
+                      >
+                        {roles.map((role) => (
+                          <FormItem
+                            key={role.id}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={role.id} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {role.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -440,7 +448,15 @@ const ProfileInfoPage = () => {
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
                 <Button type="button">
-                  <Link href="/onboard/mentor/3">Back</Link>
+                  <Link
+                    href={
+                      charge === "yes"
+                        ? "/onboard/mentor/3"
+                        : "/onboard/mentor/2"
+                    }
+                  >
+                    Back
+                  </Link>
                 </Button>
                 <Button type="submit">Next</Button>
               </div>
