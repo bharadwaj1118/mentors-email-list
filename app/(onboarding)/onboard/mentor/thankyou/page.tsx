@@ -22,9 +22,9 @@ const ThankyouPage = () => {
           height={200}
         />
       </div>
-      <h1 className="h2-bold mb-12">
-        Your response has been successfully submitted!
-      </h1>
+      <h2 className="h2-bold mb-6">Thank you! Your response has been saved!</h2>
+      <h3 className="h3 mb-6">We will get back to you shortly!</h3>
+
       <Button size="lg" className="text-lg" onClick={handleClick}>
         Continue to website
       </Button>

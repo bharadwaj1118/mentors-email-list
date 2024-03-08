@@ -63,9 +63,9 @@ const ProfileInfoPage = () => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setMentorOnboardData({ ...mentorOnboardData, ...data });
     const charge = data?.charge;
-    charge === "yes"
-      ? router.push("/onboard/mentor/3")
-      : router.push("/onboard/mentor/4");
+    charge === "no"
+      ? router.push("/onboard/mentor/4")
+      : router.push("/onboard/mentor/3");
   }
 
   if (!isClient) return null;

@@ -450,9 +450,9 @@ const ProfileInfoPage = () => {
                 <Button type="button">
                   <Link
                     href={
-                      charge === "yes"
-                        ? "/onboard/mentor/3"
-                        : "/onboard/mentor/2"
+                      charge === "no"
+                        ? "/onboard/mentor/2"
+                        : "/onboard/mentor/3"
                     }
                   >
                     Back
