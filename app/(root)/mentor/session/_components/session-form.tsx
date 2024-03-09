@@ -243,25 +243,30 @@ export function SessionForm({ session, user }: SessionFormProps) {
         <Separator />
 
         <div className="mb-12 mt-3 flex justify-around">
-          <Button
-            className="w-fit rounded-full bg-red-500 hover:bg-red-200"
-            disabled={isSubmitting || status !== SessionStatus.AWAITING_HOST}
-            onClick={declineSession}
-            hidden={status === SessionStatus.AWAITING_HOST}
-          >
-            {" "}
-            {isSubmitting
-              ? "Submitting the request"
-              : "Decline session Request"}
-          </Button>
-          <Button
-            className="w-fit rounded-full bg-green-600 hover:bg-green-200"
-            disabled={isSubmitting || status !== SessionStatus.AWAITING_HOST}
-            onClick={acceptSession}
-          >
-            {" "}
-            {isSubmitting ? "Submitting the request" : "Accept session Request"}
-          </Button>
+          {status === SessionStatus.AWAITING_HOST && (
+            <>
+              <Button
+                className="w-fit rounded-full bg-red-500 hover:bg-red-200"
+                disabled={isSubmitting}
+                onClick={declineSession}
+              >
+                {" "}
+                {isSubmitting
+                  ? "Submitting the request"
+                  : "Decline session Request"}
+              </Button>
+              <Button
+                className="w-fit rounded-full bg-green-600 hover:bg-green-200"
+                disabled={isSubmitting}
+                onClick={acceptSession}
+              >
+                {" "}
+                {isSubmitting
+                  ? "Submitting the request"
+                  : "Accept session Request"}
+              </Button>
+            </>
+          )}
         </div>
       </form>
     </Form>

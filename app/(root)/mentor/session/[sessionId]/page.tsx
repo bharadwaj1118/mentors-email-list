@@ -78,7 +78,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
           </div>
           <div>
             {" "}
-            <CheckCircle2 className="fill h-6 w-6 fill-blue-700 text-white" />
+            <CheckCircle2 className="h-6 w-6 fill-blue-700 text-white" />
           </div>
         </div>
 
@@ -93,7 +93,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
             </div>
             <div className="large">Zoom</div>
             <div>
-              <CheckCircle2 className="fill h-6 w-6 fill-blue-700 text-white" />
+              <CheckCircle2 className="h-6 w-6 fill-blue-700 text-white" />
             </div>
           </div>
         </div>
