@@ -1,9 +1,12 @@
 import React from "react";
+import Link from "next/link";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+
+import { formatDateToHHMMToHHMM, formatDateToWeekDDMonth } from "@/lib/format";
 
 interface SessionCardProps {
   session: string;
@@ -11,10 +14,10 @@ interface SessionCardProps {
 
 const SessionCard = ({ session }: SessionCardProps) => {
   const sessionJSON = JSON.parse(session);
-  console.log(sessionJSON);
   const { objective, start, end, cost, status, category, mentee, id } =
     sessionJSON;
   const { username, imageUrl } = mentee;
+  if (start === null || end === null) return null;
   return (
     <div className="mt-3 w-full rounded-md border-1 p-3">
       <div className="flex space-x-3">
@@ -44,8 +47,12 @@ const SessionCard = ({ session }: SessionCardProps) => {
           <Separator className="w-full" />
           <div className="flex w-fit flex-wrap justify-start space-x-4">
             <div>
-              <p className="medium uppercase">Wednesday, 9 AUG</p>
-              <p className="muted mt-1">12:00 PM - 12:30 PM GMT + 2</p>
+              <p className="medium uppercase">
+                {formatDateToWeekDDMonth(new Date(start))}
+              </p>
+              <p className="muted mt-1">
+                {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
+              </p>
             </div>
             <div>
               <p className="medium uppercase">duration</p>

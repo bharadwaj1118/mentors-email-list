@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,6 +22,7 @@ import { toast } from "sonner";
 
 import { updateSession } from "@/lib/actions/session.action";
 import { useRouter } from "next/navigation";
+import { SessionStatus } from "@prisma/client";
 
 const formSchema = z.object({
   objective: z.string().min(20, {
@@ -58,6 +60,8 @@ export function SessionForm({ session, user }: SessionFormProps) {
     status,
   } = sessionJSON;
   const { id: userId } = userJSON;
+  console.log(status === SessionStatus.REJECTED);
+  console.log(SessionStatus.AWAITING_HOST);
 
   if (status === "AVAILABLE") {
     setEnableEdit(true);
@@ -87,8 +91,9 @@ export function SessionForm({ session, user }: SessionFormProps) {
         menteeId: userId,
       });
       setEnableEdit(false);
-      router.push("/dashboard/session");
+      router.refresh();
       toast.success("Declined the session ");
+      router.push("/dashboard/session");
     } catch (error) {
       console.log(error);
       toast("Unexpcted Error...");
@@ -108,7 +113,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "ACCEPTED",
         mentorId: userId,
       });
-      router.push("/dashboard/session");
+      router.push("/mentor/session");
       toast.success(" Accepted the session");
     } catch (error) {
       console.log(error);
@@ -125,10 +130,12 @@ export function SessionForm({ session, user }: SessionFormProps) {
     try {
       await updateSession({
         id: sessionId,
-        status: "DECLINED",
+        status: SessionStatus.REJECTED,
         mentorId: userId,
       });
-      toast.success("Declined the session ");
+      toast.success("Declined the session");
+      router.push("/mentor/session");
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Unexpcted Error...");
@@ -238,8 +245,9 @@ export function SessionForm({ session, user }: SessionFormProps) {
         <div className="mb-12 mt-3 flex justify-around">
           <Button
             className="w-fit rounded-full bg-red-500 hover:bg-red-200"
-            disabled={isSubmitting}
+            disabled={isSubmitting || status !== SessionStatus.AWAITING_HOST}
             onClick={declineSession}
+            hidden={status === SessionStatus.AWAITING_HOST}
           >
             {" "}
             {isSubmitting
@@ -248,7 +256,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
           </Button>
           <Button
             className="w-fit rounded-full bg-green-600 hover:bg-green-200"
-            disabled={isSubmitting}
+            disabled={isSubmitting || status !== SessionStatus.AWAITING_HOST}
             onClick={acceptSession}
           >
             {" "}

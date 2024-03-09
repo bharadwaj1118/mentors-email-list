@@ -1,6 +1,13 @@
 "use client";
 
-import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import { Calendar, Views, dateFnsLocalizer } from "react-big-calendar";
+
+import format from "date-fns/format";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import getDay from "date-fns/getDay";
+import enUS from "date-fns/locale/en-US";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
@@ -21,6 +28,18 @@ type Event = {
   end: Date;
 };
 
+const locales = {
+  "en-US": enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
 function isLessThanTwelveHours(start: string, end: string): boolean {
   const startTime = new Date(start);
   const endTime = new Date(end);
@@ -34,8 +53,6 @@ function isLessThanTwelveHours(start: string, end: string): boolean {
 const events: Event[] = [];
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
-
-const localizer = momentLocalizer(moment);
 
 interface MyCalendarProps {
   user: string;
@@ -55,7 +72,6 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
   const handleSelectSlot = useCallback(
     async ({ start, end }: any) => {
       const title = "Available";
-      console.log("added event");
       const addSlots: Boolean = isLessThanTwelveHours(start, end);
       if (addSlots) {
         const newEvent = { id: uuidv4(), title, start, end };
@@ -96,25 +112,23 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
     [myEvents]
   );
 
-  const { defaultDate, scrollToTime } = useMemo(
-    () => ({
-      defaultDate: new Date(2023, 12, 19),
-      scrollToTime: new Date(1970, 1, 1, 6),
-    }),
-    []
-  );
+  // const { defaultDate, scrollToTime } = useMemo(
+  //   () => ({
+  //     defaultDate: new Date(2023, 12, 19),
+  //     scrollToTime: new Date(1970, 1, 1, 6),
+  //   }),
+  //   []
+  // );
 
   return (
     <div className="h-[500px] max-w-3xl">
       <Calendar
-        defaultDate={defaultDate}
         defaultView={Views.MONTH}
         events={myEvents}
         localizer={localizer}
         onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
         selectable
-        scrollToTime={scrollToTime}
         step={30}
         timeslots={1}
       />

@@ -1,11 +1,13 @@
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Send, Check, Video, XCircle } from "lucide-react";
-import { getSelf } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
+import { Send, Check, Video, XCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { getSelf } from "@/lib/actions/user.action";
 import { getSessionByMentorId } from "@/lib/actions/session.action";
 import SessionList from "./_components/session-list";
+import { SessionStatus } from "@prisma/client";
 
 const SessionPage = async () => {
   const user = await getSelf();
@@ -13,20 +15,20 @@ const SessionPage = async () => {
 
   const sessions = await getSessionByMentorId(user.id);
 
-  console.log(sessions);
-
   const upcomingSessions = sessions.filter((session) => {
-    return session.status === "ACCEPTED";
+    return session.status === SessionStatus.ACCEPTED;
   });
   const completedSessions = sessions.filter((session) => {
-    return session.status === "COMPLETED";
+    return session.status === SessionStatus.COMPLETED;
   });
   const requestedSessions = sessions.filter((session) => {
-    return session.status === "REQUESTED";
+    return session.status === SessionStatus.AWAITING_HOST;
   });
 
   const cancelledSessions = sessions.filter((session) => {
-    return session.status === "CANCELLED";
+    return (
+      session.status === (SessionStatus.REJECTED || SessionStatus.CANCELLED)
+    );
   });
 
   return (

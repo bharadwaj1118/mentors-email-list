@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SessionStatus } from "@prisma/client";
 import {
   Form,
   FormControl,
@@ -17,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { ca } from "date-fns/locale";
 import { useState, useEffect } from "react";
 
 import { updateSession } from "@/lib/actions/session.action";
@@ -27,8 +27,8 @@ const formSchema = z.object({
   objective: z.string().min(20, {
     message: "object must be at least 20 characters.",
   }),
-  category: z.string().min(20, {
-    message: "category must be at least 20 characters.",
+  category: z.string().min(2, {
+    message: "Please choose the category",
   }),
   description: z.string().min(20, {
     message: "description must be at least 20 characters.",
@@ -55,6 +55,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
     category,
     description,
     outcome,
+    start,
     id: sessionId,
     status,
   } = sessionJSON;
@@ -62,7 +63,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
 
   useEffect(() => {
     //Runs only on the first render
-    if (status === "AVAILABLE") {
+    if (status === SessionStatus.AVAILABLE) {
       setEnableEdit(true);
     }
   }, []);
@@ -87,11 +88,11 @@ export function SessionForm({ session, user }: SessionFormProps) {
       await updateSession({
         ...values,
         id: sessionId,
-        status: "REQUESTED",
+        status: SessionStatus.AWAITING_HOST,
         menteeId: userId,
       });
       setEnableEdit(false);
-      router.push("/onboarding-02");
+      router.push("/dashboard/session");
     } catch (error) {
       console.log(error);
     } finally {
@@ -113,21 +114,19 @@ export function SessionForm({ session, user }: SessionFormProps) {
               <FormLabel>Objective</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter your objecetive.."
+                  placeholder="Enter your objective"
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important px-4 py-3 focus-visible:ring-transparent focus-visible:ring-offset-0"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16 px-4 py-3 focus-visible:ring-transparent focus-visible:ring-offset-0"
                   disabled={!enableEdit}
                 />
               </FormControl>
               <FormDescription>
-                This is your objective you are interested in...
+                This is your objective you are interested in.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <Separator />
 
         <FormField
           control={form.control}
@@ -139,12 +138,12 @@ export function SessionForm({ session, user }: SessionFormProps) {
                 <Input
                   placeholder="category"
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important px-4 py-3 focus-visible:ring-transparent focus-visible:ring-offset-0"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  px-4 py-3 focus-visible:ring-transparent focus-visible:ring-offset-0"
                   disabled={!enableEdit}
                 />
               </FormControl>
               <FormDescription>
-                This is your category you are interested in...
+                This is your category you are interested in.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -161,12 +160,12 @@ export function SessionForm({ session, user }: SessionFormProps) {
                 <Textarea
                   placeholder="Please enter the challenge.."
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important flex flex-1 px-5 py-3 focus-visible:ring-transparent"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  flex flex-1 px-5 py-3 focus-visible:ring-transparent"
                   disabled={!enableEdit}
                 />
               </FormControl>
               <FormDescription>
-                Please enter atleast 100 characters...
+                Please enter atleast 100 characters.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -183,12 +182,12 @@ export function SessionForm({ session, user }: SessionFormProps) {
                 <Textarea
                   placeholder="Please enter the outcome.."
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important flex flex-1 px-5 py-3 focus-visible:ring-transparent"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  flex flex-1 px-5 py-3 focus-visible:ring-transparent"
                   disabled={!enableEdit}
                 />
               </FormControl>
               <FormDescription>
-                Please enter atleast 100 characters...
+                Please enter atleast 100 characters.
               </FormDescription>
               <FormMessage />
             </FormItem>

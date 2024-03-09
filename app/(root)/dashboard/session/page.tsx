@@ -1,12 +1,13 @@
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send, Check, Video } from "lucide-react";
-import { getSelf } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { getSelf } from "@/lib/actions/user.action";
 import { getSessionByMenteeId } from "@/lib/actions/session.action";
 import SessionList from "./_components/session-list";
-
+import { SessionStatus } from "@prisma/client";
 const SessionPage = async () => {
   const user = await getSelf();
   if (!user) return redirect("/login");
@@ -16,13 +17,13 @@ const SessionPage = async () => {
   console.log(sessions);
 
   const upcomingSessions = sessions.filter((session) => {
-    return session.status === "ACCEPTED";
+    return session.status === SessionStatus.ACCEPTED;
   });
   const completedSessions = sessions.filter((session) => {
-    return session.status === "COMPLETED";
+    return session.status === SessionStatus.COMPLETED;
   });
   const requestedSessions = sessions.filter((session) => {
-    return session.status === "REQUESTED";
+    return session.status === SessionStatus.AWAITING_HOST;
   });
 
   return (

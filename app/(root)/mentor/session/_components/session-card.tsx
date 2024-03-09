@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { formatDateToWeekDDMonth, formatDateToHHMMToHHMM } from "@/lib/format";
 
 interface SessionCardProps {
   session: string;
@@ -52,8 +53,12 @@ const SessionCard = ({ session }: SessionCardProps) => {
           <Separator className="w-full" />
           <div className="flex w-fit flex-wrap justify-start space-x-4">
             <div>
-              <p className="medium uppercase">Wednesday, 9 AUG</p>
-              <p className="muted mt-1">12:00 PM - 12:30 PM GMT + 2</p>
+              <p className="medium uppercase">
+                {formatDateToWeekDDMonth(new Date(start))}
+              </p>
+              <p className="muted mt-1">
+                {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
+              </p>
             </div>
             <div>
               <p className="medium uppercase">duration</p>

@@ -42,8 +42,8 @@ model User {
   toolkit          Tool[]
   industries       Industry[]
   experiences      Experience[]
-  duration         Int?
-  price            Int?
+  duration         Int          @default(30)
+  price            Int          @default(0)
   maxSessions      Int?
   zoomLink         String?
   challenge        String?
@@ -146,12 +146,12 @@ model Event {
 }
 
 enum SessionStatus {
-  AVAILABLE
-  REQUESTED
-  ACCEPTED
-  DECLINED
-  CANCELLED
-  COMPLETED
+  AVAILABLE     @map("AVAILABLE")
+  CANCELLED     @map("CANCELLED")
+  ACCEPTED      @map("ACCEPTED")
+  AWAITING_HOST @map("AWAITING_HOST")
+  REJECTED      @map("REJECTED")
+  COMPLETED     @map("COMPLETED")
 }
 
 model Session {
@@ -179,6 +179,7 @@ model Session {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 
+  @@unique([mentorId, start])
   @@index([mentorId])
 }
 

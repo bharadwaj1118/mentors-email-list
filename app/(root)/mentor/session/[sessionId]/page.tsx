@@ -7,6 +7,8 @@ import { SessionForm } from "../_components/session-form";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSessionById } from "@/lib/actions/session.action";
 import { getSelf } from "@/lib/actions/user.action";
+import { db } from "@/lib/db";
+import { calculatePrice, formattedStringToDDMonthYearTime } from "@/lib/format";
 
 interface SessionPageProps {
   params: {
@@ -14,10 +16,25 @@ interface SessionPageProps {
   };
 }
 
-const sessionPage = async ({ params }: SessionPageProps) => {
+const SessionPage = async ({ params }: SessionPageProps) => {
   const { sessionId } = params;
   const session = await getSessionById(sessionId);
   const user = await getSelf();
+  const menteeId = session?.menteeId;
+  if (!menteeId) return null;
+  const mentee = await db.user.findUnique({
+    where: {
+      id: menteeId,
+    },
+    select: {
+      username: true,
+      imageUrl: true,
+      position: true,
+      organization: true,
+      price: true,
+      duration: true,
+    },
+  });
 
   return (
     <div className="mx-auto h-full max-w-5xl p-6">
@@ -29,13 +46,16 @@ const sessionPage = async ({ params }: SessionPageProps) => {
         <div className="flex items-center justify-start space-x-2">
           <div>
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage src={mentee?.imageUrl} alt="@mentee" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
           <div>
-            <p className="muted">Mentor</p>
-            <p className="small">Git hub</p>
+            <p className="muted">{mentee?.username}</p>
+            <p className="small">
+              {" "}
+              {mentee?.position} @{mentee?.organization}
+            </p>
           </div>
         </div>
         <Separator />
@@ -50,8 +70,11 @@ const sessionPage = async ({ params }: SessionPageProps) => {
 
         <div className="flex w-fit items-center justify-center space-x-2 rounded-md border-1 border-blue-600 p-3">
           <div>
-            <p className="large">30 min</p>
-            <p className="muted">$14.5 total bill</p>
+            <p className="large">{mentee?.duration} min</p>
+            <p className="muted">
+              {" "}
+              ${calculatePrice(mentee?.duration, mentee?.price)} total bill
+            </p>
           </div>
           <div>
             {" "}
@@ -81,8 +104,11 @@ const sessionPage = async ({ params }: SessionPageProps) => {
         <div>
           <p className="large">Schedule session</p>
           <p className="muted">Sessions must be scheduled 48 hours before</p>
-          <Button className="my-3 rounded-full bg-blue-300 text-primary-600">
-            <CalendarClock className="mr-2 h-4 w-4" /> Icon Select Time/date
+          <Button className="my-3 rounded-full">
+            <CalendarClock className="mr-2 h-4 w-4" />{" "}
+            {session?.start
+              ? formattedStringToDDMonthYearTime(session?.start)
+              : "Select Time/date"}
           </Button>
         </div>
         <Separator />
@@ -98,4 +124,4 @@ const sessionPage = async ({ params }: SessionPageProps) => {
   );
 };
 
-export default sessionPage;
+export default SessionPage;
