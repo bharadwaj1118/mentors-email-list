@@ -113,8 +113,9 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "ACCEPTED",
         mentorId: userId,
       });
-      router.push("/mentor/session");
       toast.success(" Accepted the session");
+      router.push("/mentor/session");
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Unexpcted Error...");
@@ -125,8 +126,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
 
   const declineSession = async () => {
     setIsSubmitting(true);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
     try {
       await updateSession({
         id: sessionId,
@@ -206,7 +206,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
                 <Textarea
                   placeholder="Please enter the challenge.."
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important flex flex-1 px-5 py-3 focus-visible:ring-transparent"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  flex flex-1 px-5 py-3 focus-visible:ring-transparent"
                   disabled={!enableEdit}
                 />
               </FormControl>
@@ -228,7 +228,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
                 <Textarea
                   placeholder="Please enter the outcome.."
                   {...field}
-                  className="bg-grey-50 placeholder:text-grey-500 p-regular-16 !important flex flex-1 px-5 py-3 focus-visible:ring-transparent"
+                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  flex flex-1 px-5 py-3 focus-visible:ring-transparent"
                   disabled={!enableEdit}
                 />
               </FormControl>

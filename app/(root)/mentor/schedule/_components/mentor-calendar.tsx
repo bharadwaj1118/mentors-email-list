@@ -17,6 +17,8 @@ import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { addEvent, deleteEvent } from "@/lib/actions/event.action";
 import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
+import { m } from "framer-motion";
+import { formattedStringToDDMonthYearTime } from "@/lib/format";
 
 const now = new Date();
 
@@ -85,7 +87,7 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
             await addEvent(newEvent);
             setEvents((prevEvents) => [...prevEvents, newEvent]);
             toast.success("Event has been created", {
-              description: "Sunday, December 03, 2023 at 9:00 AM",
+              description: formattedStringToDDMonthYearTime(new Date(start)),
             });
           } catch (error) {
             toast.error("Event not created");
@@ -93,7 +95,7 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
         }
       }
     },
-    [setEvents]
+    [setEvents, myEvents]
   );
 
   const handleSelectEvent = useCallback(
@@ -109,7 +111,7 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
         toast.error("Event not deleted");
       }
     },
-    [myEvents]
+    [setEvents]
   );
 
   // const { defaultDate, scrollToTime } = useMemo(

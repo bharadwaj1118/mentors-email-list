@@ -22,6 +22,7 @@ import { useState, useEffect } from "react";
 
 import { updateSession } from "@/lib/actions/session.action";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   objective: z.string().min(20, {
@@ -93,6 +94,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
       });
       setEnableEdit(false);
       router.push("/dashboard/session");
+      toast.success("Request submitted");
     } catch (error) {
       console.log(error);
     } finally {
