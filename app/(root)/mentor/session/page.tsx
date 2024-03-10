@@ -8,6 +8,7 @@ import { getSelf } from "@/lib/actions/user.action";
 import { getSessionByMentorId } from "@/lib/actions/session.action";
 import SessionList from "./_components/session-list";
 import { SessionStatus } from "@prisma/client";
+import EmptyBookingsCard from "@/components/shared/empty-bookings-card";
 
 const SessionPage = async () => {
   const user = await getSelf();
@@ -54,16 +55,44 @@ const SessionPage = async () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="requests">
-            <SessionList sessions={JSON.stringify(requestedSessions)} />
+            {requestedSessions.length === 0 ? (
+              <EmptyBookingsCard
+                title="No Requested Bookings"
+                description="You have no requested bookings. As soon as you request the meeting will show up here."
+              />
+            ) : (
+              <SessionList sessions={JSON.stringify(requestedSessions)} />
+            )}
           </TabsContent>
           <TabsContent value="upcoming">
-            <SessionList sessions={JSON.stringify(upcomingSessions)} />
+            {upcomingSessions.length === 0 ? (
+              <EmptyBookingsCard
+                title="No upcoming bookings"
+                description="You have no upcoming bookings. As soon as someone books a time with you it will show here."
+              />
+            ) : (
+              <SessionList sessions={JSON.stringify(upcomingSessions)} />
+            )}
           </TabsContent>
           <TabsContent value="completed">
-            <SessionList sessions={JSON.stringify(completedSessions)} />
+            {completedSessions.length === 0 ? (
+              <EmptyBookingsCard
+                title="No completed bookings"
+                description="You have no completed bookings. Your canceled bookings show up here."
+              />
+            ) : (
+              <SessionList sessions={JSON.stringify(completedSessions)} />
+            )}
           </TabsContent>
           <TabsContent value="cancelled">
-            <SessionList sessions={JSON.stringify(cancelledSessions)} />
+            {cancelledSessions.length === 0 ? (
+              <EmptyBookingsCard
+                title="No canceled bookings"
+                description="You have no canceled bookings. Your canceled bookings show up here."
+              />
+            ) : (
+              <SessionList sessions={JSON.stringify(cancelledSessions)} />
+            )}
           </TabsContent>
         </Tabs>
       </section>

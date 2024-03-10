@@ -24,23 +24,8 @@ const guestRoutes = [
   },
   {
     icon: Clock,
-    label: "Schedule",
-    href: "/dashboard/schedule",
-  },
-  {
-    icon: User,
-    label: "Profile",
-    href: "/dashboard/profile",
-  },
-  {
-    icon: Presentation,
     label: "Sessions",
     href: "/dashboard/session",
-  },
-  {
-    icon: Settings,
-    label: "Account Settings",
-    href: "/dashboard/settings",
   },
 ];
 
@@ -49,16 +34,6 @@ const mentorRoutes = [
     icon: CalendarClock,
     label: "Schedule",
     href: "/mentor/schedule",
-  },
-  {
-    icon: User,
-    label: "Profile",
-    href: "/mentor/profile",
-  },
-  {
-    icon: BarChart,
-    label: "Analytics",
-    href: "/mentor/analytics",
   },
   {
     icon: Presentation,

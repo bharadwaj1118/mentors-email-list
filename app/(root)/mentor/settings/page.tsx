@@ -18,7 +18,7 @@ const SettingsPage = async () => {
   return (
     <div className="mx-auto mt-6 max-w-5xl">
       <section className=" w-full bg-white">
-        <Tabs defaultValue="sessions" className="p-6">
+        <Tabs defaultValue="availablity" className="p-6">
           <TabsList>
             <TabsTrigger value="sessions" className="flex items-center">
               <Calendar className="mr-1 h-4 w-4 text-gray-700" />
