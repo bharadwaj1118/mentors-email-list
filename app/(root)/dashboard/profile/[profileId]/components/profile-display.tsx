@@ -280,7 +280,7 @@ const ProfileDisplayPage = async ({
         </div>
       </div>
 
-      <ProfileReviewPage />
+      {/* <ProfileReviewPage /> */}
 
       <div id="bio"></div>
       <ProfileBioPage canEdit={canEdit} bio={bio} dataType="bio" id={id} />
