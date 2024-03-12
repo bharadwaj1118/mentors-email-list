@@ -33,6 +33,10 @@ import {
 import Profile from "@/database/profile.model";
 import Link from "next/link";
 import { formatMonthYear } from "@/lib/format";
+import {
+  CopyToClipboardButton,
+  RequestCallButton,
+} from "./profile-item-action";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -77,7 +81,7 @@ const ProfileDisplayPage = async ({
       <div className="absolute right-8 top-8">
         {canEdit && <EditProfileAction />}
       </div>
-      <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6">
+      <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6 rounded shadow">
         <div className="flex items-center ">
           <div className="relative mt-12">
             <Image
@@ -170,52 +174,27 @@ const ProfileDisplayPage = async ({
         {/*Social and Invites */}
         <div className="flex items-center max-md:justify-between flex-col md:flex-row  w-full space-x-3 mt-12 space-y-3 md:w-2/3 p-3">
           <div className="flex items-center justify-center w-full space-x-3 md:justify-start">
-            <Button className="rounded-full">
-              <PhoneIcon className="w-4 h-5 mr-1" />
-              Request a call
-            </Button>
-
-            <Button
-              className="rounded-full text-primary border border-primary"
-              variant="secondary"
-            >
+            <RequestCallButton id={id} />
+            <Button className="rounded-full " variant="outline">
               <MessageCircleIcon className="w-5 h-5 mr-1" />
               Message me
             </Button>
-            <Button
-              className="max-md:hidden rounded-full text-primary border border-primary"
-              variant="secondary"
-            >
+            <Button className="max-md:hidden rounded-full" variant="outline">
               <UserRoundPlus className="w-5 h-5 mr-1" />
               Add to list
             </Button>
           </div>
 
-          <div className="max-md:!mt-6 flex items-center">
+          <div className="max-md:!mt-6 flex items-center justify-center">
             <div>
               {linkedinProfile && (
-                <Button
-                  variant="link"
-                  size="icon"
-                  className="flex items-center justify-center"
-                  asChild
-                >
-                  <Link href={linkedinProfile}>
-                    <LinkedInLogoIcon className="w-6 h-6" />
-                  </Link>
-                </Button>
-              )}
-            </div>
-            <div className="text-primary">
-              {twitterProfile && (
-                <Button
-                  variant="link"
-                  size="icon"
-                  className="flex items-center justify-center"
-                  asChild
-                >
-                  <Link href={linkedinProfile}>
-                    <TwitterLogoIcon className="w-6 h-6" />
+                <Button variant="link" size="icon" asChild>
+                  <Link
+                    href={linkedinProfile}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <LinkedInLogoIcon className="w-6 h-6 hover:scale-125 transition-colors  duration-300" />
                   </Link>
                 </Button>
               )}
@@ -223,14 +202,26 @@ const ProfileDisplayPage = async ({
 
             <div className="text-primary">
               {facebookProfile && (
-                <Button
-                  variant="link"
-                  size="icon"
-                  className="flex items-center justify-center"
-                  asChild
-                >
-                  <Link href={linkedinProfile}>
-                    <LucideFacebook className="w-6 h-6" />
+                <Button variant="link" size="icon" asChild>
+                  <Link
+                    href={linkedinProfile}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <LucideFacebook className="w-6 h-6 hover:scale-125 transition-colors  duration-300" />
+                  </Link>
+                </Button>
+              )}
+            </div>
+            <div className="text-primary">
+              {twitterProfile && (
+                <Button variant="link" size="icon" asChild>
+                  <Link
+                    href={linkedinProfile}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TwitterLogoIcon className="w-6 h-6 hover:scale-125 transition-colors duration-300" />
                   </Link>
                 </Button>
               )}
@@ -252,31 +243,40 @@ const ProfileDisplayPage = async ({
         <Separator className="h-[2px] my-3" />
 
         {/* Profile Navigation */}
-        <div className="flex items-center flex-col max-md:space-y-3 md:space-x-6 md:flex-row md:justify-start w-full md:w-2/3 p-3">
-          <a href="#bio" className="text-primary text-lg">
-            Bio
-          </a>
-          <a href="#experience" className="text-primary text-lg">
-            Experience
-          </a>
-          <a href="#expertise" className="text-primary text-lg">
-            Expertise
-          </a>
-          <a href="#industry" className="text-primary text-lg">
-            Industry
-          </a>
-          <a href="#toolkit" className="text-primary text-lg">
-            Toolkit
-          </a>
-          <a href="#reviews" className="text-primary text-lg">
-            Reviews
-          </a>
-          <a
-            href="#"
-            className="flex-1 text-primary text-lg text-end md:ml-auto"
-          >
-            Copy profie link
-          </a>
+        <div className="flex items-center flex-col max-md:space-y-3 md:space-x-3 md:flex-row md:justify-start w-full md:w-2/3 p-3">
+          <Button variant="link">
+            <Link href="#bio" className="text-lg">
+              Bio
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link href="#experience" className="text-lg">
+              Experience
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link href="#expertise" className="text-lg">
+              Expertise
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link href="#industry" className="text-lg">
+              Industry
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link href="#toolkit" className="text-lg">
+              Toolkit
+            </Link>
+          </Button>
+          <Button variant="link">
+            <Link href="#reviews" className="text-lg">
+              Reviews
+            </Link>
+          </Button>
+          <div className="flex-1 text-primary text-lg text-end md:ml-auto">
+            <CopyToClipboardButton id={id} />
+          </div>
         </div>
       </div>
 
@@ -319,7 +319,7 @@ const ProfileDisplayPage = async ({
 
       {/* <ProfileExperience /> */}
 
-      <div id="reviews" className="h-3x"></div>
+      <div id="reviews"></div>
       <ProfileTestmonialPage title="Reviews (5)" />
 
       <div className="mt-12">

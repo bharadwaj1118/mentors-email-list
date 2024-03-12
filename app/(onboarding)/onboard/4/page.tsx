@@ -20,6 +20,7 @@ const OnboardRecommendedByPage = async () => {
     select: {
       id: true,
       recommendedBy: true,
+      otherRecommendation: true,
     },
   });
 
@@ -28,14 +29,19 @@ const OnboardRecommendedByPage = async () => {
   }
 
   return (
-    <div className="min-h-screen bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+    <div className="min-h-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
       <div className="form-container pt-10">
         <div className="card-block space-y-4">
-          <OnboardHeading step={4} title="How did you find out about us?" />
+          <OnboardHeading
+            step={4}
+            title="How did you find out about us?"
+            imageUrl="/assets/undraw_social_girl.svg"
+          />
 
           <RecommendedByForm
             userId={user.id}
             recommenedBy={user.recommendedBy || ""}
+            otherRecommendation={user.otherRecommendation || ""}
           />
         </div>
       </div>

@@ -53,7 +53,7 @@ interface Props {
 export function OnboardStepTwoForm({ user }: Props) {
   const router = useRouter();
 
-  const { id, organization, companySize, position, portfolioWebsite } =
+  const { id, organization, companySize, position, linkedinProfile } =
     JSON.parse(user);
 
   // convert the indutries to match the select input
@@ -68,7 +68,7 @@ export function OnboardStepTwoForm({ user }: Props) {
       company: organization || "",
       companySize: companySize || "",
       role: initialRole || {},
-      linkedinProfile: portfolioWebsite || "",
+      linkedinProfile: linkedinProfile || "",
     },
   });
 
@@ -162,7 +162,7 @@ export function OnboardStepTwoForm({ user }: Props) {
 
         <div className="flex items-start justify-end">
           <Button type="submit" className="rounded-full">
-            Submit
+            Next
           </Button>
         </div>
       </form>

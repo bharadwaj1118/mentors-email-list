@@ -107,10 +107,10 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
               516 sessions
             </p>
             <p className="flex justify-end items-center">
-              <span className="text-green-600 font-semibold mr-1 ">
-                {price === null ? "Free" : `${price}`}
+              <span className="text-green-600 font-semibold">
+                {price === 0 ? "Free" : `$${price}`}
               </span>
-              <CreditCardIcon className="h-4 w-4" />
+              <CreditCardIcon className="h-4 w-4 ml-1" />
             </p>
           </div>
         </div>

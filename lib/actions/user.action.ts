@@ -465,11 +465,13 @@ export async function getAllMentors() {
 interface IsaveUserReferenceById {
   userId: string;
   recommendedBy: string;
+  otherRecommendation?: string;
 }
 
 export async function saveUserReferenceById({
   userId,
   recommendedBy,
+  otherRecommendation,
 }: IsaveUserReferenceById) {
   try {
     const user = await db.user.update({
@@ -478,6 +480,7 @@ export async function saveUserReferenceById({
       },
       data: {
         recommendedBy,
+        otherRecommendation,
       },
     });
     return user;
@@ -514,13 +517,15 @@ export async function saveUserChallengeById({
 
 interface ISaveUserBasicDetailsById {
   userId: string;
-  location: string;
+  city: string;
+  country: string;
   languages: any;
 }
 
 export async function saveUserBasicDetailsById({
   userId,
-  location,
+  city,
+  country,
   languages,
 }: ISaveUserBasicDetailsById) {
   try {
@@ -529,7 +534,8 @@ export async function saveUserBasicDetailsById({
         id: userId,
       },
       data: {
-        location,
+        city,
+        country,
       },
     });
 

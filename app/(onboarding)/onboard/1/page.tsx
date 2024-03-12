@@ -19,7 +19,8 @@ const Onboard1Page = async () => {
     },
     select: {
       id: true,
-      location: true,
+      city: true,
+      country: true,
       languages: {
         select: {
           name: true,
@@ -28,13 +29,15 @@ const Onboard1Page = async () => {
     },
   });
 
-  console.log("user", user);
-
   return (
-    <div className="min-h-screen bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+    <div className="min-h-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
       <div className="form-container pt-10">
-        <div className="card-block space-y-4">
-          <OnboardHeading step={1} title="Welcome to the Onboarding Process" />
+        <div className="card-block space-y-4 !pb-12">
+          <OnboardHeading
+            step={1}
+            title="Welcome to the Onboarding Process"
+            imageUrl="/assets/thank-you.svg"
+          />
 
           <OnboardStepOneForm user={JSON.stringify(user)} />
 

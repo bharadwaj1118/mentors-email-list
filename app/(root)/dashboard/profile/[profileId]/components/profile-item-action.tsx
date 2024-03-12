@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { MoreVerticalIcon, PencilIcon, TrashIcon } from "lucide-react";
+import {
+  CopyIcon,
+  MoreVerticalIcon,
+  PencilIcon,
+  PhoneIcon,
+  TrashIcon,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +22,7 @@ import {
 import { useModal } from "@/hooks/use-modal-store";
 import { Expertise, Tool } from "@prisma/client";
 import { useEditProfileStore } from "@/hooks/use-edit-profile-store";
+import { toast } from "sonner";
 
 interface Industry {
   id: string;
@@ -109,5 +117,40 @@ export default function ProfileItemAction({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+  );
+}
+
+interface RequestCallButtonProps {
+  id: string;
+}
+export function RequestCallButton({ id }: RequestCallButtonProps) {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/dashboard/schedule/${id}`);
+  };
+
+  return (
+    <Button className="rounded-full" onClick={handleClick}>
+      <PhoneIcon className="w-4 h-5 mr-1" />
+      Request a call
+    </Button>
+  );
+}
+
+interface CopyToClipboardButtonProps {
+  id: string;
+}
+
+export function CopyToClipboardButton({ id }: CopyToClipboardButtonProps) {
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/dashboard/profile/${id}`
+    );
+    toast.success("Link copied");
+  };
+  return (
+    <Button variant="link" className="text-lg" onClick={handleCopy}>
+      Profile link <CopyIcon className="w-4 h-4 ml-2" />
+    </Button>
   );
 }

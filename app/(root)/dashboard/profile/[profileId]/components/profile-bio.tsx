@@ -15,7 +15,7 @@ const ProfileBioPage = ({
 }: ProfileBioPageProps) => {
   return (
     <div id="bio">
-      <div className="max-w-5xl mt-12 bg-white mx-auto w-full p-3">
+      <div className="max-w-5xl mt-12 bg-white mx-auto w-full p-3 shadow rounded">
         <div className="max-w-3xl mx-auto space-y-3 py-6">
           <div className="flex justify-between items-center">
             <h3 className="h3 ml-3">Bio</h3>

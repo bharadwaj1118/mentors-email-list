@@ -18,7 +18,7 @@ const ProfileSkillList = ({
   data,
 }: ProfileSkillListProps) => {
   return (
-    <div className="max-w-5xl mx-auto w-full p-3 bg-white mt-6">
+    <div className="max-w-5xl mx-auto w-full p-3 bg-white mt-12 shadow rounded-md">
       <div className="max-w-3xl mx-auto space-y-3 py-6">
         <div className="flex justify-between items-center">
           <h3 className="h3 ml-3">{name}</h3>

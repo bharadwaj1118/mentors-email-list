@@ -28,12 +28,13 @@ const OnboardChallengePage = async () => {
   }
 
   return (
-    <div className="min-h-screen bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+    <div className="min-h-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
       <div className="form-container pt-10">
-        <div className="card-block space-y-4">
+        <div className="card-block space-y-4 !pb-12">
           <OnboardHeading
             step={3}
             title="Your #1 growth challenge right now?"
+            imageUrl="/assets/undraw_programming.svg"
           />
 
           <OnboardChallengeForm

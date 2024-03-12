@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileReviewPage = () => {
   return (
-    <div className="w-full mt-6">
+    <div className="w-full mt-12">
       <div className="flex items-center justify-center gap-6 flex-col md:flex-row">
         {/*<!-- Component: Card with icon --> */}
         <div className="overflow-hidden text-center bg-white rounded shadow-md text-slate-500 shadow-slate-200 ">

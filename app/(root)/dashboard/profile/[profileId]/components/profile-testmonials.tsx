@@ -7,8 +7,8 @@ interface Props {
 
 export default function ProfileTestmonialPage({ title }: Props) {
   return (
-    <div className="max-w-5xl mx-auto w-full m-3 bg-white mt-6">
-      <div className="border border-gray-200 shadow p-6">
+    <div className="max-w-5xl mx-auto w-full m-3 bg-white mt-12 ">
+      <div className="border border-gray-200 shadow p-6 rounded">
         {/*<!-- Component: Leading Image Three Line List --> */}
         <h3 className="h3 ml-6">{title}</h3>
         <Separator className="h-[2px] my-3" />

@@ -76,7 +76,7 @@ export function OnboardChallengeForm({
 
         <div className="flex items-start justify-end">
           <Button type="submit" className="rounded-full">
-            Submit
+            Next
           </Button>
         </div>
       </form>

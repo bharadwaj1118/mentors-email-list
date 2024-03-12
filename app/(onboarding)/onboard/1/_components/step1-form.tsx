@@ -16,14 +16,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
-import { locationData } from "@/constants/location-data";
-import { languageData } from "@/constants/data";
+import { COUNTRIES, languageData } from "@/constants/data";
 import Select from "react-select";
 import { saveUserBasicDetailsById } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
-  location: z.object({
+  city: z.string().min(2, "Please enter city name"),
+  country: z.object({
     label: z.string(),
     value: z.string(),
   }),
@@ -42,11 +43,11 @@ interface Props {
 export function OnboardStepOneForm({ user }: Props) {
   const router = useRouter();
 
-  const { id, location, languages } = JSON.parse(user);
+  const { id, city, country, languages } = JSON.parse(user);
   let initialLocation = {};
   let initialLanguages = [];
-  if (location !== null) {
-    initialLocation = { label: location, value: location };
+  if (country !== null) {
+    initialLocation = { label: country, value: country };
   }
   if (languages !== null) {
     initialLanguages = languages.map((language: any) => ({
@@ -58,7 +59,8 @@ export function OnboardStepOneForm({ user }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      location: initialLocation || {},
+      city: city || "",
+      country: initialLocation || {},
       languages: initialLanguages || [],
     },
   });
@@ -66,7 +68,8 @@ export function OnboardStepOneForm({ user }: Props) {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     saveUserBasicDetailsById({
       userId: id,
-      location: data.location.value,
+      city: data.city,
+      country: data.country.value,
       languages: data.languages,
     });
 
@@ -79,17 +82,36 @@ export function OnboardStepOneForm({ user }: Props) {
         <div>
           <FormField
             control={form.control}
-            name="location"
+            name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>
+                  City <span className="text-red-400">*</span>
+                </FormLabel>
                 <FormControl>
-                  <Select {...field} isMulti={false} options={locationData} />
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div>
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Country <span className="text-red-400">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Select {...field} isMulti={false} options={COUNTRIES} />
                 </FormControl>
                 <FormDescription>
                   Type a city name in the above and select from the dropdown
                 </FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -101,7 +123,9 @@ export function OnboardStepOneForm({ user }: Props) {
             name="languages"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Languages</FormLabel>
+                <FormLabel>
+                  Languages <span className="text-red-400">*</span>
+                </FormLabel>
                 <FormControl>
                   <Select {...field} isMulti={true} options={languageData} />
                 </FormControl>
@@ -117,7 +141,7 @@ export function OnboardStepOneForm({ user }: Props) {
 
         <div className="flex items-center justify-end">
           <Button type="submit" className="rounded-full">
-            Submit
+            Next
           </Button>
         </div>
       </form>

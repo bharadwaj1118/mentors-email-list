@@ -7,13 +7,19 @@ interface AlertComponentProps {
   title: string;
   description: string;
   name: keyof typeof icons;
+  className?: string;
 }
 
-const AlertComponent = ({ title, description, name }: AlertComponentProps) => {
+const AlertComponent = ({
+  title,
+  description,
+  name,
+  className,
+}: AlertComponentProps) => {
   const LucideIcon = icons[name];
   return (
     <>
-      <Alert>
+      <Alert className={className}>
         <LucideIcon className="h-4 w-4" />
         <AlertTitle>{title}</AlertTitle>
         <AlertDescription>{description}</AlertDescription>
