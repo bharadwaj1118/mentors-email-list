@@ -152,7 +152,7 @@ interface ProfileSearchFiltersProps {
 
 const ProfileSearchFilters = () => {
   return (
-    <div className=" max-w-[1100px] mx-3 md:mx-6 bg-white rounded-md border mt-3 md:mt-6 p-3">
+    <div className=" max-w-[1100px] mx-3 md:mx-6 bg-white  mt-3 md:mt-6 p-3 rounded border shadow">
       <div className="md:flex items-center justify-between space-y-3">
         <div className="w-full md:w-[400px]">
           <SearchInput />

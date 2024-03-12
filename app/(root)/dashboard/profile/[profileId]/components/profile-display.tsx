@@ -52,6 +52,8 @@ const ProfileDisplayPage = async ({
     username,
     location,
     bio,
+    city,
+    country,
     imageUrl,
     position,
     organization,
@@ -81,7 +83,7 @@ const ProfileDisplayPage = async ({
       <div className="absolute right-8 top-8">
         {canEdit && <EditProfileAction />}
       </div>
-      <div className="flex space-y-3 flex-col items-center justify-center bg-white mt-6 rounded shadow">
+      <div className="flex space-y-3 flex-col items-center justify-center bg-white md:mt-6 rounded shadow">
         <div className="flex items-center ">
           <div className="relative mt-12">
             <Image
@@ -121,7 +123,7 @@ const ProfileDisplayPage = async ({
           </p>
           <p className="text-base flex items-center">
             <MapPin className="h-4 w-4 text-blue-500 mr-1" />
-            {location}
+            {city}, {country}
           </p>
           <p className="text-base flex items-center">
             <BuildingIcon className="h-4 w-4 text-blue-500 mr-1" />
@@ -130,7 +132,7 @@ const ProfileDisplayPage = async ({
         </div>
 
         {/* Reviews and Price */}
-        <div className="md:w-2/3 mx-auto border-2 border-gray-200 py-4 px-6 shadow-md">
+        <div className="md:w-2/3 mx-auto border-1 md:border-2 border-gray-200 py-4 px-6 shadow-md">
           <div className="flex flex-col items-center justify-center space-y-1 md:flex-row md:justify-between">
             <div className="flex flex-col items-center muted">
               <p className="font-bold text-2xl text-green-600">Free</p>

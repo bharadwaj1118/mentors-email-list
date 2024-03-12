@@ -19,7 +19,7 @@ const FilterSingleSelect: React.FC<FilterProps> = ({
   name,
   valueKey,
   displayLabel = true,
-  placeholder = "select...",
+  placeholder = "Select",
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();

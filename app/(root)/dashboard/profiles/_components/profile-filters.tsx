@@ -122,18 +122,18 @@ const countries: Country[] = [
   },
   {
     id: "2",
-    label: "Canada",
-    value: "Canada",
+    label: "Turkey",
+    value: "Turkey",
   },
   {
     id: "3",
-    label: "Mexico",
-    value: "Mexico",
+    label: "Germany",
+    value: "Germany",
   },
   {
     id: "4",
-    label: "Afghanistan",
-    value: "Afghanistan",
+    label: "India",
+    value: "India",
   },
 ];
 
@@ -165,18 +165,18 @@ const languages: Language[] = [
 const industries: Industry[] = [
   {
     id: "1",
-    label: "tech",
-    value: "tech",
+    label: "Automotive",
+    value: "Automotive",
   },
   {
     id: "2",
-    label: "finance",
-    value: "finance",
+    label: "Ecommerce",
+    value: "Ecommerce",
   },
   {
     id: "3",
-    label: "health",
-    value: "health",
+    label: "Biotechnology",
+    value: "Biotechnology",
   },
 ];
 
@@ -202,6 +202,11 @@ const skills: Skill[] = [
     label: "Freshdesk",
     value: "Freshdesk",
   },
+  {
+    id: "4",
+    label: "Talkdesk",
+    value: "Talkdesk",
+  },
 ];
 
 const expertise: Skill[] = [
@@ -224,7 +229,7 @@ const expertise: Skill[] = [
 
 const ProfileFilters = () => {
   return (
-    <div className="bg-white min-h-screen w-[250px] rounded-md border">
+    <div className="bg-white min-h-screen w-[250px] rounded border shadow">
       <div className="hidden lg:block px-3">
         <FilterSingleSelect
           valueKey="countries"

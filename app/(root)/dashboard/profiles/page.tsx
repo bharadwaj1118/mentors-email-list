@@ -23,7 +23,7 @@ const profilesPage = async ({ searchParams }: ProfilesPageProps) => {
           <ProfileFilters />
         </section>
         <div className="w-full">
-          <section className="w-full">
+          <section className="w-full ">
             <ProfileSearchFilters />
           </section>
           <section className="mt-6">

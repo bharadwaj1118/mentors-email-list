@@ -26,6 +26,8 @@ const page = async ({ params }: Props) => {
       position: true,
       organization: true,
       bio: true,
+      city: true,
+      country: true,
       location: true,
       linkedinProfile: true,
       twitterProfile: true,
