@@ -22,7 +22,9 @@ export type ModalType =
   | "deleteTool"
   | "editBio"
   | "editSocials"
-  | "editProfession";
+  | "editProfession"
+  | "sessionCancel"
+  | "sessionRejection";
 
 interface Industry {
   id: string;

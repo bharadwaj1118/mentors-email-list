@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { updateSession } from "@/lib/actions/session.action";
 import { useRouter } from "next/navigation";
 import { SessionStatus } from "@prisma/client";
+import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   objective: z.string().min(20, {
@@ -96,7 +97,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
       router.push("/dashboard/session");
     } catch (error) {
       console.log(error);
-      toast("Unexpcted Error...");
+      toast("Unexpected Error...");
     } finally {
       setIsSubmitting(false);
     }
@@ -118,7 +119,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
       router.refresh();
     } catch (error) {
       console.log(error);
-      toast.error("Unexpcted Error...");
+      toast.error("Unexpected Error...");
     } finally {
       setIsSubmitting(false);
     }
@@ -139,6 +140,26 @@ export function SessionForm({ session, user }: SessionFormProps) {
     } catch (error) {
       console.log(error);
       toast.error("Unexpcted Error...");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const cancelSession = async () => {
+    setIsSubmitting(true);
+
+    try {
+      await updateSession({
+        id: sessionId,
+        status: SessionStatus.CANCELLED,
+        mentorId: userId,
+      });
+      toast.success("Booking has been cancelled");
+      router.push("/mentor/session");
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexepcted Error");
     } finally {
       setIsSubmitting(false);
     }
@@ -246,26 +267,34 @@ export function SessionForm({ session, user }: SessionFormProps) {
           {status === SessionStatus.AWAITING_HOST && (
             <>
               <Button
-                className="w-fit rounded-full bg-red-500 hover:bg-red-200"
+                className="w-fit md:w-[200px]  rounded-full"
                 disabled={isSubmitting}
+                variant="secondary"
                 onClick={declineSession}
               >
                 {" "}
-                {isSubmitting
-                  ? "Submitting the request"
-                  : "Decline session Request"}
+                {isSubmitting ? "Loading" : "Decline Session"}
               </Button>
               <Button
-                className="w-fit rounded-full bg-green-600 hover:bg-green-200"
+                className="w-fit md:w-[200px] rounded-full "
                 disabled={isSubmitting}
                 onClick={acceptSession}
               >
                 {" "}
-                {isSubmitting
-                  ? "Submitting the request"
-                  : "Accept session Request"}
+                {isSubmitting ? "Loading" : "Accept Session"}
               </Button>
             </>
+          )}
+          {status === SessionStatus.ACCEPTED && (
+            <Button
+              className="w-fit md:w-[200px] rounded-full mx-auto md:ml-auto"
+              variant="destructive"
+              disabled={isSubmitting}
+              onClick={cancelSession}
+            >
+              {" "}
+              {isSubmitting ? "Loading" : "Cancel Session"}
+            </Button>
           )}
         </div>
       </form>

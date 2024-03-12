@@ -1,6 +1,5 @@
 import React from "react";
 import { MyCalendar } from "../../schedule/_components/mentor-calendar";
-import { user } from "@nextui-org/react";
 
 interface AvailabilityFormProps {
   user: string;

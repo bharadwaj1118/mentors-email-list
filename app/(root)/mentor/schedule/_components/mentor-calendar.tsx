@@ -19,6 +19,9 @@ import { addEvent, deleteEvent } from "@/lib/actions/event.action";
 import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
 import { m } from "framer-motion";
 import { formattedStringToDDMonthYearTime } from "@/lib/format";
+import { Alert } from "@/components/ui/alert";
+import { AlertPopup } from "@/components/shared/alert-popup";
+import { set } from "mongoose";
 
 const now = new Date();
 
@@ -70,49 +73,53 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
   }));
 
   const [myEvents, setEvents] = useState<Event[]>(result);
+  const [currentEvent, setCurrentEvent] = useState<Event>();
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
-  const handleSelectSlot = useCallback(
-    async ({ start, end }: any) => {
-      const title = "Available";
-      const addSlots: Boolean = isLessThanTwelveHours(start, end);
-      if (addSlots) {
-        const newEvent = { id: uuidv4(), title, start, end };
-        console.log(isEventInThePast(newEvent));
-        console.log(isEventOverlapping(newEvent, myEvents));
-        if (
-          !isEventInThePast(newEvent) &&
-          isEventOverlapping(newEvent, myEvents)
-        ) {
-          try {
-            await addEvent(newEvent);
-            setEvents((prevEvents) => [...prevEvents, newEvent]);
-            toast.success("Event has been created", {
-              description: formattedStringToDDMonthYearTime(new Date(start)),
-            });
-          } catch (error) {
-            toast.error("Event not created");
-          }
+  const handleSelectSlot = async ({ start, end }: any) => {
+    const title = "Available";
+    const addSlots: Boolean = isLessThanTwelveHours(start, end);
+    if (addSlots) {
+      const newEvent = { id: uuidv4(), title, start, end };
+      console.log(isEventInThePast(newEvent));
+      console.log(isEventOverlapping(newEvent, myEvents));
+      if (
+        !isEventInThePast(newEvent) &&
+        isEventOverlapping(newEvent, myEvents)
+      ) {
+        try {
+          await addEvent(newEvent);
+          setEvents((prevEvents) => [...prevEvents, newEvent]);
+          toast.success("Event has been created", {
+            description: formattedStringToDDMonthYearTime(new Date(start)),
+          });
+        } catch (error) {
+          toast.error("Event not created");
         }
       }
-    },
-    [setEvents, myEvents]
-  );
+    }
+  };
 
-  const handleSelectEvent = useCallback(
-    async (event: Event) => {
-      const { id } = event;
-      try {
-        await deleteEvent({ ...event });
-        setEvents((prevEvents) =>
-          prevEvents.filter((event) => event.id !== id)
-        );
-        toast.success("Event has been deleted");
-      } catch (error) {
-        toast.error("Event not deleted");
-      }
-    },
-    [setEvents]
-  );
+  console.log("rendered again");
+  console.log(showDeleteAlert);
+
+  const handleSelectEvent = async (event: Event) => {
+    const { id } = event;
+    setShowDeleteAlert(true);
+    setCurrentEvent(event);
+  };
+
+  const handleDeleteEvent = async (curr: Event) => {
+    try {
+      await deleteEvent({ ...curr });
+      setEvents((prevEvents) =>
+        prevEvents.filter((event) => event.id !== curr.id)
+      );
+      toast.success("Event has been deleted");
+    } catch (error) {
+      toast.error("Event not deleted");
+    }
+  };
 
   // const { defaultDate, scrollToTime } = useMemo(
   //   () => ({
@@ -123,17 +130,31 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
   // );
 
   return (
-    <div className="h-[500px] max-w-3xl">
-      <Calendar
-        defaultView={Views.MONTH}
-        events={myEvents}
-        localizer={localizer}
-        onSelectEvent={handleSelectEvent}
-        onSelectSlot={handleSelectSlot}
-        selectable
-        step={30}
-        timeslots={1}
+    <>
+      <AlertPopup
+        title="Are you  sure?"
+        description="This event will be removed from your calendar."
+        open={showDeleteAlert}
+        onConfirm={() => {
+          setShowDeleteAlert(false);
+          if (currentEvent) handleDeleteEvent(currentEvent);
+        }}
+        onCancel={() => {
+          setShowDeleteAlert(false);
+        }}
       />
-    </div>
+      <div className="h-[400px] md:h-[600px] max-w-5xl">
+        <Calendar
+          defaultView={Views.MONTH}
+          events={myEvents}
+          localizer={localizer}
+          onSelectEvent={handleSelectEvent}
+          onSelectSlot={handleSelectSlot}
+          selectable
+          step={30}
+          timeslots={1}
+        />
+      </div>
+    </>
   );
 };
