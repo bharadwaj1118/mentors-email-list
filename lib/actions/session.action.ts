@@ -36,6 +36,7 @@ export async function getSessionByMentorId(mentorId: string) {
       },
       include: {
         mentor: true,
+        mentee: true,
       },
     });
     return session;
@@ -52,6 +53,7 @@ export async function getSessionByMenteeId(menteeId: string) {
       },
       include: {
         mentee: true,
+        mentor: true,
       },
     });
     return session;

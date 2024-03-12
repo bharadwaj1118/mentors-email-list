@@ -33,25 +33,25 @@ const SessionPage = async () => {
   });
 
   return (
-    <div className="mx-auto mt-6 max-w-5xl">
-      <section className=" w-full bg-white">
+    <div className="mx-auto mt-6 max-w-5xl rounded shadow border">
+      <section className=" w-full bg-white p-3 min-h-screen">
         <Tabs defaultValue="upcoming" className="p-6">
           <TabsList>
             <TabsTrigger value="requests" className="flex items-center">
-              <Send className="text-grey-700 mr-1 h-4 w-4" />
-              <p>Requests</p>
+              <Send className="text-gray-700 mr-1 h-4 w-4" />
+              <p className="hidden md:block">Requests</p>
             </TabsTrigger>
             <TabsTrigger value="upcoming" className="flex items-center">
               <Video className="mr-1 h-4 w-4 text-blue-700" />
-              <p>Upcoming</p>
+              <p className="hidden md:block">Upcoming</p>
             </TabsTrigger>
             <TabsTrigger value="completed" className="flex items-center">
               <Check className="mr-1 h-4 w-4 text-green-700" />
-              <p>Completed</p>
+              <p className="hidden md:block">Completed</p>
             </TabsTrigger>
             <TabsTrigger value="cancelled" className="flex items-center">
               <XCircle className="mr-1 h-4 w-4 text-red-700" />
-              <p>Cancelled</p>
+              <p className="hidden md:block">Archived</p>
             </TabsTrigger>
           </TabsList>
           <TabsContent value="requests">

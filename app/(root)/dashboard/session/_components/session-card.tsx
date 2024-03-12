@@ -14,9 +14,9 @@ interface SessionCardProps {
 
 const SessionCard = ({ session }: SessionCardProps) => {
   const sessionJSON = JSON.parse(session);
-  const { objective, start, end, cost, status, category, mentee, id } =
+  const { objective, start, end, cost, status, category, mentor, id } =
     sessionJSON;
-  const { username, imageUrl } = mentee;
+  const { username, imageUrl } = mentor;
   if (start === null || end === null) return null;
   return (
     <div className="mt-3 w-full rounded-md border-1 p-3">
@@ -39,34 +39,38 @@ const SessionCard = ({ session }: SessionCardProps) => {
               </div>
             </div>
             <div className="flex flex-col space-y-3">
-              <Button asChild className="rounded-full">
+              <Button asChild variant="link">
                 <Link href={`/dashboard/session/${id}`}>View Request</Link>
               </Button>
             </div>
           </div>
           <Separator className="w-full" />
-          <div className="flex w-fit flex-wrap justify-start space-x-4">
-            <div>
-              <p className="medium uppercase">
-                {formatDateToWeekDDMonth(new Date(start))}
-              </p>
-              <p className="muted mt-1">
-                {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
-              </p>
+          <div className="flex w-fit justify-between items-start gap-4 flex-col md:flex-row">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="medium uppercase">
+                  {formatDateToWeekDDMonth(new Date(start))}
+                </p>
+                <p className="muted mt-1">
+                  {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
+                </p>
+              </div>
+              <div>
+                <p className="medium uppercase">duration</p>
+                <p className="muted mt-1">30min</p>
+              </div>
             </div>
-            <div>
-              <p className="medium uppercase">duration</p>
-              <p className="muted mt-1">30min</p>
-            </div>
-            <div>
-              <p className="medium uppercase">cost</p>
-              <p className="muted mt-1">Free</p>
-            </div>
-            <div>
-              <p className="medium uppercase">Status</p>
-              <Badge className="muted mt-1 rounded-full" variant="outline">
-                Pending confirmation
-              </Badge>
+            <div className="flex items-start justify-around gap-4">
+              <div>
+                <p className="medium uppercase">cost</p>
+                <p className="muted mt-1">Free</p>
+              </div>
+              <div>
+                <p className="medium uppercase">Status</p>
+                <Badge className="muted mt-1 rounded-full" variant="outline">
+                  {status}
+                </Badge>
+              </div>
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatDateToWeekDDMonth, formatDateToHHMMToHHMM } from "@/lib/format";
+import { ArrowUpIcon, EyeIcon } from "lucide-react";
 
 interface SessionCardProps {
   session: string;
@@ -12,12 +13,11 @@ interface SessionCardProps {
 
 const SessionCard = ({ session }: SessionCardProps) => {
   const sessionJSON = JSON.parse(session);
-  console.log(sessionJSON);
-  const { objective, start, end, cost, status, category, mentor, id } =
+  const { objective, start, end, cost, status, category, mentee, id } =
     sessionJSON;
-  const { username, imageUrl } = mentor;
+  const { username, imageUrl } = mentee;
   return (
-    <div className="mt-3 w-full rounded-md border-1 p-3">
+    <div className="mt-3 w-full rounded border-1 p-3 shadow-sm">
       <div className="flex space-x-3">
         <div className="p-3">
           <Avatar>
@@ -36,43 +36,42 @@ const SessionCard = ({ session }: SessionCardProps) => {
                 </Badge>
               </div>
             </div>
-            <div className="flex flex-col space-y-3">
-              <Button asChild className="rounded-full">
-                <Link href={`/mentor/session/${id}`}>View Request</Link>
+            <div className="flex flex-col gap-4">
+              <Button asChild variant="outline">
+                <Link href={`/mentor/session/${id}`}>View</Link>
               </Button>
-              {status === "REQUESTED" && (
-                <Button
-                  className="rounded-full bg-green-500 hover:bg-green-200 hover:text-green-700"
-                  // variant="primary"
-                >
-                  Accept Request
-                </Button>
+              {status === "AWAITING_HOST" && (
+                <Button variant="secondary">Accept</Button>
               )}
             </div>
           </div>
           <Separator className="w-full" />
-          <div className="flex w-fit flex-wrap justify-start space-x-4">
-            <div>
-              <p className="medium uppercase">
-                {formatDateToWeekDDMonth(new Date(start))}
-              </p>
-              <p className="muted mt-1">
-                {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
-              </p>
+          <div className="flex w-fit justify-between items-start gap-4 flex-col md:flex-row">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="medium uppercase">
+                  {formatDateToWeekDDMonth(new Date(start))}
+                </p>
+                <p className="muted mt-1">
+                  {formatDateToHHMMToHHMM(new Date(start), new Date(end))}
+                </p>
+              </div>
+              <div>
+                <p className="medium uppercase">duration</p>
+                <p className="muted mt-1">30min</p>
+              </div>
             </div>
-            <div>
-              <p className="medium uppercase">duration</p>
-              <p className="muted mt-1">30min</p>
-            </div>
-            <div>
-              <p className="medium uppercase">cost</p>
-              <p className="muted mt-1">Free</p>
-            </div>
-            <div>
-              <p className="medium uppercase">Status</p>
-              <Badge className="muted mt-1 rounded-full" variant="outline">
-                {status}
-              </Badge>
+            <div className="flex items-start justify-around gap-4">
+              <div>
+                <p className="medium uppercase">cost</p>
+                <p className="muted mt-1">Free</p>
+              </div>
+              <div>
+                <p className="medium uppercase">Status</p>
+                <Badge className="muted mt-1 rounded-full" variant="outline">
+                  {status}
+                </Badge>
+              </div>
             </div>
           </div>
         </div>

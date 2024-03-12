@@ -40,7 +40,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
       {/* SESSION DETAILS */}
 
       <h3 className="h4">Session Request</h3>
-      <div className="mt-3 w-full space-y-3 rounded-md bg-white p-3">
+      <div className="p-3 mt-3 w-full space-y-3 rounded bg-white md:p-6 shadow border">
         <p className="large">Session Details</p>
         <div className="flex items-center justify-start space-x-2">
           <div>
@@ -97,7 +97,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
       </div>
 
       {/* SCHDULE SESSION */}
-      <div className="mt-3 w-full space-y-3 rounded-md bg-white p-3">
+      <div className="mt-3 w-full space-y-3 rounded bg-white p-3 border shadow md:p-6">
         <div>
           <p className="large">Schedule session</p>
           <p className="muted">Sessions must be scheduled 24 hours before</p>

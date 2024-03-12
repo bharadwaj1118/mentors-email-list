@@ -185,9 +185,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                This is your objective you are interested in...
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -209,9 +206,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                This is your category you are interested in...
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -231,9 +225,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                Please enter atleast 100 characters...
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -253,9 +244,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                Please enter atleast 100 characters...
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -269,7 +257,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
               <Button
                 className="w-fit md:w-[200px]  rounded-full"
                 disabled={isSubmitting}
-                variant="secondary"
+                variant="outline"
                 onClick={declineSession}
               >
                 {" "}

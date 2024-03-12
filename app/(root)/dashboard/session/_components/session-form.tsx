@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { CreditCard } from "lucide-react";
+import Select from "react-select";
+
 import { Button } from "@/components/ui/button";
 import { SessionStatus } from "@prisma/client";
 import {
@@ -20,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { useState, useEffect } from "react";
 
+import { industryData } from "@/constants/data";
 import { updateSession } from "@/lib/actions/session.action";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -28,9 +31,14 @@ const formSchema = z.object({
   objective: z.string().min(20, {
     message: "object must be at least 20 characters.",
   }),
-  category: z.string().min(2, {
-    message: "Please choose the category",
-  }),
+  category: z
+    .object({
+      label: z.string(),
+      value: z.string(),
+    })
+    .refine((data) => data.value, {
+      message: "Category is required.",
+    }),
   description: z.string().min(20, {
     message: "description must be at least 20 characters.",
   }),
@@ -47,6 +55,7 @@ interface SessionFormProps {
 export function SessionForm({ session, user }: SessionFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableEdit, setEnableEdit] = useState(false);
+  const [checked, setChecked] = useState(false);
   const router = useRouter();
 
   const sessionJSON = JSON.parse(session);
@@ -74,7 +83,10 @@ export function SessionForm({ session, user }: SessionFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       objective: objective || "",
-      category: category || "",
+      category: {
+        label: category || "",
+        value: category || "",
+      },
       description: description || "",
       outcome: outcome || "",
     },
@@ -91,12 +103,14 @@ export function SessionForm({ session, user }: SessionFormProps) {
         id: sessionId,
         status: SessionStatus.AWAITING_HOST,
         menteeId: userId,
+        category: values.category.value,
       });
       setEnableEdit(false);
       router.push("/dashboard/session");
       toast.success("Request submitted");
     } catch (error) {
       console.log(error);
+      toast.error("Session request failed");
     } finally {
       setIsSubmitting(false);
     }
@@ -122,9 +136,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                This is your objective you are interested in.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -137,16 +148,13 @@ export function SessionForm({ session, user }: SessionFormProps) {
             <FormItem>
               <FormLabel>Category</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="category"
+                <Select
                   {...field}
-                  className="bg-gray-50 placeholder:text-gray-500 p-regular-16  px-4 py-3 focus-visible:ring-transparent focus-visible:ring-offset-0"
-                  disabled={!enableEdit}
+                  isMulti={false}
+                  options={industryData}
+                  isDisabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                This is your category you are interested in.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -166,9 +174,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                Please enter atleast 100 characters.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -188,24 +193,26 @@ export function SessionForm({ session, user }: SessionFormProps) {
                   disabled={!enableEdit}
                 />
               </FormControl>
-              <FormDescription>
-                Please enter atleast 100 characters.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
         <Separator />
 
-        <p>Payment Details</p>
+        {/*TODO: Payment details Popup will be added here */}
+        {/* <p>Payment Details</p>
         <Button className="w-40 rounded-full bg-blue-300 text-primary-600">
           <CreditCard className="mr-2 h-4 w-4" /> Add new card
-        </Button>
+        </Button> */}
 
-        <Separator />
         {enableEdit && (
           <div className="flex items-center space-x-2">
-            <input type="checkbox" className="h-4 w-4" />
+            <input
+              type="checkbox"
+              className="h-4 w-4"
+              onChange={() => setChecked(!checked)}
+            />
             <div>
               I have properly formatted as per the best practices and will show
               up in a timely fashion for the call
@@ -217,7 +224,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
           <Button
             className="w-fit rounded-full"
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !checked}
           >
             {" "}
             {isSubmitting
