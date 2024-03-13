@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { getSelf } from "@/lib/actions/user.action";
-import { getSessionByMentorId } from "@/lib/actions/session.action";
+import { getSessionByMenteeId } from "@/lib/actions/session.action";
 import SessionList from "./_components/session-list";
 import { SessionStatus } from "@prisma/client";
 import EmptyBookingsCard from "@/components/shared/empty-bookings-card";
@@ -13,7 +13,7 @@ const SessionPage = async () => {
   const user = await getSelf();
   if (!user) return redirect("/login");
 
-  const sessions = await getSessionByMentorId(user.id);
+  const sessions = await getSessionByMenteeId(user.id);
 
   console.log(sessions);
 
