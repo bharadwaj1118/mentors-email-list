@@ -21,6 +21,10 @@ export async function getSessionById(id: string) {
       where: {
         id,
       },
+      include: {
+        mentor: true,
+        mentee: true,
+      },
     });
     return session;
   } catch (error) {
