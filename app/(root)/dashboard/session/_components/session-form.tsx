@@ -198,7 +198,6 @@ export function SessionForm({ session, user }: SessionFormProps) {
             </FormItem>
           )}
         />
-        <Separator />
 
         {/*TODO: Payment details Popup will be added here */}
         {/* <p>Payment Details</p>
@@ -207,17 +206,20 @@ export function SessionForm({ session, user }: SessionFormProps) {
         </Button> */}
 
         {enableEdit && (
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              className="h-4 w-4"
-              onChange={() => setChecked(!checked)}
-            />
-            <div>
-              I have properly formatted as per the best practices and will show
-              up in a timely fashion for the call
+          <>
+            <Separator />
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                className="h-4 w-4"
+                onChange={() => setChecked(!checked)}
+              />
+              <div>
+                I have properly formatted as per the best practices and will
+                show up in a timely fashion for the call
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {enableEdit && (

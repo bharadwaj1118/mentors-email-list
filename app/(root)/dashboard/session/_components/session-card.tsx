@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import { formatDateToHHMMToHHMM, formatDateToWeekDDMonth } from "@/lib/format";
+import { ArrowRight, ChevronDownIcon } from "lucide-react";
 
 interface SessionCardProps {
   session: string;
@@ -39,8 +40,13 @@ const SessionCard = ({ session }: SessionCardProps) => {
               </div>
             </div>
             <div className="flex flex-col space-y-3">
-              <Button asChild variant="link">
-                <Link href={`/dashboard/session/${id}`}>View Request</Link>
+              <Button asChild variant="outline">
+                <Link href={`/dashboard/session/${id}`}>
+                  View <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+              <Button variant="secondary">
+                Edit <ChevronDownIcon className="w-4 h-4 ml-auto" />
               </Button>
             </div>
           </div>
