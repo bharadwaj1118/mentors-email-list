@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { CheckCircle2, Video, CalendarClock } from "lucide-react";
+import { CheckCircle2, Video, CalendarClock, VideoIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -97,6 +97,17 @@ const SessionPage = async ({ params }: SessionPageProps) => {
                   <CheckCircle2 className="h-6 w-6 fill-blue-700 text-white" />
                 </div>
               </div>
+            </div>
+
+            <div>
+              <p className="large">Conference Link</p>
+              <p className="muted">
+                Your video link will be available 30 minutes before the session
+              </p>
+
+              <Button variant="outline" size="lg" className="mt-3">
+                Join call <VideoIcon className="h-6 w-6 ml-1" />
+              </Button>
             </div>
           </div>
           <div className="hidden md:block">
