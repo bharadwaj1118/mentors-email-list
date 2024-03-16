@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export const CrispChat = () => {
   useEffect(() => {
-    Crisp.configure("ef5f7d52-f511-4e9f-9f90-99d223f4654d");
+    Crisp.configure("0fa6487a-c74d-4174-ae2a-a7e8bb3b907a");
   }, []);
 
   return null;
