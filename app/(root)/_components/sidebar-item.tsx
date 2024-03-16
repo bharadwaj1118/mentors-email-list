@@ -1,17 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { SheetClose } from "@/components/ui/sheet";
 
 interface SidebarItemProps {
   icon: LucideIcon;
   label: string;
   href: string;
+  color: string;
 }
 
-export const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
+export const SidebarItem = ({
+  icon: Icon,
+  label,
+  href,
+  color,
+}: SidebarItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -25,28 +33,18 @@ export const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
   };
 
   return (
-    <button
-      onClick={onClick}
-      type="button"
+    <Link
+      key={href}
+      href={href}
       className={cn(
-        "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-        isActive &&
-          "text-blue-700 bg-blue-200/20 hover:bg-blue-200/20 hover:text-blue-700"
+        "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
+        isActive ? "text-white bg-white/10" : "text-zinc-400"
       )}
     >
-      <div className="flex items-center gap-x-2 py-4">
-        <Icon
-          size={22}
-          className={cn("text-slate-500", isActive && "text-blue-700")}
-        />
-        {/* {label} */}
+      <div className="flex items-center flex-1">
+        <Icon className={cn("h-5 w-5 mr-3", color)} />
+        {label}
       </div>
-      <div
-        className={cn(
-          "ml-auto opacity-0 border-2 border-blue-700 h-full transition-all",
-          isActive && "opacity-100"
-        )}
-      />
-    </button>
+    </Link>
   );
 };

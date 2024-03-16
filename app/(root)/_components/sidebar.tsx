@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { SidebarRoutes } from "./sidebar-routes";
 import { useState, useEffect } from "react";
+import { Sheet } from "lucide-react";
+import { SheetClose } from "@/components/ui/sheet";
 
 export const Sidebar = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -17,7 +19,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm ">
+    <div className="space-y-4 py-4 flex flex-col h-full bg-blue-950 text-white">
       <div className="flex flex-col w-full">
         <SidebarRoutes />
       </div>

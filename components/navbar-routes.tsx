@@ -16,7 +16,7 @@ export const NavbarRoutes = () => {
 
   return (
     <>
-      <div className="h-16 flex items-center">
+      <div className="h-16 flex items-center md:invisible">
         <Link
           href="/"
           className="p-6 flex space-x-1 items-center justify-center"
