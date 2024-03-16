@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "./providers";
 import "./globals.css";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import CrispProvider from "@/components/providers/crisp-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,12 +29,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.variable} font-inter bg-[#F5F6F8] tracking-tight text-gray-900 antialiased`}
+          className={`${inter.variable} bg-[#F5F6F8] tracking-tight text-gray-900 antialiased`}
         >
           <Providers>
             <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:text-clip">
               {children}
               <Toaster />
+              <CrispProvider />
             </div>
           </Providers>
           <ModalProvider />
