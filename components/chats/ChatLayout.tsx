@@ -41,7 +41,10 @@ export default function ChatLayout() {
       <div className="m-auto flex h-full min-w-[350px] max-w-[1600px] flex-col shadow-sm">
         <Chat client={chatClient}>
           <div className="flex justify-center border-b border-b-[#DBDDE1] md:hidden">
-            <Button onClick={() => setChatSidebarOpen(!chatSidebarOpen)}>
+            <Button
+              onClick={() => setChatSidebarOpen(!chatSidebarOpen)}
+              variant="ghost"
+            >
               {!chatSidebarOpen ? (
                 <span className="flex items-center gap-1">
                   <Menu /> Menu
