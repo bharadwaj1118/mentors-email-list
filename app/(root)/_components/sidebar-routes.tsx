@@ -13,6 +13,7 @@ import {
   Clock,
   Presentation,
   Sheet,
+  MessageSquarePlusIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -37,6 +38,12 @@ const guestRoutes = [
     href: "/dashboard/session",
     color: "text-green-500",
   },
+  {
+    icon: MessageSquarePlusIcon,
+    label: "Messaging",
+    href: "/dashboard/chats",
+    color: "text-gray-500",
+  },
 ];
 
 const mentorRoutes = [
@@ -53,10 +60,16 @@ const mentorRoutes = [
     color: "text-green-500",
   },
   {
+    icon: MessageSquarePlusIcon,
+    label: "Messaging",
+    href: "/dashboard/chats",
+    color: "text-yellow-500",
+  },
+  {
     icon: Settings,
     label: "Settings",
     href: "/mentor/settings",
-    color: "text-red-500",
+    color: "text-gray-500",
   },
 ];
 

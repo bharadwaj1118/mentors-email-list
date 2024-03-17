@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/react";
-
+import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
 
-module.exports = withUt({
+const config: Config = withUt({
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -85,3 +85,5 @@ module.exports = withUt({
     require("@tailwindcss/typography"),
   ],
 });
+
+export default config;
