@@ -40,7 +40,14 @@ export const NavbarRoutes = () => {
             </Button>
           </Link>
         )}
-        <UserButton afterSignOutUrl="/" />
+        <UserButton
+          afterSignOutUrl="/"
+          userProfileProps={{
+            additionalOAuthScopes: {
+              google: ["https://www.googleapis.com/auth/calendar.events"],
+            },
+          }}
+        />
       </div>
     </>
   );

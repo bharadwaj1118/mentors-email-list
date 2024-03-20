@@ -62,6 +62,8 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.13.1",
     "framer-motion": "^10.18.0",
+    "google-auth-library": "^9.7.0",
+    "googleapis": "^134.0.0",
     "lucide-react": "^0.292.0",
     "markdown-draft-js": "^2.4.0",
     "mongodb": "^6.3.0",
