@@ -84,7 +84,12 @@ export const SidebarRoutes = () => {
     <div className="">
       <div className="px-3 py-2 flex-1">
         <Link href="/" className="flex items-center pl-3 mb-14">
-          <h1 className={cn("text-3xl font-semibold", poppins.className)}>
+          <h1
+            className={cn(
+              "text-3xl font-semibold tracking-tight",
+              poppins.className
+            )}
+          >
             Mentors
           </h1>
           <div className="relative h-16 w-16 ml-2">

@@ -6,7 +6,7 @@ import { getOathToken } from "./clerk.action";
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-export async function listEvents() {
+export async function listEvents(email: string) {
   const auth = await getOathToken();
   const oAuth2Client = new OAuth2Client();
 
@@ -19,8 +19,8 @@ export async function listEvents() {
 
   const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
   const res = await calendar.events.list({
-    calendarId: "kanukotibharadwaj999@gmail.com",
-    maxResults: 20,
+    calendarId: email,
+    maxResults: 100,
     singleEvents: true,
     orderBy: "startTime",
   });
@@ -38,4 +38,5 @@ export async function listEvents() {
     const start = event.start.dateTime || event.start.date;
     console.log(`${start} - ${event.summary}`);
   });
+  return res.data.items;
 }
