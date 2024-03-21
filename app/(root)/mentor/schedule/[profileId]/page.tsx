@@ -50,11 +50,11 @@ const MentorSchedulePage = async ({
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background">
+      <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
         <Heading
           title="Mentor Schedule"
           description="Manage your calendar"
-          imageUrl="/assets/undraw_city_girl.svg"
+          imageUrl="/assets/schedule_tab.svg"
         />
       </div>
       <div className="my-4 p-3 border shadow rounded bg-background">

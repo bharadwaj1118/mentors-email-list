@@ -10,34 +10,42 @@ import SessionForm from "./_components/session-form";
 import { CalandarForm } from "./_components/calandar-form";
 import { AccountForm } from "./_components/account-form";
 import { db } from "@/lib/db";
+import Heading from "@/components/shared/heading";
 
 const SettingsPage = async () => {
   const user = await getSelfWithEvents();
   if (!user) return redirect("/login");
 
   return (
-    <div className="mx-auto mt-6 max-w-5xl">
-      <section className=" w-full bg-white">
+    <div className="mx-auto max-w-5xl">
+      <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
+        <Heading
+          title="Your Sessions"
+          description="Manage your sessions"
+          imageUrl="/assets/session_tab.svg"
+        />
+      </div>
+      <section className="my-4 lg:my-8 p-3 border shadow rounded bg-background">
         <Tabs defaultValue="availablity" className="p-6">
           <TabsList>
             <TabsTrigger value="sessions" className="flex items-center">
-              <Calendar className="mr-1 h-4 w-4 text-gray-700" />
+              <Calendar className="mr-1 h-4 w-4 text-blue-600" />
               <p>Sessions</p>
             </TabsTrigger>
             <TabsTrigger value="availablity" className="flex items-center">
-              <Calendar className="mr-1 h-4 w-4 text-gray-700" />
+              <Calendar className="mr-1 h-4 w-4 text-blue-600" />
               <p>Availability</p>
             </TabsTrigger>
             <TabsTrigger value="account" className="flex items-center">
-              <User className="mr-1 h-4 w-4 text-gray-700" />
+              <User className="mr-1 h-4 w-4 text-blue-600" />
               <p>Account</p>
             </TabsTrigger>
             <TabsTrigger value="notifications" className="flex items-center">
-              <Bell className="mr-1 h-4 w-4 text-gray-700" />
+              <Bell className="mr-1 h-4 w-4 text-blue-600" />
               <p>Notifications</p>
             </TabsTrigger>
             <TabsTrigger value="calandar" className="flex items-center">
-              <Calendar className="mr-1 h-4 w-4 text-gray-700" />
+              <Calendar className="mr-1 h-4 w-4 text-blue-600" />
               <p>Calendar Integration</p>
             </TabsTrigger>
           </TabsList>

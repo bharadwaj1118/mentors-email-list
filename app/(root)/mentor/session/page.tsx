@@ -9,6 +9,7 @@ import { getSessionByMentorId } from "@/lib/actions/session.action";
 import SessionList from "./_components/session-list";
 import { SessionStatus } from "@prisma/client";
 import EmptyBookingsCard from "@/components/shared/empty-bookings-card";
+import Heading from "@/components/shared/heading";
 
 const SessionPage = async () => {
   const user = await getSelf();
@@ -33,8 +34,16 @@ const SessionPage = async () => {
   });
 
   return (
-    <div className="mx-auto mt-6 max-w-5xl rounded shadow border">
-      <section className=" w-full bg-white p-3 min-h-screen">
+    <div className="max-w-5xl mx-auto">
+      <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
+        <Heading
+          title="Your Sessions"
+          description="Manage your sessions"
+          imageUrl="/assets/session_tab.svg"
+        />
+      </div>
+
+      <section className="my-4 lg:my-8 p-3 border shadow rounded bg-background">
         <Tabs defaultValue="upcoming" className="p-6">
           <TabsList>
             <TabsTrigger value="requests" className="flex items-center">
