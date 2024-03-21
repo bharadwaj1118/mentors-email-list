@@ -85,8 +85,6 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     end: new Date(event.end.dateTime),
   }));
 
-  console.log("backgroundEventsResult", backgroundEvents);
-
   const [myEvents, setEvents] = useState<Event[]>(result);
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -115,9 +113,6 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
       }
     }
   };
-
-  console.log("rendered again");
-  console.log(showDeleteAlert);
 
   const handleSelectEvent = async (event: any) => {
     const { id } = event;

@@ -16,16 +16,16 @@ interface MentorSchedulePageProps {
 const MentorSchedulePage = async ({
   params: { profileId },
 }: MentorSchedulePageProps) => {
-  const { userId } = auth();
+  //   const { userId } = auth();
 
-  if (!userId) {
-    redirect("/login");
-  }
+  //   if (!userId) {
+  //     redirect("/login");
+  //   }
 
   const user = await db.user.findUnique({
     where: {
       id: profileId,
-      clerkId: userId,
+      //   clerkId: userId,
     },
     select: {
       id: true,
