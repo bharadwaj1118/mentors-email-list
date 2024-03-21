@@ -69,7 +69,7 @@ interface MyCalendarProps {
 }
 
 export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
-  const { events } = JSON.parse(user);
+  const { events } = user !== null ? JSON.parse(user) : [];
   const result = events.map((event: any) => ({
     id: event.id,
     title: event.title,
@@ -77,7 +77,9 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     end: new Date(event.end),
   }));
 
-  const backgroundEventsArray = JSON.parse(externalEvents);
+  console.log(externalEvents);
+  const backgroundEventsArray =
+    externalEvents !== undefined ? JSON.parse(externalEvents) : [];
   const backgroundEvents = backgroundEventsArray.map((event: any) => ({
     id: event.id,
     title: event.summary,
