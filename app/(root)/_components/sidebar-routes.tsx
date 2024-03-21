@@ -42,7 +42,7 @@ const guestRoutes = [
     icon: MessageSquarePlusIcon,
     label: "Messaging",
     href: "/dashboard/chats",
-    color: "text-gray-500",
+    color: "text-blue-500",
   },
 ];
 
@@ -62,8 +62,8 @@ const mentorRoutes = [
   {
     icon: MessageSquarePlusIcon,
     label: "Messaging",
-    href: "/dashboard/chats",
-    color: "text-yellow-500",
+    href: "/mentor/chats",
+    color: "text-blue-500",
   },
   {
     icon: Settings,

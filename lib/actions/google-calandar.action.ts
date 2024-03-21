@@ -30,7 +30,6 @@ export async function listEvents(email: string) {
     console.log("No upcoming events found.");
     return;
   }
-  console.log("Upcoming 20 events:");
   events.forEach((event) => {
     if (event.start === undefined) {
       return;
@@ -91,7 +90,6 @@ export async function scheduleMeeting(
       requestBody: event, // Pass the event directly as the request body
       conferenceDataVersion: 1, // Include this to enable video conference data
     });
-    console.log("Event created:", res.data);
   } catch (error) {
     console.error("Error creating event:", error);
   }

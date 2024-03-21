@@ -7,8 +7,6 @@ export async function GET() {
   try {
     const user = await currentUser();
 
-    console.log("Calling get-token for user: ", user?.id);
-
     if (!user) {
       return NextResponse.json(
         { error: "User not authenticated" },
