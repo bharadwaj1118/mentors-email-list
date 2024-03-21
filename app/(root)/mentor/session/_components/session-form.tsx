@@ -25,6 +25,8 @@ import { useRouter } from "next/navigation";
 import { SessionStatus } from "@prisma/client";
 import { useModal } from "@/hooks/use-modal-store";
 
+import { scheduleMeeting } from "@/lib/actions/google-calandar.action";
+
 const formSchema = z.object({
   objective: z.string().min(20, {
     message: "object must be at least 20 characters.",
@@ -43,9 +45,10 @@ const formSchema = z.object({
 interface SessionFormProps {
   session: string;
   user: string;
+  menteeEmail: string;
 }
 
-export function SessionForm({ session, user }: SessionFormProps) {
+export function SessionForm({ session, user, menteeEmail }: SessionFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableEdit, setEnableEdit] = useState(false);
   const router = useRouter();
@@ -58,11 +61,13 @@ export function SessionForm({ session, user }: SessionFormProps) {
     description,
     outcome,
     id: sessionId,
+    start,
+    end,
     status,
   } = sessionJSON;
-  const { id: userId } = userJSON;
-  console.log(status === SessionStatus.REJECTED);
-  console.log(SessionStatus.AWAITING_HOST);
+  const { id: userId, email: mentorEmail } = userJSON;
+
+  console.log({ mentorEmail, sessionId, start, end });
 
   if (status === "AVAILABLE") {
     setEnableEdit(true);
@@ -91,6 +96,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "REQUESTED",
         menteeId: userId,
       });
+
       setEnableEdit(false);
       router.refresh();
       toast.success("Declined the session ");
@@ -114,6 +120,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
         status: "ACCEPTED",
         mentorId: userId,
       });
+
       toast.success(" Accepted the session");
       router.push("/mentor/session");
       router.refresh();

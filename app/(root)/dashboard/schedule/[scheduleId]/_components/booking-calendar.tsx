@@ -81,7 +81,7 @@ export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
   );
 
   return (
-    <div className="h-[500px] max-w-3xl">
+    <div className="h-[400px] md:h-[600px] max-w-5xl">
       <Calendar
         defaultView={Views.MONTH}
         events={myEvents}

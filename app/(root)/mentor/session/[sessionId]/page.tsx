@@ -28,6 +28,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
     },
     select: {
       username: true,
+      email: true,
       imageUrl: true,
       position: true,
       organization: true,
@@ -124,6 +125,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
         <SessionForm
           session={JSON.stringify(session)}
           user={JSON.stringify(user)}
+          menteeEmail={JSON.stringify(mentee?.email)}
         />
       </div>
 

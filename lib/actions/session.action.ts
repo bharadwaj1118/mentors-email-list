@@ -1,6 +1,8 @@
 "use server";
 
+import { stat } from "fs";
 import { db } from "../db";
+import { scheduleMeeting } from "./google-calandar.action";
 
 export async function getAllSessions(id: string) {
   try {
@@ -77,7 +79,41 @@ export async function updateSession(session: any) {
       data: {
         ...session,
       },
+      select: {
+        start: true,
+        end: true,
+        status: true,
+        mentor: {
+          select: {
+            email: true,
+          },
+        },
+        mentee: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
+
+    if (!updatedSession) throw new Error("Session not found");
+
+    // TODO: Optimise this
+    if (updatedSession.status !== "ACCEPTED") {
+      const mentorEmail = updatedSession?.mentor?.email;
+      const menteeEmail = updatedSession?.mentee?.email;
+      if (menteeEmail === undefined) {
+        throw new Error("Mentee email not found");
+      }
+
+      await scheduleMeeting(
+        mentorEmail,
+        menteeEmail,
+        updatedSession?.start.toISOString(),
+        updatedSession?.end.toISOString()
+      );
+    }
+
     return updatedSession;
   } catch (error) {
     throw Error("UPDATE_SESSION_ERROR, " + error);
