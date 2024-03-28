@@ -1,21 +1,81 @@
+"use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatDateToWeekDDMonth, formatDateToHHMMToHHMM } from "@/lib/format";
-import { ArrowUpIcon, EyeIcon } from "lucide-react";
+import SessionAction from "@/app/(root)/_components/shared/session-action";
+import { ChevronRight } from "lucide-react";
+
+import { toast } from "sonner";
+import { updateSession } from "@/lib/actions/session.action";
+import { SessionStatus } from "@prisma/client";
 
 interface SessionCardProps {
   session: string;
 }
 
 const SessionCard = ({ session }: SessionCardProps) => {
+  const router = useRouter();
   const sessionJSON = JSON.parse(session);
-  const { objective, start, end, cost, status, category, mentee, id } =
+  const { objective, start, end, cost, status, category, mentee, id, mentor } =
     sessionJSON;
   const { username, imageUrl } = mentee;
+  const { id: mentorId } = mentor;
+
+  // 2. Define a submit handler.
+  const handleAcceptSession = async () => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    try {
+      await updateSession({
+        id,
+        status: "ACCEPTED",
+        mentorId,
+      });
+
+      toast.success(" Accepted the session");
+      router.push("/mentor/session");
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected Error...");
+    }
+  };
+
+  const handleDeclineSession = async () => {
+    try {
+      await updateSession({
+        id,
+        status: SessionStatus.REJECTED,
+        mentorId,
+      });
+      toast.success("Declined the session");
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected Error...");
+    }
+  };
+
+  const handleCancelSession = async () => {
+    try {
+      await updateSession({
+        id,
+        status: SessionStatus.CANCELLED,
+        mentorId,
+      });
+      toast.success("Cancelled the session");
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected Error...");
+    }
+  };
+
   return (
     <div className="mt-3 w-full rounded border-1 p-3 shadow-sm">
       <div className="flex space-x-3">
@@ -38,10 +98,26 @@ const SessionCard = ({ session }: SessionCardProps) => {
             </div>
             <div className="flex flex-col gap-4">
               <Button asChild variant="outline">
-                <Link href={`/mentor/session/${id}`}>View</Link>
+                <Link href={`/mentor/session/${id}`}>
+                  View <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
               </Button>
               {status === "AWAITING_HOST" && (
-                <Button variant="secondary">Accept</Button>
+                <SessionAction
+                  onAccept={handleAcceptSession}
+                  onDecline={handleDeclineSession}
+                  onCancel={handleCancelSession}
+                  accept={true}
+                  decline={true}
+                />
+              )}
+              {status === "ACCEPTED" && (
+                <SessionAction
+                  onAccept={handleAcceptSession}
+                  onDecline={handleDeclineSession}
+                  onCancel={handleCancelSession}
+                  cancel={true}
+                />
               )}
             </div>
           </div>
