@@ -623,3 +623,40 @@ export async function updateProfessionalUserByClerkId(
     throw Error("UPDATE_USER_BY_CLERK_ID_ERROR, " + error);
   }
 }
+
+export async function saveDurationPreference(duration: number, id: string) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        duration: Number(duration),
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_DURATION_PREFERENCE_ERROR, " + error);
+  }
+}
+
+export async function saveMeetingPreference(
+  meetingPreference: string,
+  id: string
+) {
+  try {
+    const user = await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        meetingPreference,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error("SAVE_MEETING_PREFERENCE_ERROR, " + error);
+  }
+}

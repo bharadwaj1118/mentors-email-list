@@ -20,11 +20,11 @@ const SessionForm = ({ user }: SessionFormProps) => {
       </div>
 
       <div className="w-full md:w-3/4">
-        <DurationPreference />
+        <DurationPreference user={user} />
       </div>
 
       <div className="w-full md:w-3/4">
-        <MeetingPreference />
+        <MeetingPreference user={user} />
       </div>
     </>
   );

@@ -46,6 +46,8 @@ model User {
   price               Int          @default(0)
   maxSessions         Int?
   zoomLink            String?
+  googleMeetLink      String?
+  meetingPreference   String?
   challenge           String?
   recommendedBy       String?
   otherRecommendation String?

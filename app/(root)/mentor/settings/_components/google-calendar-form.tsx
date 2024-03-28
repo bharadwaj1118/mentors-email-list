@@ -45,8 +45,7 @@ export function GoogleCalandarForm({ user }: GoogleCalandarFormProps) {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      //   await updateUser({ ...data, id: parsedUser.id });
-      alert(JSON.stringify(data));
+      await updateUser({ ...data, id: parsedUser.id });
       toast.success("GoogleMeet updated");
       router.refresh();
     } catch {
