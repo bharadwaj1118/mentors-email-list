@@ -54,7 +54,7 @@ export function AccountForm({ user }: AccountFormProps) {
   }
 
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border  rounded-md p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div>
@@ -111,11 +111,7 @@ export function AccountForm({ user }: AccountFormProps) {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="rounded-full"
-            disabled={!isValid || isSubmitting || !isDirty}
-          >
+          <Button type="submit" disabled={!isValid || isSubmitting || !isDirty}>
             Save
           </Button>
         </form>

@@ -8,13 +8,13 @@ interface AvailabilityFormProps {
 const AvailabilityForm = ({ user }: AvailabilityFormProps) => {
   return (
     <div className="flex items-center flex-col justify-center">
-      <div className="mt-6 border bg-slate-100 rounded-md p-4 w-full md:w-3/4">
+      <div className="mt-6 border  rounded-md p-4 w-full md:w-3/4">
         <div className="font-medium flex items-center justify-between">
           Please set your availability for the week
         </div>
       </div>
 
-      <div className="mt-6 border bg-slate-100 rounded-md p-4 w-full md:w-3/4">
+      <div className="mt-6 border rounded-md p-4 w-full md:w-3/4">
         <div className="font-medium flex items-center justify-between">
           <div className="flex items-center justify-center">
             <MyCalendar user={user} />

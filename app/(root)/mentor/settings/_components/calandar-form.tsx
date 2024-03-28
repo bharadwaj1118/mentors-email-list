@@ -54,19 +54,9 @@ export function CalandarForm({ user }: CalandarFormProps) {
   }
 
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <p className="large">Connecting with mentees</p>
-            <p className="muted">
-              You can connect with mentees using Zoom
-              <Link href="/" className="text-blue-400 underline ">
-                (Learn more)
-              </Link>
-            </p>
-          </div>
-
           {/* <FormField
           control={form.control}
           name="mentors_url"
@@ -99,7 +89,7 @@ export function CalandarForm({ user }: CalandarFormProps) {
             name="zoomLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Zoom</FormLabel>
+                <FormLabel className="large">Zoom</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Your zoom goes here"
@@ -111,11 +101,7 @@ export function CalandarForm({ user }: CalandarFormProps) {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="rounded-full"
-            disabled={!isValid || isSubmitting || !isDirty}
-          >
+          <Button type="submit" disabled={!isValid || isSubmitting || !isDirty}>
             Save
           </Button>
         </form>

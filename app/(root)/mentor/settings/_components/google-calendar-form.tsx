@@ -22,29 +22,32 @@ import { Switch } from "@/components/ui/switch";
 import { updateUser } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
-  zoomLink: z.string(),
+  googleMeetLink: z.string(),
 });
 
-interface ProfileFormProps {
+interface GoogleCalandarFormProps {
   user: string;
 }
 
-export function ProfileForm({ user }: ProfileFormProps) {
+export function GoogleCalandarForm({ user }: GoogleCalandarFormProps) {
   const parsedUser = JSON.parse(user);
-  const { zoomLink: initialZoomLink } = parsedUser;
+  const { googleMeetLink: initialGoogleMeetLink } = parsedUser;
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      zoomLink: initialZoomLink || "",
+      googleMeetLink: initialGoogleMeetLink || "",
     },
   });
 
+  const { isSubmitting, isValid, isDirty } = form.formState;
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      await updateUser({ ...data, id: parsedUser.id });
-      toast.success("Zoom updated");
+      //   await updateUser({ ...data, id: parsedUser.id });
+      alert(JSON.stringify(data));
+      toast.success("GoogleMeet updated");
       router.refresh();
     } catch {
       toast.error("Something went wrong");
@@ -52,19 +55,9 @@ export function ProfileForm({ user }: ProfileFormProps) {
   }
 
   return (
-    <div className="mt-6 border rounded-md p-4">
+    <div className="mt-6 border  rounded-md p-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <p className="large">Connecting with mentees</p>
-            <p className="muted">
-              You can connect with mentees using Zoom
-              <Link href="/" className="text-blue-400 underline ">
-                (Learn more)
-              </Link>
-            </p>
-          </div>
-
           {/* <FormField
           control={form.control}
           name="mentors_url"
@@ -94,13 +87,13 @@ export function ProfileForm({ user }: ProfileFormProps) {
 
           <FormField
             control={form.control}
-            name="zoomLink"
+            name="googleMeetLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Zoom</FormLabel>
+                <FormLabel className="large">Google Meet</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Your zoom goes here"
+                    placeholder="Your google meet link here"
                     {...field}
                     className="w-full p-regular-16 bg-gray-50 px-4 py-3 placeholder:text-gray-500 focus-visible:ring-transparent focus-visible:ring-offset-0"
                   />
@@ -109,7 +102,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
               </FormItem>
             )}
           />
-          <Button type="submit" className="rounded-full">
+          <Button type="submit" disabled={!isValid || isSubmitting || !isDirty}>
             Save
           </Button>
         </form>

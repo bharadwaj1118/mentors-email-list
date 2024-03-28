@@ -63,7 +63,7 @@ export function DisplayForm() {
   }
 
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -114,7 +114,6 @@ export function DisplayForm() {
             />
             <Button
               type="submit"
-              className="rounded-full"
               disabled={!isValid || isSubmitting || !isDirty}
             >
               Save
