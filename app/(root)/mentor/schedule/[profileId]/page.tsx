@@ -7,6 +7,7 @@ import { MentorsCalendar } from "./_components/mentors-calendar";
 import { db } from "@/lib/db";
 import { listEvents } from "@/lib/actions/google-calandar.action";
 import Heading from "@/components/shared/heading";
+import RecurPage from "./_components/recurring-calandar";
 
 interface MentorSchedulePageProps {
   params: {
@@ -57,6 +58,11 @@ const MentorSchedulePage = async ({
           imageUrl="/assets/schedule_tab.svg"
         />
       </div>
+
+      <div className="my-4 p-3 border shadow rounded bg-background">
+        <RecurPage />
+      </div>
+
       <div className="my-4 p-3 border shadow rounded bg-background">
         <MentorsCalendar
           user={JSON.stringify(user)}
