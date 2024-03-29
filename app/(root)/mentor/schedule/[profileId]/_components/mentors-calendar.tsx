@@ -99,7 +99,9 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
       const newEvent = { id: uuidv4(), title, start, end };
       console.log(isEventInThePast(newEvent));
       console.log(isEventOverlapping(newEvent, myEvents));
-      if (
+      if (isEventInThePast(newEvent)) {
+        toast.error("Event cannot be in the past");
+      } else if (
         !isEventInThePast(newEvent) &&
         isEventOverlapping(newEvent, myEvents)
       ) {

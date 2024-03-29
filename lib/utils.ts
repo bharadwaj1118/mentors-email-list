@@ -76,7 +76,7 @@ export function isEventOverlapping(
 
 export function isEventInThePast(event: Event): boolean {
   const currentTime = new Date();
-  return event.end < currentTime;
+  return event.start < currentTime;
 }
 
 export function splitEventToSessions(
