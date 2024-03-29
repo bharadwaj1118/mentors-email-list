@@ -52,6 +52,7 @@ model User {
   recommendedBy       String?
   otherRecommendation String?
   companySize         String?
+  timeZone            String?
 
   isVerified  Boolean @default(false)
   isArchived  Boolean @default(false)
