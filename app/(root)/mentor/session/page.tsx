@@ -44,7 +44,7 @@ const SessionPage = async () => {
       </div>
 
       <section className="my-4 lg:my-8 p-3 border shadow rounded bg-background">
-        <Tabs defaultValue="upcoming" className="p-6">
+        <Tabs defaultValue="upcoming" className="p-0 md:p-6">
           <TabsList>
             <TabsTrigger value="requests" className="flex items-center">
               <Send className="text-gray-700 mr-1 h-4 w-4" />

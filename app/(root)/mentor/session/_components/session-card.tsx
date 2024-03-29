@@ -24,7 +24,7 @@ const SessionCard = ({ session }: SessionCardProps) => {
   const { objective, start, end, cost, status, category, mentee, id, mentor } =
     sessionJSON;
   const { username, imageUrl } = mentee;
-  const { id: mentorId } = mentor;
+  const { id: mentorId, duration } = mentor;
 
   // 2. Define a submit handler.
   const handleAcceptSession = async () => {
@@ -88,7 +88,7 @@ const SessionCard = ({ session }: SessionCardProps) => {
         <div className="w-full space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <p className="large">{objective}</p>
+              <p className="large max-md:line-clamp-4">{objective}</p>
               <div className="mt-1 flex items-center space-x-3">
                 <p className="small">{username}</p>
                 <Badge variant="outline" className="muted rounded-full">
@@ -96,7 +96,7 @@ const SessionCard = ({ session }: SessionCardProps) => {
                 </Badge>
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="hidden md:flex flex-col gap-4">
               <Button asChild variant="outline">
                 <Link href={`/mentor/session/${id}`}>
                   View <ChevronRight className="w-4 h-4 ml-1" />
@@ -148,6 +148,35 @@ const SessionCard = ({ session }: SessionCardProps) => {
                   {status}
                 </Badge>
               </div>
+            </div>
+          </div>
+          <Separator className="w-full md:hidden" />
+
+          {/* Button Actions */}
+          <div className="block md:hidden">
+            <div className="flex md:hidden gap-4">
+              <Button asChild variant="outline">
+                <Link href={`/mentor/session/${id}`}>
+                  View <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
+              </Button>
+              {status === "AWAITING_HOST" && (
+                <SessionAction
+                  onAccept={handleAcceptSession}
+                  onDecline={handleDeclineSession}
+                  onCancel={handleCancelSession}
+                  accept={true}
+                  decline={true}
+                />
+              )}
+              {status === "ACCEPTED" && (
+                <SessionAction
+                  onAccept={handleAcceptSession}
+                  onDecline={handleDeclineSession}
+                  onCancel={handleCancelSession}
+                  cancel={true}
+                />
+              )}
             </div>
           </div>
         </div>
