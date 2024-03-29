@@ -19,23 +19,6 @@ export async function addEvent(event: any) {
       },
     });
 
-    // split to sessions
-    const sessions = splitEventToSessions(start, end, 30);
-    console.log(sessions);
-
-    const sessionsToCreate = sessions.map((session) => {
-      return {
-        ...session,
-        eventId: newEvent.id,
-        mentorId: user.id,
-      };
-    });
-
-    // Add sessions to db
-    await db.session.createMany({
-      data: sessionsToCreate,
-    });
-
     return newEvent;
   } catch (error) {
     console.log(error);

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 
 import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import { db } from "@/lib/db";
 
 const now = new Date();
 
@@ -53,10 +54,17 @@ const localizer = dateFnsLocalizer({
 
 interface BookingCalendarProps {
   sessions: string;
+  mentor: string;
 }
 
-export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
+export const BookingCalendar = async ({
+  sessions,
+  mentor,
+}: BookingCalendarProps) => {
   const sessionsArray = JSON.parse(sessions);
+  const mentorJSON = JSON.parse(mentor);
+
+  const { duration } = mentorJSON;
 
   // Filter available session
   const availableSessions = sessionsArray.filter((session: any) => {
@@ -88,7 +96,7 @@ export const BookingCalendar = ({ sessions }: BookingCalendarProps) => {
         localizer={localizer}
         onSelectEvent={handleSelectEvent}
         selectable
-        step={30}
+        step={duration}
         timeslots={1}
       />
     </div>

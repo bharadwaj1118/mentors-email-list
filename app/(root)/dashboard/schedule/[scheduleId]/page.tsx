@@ -16,6 +16,14 @@ const SchedulePage = async ({ params }: SchedulePageProps) => {
   const { scheduleId } = params;
   const sessions = await getAllSessions(scheduleId);
 
+  const mentor = await db.user.findUnique({
+    where: {
+      id: scheduleId,
+    },
+  });
+
+  console.log("Mentor exists", mentor ? "Yes" : "No");
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
@@ -26,7 +34,10 @@ const SchedulePage = async ({ params }: SchedulePageProps) => {
         />
       </div>
       <div className="my-4 p-3 border shadow rounded bg-background">
-        <BookingCalendar sessions={JSON.stringify(sessions)} />
+        <BookingCalendar
+          sessions={JSON.stringify(sessions)}
+          mentor={JSON.stringify(mentor)}
+        />
       </div>
     </div>
   );
