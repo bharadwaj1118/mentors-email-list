@@ -31,6 +31,9 @@ const MentorSchedulePage = async ({
     select: {
       id: true,
       email: true,
+      duration: true,
+      timeZone: true,
+      weeklyAvailability: true,
       events: {
         select: {
           id: true,
@@ -60,7 +63,7 @@ const MentorSchedulePage = async ({
       </div>
 
       <div className="my-4 p-3 border shadow rounded bg-background">
-        <RecurPage />
+        <RecurPage user={JSON.stringify(user)} />
       </div>
 
       <div className="my-4 p-3 border shadow rounded bg-background">

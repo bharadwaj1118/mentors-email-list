@@ -53,6 +53,7 @@ model User {
   otherRecommendation String?
   companySize         String?
   timeZone            String?
+  weeklyAvailability  Json?
 
   isVerified  Boolean @default(false)
   isArchived  Boolean @default(false)

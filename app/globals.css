@@ -381,3 +381,7 @@
 .card-block {
   @apply bg-white shadow-md rounded-lg p-6;
 }
+
+.available-date {
+  @apply bg-blue-300 text-white !important;
+}

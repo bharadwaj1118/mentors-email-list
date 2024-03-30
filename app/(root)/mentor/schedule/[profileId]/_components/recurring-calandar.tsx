@@ -9,6 +9,11 @@ import {
 } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+import { zonedTimeToUtc, utcToZonedTime } from "date-fns-tz";
+import { format, startOfWeek, add } from "date-fns";
 
 import {
   Select,
@@ -19,16 +24,93 @@ import {
 } from "@/components/ui/select";
 import { ChevronDown, ChevronUp, Plus, PlusIcon } from "lucide-react";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { type } from "os";
-import { all } from "axios";
+
+import { updateUser } from "@/lib/actions/user.action";
+import { de } from "date-fns/locale";
 
 type FormValues = {
-  firstName: string;
   schedule: {
     day: string;
     startTime: string;
     endTime: string;
   }[];
+};
+
+type ScheduleItem = {
+  day: string;
+  startTime: string;
+  endTime: string;
+};
+
+type Schedule = ScheduleItem[];
+
+// Helper to find the next occurrence of a given weekday
+const getNextDayDate = (dayName: string, referenceDate = new Date()): Date => {
+  const weekStart = startOfWeek(referenceDate, { weekStartsOn: 1 }); // Assuming week starts on Monday
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const addDays = daysOfWeek.indexOf(dayName);
+  return add(weekStart, { days: addDays });
+};
+
+// Convert schedule times to UTC
+const convertScheduleToUTC = (
+  schedule: Schedule,
+  timeZone: string
+): Schedule => {
+  return schedule.map((item) => {
+    const dateForDay = getNextDayDate(item.day);
+    const startDateTime = new Date(
+      `${dateForDay.toISOString().split("T")[0]}T${item.startTime}:00`
+    );
+    const endDateTime = new Date(
+      `${dateForDay.toISOString().split("T")[0]}T${item.endTime}:00`
+    );
+
+    const startTimeUTC = zonedTimeToUtc(startDateTime, timeZone);
+    const endTimeUTC = zonedTimeToUtc(endDateTime, timeZone);
+
+    return {
+      ...item,
+      startTime: startTimeUTC.toISOString().split("T")[1].substring(0, 5),
+      endTime: endTimeUTC.toISOString().split("T")[1].substring(0, 5),
+    };
+  });
+};
+
+// Convert UTC schedule times to a target timezone
+const convertScheduleFromUTC = (
+  schedule: Schedule,
+  timeZone: string
+): Schedule => {
+  return schedule.map((item) => {
+    const dateForDay = getNextDayDate(item.day);
+    const startDateStr = `${format(dateForDay, "yyyy-MM-dd")}T${
+      item.startTime
+    }:00Z`; // UTC
+    const endDateStr = `${format(dateForDay, "yyyy-MM-dd")}T${
+      item.endTime
+    }:00Z`; // UTC
+
+    const startDateTime = new Date(startDateStr);
+    const endDateTime = new Date(endDateStr);
+
+    const startTimeInTimeZone = utcToZonedTime(startDateTime, timeZone);
+    const endTimeInTimeZone = utcToZonedTime(endDateTime, timeZone);
+
+    return {
+      ...item,
+      startTime: format(startTimeInTimeZone, "HH:mm"),
+      endTime: format(endTimeInTimeZone, "HH:mm"),
+    };
+  });
 };
 
 const Total = ({ control }: { control: Control<FormValues> }) => {
@@ -58,28 +140,54 @@ const Total = ({ control }: { control: Control<FormValues> }) => {
   );
 };
 
-const RecurPage = () => {
+interface RecurPageProps {
+  user: string;
+}
+
+const RecurPage = ({ user }: RecurPageProps) => {
+  const router = useRouter();
+  const parsedUser = JSON.parse(user);
+  const { duration, timeZone, weeklyAvailability } = parsedUser;
+  console.log(weeklyAvailability);
+  console.log("My availability for the week is: ", weeklyAvailability);
+  const defaultWeeklyAvailability = weeklyAvailability || {
+    schedule: [
+      // { day: "Monday", startTime: "18:17", endTime: "20:19" },
+      // { day: "Tuesday", startTime: "18:18", endTime: "20:40" },
+    ],
+  };
+  const defaultWeeklyInTimezone = convertScheduleFromUTC(
+    defaultWeeklyAvailability.schedule,
+    timeZone
+  );
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: {
-      schedule: [
-        { day: "Monday", startTime: "18:17", endTime: "20:19" },
-        { day: "Tuesday", startTime: "18:18", endTime: "20:40" },
-      ],
-    },
+    defaultValues: { schedule: defaultWeeklyInTimezone },
     mode: "onBlur",
   });
   const { fields, append, remove, swap } = useFieldArray({
     name: "schedule",
     control,
   });
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    alert(JSON.stringify(data));
+  const onSubmit = async (data: FormValues) => {
+    // TODO: Get the original time zone from the user
+
+    try {
+      const scheduleUTC = convertScheduleToUTC(data.schedule, timeZone);
+      await updateUser({
+        id: parsedUser.id,
+        weeklyAvailability: { schedule: scheduleUTC },
+      });
+      toast.success("Weekly schedule updated");
+
+      router.refresh();
+    } catch {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
