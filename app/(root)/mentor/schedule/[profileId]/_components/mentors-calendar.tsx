@@ -103,9 +103,7 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
         try {
           await addEvent(newEvent);
           setEvents((prevEvents) => [...prevEvents, newEvent]);
-          toast.success("Event has been created", {
-            description: formattedStringToDDMonthYearTime(new Date(start)),
-          });
+          toast.success("Event has been created");
         } catch (error) {
           toast.error("Event not created");
         }
