@@ -1,3 +1,4 @@
+import { subMonths, addMonths, formatISO } from "date-fns";
 import { OAuth2Client } from "google-auth-library";
 import { google } from "googleapis";
 import { getOathToken } from "./clerk.action";
@@ -6,6 +7,7 @@ import { getOathToken } from "./clerk.action";
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
+
 export async function listEvents(email: string) {
   const auth = await getOathToken();
   const oAuth2Client = new OAuth2Client();
@@ -13,16 +15,23 @@ export async function listEvents(email: string) {
   const YOUR_OAUTH2_TOKEN = {
     access_token: auth,
     scope: "https://www.googleapis.com/auth/calendar",
-    token_type: "Bearer", // Unix timestamp in milliseconds
+    token_type: "Bearer",
   };
   oAuth2Client.setCredentials(YOUR_OAUTH2_TOKEN);
 
   const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+
+  // Calculate time range: last 1 months to next 2 months
+  const timeMin = subMonths(new Date(), 1);
+  const timeMax = addMonths(new Date(), 3);
+
   const res = await calendar.events.list({
     calendarId: email,
-    maxResults: 100,
+    maxResults: 2000, // Updated maxResults to 2000
     singleEvents: true,
     orderBy: "startTime",
+    timeMin: formatISO(timeMin), // ISO string for start time
+    timeMax: formatISO(timeMax), // ISO string for end time
   });
 
   const events = res.data.items;
@@ -30,14 +39,8 @@ export async function listEvents(email: string) {
     console.log("No upcoming events found.");
     return;
   }
-  events.forEach((event) => {
-    if (event.start === undefined) {
-      return;
-    }
-    const start = event.start.dateTime || event.start.date;
-    console.log(`${start} - ${event.summary}`);
-  });
-  return res.data.items;
+
+  return events;
 }
 
 export async function scheduleMeeting(

@@ -15,8 +15,6 @@ export async function getOathToken() {
     provider
   );
 
-  console.log("the response from the clerk", clerkResponse);
-
   if (clerkClient === undefined || clerkResponse.length === 0) {
     return "no clerk client found";
   }

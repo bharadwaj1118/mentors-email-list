@@ -50,6 +50,7 @@ const MentorSchedulePage = async ({
     return <div>You cannot access this page!</div>;
   }
 
+  const email = user?.email;
   const externalEvents = await listEvents(user?.email);
 
   return (

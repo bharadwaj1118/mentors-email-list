@@ -1,8 +1,8 @@
 "use client";
 
-import { Calendar, Views, dateFnsLocalizer } from "react-big-calendar";
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 
-import format from "date-fns/format";
+import { utcToZonedTime, zonedTimeToUtc, format } from "date-fns-tz";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
@@ -10,6 +10,7 @@ import enUS from "date-fns/locale/en-US";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
+import "moment-timezone";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
 
@@ -17,11 +18,9 @@ import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { addEvent, deleteEvent } from "@/lib/actions/event.action";
 import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
-import { m } from "framer-motion";
 import { formattedStringToDDMonthYearTime } from "@/lib/format";
 import { Alert } from "@/components/ui/alert";
 import { AlertPopup } from "@/components/shared/alert-popup";
-import { set } from "mongoose";
 
 const now = new Date();
 
@@ -36,14 +35,6 @@ type Event = {
 const locales = {
   "en-US": enUS,
 };
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
 
 function isLessThanTwelveHours(start: string, end: string): boolean {
   const startTime = new Date(start);
@@ -70,6 +61,11 @@ interface MyCalendarProps {
 
 export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
   const { events } = user !== null ? JSON.parse(user) : [];
+  const { timeZone } = JSON.parse(user);
+
+  moment.tz.setDefault(timeZone);
+  const localizer = momentLocalizer(moment);
+
   const result = events.map((event: any) => ({
     id: event.id,
     title: event.title,
@@ -77,7 +73,6 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     end: new Date(event.end),
   }));
 
-  console.log(externalEvents);
   const backgroundEventsArray =
     externalEvents !== undefined ? JSON.parse(externalEvents) : [];
   const backgroundEvents = backgroundEventsArray.map((event: any) => ({
