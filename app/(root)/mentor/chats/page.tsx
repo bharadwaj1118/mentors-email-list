@@ -3,8 +3,11 @@ import React from "react";
 
 const ChatsPage = () => {
   return (
-    <div>
-      <ChatLayout />
+    <div className="min-h-screen flex flex-col ">
+      <div className="flex-1">
+        <ChatLayout />
+        {/* content here */}
+      </div>
     </div>
   );
 };

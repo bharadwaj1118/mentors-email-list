@@ -17,9 +17,9 @@ const profilesPage = async ({ searchParams }: ProfilesPageProps) => {
   const users = await getUsersWithProfileFilters(searchParams);
 
   return (
-    <div className="max-w-7xl mx-auto  mt-6">
+    <div className="max-w-7xl mx-auto pt-[80px] px-3">
       <div className="flex">
-        <section className="max-w-7xl mt-6 hidden md:block">
+        <section className="max-w-7xl mt-3 hidden md:block">
           <ProfileFilters />
         </section>
         <div className="w-full">

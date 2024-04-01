@@ -32,8 +32,8 @@ const SessionPage = async () => {
   });
 
   return (
-    <div className="mx-auto mt-6 max-w-5xl rounded shadow border">
-      <section className=" w-full bg-white p-3 min-h-screen">
+    <div className="mx-auto max-w-5xl  pt-[80px]">
+      <section className=" w-full bg-white p-3 min-h-screen mt-6 rounded shadow border">
         <Tabs defaultValue="upcoming" className="p-6">
           <TabsList>
             <TabsTrigger value="requests" className="flex items-center">

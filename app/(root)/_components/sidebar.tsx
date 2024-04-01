@@ -19,8 +19,8 @@ export const Sidebar = () => {
   }
 
   return (
-    <div className="space-y-4 py-4 flex flex-col h-full bg-blue-950 text-white">
-      <div className="flex flex-col w-full">
+    <div className="space-y-4 py-4 flex flex-col h-full bg-white border-r">
+      <div className="flex flex-col w-full ">
         <SidebarRoutes />
       </div>
     </div>

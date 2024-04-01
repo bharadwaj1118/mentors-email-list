@@ -17,7 +17,7 @@ const SettingsPage = async () => {
   if (!user) return redirect("/login");
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-5xl pt-[80px]">
       <section className="my-4 lg:my-8 p-3 border shadow rounded bg-background">
         <Tabs defaultValue="sessions" className="p-6">
           <TabsList>

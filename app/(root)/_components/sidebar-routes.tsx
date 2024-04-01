@@ -51,25 +51,25 @@ const mentorRoutes = [
     icon: CalendarClock,
     label: "Schedule",
     href: "/mentor/schedule",
-    color: "text-blue-500",
+    color: "text-neutral-600",
   },
   {
     icon: Presentation,
     label: "Sessions",
     href: "/mentor/session",
-    color: "text-green-500",
+    color: "text-neutral-600",
   },
   {
     icon: MessageSquarePlusIcon,
     label: "Messaging",
     href: "/mentor/chats",
-    color: "text-blue-500",
+    color: "text-neutral-600",
   },
   {
     icon: Settings,
     label: "Settings",
     href: "/mentor/settings",
-    color: "text-gray-500",
+    color: "text-neutral-600",
   },
 ];
 
@@ -82,7 +82,7 @@ export const SidebarRoutes = () => {
 
   return (
     <div className="">
-      <div className="px-3 py-2 flex-1">
+      {/* <div className="px-3 py-2 flex-1">
         <Link href="/" className="flex items-center pl-3 mb-14">
           <h1
             className={cn(
@@ -96,8 +96,8 @@ export const SidebarRoutes = () => {
             <Image fill alt="Logo" src="/mentors-cx.svg" className="invert" />
           </div>
         </Link>
-      </div>
-      <div className="space-y-1">
+      </div> */}
+      <div>
         {routes.map((route) => (
           <SidebarItem
             key={route.href}

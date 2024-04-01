@@ -34,7 +34,7 @@ const SessionPage = async () => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto pt-[80px]">
       <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
         <Heading
           title="Your Sessions"

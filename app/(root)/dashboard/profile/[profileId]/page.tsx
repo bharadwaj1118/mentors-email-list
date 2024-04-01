@@ -42,7 +42,7 @@ const page = async ({ params }: Props) => {
   });
 
   return (
-    <div>
+    <div className="pt-[80px]">
       <ProfileDisplayPage user={JSON.stringify(user)} profileId={profileId} />
     </div>
   );

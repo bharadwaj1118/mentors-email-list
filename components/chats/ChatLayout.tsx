@@ -37,35 +37,37 @@ export default function ChatLayout() {
   }
 
   return (
-    <div className="h-screen bg-gray-100 w-full">
-      <div className="m-auto flex h-full min-w-[350px] max-w-[1600px] flex-col shadow-sm">
-        <Chat client={chatClient}>
-          <div className="flex justify-center border-b border-b-[#DBDDE1] md:hidden">
-            <Button
-              onClick={() => setChatSidebarOpen(!chatSidebarOpen)}
-              variant="ghost"
-            >
-              {!chatSidebarOpen ? (
-                <span className="flex items-center gap-1">
-                  <Menu /> Menu
-                </span>
-              ) : (
-                <X />
-              )}
-            </Button>
-          </div>
-          <div className="flex h-full flex-row overflow-y-auto">
-            <ChatSidebar
-              user={user}
-              show={isLargeScreen || chatSidebarOpen}
-              onClose={handleSidebarOnClose}
-            />
-            <ChatChannel
-              show={isLargeScreen || !chatSidebarOpen}
-              hideChannelOnThread={!isLargeScreen}
-            />
-          </div>
-        </Chat>
+    <div className="h-screen">
+      <div className="h-full bg-gray-100 w-full pt-[80px]">
+        <div className="m-auto flex h-full min-w-[350px] max-w-[1600px] flex-col shadow-sm">
+          <Chat client={chatClient}>
+            <div className="flex justify-center border-b border-b-[#DBDDE1] md:hidden">
+              <Button
+                onClick={() => setChatSidebarOpen(!chatSidebarOpen)}
+                variant="ghost"
+              >
+                {!chatSidebarOpen ? (
+                  <span className="flex items-center gap-1">
+                    <Menu /> Menu
+                  </span>
+                ) : (
+                  <X />
+                )}
+              </Button>
+            </div>
+            <div className="flex h-full flex-row overflow-y-auto">
+              <ChatSidebar
+                user={user}
+                show={isLargeScreen || chatSidebarOpen}
+                onClose={handleSidebarOnClose}
+              />
+              <ChatChannel
+                show={isLargeScreen || !chatSidebarOpen}
+                hideChannelOnThread={!isLargeScreen}
+              />
+            </div>
+          </Chat>
+        </div>
       </div>
     </div>
   );
