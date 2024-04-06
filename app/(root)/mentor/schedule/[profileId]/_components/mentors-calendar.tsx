@@ -2,10 +2,6 @@
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 
-import { utcToZonedTime, zonedTimeToUtc, format } from "date-fns-tz";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import getDay from "date-fns/getDay";
 import enUS from "date-fns/locale/en-US";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -18,8 +14,7 @@ import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { addEvent, deleteEvent } from "@/lib/actions/event.action";
 import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
-import { formattedStringToDDMonthYearTime } from "@/lib/format";
-import { Alert } from "@/components/ui/alert";
+
 import { AlertPopup } from "@/components/shared/alert-popup";
 
 const now = new Date();
@@ -35,6 +30,40 @@ type Event = {
 const locales = {
   "en-US": enUS,
 };
+
+function splitEventsAtMidnight(events: Event[]): Event[] {
+  const splitEvents: Event[] = [];
+  events.forEach((event) => {
+    const start = moment(event.start);
+    const end = moment(event.end);
+
+    // Check if the event spans across midnight
+    if (!start.isSame(end, "day")) {
+      // Split the event into two parts
+      const endOfStartDay = start.clone().endOf("day");
+      const startOfEndDay = end.clone().startOf("day");
+
+      // First part: From event start to the end of the start day
+      splitEvents.push({
+        ...event,
+        end: endOfStartDay.toDate(),
+      });
+
+      // Second part: From the start of the end day to the event end
+      splitEvents.push({
+        id: event.id,
+        title: event.title,
+        start: startOfEndDay.toDate(),
+        end: event.end,
+      });
+    } else {
+      // If the event does not span across midnight, add it as is
+      splitEvents.push(event);
+    }
+  });
+
+  return splitEvents;
+}
 
 function isLessThanTwelveHours(start: string, end: string): boolean {
   const startTime = new Date(start);
@@ -65,8 +94,8 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
 
   moment.tz.setDefault(timeZone);
   const localizer = momentLocalizer(moment);
-
-  const result = events.map((event: any) => ({
+  const splitEvents = splitEventsAtMidnight(events);
+  const result = splitEvents.map((event) => ({
     id: event.id,
     title: event.title,
     start: new Date(event.start),
@@ -82,6 +111,8 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     end: new Date(event.end.dateTime),
   }));
 
+  console.table(result);
+
   const [myEvents, setEvents] = useState<Event[]>(result);
   const [currentEvent, setCurrentEvent] = useState<Event>();
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -92,8 +123,6 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     const addSlots: Boolean = isLessThanTwelveHours(start, end);
     if (addSlots) {
       const newEvent = { id: uuidv4(), title, start, end };
-      console.log(isEventInThePast(newEvent));
-      console.log(isEventOverlapping(newEvent, myEvents));
       if (isEventInThePast(newEvent)) {
         toast.error("Event cannot be in the past");
       } else if (
@@ -160,7 +189,7 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
       />
       <div className="h-[400px] md:h-[600px] max-w-5xl">
         <DnDCalendar
-          defaultView={Views.MONTH}
+          defaultView={Views.WEEK}
           events={myEvents}
           localizer={localizer}
           backgroundEvents={backgroundEvents}
