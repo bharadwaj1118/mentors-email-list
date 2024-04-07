@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import { zonedTimeToUtc, utcToZonedTime } from "date-fns-tz";
-import { format, startOfWeek, add } from "date-fns";
+import { format } from "date-fns";
 
 import {
   Select,
@@ -22,11 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronDown, ChevronUp, Plus, PlusIcon } from "lucide-react";
+import { ChevronDown, ChevronUp, PlusIcon } from "lucide-react";
 import { TrashIcon } from "@radix-ui/react-icons";
 
 import { updateUser } from "@/lib/actions/user.action";
-import { de } from "date-fns/locale";
 
 type FormValues = {
   schedule: {
@@ -42,73 +41,114 @@ type ScheduleItem = {
   endTime: string;
 };
 
-type Schedule = ScheduleItem[];
-
-// Helper to find the next occurrence of a given weekday
-const getNextDayDate = (dayName: string, referenceDate = new Date()): Date => {
-  const weekStart = startOfWeek(referenceDate, { weekStartsOn: 1 }); // Assuming week starts on Monday
+/**
+ * Finds the next occurrence of a specified weekday from a reference date.
+ *
+ * @param {string} dayName - The name of the day to find the next occurrence of ("Sunday", "Monday", etc.).
+ * @param {Date} [referenceDate=new Date()] - The date from which to find the next occurrence. Defaults to today.
+ * @returns {Date} The date of the next occurrence of the specified day.
+ */
+function findNextDay(dayName: any, referenceDate = new Date()) {
   const daysOfWeek = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
-  const addDays = daysOfWeek.indexOf(dayName);
-  return add(weekStart, { days: addDays });
-};
+  const currentDay = referenceDate.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
+  const targetDay = daysOfWeek.indexOf(dayName);
 
-// Convert schedule times to UTC
+  if (targetDay === -1) {
+    throw new Error("Invalid day name");
+  }
+
+  // Calculate the number of days to add to the current date to reach the next occurrence of the target day
+  let daysToAdd = targetDay - currentDay;
+  if (daysToAdd <= 0) {
+    daysToAdd += 7; // If it's today or a past day in the week, add a week
+  }
+
+  const nextDay = new Date(referenceDate);
+  nextDay.setDate(referenceDate.getDate() + daysToAdd);
+
+  return nextDay;
+}
+
+// Converts the entire schedule from the local timezone to UTC
 const convertScheduleToUTC = (
-  schedule: Schedule,
+  schedule: ScheduleItem[],
   timeZone: string
-): Schedule => {
+): ScheduleItem[] => {
   return schedule.map((item) => {
-    const dateForDay = getNextDayDate(item.day);
-    const startDateTime = new Date(
-      `${dateForDay.toISOString().split("T")[0]}T${item.startTime}:00`
+    const dayDate = findNextDay(item.day);
+    const localStartDatetime = new Date(
+      dayDate.setHours(
+        Number(item.startTime.split(":")[0]),
+        Number(item.startTime.split(":")[1]),
+        0,
+        0
+      )
     );
-    const endDateTime = new Date(
-      `${dateForDay.toISOString().split("T")[0]}T${item.endTime}:00`
+    const localEndDatetime = new Date(
+      dayDate.setHours(
+        Number(item.endTime.split(":")[0]),
+        Number(item.endTime.split(":")[1]),
+        0,
+        0
+      )
     );
 
-    const startTimeUTC = zonedTimeToUtc(startDateTime, timeZone);
-    const endTimeUTC = zonedTimeToUtc(endDateTime, timeZone);
+    // Adjust for end time being earlier than start time, indicating it's actually the next day
+    if (item.endTime <= item.startTime) {
+      localEndDatetime.setDate(localEndDatetime.getDate() + 1);
+    }
+
+    const utcStartDatetime = zonedTimeToUtc(localStartDatetime, timeZone);
+    const utcEndDatetime = zonedTimeToUtc(localEndDatetime, timeZone);
 
     return {
       ...item,
-      startTime: startTimeUTC.toISOString().split("T")[1].substring(0, 5),
-      endTime: endTimeUTC.toISOString().split("T")[1].substring(0, 5),
+      startTime: utcStartDatetime.toISOString(),
+      endTime: utcEndDatetime.toISOString(),
     };
   });
 };
 
-// Convert UTC schedule times to a target timezone
 const convertScheduleFromUTC = (
-  schedule: Schedule,
+  schedule: ScheduleItem[],
   timeZone: string
-): Schedule => {
+): ScheduleItem[] => {
   return schedule.map((item) => {
-    const dateForDay = getNextDayDate(item.day);
-    const startDateStr = `${format(dateForDay, "yyyy-MM-dd")}T${
-      item.startTime
-    }:00Z`; // UTC
-    const endDateStr = `${format(dateForDay, "yyyy-MM-dd")}T${
-      item.endTime
-    }:00Z`; // UTC
+    const utcStartDatetime = new Date(item.startTime);
+    const utcEndDatetime = new Date(item.endTime);
 
-    const startDateTime = new Date(startDateStr);
-    const endDateTime = new Date(endDateStr);
+    const zonedStartDatetime = utcToZonedTime(utcStartDatetime, timeZone);
+    const zonedEndDatetime = utcToZonedTime(utcEndDatetime, timeZone);
 
-    const startTimeInTimeZone = utcToZonedTime(startDateTime, timeZone);
-    const endTimeInTimeZone = utcToZonedTime(endDateTime, timeZone);
+    // Direct comparison of ISO strings won't work due to different dates, compare times instead
+    const startTimeString = format(zonedStartDatetime, "HH:mm");
+    const endTimeString = format(zonedEndDatetime, "HH:mm");
+    const startDateTimeParts = startTimeString.split(":");
+    const endDateTimeParts = endTimeString.split(":");
+    const startTimeMinutes =
+      parseInt(startDateTimeParts[0]) * 60 + parseInt(startDateTimeParts[1]);
+    const endTimeMinutes =
+      parseInt(endDateTimeParts[0]) * 60 + parseInt(endDateTimeParts[1]);
+
+    // Adjust if the endTime is less than startTime, indicating it ends the next day
+    const adjustedEndTime = endTimeString;
+    if (endTimeMinutes < startTimeMinutes) {
+      // Since endTime is for the next day, and we're only showing HH:mm, no date adjustment is needed here
+      // If you wish to show that it ends the next day, additional UI logic might be required
+    }
 
     return {
       ...item,
-      startTime: format(startTimeInTimeZone, "HH:mm"),
-      endTime: format(endTimeInTimeZone, "HH:mm"),
+      startTime: startTimeString,
+      endTime: adjustedEndTime,
     };
   });
 };
@@ -148,8 +188,7 @@ const RecurPage = ({ user }: RecurPageProps) => {
   const router = useRouter();
   const parsedUser = JSON.parse(user);
   const { duration, timeZone, weeklyAvailability } = parsedUser;
-  console.log(weeklyAvailability);
-  console.log("My availability for the week is: ", weeklyAvailability);
+
   const defaultWeeklyAvailability = weeklyAvailability || {
     schedule: [
       // { day: "Monday", startTime: "18:17", endTime: "20:19" },
@@ -174,19 +213,20 @@ const RecurPage = ({ user }: RecurPageProps) => {
     control,
   });
   const onSubmit = async (data: FormValues) => {
-    // TODO: Get the original time zone from the user
-
     try {
       const scheduleUTC = convertScheduleToUTC(data.schedule, timeZone);
+      const currentDateISO = new Date().toISOString(); // Current datetime in ISO format
+
+      // Update the user with the UTC schedule and the current datetime
       await updateUser({
         id: parsedUser.id,
         weeklyAvailability: { schedule: scheduleUTC },
       });
-      toast.success("Weekly schedule updated");
 
+      toast.success("Weekly schedule updated successfully!");
       router.refresh();
-    } catch {
-      toast.error("Something went wrong");
+    } catch (error) {
+      toast.error("Failed to update the weekly schedule.");
     }
   };
 

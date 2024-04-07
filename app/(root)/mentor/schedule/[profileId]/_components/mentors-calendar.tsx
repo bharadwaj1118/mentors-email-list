@@ -1,7 +1,7 @@
 "use client";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
-
+import { parseISO } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -86,9 +86,14 @@ const DnDCalendar = withDragAndDrop(Calendar);
 interface MyCalendarProps {
   user: string;
   externalEvents: string;
+  regularEvents: string;
 }
 
-export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
+export const MentorsCalendar = ({
+  user,
+  externalEvents,
+  regularEvents,
+}: MyCalendarProps) => {
   const { events } = user !== null ? JSON.parse(user) : [];
   const { timeZone } = JSON.parse(user);
 
@@ -111,7 +116,21 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
     end: new Date(event.end.dateTime),
   }));
 
-  console.table(result);
+  const regularEventsArray =
+    regularEvents !== undefined ? JSON.parse(regularEvents) : [];
+
+  console.table(regularEventsArray);
+
+  const recurringEvents = regularEventsArray.map((event: any) => ({
+    id: event.id,
+    title: event.title,
+    start: parseISO(event.start),
+    end: parseISO(event.end),
+  }));
+
+  console.table(recurringEvents);
+
+  const unmodifiedEvents = [...backgroundEvents, ...recurringEvents];
 
   const [myEvents, setEvents] = useState<Event[]>(result);
   const [currentEvent, setCurrentEvent] = useState<Event>();
@@ -120,6 +139,7 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
   const handleSelectSlot = async (event: any) => {
     const { start, end } = event;
     const title = "Available";
+    alert("select slot" + JSON.stringify(event));
     const addSlots: Boolean = isLessThanTwelveHours(start, end);
     if (addSlots) {
       const newEvent = { id: uuidv4(), title, start, end };
@@ -192,7 +212,7 @@ export const MentorsCalendar = ({ user, externalEvents }: MyCalendarProps) => {
           defaultView={Views.WEEK}
           events={myEvents}
           localizer={localizer}
-          backgroundEvents={backgroundEvents}
+          backgroundEvents={unmodifiedEvents}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={handleSelectSlot}
           step={30}

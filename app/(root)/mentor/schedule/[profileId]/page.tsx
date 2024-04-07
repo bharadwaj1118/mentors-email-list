@@ -1,13 +1,11 @@
 import React from "react";
 
-import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs";
-
 import { MentorsCalendar } from "./_components/mentors-calendar";
 import { db } from "@/lib/db";
 import { listEvents } from "@/lib/actions/google-calandar.action";
 import Heading from "@/components/shared/heading";
 import RecurPage from "./_components/recurring-calandar";
+import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 
 interface MentorSchedulePageProps {
   params: {
@@ -17,16 +15,9 @@ interface MentorSchedulePageProps {
 const MentorSchedulePage = async ({
   params: { profileId },
 }: MentorSchedulePageProps) => {
-  //   const { userId } = auth();
-
-  //   if (!userId) {
-  //     redirect("/login");
-  //   }
-
   const user = await db.user.findUnique({
     where: {
       id: profileId,
-      //   clerkId: userId,
     },
     select: {
       id: true,
@@ -52,6 +43,9 @@ const MentorSchedulePage = async ({
 
   const email = user?.email;
   const externalEvents = await listEvents(user?.email);
+  const weeklyAvailability = user?.weeklyAvailability || {};
+  const { schedule } = JSON.parse(JSON.stringify(weeklyAvailability)) || [];
+  const events = generateEventsForNextYear(schedule);
 
   return (
     <div className="max-w-5xl mx-auto pt-[80px]">
@@ -71,6 +65,7 @@ const MentorSchedulePage = async ({
         <MentorsCalendar
           user={JSON.stringify(user)}
           externalEvents={JSON.stringify(externalEvents)}
+          regularEvents={JSON.stringify(events)}
         />
       </div>
     </div>
