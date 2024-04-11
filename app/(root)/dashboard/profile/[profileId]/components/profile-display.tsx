@@ -321,8 +321,8 @@ const ProfileDisplayPage = async ({
 
       {/* <ProfileExperience /> */}
 
-      <div id="reviews"></div>
-      <ProfileTestmonialPage title="Reviews (5)" />
+      {/* <div id="reviews"></div> */}
+      {/* <ProfileTestmonialPage title="Reviews (5)" /> */}
 
       <div className="mt-12">
         <Footer />
