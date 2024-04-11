@@ -16,7 +16,7 @@ type Event = {
 
 // Helper function to generate events for the next year
 export const generateEventsForNextYear = (
-  schedule: ScheduleItem[]
+  schedule: ScheduleItem[] = []
 ): Event[] => {
   const events: Event[] = [];
   const numberOfWeeks = 52; // Approximate number of weeks in a year
