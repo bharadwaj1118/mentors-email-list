@@ -44,8 +44,6 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
     location,
   } = data;
 
-  console.table(data);
-
   if (
     city === null ||
     imageUrl === null ||
