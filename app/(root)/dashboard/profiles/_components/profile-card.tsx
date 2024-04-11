@@ -44,6 +44,21 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
     location,
   } = data;
 
+  console.table(data);
+
+  if (
+    city === null ||
+    imageUrl === null ||
+    username === null ||
+    duration === null ||
+    price === null ||
+    languages === null ||
+    city === null ||
+    country === null
+  ) {
+    return null;
+  }
+
   return (
     <div className="mb-6 bg-white max-w-5xl mx-auto">
       <div className="relative block overflow-hidden rounded shadow border border-gray-100 p-4 sm:p-6 lg:p-8">
