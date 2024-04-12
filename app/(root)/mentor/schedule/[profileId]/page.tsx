@@ -1,11 +1,11 @@
 import React from "react";
 
 import { MentorsCalendar } from "./_components/mentors-calendar";
-import { db } from "@/lib/db";
 import { listEvents } from "@/lib/actions/google-calandar.action";
 import Heading from "@/components/shared/heading";
 import RecurPage from "./_components/recurring-calandar";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
+import { db } from "@/lib/db";
 
 interface MentorSchedulePageProps {
   params: {
@@ -42,10 +42,14 @@ const MentorSchedulePage = async ({
   }
 
   const email = user?.email;
-  const externalEvents = await listEvents(user?.email);
+  let externalEvents = await listEvents(user?.email);
   const weeklyAvailability = user?.weeklyAvailability || {};
   const { schedule } = JSON.parse(JSON.stringify(weeklyAvailability)) || [];
   const events = generateEventsForNextYear(schedule);
+
+  if (externalEvents === undefined) {
+    externalEvents = [];
+  }
 
   return (
     <div className="max-w-5xl mx-auto pt-[80px]">

@@ -81,8 +81,6 @@ export const MyCalendar = ({ user }: MyCalendarProps) => {
     const addSlots: Boolean = isLessThanTwelveHours(start, end);
     if (addSlots) {
       const newEvent = { id: uuidv4(), title, start, end };
-      console.log(isEventInThePast(newEvent));
-      console.log(isEventOverlapping(newEvent, myEvents));
       if (
         !isEventInThePast(newEvent) &&
         isEventOverlapping(newEvent, myEvents)

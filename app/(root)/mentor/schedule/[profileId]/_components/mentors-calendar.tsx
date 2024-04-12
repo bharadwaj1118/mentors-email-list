@@ -3,18 +3,17 @@
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import { parseISO } from "date-fns";
 import enUS from "date-fns/locale/en-US";
-
+import React, { useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import "moment-timezone";
 import { v4 as uuidv4 } from "uuid";
+
 import { toast } from "sonner";
 
-import React, { Fragment, useState, useCallback, useMemo } from "react";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { addEvent, deleteEvent } from "@/lib/actions/event.action";
 import { isEventInThePast, isEventOverlapping } from "@/lib/utils";
-
 import { AlertPopup } from "@/components/shared/alert-popup";
 
 const now = new Date();
@@ -119,16 +118,12 @@ export const MentorsCalendar = ({
   const regularEventsArray =
     regularEvents !== undefined ? JSON.parse(regularEvents) : [];
 
-  console.table(regularEventsArray);
-
   const recurringEvents = regularEventsArray.map((event: any) => ({
     id: event.id,
     title: event.title,
     start: parseISO(event.start),
     end: parseISO(event.end),
   }));
-
-  console.table(recurringEvents);
 
   const unmodifiedEvents = [...backgroundEvents, ...recurringEvents];
 
@@ -139,7 +134,6 @@ export const MentorsCalendar = ({
   const handleSelectSlot = async (event: any) => {
     const { start, end } = event;
     const title = "Available";
-    alert("select slot" + JSON.stringify(event));
     const addSlots: Boolean = isLessThanTwelveHours(start, end);
     if (addSlots) {
       const newEvent = { id: uuidv4(), title, start, end };

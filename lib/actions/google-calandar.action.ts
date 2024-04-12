@@ -12,35 +12,39 @@ export async function listEvents(email: string) {
   const auth = await getOathToken();
   const oAuth2Client = new OAuth2Client();
 
-  const YOUR_OAUTH2_TOKEN = {
-    access_token: auth,
-    scope: "https://www.googleapis.com/auth/calendar",
-    token_type: "Bearer",
-  };
-  oAuth2Client.setCredentials(YOUR_OAUTH2_TOKEN);
+  try {
+    const YOUR_OAUTH2_TOKEN = {
+      access_token: auth,
+      scope: "https://www.googleapis.com/auth/calendar",
+      token_type: "Bearer",
+    };
+    oAuth2Client.setCredentials(YOUR_OAUTH2_TOKEN);
 
-  const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+    const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
-  // Calculate time range: last 1 months to next 2 months
-  const timeMin = subMonths(new Date(), 1);
-  const timeMax = addMonths(new Date(), 3);
+    // Calculate time range: last 1 months to next 2 months
+    const timeMin = subMonths(new Date(), 1);
+    const timeMax = addMonths(new Date(), 3);
 
-  const res = await calendar.events.list({
-    calendarId: email,
-    maxResults: 2000, // Updated maxResults to 2000
-    singleEvents: true,
-    orderBy: "startTime",
-    timeMin: formatISO(timeMin), // ISO string for start time
-    timeMax: formatISO(timeMax), // ISO string for end time
-  });
+    const res = await calendar.events.list({
+      calendarId: email,
+      maxResults: 2000, // Updated maxResults to 2000
+      singleEvents: true,
+      orderBy: "startTime",
+      timeMin: formatISO(timeMin), // ISO string for start time
+      timeMax: formatISO(timeMax), // ISO string for end time
+    });
 
-  const events = res.data.items;
-  if (!events || events.length === 0) {
-    console.log("No upcoming events found.");
-    return;
+    const events = res.data.items;
+    if (!events || events.length === 0) {
+      console.log("No upcoming events found.");
+      return;
+    }
+
+    return events;
+  } catch (error) {
+    console.error("Error fetching google calander events:", error);
   }
-
-  return events;
 }
 
 export async function scheduleMeeting(
