@@ -63,23 +63,6 @@ const CalendarPage = async () => {
   const weeklyEvents = generateEventsForNextYear(schedule);
   const timeZone = user?.timeZone || "America/New_York";
 
-  // Convert weekly events to Timezone
-  const weeklyEventsInTimezone = weeklyEvents.map((event) => {
-    const startInTimezone = utcToZonedTime(event.start, timeZone);
-    const endInTimezone = utcToZonedTime(event.end, timeZone);
-
-    return {
-      start: startInTimezone,
-      end: endInTimezone,
-    };
-  });
-
-  // Convert weekly events to timeSlots
-
-  // Convert to mentor timeZones
-
-  // Convert to 24:00 hour timeZones
-
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="max-w-5xl mx-auto p-3 md:p-6 bg-background rounded border shadow">
@@ -99,7 +82,7 @@ const CalendarPage = async () => {
           <div className="flex-1">
             <BookingCalendarMain
               individualEvents={individualEvents}
-              weeklyEvents={weeklyEventsInTimezone}
+              weeklyEvents={weeklyEvents}
               timeZone={timeZone}
               duration={user.duration}
             />

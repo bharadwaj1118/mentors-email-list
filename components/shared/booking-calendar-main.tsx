@@ -165,7 +165,12 @@ const BookingCalendarMain = ({
     timeZone
   );
 
-  const allAvailableEvents = [...convertedIndividualEvents, ...weeklyEvents];
+  const convertedWeeklyEvents = convertEventsToTimezone(weeklyEvents, timeZone);
+
+  const allAvailableEvents = [
+    ...convertedIndividualEvents,
+    ...convertedWeeklyEvents,
+  ];
 
   const disabledDays = getDisabledDays(convertedIndividualEvents);
   const availableTimeSlots = createTimeSlots(allAvailableEvents, duration);
