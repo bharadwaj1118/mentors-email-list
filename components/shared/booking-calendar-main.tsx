@@ -14,6 +14,8 @@ type Event = {
 type BookingCalendarMainProps = {
   individualEvents: Event[];
   timeZone: string;
+  weeklyEvents: Event[];
+  duration: number;
 };
 
 type CalanderSidebarProps = {
@@ -79,6 +81,13 @@ function formatAMPM(date: Date): string {
 
 const CalanderSidebar = ({ slots, selectedDay }: CalanderSidebarProps) => {
   console.table(slots);
+  if (slots.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-[400px] w-[200px] border p-3">
+        <h1>No slots available this day</h1>
+      </div>
+    );
+  }
   return (
     <ScrollArea className="h-[400px] w-fit border p-3">
       <div className="flex items-center justify-center flex-col">
@@ -145,21 +154,38 @@ function getDisabledDays(events: Event[]): Date[] {
 const BookingCalendarMain = ({
   individualEvents,
   timeZone,
+  weeklyEvents,
+  duration,
 }: BookingCalendarMainProps) => {
   const [date, setDate] = React.useState<Date>(new Date());
 
+  // Convert events to the specified timezone
   const convertedIndividualEvents = convertEventsToTimezone(
     individualEvents,
     timeZone
   );
-  console.table(convertedIndividualEvents);
+
+  const allAvailableEvents = [...convertedIndividualEvents, ...weeklyEvents];
 
   const disabledDays = getDisabledDays(convertedIndividualEvents);
-  const timeSlots = createTimeSlots(convertedIndividualEvents, 15);
-  console.table(timeSlots);
+  const availableTimeSlots = createTimeSlots(allAvailableEvents, duration);
 
-  const availableSlots = filterTimeSlotsByDate(timeSlots, date);
-  console.table(availableSlots);
+  // Remove duplicate slots in available time slots
+  const uniqueSlots = new Set<string>();
+  const uniqueAvailableTimeSlots = availableTimeSlots.filter((slot) => {
+    const slotStr = `${slot.start.getTime()}-${slot.end.getTime()}`;
+    if (uniqueSlots.has(slotStr)) {
+      return false;
+    }
+    uniqueSlots.add(slotStr);
+    return true;
+  });
+
+  const availableDays = [new Date(2024, 5, 5), new Date(2024, 5, 6)];
+  const availableDaysStyle = { border: "1px solid currentColor" };
+
+  const eventSlots = filterTimeSlotsByDate(uniqueAvailableTimeSlots, date);
+  const availableSlots = [...eventSlots];
 
   const handleSelectDate = (selectedDate: Date) => {
     setDate(selectedDate);
@@ -179,6 +205,8 @@ const BookingCalendarMain = ({
         selected={date}
         onDayClick={handleSelectDate}
         disabled={days}
+        modifiers={{ booked: availableDays }}
+        modifiersStyles={{ booked: availableDaysStyle }}
       />
       <CalanderSidebar slots={availableSlots} selectedDay={date} />
     </div>

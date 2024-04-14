@@ -2,8 +2,10 @@ import BookingCalendarDetails from "@/components/shared/booking-calendar-details
 import BookingCalendarMain from "@/components/shared/booking-calendar-main";
 import { Calendar } from "@/components/ui/calendar";
 import { db } from "@/lib/db";
+import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 import { auth } from "@clerk/nextjs";
 import { subBusinessDays } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -26,6 +28,7 @@ const CalendarPage = async () => {
       timeZone: true,
       meetingPreference: true,
       duration: true,
+      weeklyAvailability: true,
       events: {
         select: {
           start: true,
@@ -54,6 +57,24 @@ const CalendarPage = async () => {
     },
   });
 
+  const weeklyAvailability = user?.weeklyAvailability || {};
+  const { schedule } = JSON.parse(JSON.stringify(weeklyAvailability)) || [];
+  const weeklyEvents = generateEventsForNextYear(schedule);
+  const timeZone = user?.timeZone || "America/New_York";
+
+  // Convert weekly events to Timezone
+  const weeklyEventsInTimezone = weeklyEvents.map((event) => {
+    const startInTimezone = utcToZonedTime(event.start, timeZone);
+    const endInTimezone = utcToZonedTime(event.end, timeZone);
+
+    return {
+      start: startInTimezone,
+      end: endInTimezone,
+    };
+  });
+
+  // Convert weekly events to timeSlots
+
   // Convert to mentor timeZones
 
   // Convert to 24:00 hour timeZones
@@ -77,7 +98,9 @@ const CalendarPage = async () => {
           <div className="flex-1">
             <BookingCalendarMain
               individualEvents={individualEvents}
+              weeklyEvents={weeklyEventsInTimezone}
               timeZone={user.timeZone || "America/New_York"}
+              duration={user.duration}
             />
           </div>
         </div>
