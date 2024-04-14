@@ -4,6 +4,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { db } from "@/lib/db";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 import { auth } from "@clerk/nextjs";
+import { time } from "console";
 import { subBusinessDays } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { redirect } from "next/navigation";
@@ -88,7 +89,7 @@ const CalendarPage = async () => {
             <BookingCalendarDetails
               imageUrl={user.imageUrl}
               username={user.username}
-              timeZone={user.timeZone || "America/New_York"}
+              timeZone={timeZone}
               meetingPreference={user.meetingPreference || "zoom"}
               duration={user.duration}
             />
@@ -99,7 +100,7 @@ const CalendarPage = async () => {
             <BookingCalendarMain
               individualEvents={individualEvents}
               weeklyEvents={weeklyEventsInTimezone}
-              timeZone={user.timeZone || "America/New_York"}
+              timeZone={timeZone}
               duration={user.duration}
             />
           </div>
