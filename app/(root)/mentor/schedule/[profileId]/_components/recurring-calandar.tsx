@@ -203,7 +203,7 @@ const RecurPage = ({ user }: RecurPageProps) => {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { isDirty, errors },
   } = useForm<FormValues>({
     defaultValues: { schedule: defaultWeeklyInTimezone },
     mode: "onBlur",
@@ -335,7 +335,9 @@ const RecurPage = ({ user }: RecurPageProps) => {
           >
             ADD <PlusIcon className="w-4 h-4 ml-1" />
           </Button>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={!isDirty}>
+            Save
+          </Button>
         </div>
       </form>
     </div>
