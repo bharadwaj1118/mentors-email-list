@@ -5,6 +5,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { SessionDetailsForm } from "./session-details-form";
 
 type Event = {
   start: Date;
@@ -16,11 +17,14 @@ type BookingCalendarMainProps = {
   timeZone: string;
   weeklyEvents: Event[];
   duration: number;
+  mentorId: string;
 };
 
 type CalanderSidebarProps = {
   slots: Event[];
   selectedDay: Date;
+  onSlotSelect: (slot: Event) => void;
+  onOpenForm: () => void;
 };
 
 function convertEventsToTimezone(events: Event[], timezone: string): Event[] {
@@ -79,8 +83,28 @@ function formatAMPM(date: Date): string {
   return strTime;
 }
 
-const CalanderSidebar = ({ slots, selectedDay }: CalanderSidebarProps) => {
-  console.table(slots);
+const CalanderSidebar = ({
+  slots,
+  selectedDay,
+  onSlotSelect,
+  onOpenForm,
+}: CalanderSidebarProps) => {
+  const [slotSelected, setSlotSelected] = React.useState<Event | null>(null);
+  const [openForm, setOpenForm] = React.useState(false);
+
+  const handleSlotSelect = (slot: Event) => {
+    onSlotSelect(slot);
+    setSlotSelected(slot);
+  };
+
+  const handleResetSlot = () => {
+    setSlotSelected(null);
+  };
+
+  const handleOpenForm = () => {
+    onOpenForm();
+  };
+
   if (slots.length === 0) {
     return (
       <div className="flex items-center justify-center h-[400px] w-[200px] border p-3">
@@ -93,13 +117,34 @@ const CalanderSidebar = ({ slots, selectedDay }: CalanderSidebarProps) => {
       <div className="flex items-center justify-center flex-col">
         <h1 className="my-2">{selectedDay.toDateString()}</h1>
         <ul className="flex flex-col gap-4">
-          {slots.map((slot, index) => (
-            <li key={index}>
-              <Button variant="outline" size="lg" className="w-[200px]">
-                {formatAMPM(slot.start)}
+          {slotSelected && (
+            <div>
+              <Button className="w-full " variant="outline">
+                {formatAMPM(slotSelected.start)}
               </Button>
-            </li>
-          ))}
+              <div className="flex items-center gap-4 mt-3">
+                <Button variant="secondary" onClick={handleResetSlot}>
+                  Back
+                </Button>
+                <Button onClick={handleOpenForm}>Next</Button>
+              </div>
+            </div>
+          )}
+          {!slotSelected &&
+            slots.map((slot, index) => (
+              <li key={index}>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-[200px]"
+                  onClick={() =>
+                    handleSlotSelect({ start: slot.start, end: slot.end })
+                  }
+                >
+                  {formatAMPM(slot.start)}
+                </Button>
+              </li>
+            ))}
         </ul>
       </div>
     </ScrollArea>
@@ -156,8 +201,20 @@ const BookingCalendarMain = ({
   timeZone,
   weeklyEvents,
   duration,
+  mentorId,
 }: BookingCalendarMainProps) => {
   const [date, setDate] = React.useState<Date>(new Date());
+  const [selectedSlot, setSelectedSlot] = React.useState<Event | null>(null);
+  const [openForm, setOpenForm] = React.useState(false);
+
+  const handleOpenForm = () => {
+    setOpenForm(!openForm);
+  };
+
+  const handleSelectSlot = (slot: Event) => {
+    setSelectedSlot(slot);
+    console.log(slot);
+  };
 
   // Convert events to the specified timezone
   const convertedIndividualEvents = convertEventsToTimezone(
@@ -204,16 +261,47 @@ const BookingCalendarMain = ({
   ];
 
   return (
-    <div className="flex gap-4">
-      <Calendar
-        mode="single"
-        selected={date}
-        onDayClick={handleSelectDate}
-        disabled={days}
-        modifiers={{ booked: availableDays }}
-        modifiersStyles={{ booked: availableDaysStyle }}
-      />
-      <CalanderSidebar slots={availableSlots} selectedDay={date} />
+    <div className="w-full flex gap-4">
+      {!openForm && (
+        <>
+          <Calendar
+            mode="single"
+            selected={date}
+            onDayClick={handleSelectDate}
+            disabled={days}
+            modifiers={{ booked: availableDays }}
+            modifiersStyles={{ booked: availableDaysStyle }}
+          />
+          <CalanderSidebar
+            slots={availableSlots}
+            selectedDay={date}
+            onSlotSelect={handleSelectSlot}
+            onOpenForm={handleOpenForm}
+          />
+        </>
+      )}
+      {openForm && (
+        <div className="flex flex-col">
+          <div>
+            <Button onClick={handleOpenForm} variant="outline" className="mr-0">
+              Back
+            </Button>
+          </div>
+          <h1>Select a date to book an appointment</h1>
+          <SessionDetailsForm
+            session={{
+              objective: "",
+              category: "",
+              description: "",
+              outcome: "",
+              menteeId: "",
+              mentorId,
+              start: selectedSlot?.start || new Date(),
+              end: selectedSlot?.end || new Date(),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

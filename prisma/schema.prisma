@@ -143,8 +143,6 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  session Session[]
-
   @@index([userId])
 }
 
@@ -158,29 +156,26 @@ enum SessionStatus {
 }
 
 model Session {
-  id          String  @id @default(uuid())
-  objective   String? @db.Text
-  description String? @db.Text
-  outcome     String? @db.Text
+  id          String @id @default(uuid())
+  objective   String @db.Text
+  description String @db.Text
+  outcome     String @db.Text
   duration    Int?
-  category    String?
+  category    String
   price       Int?
 
   mentorId String
   mentor   User   @relation("sessionsGiven", fields: [mentorId], references: [id])
 
-  menteeId String?
-  mentee   User?   @relation("sessionsReceived", fields: [menteeId], references: [id])
-
-  eventId String
-  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  menteeId String
+  mentee   User   @relation("sessionsReceived", fields: [menteeId], references: [id])
 
   start DateTime
   end   DateTime
 
-  status    SessionStatus? @default(AVAILABLE)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  status    SessionStatus @default(AWAITING_HOST)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
   cancelledReason String? @db.Text
   rejectedReason  String? @db.Text

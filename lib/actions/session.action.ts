@@ -2,6 +2,7 @@
 
 import { db } from "../db";
 import { scheduleMeeting } from "./google-calandar.action";
+import { getSelfId } from "./user.action";
 
 export async function getAllSessions(id: string) {
   try {
@@ -116,5 +117,34 @@ export async function updateSession(session: any) {
     return updatedSession;
   } catch (error) {
     throw Error("UPDATE_SESSION_ERROR, " + error);
+  }
+}
+
+type TSession = {
+  mentorId: string;
+  menteeId: string;
+  start: Date;
+  end: Date;
+  outcome: string;
+  objective: string;
+  category: string;
+  description: string;
+};
+
+export async function createSession(session: TSession) {
+  console.log(session);
+  const user = await getSelfId();
+  if (!user) throw new Error("User not found");
+
+  try {
+    const newSession = await db.session.create({
+      data: {
+        ...session,
+        menteeId: user.id,
+      },
+    });
+    return newSession;
+  } catch (error) {
+    throw Error("CREATE_SESSION_ERROR, " + error);
   }
 }

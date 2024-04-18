@@ -1,15 +1,12 @@
-import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
-import BookingCalendarMain from "@/components/shared/booking-calendar-main";
-import { Calendar } from "@/components/ui/calendar";
 import { db } from "@/lib/db";
-import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 import { auth } from "@clerk/nextjs";
-import { time } from "console";
-import { subBusinessDays } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+
 import { redirect } from "next/navigation";
 import React from "react";
 
+import { generateEventsForNextYear } from "@/lib/helpers/recurring";
+import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
+import BookingCalendarMain from "@/components/shared/booking-calendar-main";
 const CalendarPage = async () => {
   // Get clerk Auth return if nothing
   const { userId } = auth();
@@ -85,6 +82,7 @@ const CalendarPage = async () => {
               weeklyEvents={weeklyEvents}
               timeZone={timeZone}
               duration={user.duration}
+              mentorId={user.id}
             />
           </div>
         </div>
