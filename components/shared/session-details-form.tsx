@@ -21,6 +21,8 @@ import { toast } from "sonner";
 
 import { Session } from "@prisma/client";
 import { createSession } from "@/lib/actions/session.action";
+import { formatAMPM } from "@/lib/format";
+import { Badge } from "@/components/ui/badge";
 
 interface SessionDetailsFormProps {
   session: Pick<
@@ -37,11 +39,11 @@ interface SessionDetailsFormProps {
 }
 
 const FormSchema = z.object({
-  objective: z.string().min(20, {
-    message: "object must be at least 20 characters.",
+  objective: z.string().min(10, {
+    message: "object must be at least 10 characters.",
   }),
-  category: z.string().min(20, {
-    message: "category must be at least 20 characters.",
+  category: z.string().min(4, {
+    message: "category must be at least 4 characters.",
   }),
   description: z.string().min(20, {
     message: "description must be at least 20 characters.",
@@ -53,6 +55,7 @@ const FormSchema = z.object({
 
 export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
   const start = new Date(session.start);
+  const end = new Date(session.end);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -68,7 +71,7 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
   });
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
-    alert("submitting");
+    setIsSubmitting(true);
     try {
       const newSession = await createSession({
         ...session,
@@ -81,17 +84,24 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
         toast.success("Session created successfully");
       }
 
-      router.refresh();
+      router.push("/dashboard/session");
     } catch (error) {
       console.log(error);
       toast.error("Unexpected Error...");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <p> Your slot: {start?.toISOString()}</p>
+        <div className="flex gap-2 items-center mt-4">
+          <Badge variant="outline">
+            {formatAMPM(start)} - {formatAMPM(end)}
+          </Badge>
+        </div>
+
         <FormField
           control={form.control}
           name="objective"
@@ -150,7 +160,9 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

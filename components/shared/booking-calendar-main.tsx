@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SessionDetailsForm } from "./session-details-form";
+import { formatAMPM } from "@/lib/format";
 
 type Event = {
   start: Date;
@@ -69,18 +70,6 @@ function filterTimeSlotsByDate(
     const selectedDateStr = selectedDate.toString().slice(0, 10);
     return startDate === selectedDateStr;
   });
-}
-
-function formatAMPM(date: Date): string {
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12;
-  hours = hours || 12; // the hour '0' should be '12'
-  const minutesStr =
-    minutes < 10 ? "0" + minutes.toString() : minutes.toString();
-  const strTime = `${hours}:${minutesStr} ${ampm}`;
-  return strTime;
 }
 
 const CalanderSidebar = ({
@@ -287,7 +276,7 @@ const BookingCalendarMain = ({
               Back
             </Button>
           </div>
-          <h1>Select a date to book an appointment</h1>
+
           <SessionDetailsForm
             session={{
               objective: "",
