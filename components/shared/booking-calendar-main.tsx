@@ -193,7 +193,7 @@ const BookingCalendarMain = ({
   duration,
   mentorId,
 }: BookingCalendarMainProps) => {
-  const [date, setDate] = React.useState<Date>(new Date());
+  const [date, setDate] = React.useState<Date | null>(null);
   const [selectedSlot, setSelectedSlot] = React.useState<Event | null>(null);
   const [openForm, setOpenForm] = React.useState(false);
 
