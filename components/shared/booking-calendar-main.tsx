@@ -24,7 +24,7 @@ type BookingCalendarMainProps = {
 
 type CalanderSidebarProps = {
   slots: Event[];
-  selectedDay: Date;
+  selectedDay: Date | null;
   onSlotSelect: (slot: Event) => void;
   onOpenForm: () => void;
 };
@@ -64,8 +64,11 @@ function createTimeSlots(events: Event[], durationMinutes: number): Event[] {
 
 function filterTimeSlotsByDate(
   timeSlots: Event[],
-  selectedDate: Date
+  selectedDate: Date | null
 ): Event[] {
+  if (!selectedDate) {
+    return [];
+  }
   return timeSlots.filter((timeSlot) => {
     const startDate = timeSlot.start.toString().slice(0, 10);
     const selectedDateStr = selectedDate.toString().slice(0, 10);
@@ -105,7 +108,7 @@ const CalanderSidebar = ({
   return (
     <ScrollArea className="h-[400px] w-fit border p-3">
       <div className="flex items-center justify-center flex-col">
-        <h1 className="my-2">{selectedDay.toDateString()}</h1>
+        <h1 className="my-2">{selectedDay?.toDateString()}</h1>
         <ul className="flex flex-col gap-4">
           {slotSelected && (
             <div>
@@ -147,7 +150,7 @@ function getDisabledDays(events: Event[]): Date[] {
   // Define the 6 months period
   const today = new Date();
   const sixMonthsLater = new Date(today);
-  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 3);
+  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 4);
 
   const enabledDates = new Set<string>();
 
@@ -253,7 +256,7 @@ const BookingCalendarMain = ({
         <>
           <Calendar
             mode="single"
-            selected={date}
+            selected={date || undefined}
             onDayClick={handleSelectDate}
             disabled={[{ before: today }, ...disabledDates]}
             defaultMonth={today}
