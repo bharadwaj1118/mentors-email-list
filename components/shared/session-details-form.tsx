@@ -23,6 +23,7 @@ import { Session } from "@prisma/client";
 import { createSession } from "@/lib/actions/session.action";
 import { formatAMPM } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 interface SessionDetailsFormProps {
   session: Pick<
@@ -76,9 +77,9 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
       const newSession = await createSession({
         ...session,
         ...values,
+        start: zonedTimeToUtc(start, "UTC"),
+        end: zonedTimeToUtc(end, "UTC"),
       });
-
-      console.log(newSession);
 
       if (newSession) {
         toast.success("Session created successfully");

@@ -5,6 +5,7 @@ import { utcToZonedTime } from "date-fns-tz";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { SessionDetailsForm } from "./session-details-form";
 import { formatAMPM } from "@/lib/format";
 
@@ -146,7 +147,7 @@ function getDisabledDays(events: Event[]): Date[] {
   // Define the 6 months period
   const today = new Date();
   const sixMonthsLater = new Date(today);
-  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+  sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 3);
 
   const enabledDates = new Set<string>();
 
@@ -196,6 +197,10 @@ const BookingCalendarMain = ({
   const [selectedSlot, setSelectedSlot] = React.useState<Event | null>(null);
   const [openForm, setOpenForm] = React.useState(false);
 
+  const today = new Date(); // Getting today's date
+  const threeMonthsLater = new Date(); // Copying today's date
+  threeMonthsLater.setMonth(today.getMonth() + 3); // Setting it to three months from now
+
   const handleOpenForm = () => {
     setOpenForm(!openForm);
   };
@@ -232,9 +237,6 @@ const BookingCalendarMain = ({
     return true;
   });
 
-  const availableDays = [new Date(2024, 5, 5), new Date(2024, 5, 6)];
-  const availableDaysStyle = { border: "1px solid currentColor" };
-
   const eventSlots = filterTimeSlotsByDate(uniqueAvailableTimeSlots, date);
   const availableSlots = [...eventSlots];
 
@@ -242,12 +244,8 @@ const BookingCalendarMain = ({
     setDate(selectedDate);
   };
 
-  const days = [
-    new Date(2024, 4, 10),
-    new Date(2024, 4, 12),
-    new Date(2024, 4, 20),
-    { from: new Date(2024, 4, 22), to: new Date(2024, 4, 29) },
-  ];
+  // Disabled dates for next 3months, which are not in the timeslots
+  const disabledDates = getDisabledDays(uniqueAvailableTimeSlots);
 
   return (
     <div className="w-full flex gap-4">
@@ -257,9 +255,11 @@ const BookingCalendarMain = ({
             mode="single"
             selected={date}
             onDayClick={handleSelectDate}
-            disabled={days}
-            modifiers={{ booked: availableDays }}
-            modifiersStyles={{ booked: availableDaysStyle }}
+            disabled={[{ before: today }, ...disabledDates]}
+            defaultMonth={today}
+            fromMonth={today}
+            toMonth={threeMonthsLater}
+            toDate={threeMonthsLater}
           />
           <CalanderSidebar
             slots={availableSlots}
