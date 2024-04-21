@@ -15,6 +15,7 @@ import {
   ShareIcon,
   ExternalLink,
 } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -87,9 +88,10 @@ const ProfileDisplayPage = async ({
     joinedAt,
     price,
     duration,
+    portfolioWebsite,
   } = JSON.parse(user);
 
-  console.log(price);
+  console.log(portfolioWebsite);
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -197,9 +199,17 @@ const ProfileDisplayPage = async ({
 
             {/* Portfolio website & Profile*/}
             <div className="flex items-center justify-between flex-col md:flex-row gap-4">
-              <Button variant="link" className="text-sm md:text-base">
-                Personal Website <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
+              {portfolioWebsite && (
+                <Button variant="link" className="text-sm md:text-base" asChild>
+                  <Link
+                    href={portfolioWebsite}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Personal Website <ExternalLink className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              )}
               <div className="flex-1 text-primary text-lg text-end md:ml-auto">
                 <CopyToClipboardButton id={id} />
               </div>
@@ -300,7 +310,7 @@ const ProfileDisplayPage = async ({
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <ArrowUpIcon className="w-6 h-6 hover:scale-125 transition-colors duration-300" />
+                    <FaTiktok className="w-6 h-6 hover:scale-125 transition-colors duration-300" />
                   </Link>
                 </Button>
               )}

@@ -30,6 +30,7 @@ model User {
   linkedinProfile     String?      @db.Text
   twitterProfile      String?      @db.Text
   facebookProfile     String?      @db.Text
+  tiktokProfile       String?      @db.Text
   position            String?
   organization        String?
   city                String?

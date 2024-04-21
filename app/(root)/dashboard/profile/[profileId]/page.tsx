@@ -32,6 +32,7 @@ const page = async ({ params }: Props) => {
       linkedinProfile: true,
       twitterProfile: true,
       facebookProfile: true,
+      tiktokProfile: true,
       expertise: true,
       industries: true,
       languages: true,
@@ -41,6 +42,7 @@ const page = async ({ params }: Props) => {
       username: true,
       duration: true,
       price: true,
+      portfolioWebsite: true,
     },
   });
 

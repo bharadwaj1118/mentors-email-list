@@ -3,7 +3,6 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useUser } from "@clerk/clerk-react";
 
 import {
   Dialog,
@@ -40,6 +39,7 @@ const formSchema = z.object({
   }),
   twitterProfile: z.string(),
   facebookProfile: z.string(),
+  tiktokProfile: z.string(),
 });
 
 export const EditSocialsModal = () => {
@@ -56,6 +56,7 @@ export const EditSocialsModal = () => {
       linkedinProfile: user?.linkedinProfile || "",
       twitterProfile: user?.twitterProfile || "",
       facebookProfile: user?.facebookProfile || "",
+      tiktokProfile: user?.tiktokProfile || "",
     },
   });
 
@@ -68,6 +69,9 @@ export const EditSocialsModal = () => {
     }
     if (user?.facebookProfile !== undefined) {
       form.setValue("facebookProfile", user?.facebookProfile);
+    }
+    if (user?.tiktokProfile !== undefined) {
+      form.setValue("tiktokProfile", user?.tiktokProfile);
     }
   }, [user, form]);
 
@@ -83,6 +87,7 @@ export const EditSocialsModal = () => {
         linkedinProfile: values.linkedinProfile,
         twitterProfile: values.twitterProfile,
         facebookProfile: values.facebookProfile,
+        tiktokProfile: values.tiktokProfile,
       });
 
       onClose();
@@ -168,6 +173,28 @@ export const EditSocialsModal = () => {
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                       facebook url
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                        placeholder="Enter url..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="space-y-4 px-6">
+              <FormField
+                control={form.control}
+                name="tiktokProfile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      tiktok url
                     </FormLabel>
                     <FormControl>
                       <Input

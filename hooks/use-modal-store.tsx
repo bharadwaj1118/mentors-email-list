@@ -60,6 +60,7 @@ interface User {
   linkedinProfile?: string;
   twitterProfile?: string;
   facebookProfile?: string;
+  tiktokProfile?: string;
   position?: string;
   organization?: string;
 }
