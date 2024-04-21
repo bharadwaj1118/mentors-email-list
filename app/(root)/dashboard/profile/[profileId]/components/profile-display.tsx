@@ -151,7 +151,7 @@ const ProfileDisplayPage = async ({
           </div>
 
           {/* Profile Details */}
-          <div className="flex flex-col justify-center items-center gap-4 md:mt-16">
+          <div className="flex flex-col justify-center items-center gap-4">
             {/* Name, Position and Organization */}
 
             <div className="flex justify-center items-center flex-col">
