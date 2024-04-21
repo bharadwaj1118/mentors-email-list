@@ -40,6 +40,7 @@ import {
   CopyToClipboardButton,
   RequestCallButton,
 } from "./profile-item-action";
+import LinkedInShareComponent from "./profile-share";
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -93,6 +94,11 @@ const ProfileDisplayPage = async ({
   // Check if the person can edit the profile
   const canEdit = profileId === selfAccount.id;
 
+  const shareUrl = "https://www.example.com";
+  const shareTitle = "Example Title";
+  const shareSummary = "This is a summary of the content being shared.";
+  const shareSource = "https://www.example.com";
+
   return (
     <div className="relative">
       {/* Profile Details */}
@@ -133,6 +139,17 @@ const ProfileDisplayPage = async ({
                 </Button>
               </div>
             )}
+
+            {/* Share component */}
+            <div>
+              <h1>Share on LinkedIn</h1>
+              <LinkedInShareComponent
+                url={shareUrl}
+                title={shareTitle}
+                summary={shareSummary}
+                source={shareSource}
+              />
+            </div>
           </div>
 
           {/* Profile Details */}
