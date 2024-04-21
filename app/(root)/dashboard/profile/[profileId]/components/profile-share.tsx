@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import {
   LinkedinShareButton,
   TwitterShareButton,
@@ -15,6 +16,16 @@ interface ShareButtonProps {
   property: any;
 }
 const ShareButton = ({ property }: ShareButtonProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const shareUrl = `https://mentorscx.vercel.app/`;
 
   return (
