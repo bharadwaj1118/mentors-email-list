@@ -323,6 +323,7 @@ const ProfileDisplayPage = async ({
                   linkedinProfile={linkedinProfile}
                   twitterProfile={twitterProfile}
                   facebookProfile={facebookProfile}
+                  tiktokProfile={tiktokProfile}
                 />
               )}
             </div>

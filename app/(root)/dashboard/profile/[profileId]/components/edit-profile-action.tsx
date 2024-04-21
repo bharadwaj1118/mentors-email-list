@@ -20,6 +20,7 @@ interface EditSocialActionProps {
   linkedinProfile?: string;
   twitterProfile?: string;
   facebookProfile?: string;
+  tiktokProfile?: string;
 }
 
 export function EditProfileAction() {
@@ -79,6 +80,7 @@ export function EditSocialsAction({
   linkedinProfile,
   twitterProfile,
   facebookProfile,
+  tiktokProfile,
 }: EditSocialActionProps) {
   const { onOpen } = useModal();
   const { isActive } = useEditProfileStore();
@@ -90,6 +92,7 @@ export function EditSocialsAction({
         linkedinProfile,
         twitterProfile,
         facebookProfile,
+        tiktokProfile,
       },
     });
   };
