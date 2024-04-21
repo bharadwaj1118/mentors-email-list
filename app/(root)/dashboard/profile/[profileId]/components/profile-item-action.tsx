@@ -149,7 +149,7 @@ export function CopyToClipboardButton({ id }: CopyToClipboardButtonProps) {
     toast.success("Link copied");
   };
   return (
-    <Button variant="link" className="text-lg" onClick={handleCopy}>
+    <Button variant="link" onClick={handleCopy}>
       Profile link <CopyIcon className="w-4 h-4 ml-2" />
     </Button>
   );

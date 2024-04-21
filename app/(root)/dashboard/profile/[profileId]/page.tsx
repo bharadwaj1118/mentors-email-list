@@ -38,6 +38,9 @@ const page = async ({ params }: Props) => {
       toolkit: true,
       experiences: true,
       joinedAt: true,
+      username: true,
+      duration: true,
+      price: true,
     },
   });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import {
+  ArrowUpIcon,
   BuildingIcon,
   Globe,
   Languages,
@@ -11,6 +12,8 @@ import {
   PhoneIcon,
   StarIcon,
   UserPlus as UserRoundPlus,
+  ShareIcon,
+  ExternalLink,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -43,6 +46,14 @@ interface ProfileDisplayPageProps {
   profileId: string;
 }
 
+function calculateHourlyCost(duration: number, price: number): number {
+  // Calculate the cost per hour by scaling the price to a full hour
+  const hourlyCost = (price / duration) * 60;
+
+  // Return the hourly cost rounded to the nearest whole number if needed
+  return Math.round(hourlyCost);
+}
+
 const ProfileDisplayPage = async ({
   user,
   profileId,
@@ -65,8 +76,13 @@ const ProfileDisplayPage = async ({
     linkedinProfile,
     twitterProfile,
     facebookProfile,
+    tiktokProfile,
     joinedAt,
+    price,
+    duration,
   } = JSON.parse(user);
+
+  console.log(price);
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -80,94 +96,127 @@ const ProfileDisplayPage = async ({
   return (
     <div className="relative">
       {/* Profile Details */}
+
       <div className="absolute right-8 top-8">
         {canEdit && <EditProfileAction />}
       </div>
-      <div className="flex space-y-3 flex-col items-center justify-center bg-white md:mt-6 rounded shadow">
-        <div className="flex items-center ">
-          <div className="relative mt-12">
-            <Image
-              src={imageUrl}
-              alt="avatar"
-              width={100}
-              height={100}
-              className="h-32 w-32 rounded-full object-cover overflow-hidden"
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center flex-col">
-          <h3 className="h3">{username}</h3>
-          <div className="flex items-center justify-center space-x-2">
-            <p className="large text-muted-foreground">
-              {position} @ {organization}
-            </p>
-            {canEdit && (
-              <EditProfileDetailsAction
-                position={position}
-                organization={organization}
-                id={id}
+      <div className="flex space-y-3 flex-col items-center justify-center bg-background rounded shadow p-3">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+          {/* Profile Image & Reviews */}
+          <div className="flex items-center justify-center flex-col gap-4">
+            {/* Profile Image */}
+            <div className="relative mt-12">
+              <Image
+                src={imageUrl}
+                alt="avatar"
+                width={100}
+                height={100}
+                className="h-32 w-32 rounded-full object-cover overflow-hidden"
               />
-            )}
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center justify-center muted max-md:space-y-1 md:flex-row md:justify-between md:space-x-6">
-          {/* <p className="text-base flex items-center">
-            <Globe className="h-4 w-4 text-blue-500 mr-1" />
-            Athens, Greece
-          </p> */}
-          <p className="text-base flex items-center">
-            <Languages className="h-4 w-4 text-blue-500 mr-1" />
-            {languages.map((language: any) => language.name).join(", ")}
-          </p>
-          <p className="text-base flex items-center">
-            <MapPin className="h-4 w-4 text-blue-500 mr-1" />
-            {city}, {country}
-          </p>
-          <p className="text-base flex items-center">
-            <BuildingIcon className="h-4 w-4 text-blue-500 mr-1" />
-            Joined {formatMonthYear(joinedAt)}
-          </p>
-        </div>
-
-        {/* Reviews and Price */}
-        <div className="md:w-2/3 mx-auto border-1 md:border-2 border-gray-200 py-4 px-6 shadow-md">
-          <div className="flex flex-col items-center justify-center space-y-1 md:flex-row md:justify-between">
-            <div className="flex flex-col items-center muted">
-              <p className="font-bold text-2xl text-green-600">Free</p>
-              <p className="text-sm">Price per hour</p>
             </div>
-            <div className="flex flex-col items-center muted">
-              <div className="bg-green-100 text-green-600 px-2 py-1 rounded-full font-semibold text-sm">
-                <p className="text-sm">30 min</p>
-              </div>
-              <div>Time blocks Available</div>
-            </div>
-            <div className="flex flex-col items-center muted">
+
+            {/* Reviews */}
+            <div className="flex flex-col items-center p-4  border-2 rounded-lg shadow-sm border-gray-400">
               <div className="flex items-center justify-center">
                 <StarIcon className="w-4 h-4 fill-yellow-500 text-yellow-500 mr-1" />
                 <p className="text-xl font-bold text-black">4.99</p>
               </div>
-              <div>331 reviews / 593 reviews</div>
+              <Separator className="h-[1px] w-full my-2 border-gray-400" />
+              <div>593 reviews</div>
             </div>
+
+            {/* Linkedin Share */}
+            {canEdit && (
+              <div>
+                <Button variant="secondary" className="flex items-center">
+                  Share on LinkedIn <ShareIcon className="h-4 w-4 ml-2" />
+                </Button>
+              </div>
+            )}
           </div>
 
-          <hr className="h-[2px] my-3 " />
-          <div className="flex flex-row items-center justify-center space-x-3 md:justify-start">
-            <div className="border-[2px] border-gray-200 rounded-md">
-              <p className="text-center bg-gray-200 px-2 py-1 font-semibold capitalize text-sm">
-                MON
-              </p>
-              <p className="text-center px-2 py-1 font-bold">11</p>
+          {/* Profile Details */}
+          <div className="flex flex-col justify-center items-center gap-4 md:mt-16">
+            {/* Name, Position and Organization */}
+
+            <div className="flex justify-center items-center flex-col">
+              <h3 className="h3 hidden md:block">
+                {username} |{" "}
+                <span className="large text-gray-800">
+                  {position} @ {organization}
+                </span>
+              </h3>
+
+              <h3 className="block h3 md:hidden">{username}</h3>
+              <h4 className="block md:hidden large text-neutral-800">
+                {position} @ {organization}
+              </h4>
+              {canEdit && (
+                <EditProfileDetailsAction
+                  position={position}
+                  organization={organization}
+                  id={id}
+                />
+              )}
             </div>
-            <div className="space-y-2">
-              <p className="small">Next Availability</p>
-              <div className="flex flex-row items-center justify-center space-x-1">
-                <Badge variant="secondary" className="bg-gray-200 rounded-full">
-                  in 18 days
-                </Badge>
-                <p className="muted">Monday, 11March. 10 AM CDT</p>
+
+            {/* Location and Joined Date */}
+            <div className="flex flex-col items-center justify-center muted max-md:space-y-4 md:flex-row md:justify-between md:space-x-6">
+              {/* <p className="text-base flex items-center">
+            <Globe className="h-4 w-4 text-blue-500 mr-1" />
+            Athens, Greece
+          </p> */}
+              <p className="text-base flex items-center">
+                <Languages className="h-4 w-4 text-blue-500 mr-1" />
+                {languages.map((language: any) => language.name).join(", ")}
+              </p>
+              <p className="text-base flex items-center">
+                <MapPin className="h-4 w-4 text-blue-500 mr-1" />
+                {city}, {country}
+              </p>
+              <p className="text-base flex items-center">
+                <BuildingIcon className="h-4 w-4 text-blue-500 mr-1" />
+                Joined {formatMonthYear(joinedAt)}
+              </p>
+            </div>
+
+            {/* Portfolio website & Profile*/}
+            <div className="flex items-center justify-between flex-col md:flex-row gap-4">
+              <Button variant="link" className="text-sm md:text-base">
+                Personal Website <ExternalLink className="w-4 h-4 ml-2" />
+              </Button>
+              <div className="flex-1 text-primary text-lg text-end md:ml-auto">
+                <CopyToClipboardButton id={id} />
+              </div>
+            </div>
+
+            {/* Reviews and Available Information */}
+            <div className="w-fit mx-auto border-2 md:border-2 border-gray-400 p-4 px-6  md:px-12 rounded-lg md:rounded-full">
+              <div className="flex flex-col items-center justify-center space-y-1 md:flex-row md:justify-between gap-4 md:gap-12">
+                <div className="flex flex-col items-center muted">
+                  {price === 0 ? (
+                    <p className="font-bold text-2xl text-green-600">Free</p>
+                  ) : (
+                    <p className="font-bold text-2xl text-neutral-800">
+                      {price}$
+                    </p>
+                  )}
+                  <p className="text-sm">Price per hour</p>
+                </div>
+                <Separator className="h-[2px] md:hidden" />
+                <div className="flex flex-col items-center muted">
+                  <div className="bg-green-100 text-green-600 px-2 py-1 rounded-full font-semibold text-sm">
+                    <p className="text-sm">{duration} min</p>
+                  </div>
+                  <div>Time blocks Available</div>
+                </div>
+                <Separator className="h-[2px] md:hidden" />
+                <div className="flex flex-col items-center muted">
+                  <div className="flex items-center justify-center">
+                    <p className="text-xl font-bold text-black">May 26</p>
+                  </div>
+                  <div>Next Available day</div>
+                </div>
               </div>
             </div>
           </div>
@@ -215,7 +264,7 @@ const ProfileDisplayPage = async ({
                 </Button>
               )}
             </div>
-            <div className="text-primary">
+            <div className="text-gray-600">
               {twitterProfile && (
                 <Button variant="link" size="icon" asChild>
                   <Link
@@ -224,6 +273,19 @@ const ProfileDisplayPage = async ({
                     target="_blank"
                   >
                     <TwitterLogoIcon className="w-6 h-6 hover:scale-125 transition-colors duration-300" />
+                  </Link>
+                </Button>
+              )}
+            </div>
+            <div className="text-primary">
+              {tiktokProfile && (
+                <Button variant="link" size="icon" asChild>
+                  <Link
+                    href={tiktokProfile}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <ArrowUpIcon className="w-6 h-6 hover:scale-125 transition-colors duration-300" />
                   </Link>
                 </Button>
               )}
@@ -245,7 +307,7 @@ const ProfileDisplayPage = async ({
         <Separator className="h-[2px] my-3" />
 
         {/* Profile Navigation */}
-        <div className="flex items-center flex-col max-md:space-y-3 md:space-x-3 md:flex-row md:justify-start w-full md:w-2/3 p-3">
+        <div className="flex items-center flex-col max-md:space-y-3 md:space-x-3 md:flex-row md:justify-start w-full md:w-2/3 p-3 flex-wrap">
           <Button variant="link">
             <Link href="#bio" className="text-lg">
               Bio
@@ -276,9 +338,6 @@ const ProfileDisplayPage = async ({
               Reviews
             </Link>
           </Button>
-          <div className="flex-1 text-primary text-lg text-end md:ml-auto">
-            <CopyToClipboardButton id={id} />
-          </div>
         </div>
       </div>
 

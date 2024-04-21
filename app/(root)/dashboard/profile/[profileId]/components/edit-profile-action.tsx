@@ -140,11 +140,10 @@ export function EditProfileDetailsAction({
   return (
     <Button
       variant="outline"
-      className="flex items-center"
+      className="flex items-center m-2"
       onClick={handleClick}
-      size="sm"
     >
-      <PencilIcon className="w-4 h-4 mr-1" />
+      <PencilIcon className="w-4 h-4 mr-1" /> Edit Title
     </Button>
   );
 }
