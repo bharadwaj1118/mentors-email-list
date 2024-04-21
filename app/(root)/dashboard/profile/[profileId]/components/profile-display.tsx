@@ -40,7 +40,13 @@ import {
   CopyToClipboardButton,
   RequestCallButton,
 } from "./profile-item-action";
-import LinkedInShareComponent from "./profile-share";
+import dynamic from "next/dynamic";
+import { Share } from "next/font/google";
+import ShareButton from "./profile-share";
+
+const LinkedInShareComponent = dynamic(() => import("./profile-share"), {
+  ssr: false,
+});
 
 interface ProfileDisplayPageProps {
   user: string;
@@ -131,25 +137,17 @@ const ProfileDisplayPage = async ({
               <div>593 reviews</div>
             </div>
 
-            {/* Linkedin Share */}
+            {/* Share component */}
             {canEdit && (
               <div>
-                <Button variant="secondary" className="flex items-center">
-                  Share on LinkedIn <ShareIcon className="h-4 w-4 ml-2" />
-                </Button>
+                <ShareButton
+                  property={{
+                    name: "Property Name",
+                    type: "Property Type",
+                  }}
+                />
               </div>
             )}
-
-            {/* Share component */}
-            <div>
-              <h1>Share on LinkedIn</h1>
-              <LinkedInShareComponent
-                url={shareUrl}
-                title={shareTitle}
-                summary={shareSummary}
-                source={shareSource}
-              />
-            </div>
           </div>
 
           {/* Profile Details */}
