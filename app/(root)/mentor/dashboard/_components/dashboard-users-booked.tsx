@@ -16,7 +16,7 @@ const DashBoardUsersBooked = async (props: TDashBoardUsersBookedProps) => {
     <div>
       <DashboardInfoCard
         title="Users Booked"
-        displayValue={sessionCountLastMonth.toString()}
+        displayValue={sessionCountLastMonth?.toString() || "0"}
         footer="last 30 days"
       />
     </div>

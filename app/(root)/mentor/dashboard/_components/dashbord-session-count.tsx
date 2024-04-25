@@ -16,7 +16,7 @@ const DashBoardSessionCount = async (props: TDashBoardSessionCount) => {
     <section>
       <DashboardInfoCard
         title="Sessions Completed"
-        displayValue={sessionsCompleted.toString()}
+        displayValue={sessionsCompleted?.toString() || "0"}
         footer="last 30 days"
       />
     </section>
