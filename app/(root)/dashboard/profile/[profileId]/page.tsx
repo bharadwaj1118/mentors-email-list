@@ -2,6 +2,7 @@ import React from "react";
 
 import { db } from "@/lib/db";
 import ProfileDisplayPage from "./components/profile-display";
+import { addProfileViewCount } from "@/lib/actions/helper.action";
 
 interface Props {
   params: {
@@ -15,6 +16,8 @@ const page = async ({ params }: Props) => {
   if (profileId === null) {
     return <div>Profile not found</div>;
   }
+
+  addProfileViewCount({ profileId });
 
   const user = await db.user.findUnique({
     where: {

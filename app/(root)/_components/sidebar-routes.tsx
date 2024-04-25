@@ -1,27 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import {
-  BarChart,
-  Compass,
   Layout,
-  List,
   Settings,
-  User,
   CalendarClock,
   Clock,
   Presentation,
-  Sheet,
   MessageSquarePlusIcon,
+  LayoutDashboard,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
-import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+
 import { Montserrat } from "next/font/google";
-import { SheetClose } from "@/components/ui/sheet";
 
 const poppins = Montserrat({ weight: "600", subsets: ["latin"] });
 
@@ -47,6 +39,12 @@ const guestRoutes = [
 ];
 
 const mentorRoutes = [
+  {
+    icon: LayoutDashboard,
+    label: "Dashboard",
+    href: "/mentor/dashboard",
+    color: "text-neutral-600",
+  },
   {
     icon: CalendarClock,
     label: "Schedule",

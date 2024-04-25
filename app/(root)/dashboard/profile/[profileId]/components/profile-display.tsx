@@ -91,8 +91,6 @@ const ProfileDisplayPage = async ({
     portfolioWebsite,
   } = JSON.parse(user);
 
-  console.log(portfolioWebsite);
-
   // Get the self account
   const selfAccount = await getSelfId();
   if (!selfAccount) {
@@ -102,6 +100,7 @@ const ProfileDisplayPage = async ({
   // Check if the person can edit the profile
   const canEdit = profileId === selfAccount.id;
 
+  // TODO: Standardize the share URL, title, summary, and source
   const shareUrl = "https://www.example.com";
   const shareTitle = "Example Title";
   const shareSummary = "This is a summary of the content being shared.";

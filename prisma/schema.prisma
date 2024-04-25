@@ -222,3 +222,12 @@ model Experience {
   @@unique([userId, name])
   @@index([userId])
 }
+
+model ProfileView {
+  id        Int      @id @default(autoincrement())
+  profileId String
+  viewerId  String
+  createdAt DateTime @default(now())
+
+  @@index([profileId])
+}
