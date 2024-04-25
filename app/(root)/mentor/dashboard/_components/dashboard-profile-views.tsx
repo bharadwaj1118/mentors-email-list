@@ -16,7 +16,7 @@ const DashBoardProfileViews = async (props: TDashBoardProfileViewsProps) => {
     <div>
       <DashboardInfoCard
         title="Profile Views"
-        displayValue={viewCount.toString()}
+        displayValue={viewCount?.toString() || "0"}
         footer="last 30 days"
       />
     </div>

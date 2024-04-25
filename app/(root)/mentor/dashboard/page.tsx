@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 
-import DashboardInfoCard from "./_components/dashboard-info-card";
 import { DashboardFeedbackForm } from "./_components/dashboard-feedback-form";
 import DashBoardProfileCard from "./_components/dashboard-profile-card";
 import DashBoardProfileViews from "./_components/dashboard-profile-views";
@@ -65,7 +64,7 @@ const MentorDashboardPage = async () => {
 
       {/* Feedback Form */}
       <div className="w-full col-span-3">
-        <DashboardFeedbackForm userId="1234" />
+        <DashboardFeedbackForm userId={id} />
       </div>
     </div>
   );

@@ -223,6 +223,7 @@ model Experience {
   @@index([userId])
 }
 
+// TODO: Add userId to ProfileView and FeatureRequest
 model ProfileView {
   id        Int      @id @default(autoincrement())
   profileId String
@@ -230,4 +231,18 @@ model ProfileView {
   createdAt DateTime @default(now())
 
   @@index([profileId])
+}
+
+enum FeatureType {
+  NEW_FEATURE
+  IMPROVEMENT
+  BUG
+  DASHBOARD
+}
+
+model FeatureRequest {
+  id          Int         @id @default(autoincrement())
+  userId      String
+  featureType FeatureType @default(NEW_FEATURE)
+  description String      @db.Text
 }

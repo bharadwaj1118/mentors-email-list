@@ -15,15 +15,15 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { updateUser } from "@/lib/actions/user.action";
 import { Textarea } from "@/components/ui/textarea";
+import { createFeatureRequest } from "@/lib/actions/support.action";
 
 interface DashboardFeedbackFormProps {
   userId: string;
 }
 
 const formSchema = z.object({
-  featureRequest: z.string().min(10, "Must be at least 10 characters"),
+  description: z.string().min(10, "Must be at least 10 characters"),
 });
 
 export const DashboardFeedbackForm = ({
@@ -34,7 +34,7 @@ export const DashboardFeedbackForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      featureRequest: "",
+      description: "",
     },
   });
 
@@ -42,10 +42,18 @@ export const DashboardFeedbackForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // TODO: Change the Relavant Method
-      await updateUser({ ...values, id: userId });
-      toast.success("Price updated");
-      router.refresh();
+      const result = await createFeatureRequest({
+        ...values,
+        userId,
+        featureType: "DASHBOARD",
+      });
+      if (result) {
+        toast.success("Request submitted successfully!");
+        router.refresh();
+      } else {
+        throw new Error("Failed to submit request");
+      }
+      form.reset();
     } catch {
       toast.error("Something went wrong");
     }
@@ -63,7 +71,7 @@ export const DashboardFeedbackForm = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <FormField
             control={form.control}
-            name="featureRequest"
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
