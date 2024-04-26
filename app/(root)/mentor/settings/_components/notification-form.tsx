@@ -58,7 +58,6 @@ export function DisplayForm() {
   const { isSubmitting, isValid, isDirty } = form.formState;
 
   function onSubmit(data: DisplayFormValues) {
-    console.log(data);
     toast.success("Data has been saved");
   }
 

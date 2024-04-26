@@ -23,6 +23,7 @@ const DashboardSessionsUpcoming = async ({
         select: {
           id: true,
           role: true,
+          timeZone: true,
         },
       },
       mentee: {

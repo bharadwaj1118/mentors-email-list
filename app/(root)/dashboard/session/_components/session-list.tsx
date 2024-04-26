@@ -7,7 +7,7 @@ interface SessionListProps {
 
 const SessionList = ({ sessions }: SessionListProps) => {
   const sessionsJSON = JSON.parse(sessions);
-  console.log(sessionsJSON);
+
   return (
     <div>
       {sessionsJSON &&

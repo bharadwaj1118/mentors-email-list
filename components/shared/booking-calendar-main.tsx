@@ -19,6 +19,7 @@ type BookingCalendarMainProps = {
   timeZone: string;
   weeklyEvents: Event[];
   duration: number;
+  price: number;
   mentorId: string;
 };
 
@@ -193,6 +194,7 @@ const BookingCalendarMain = ({
   individualEvents,
   timeZone,
   weeklyEvents,
+  price,
   duration,
   mentorId,
 }: BookingCalendarMainProps) => {
@@ -289,6 +291,8 @@ const BookingCalendarMain = ({
               mentorId,
               start: selectedSlot?.start || new Date(),
               end: selectedSlot?.end || new Date(),
+              price,
+              duration,
             }}
           />
         </div>

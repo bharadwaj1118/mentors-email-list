@@ -16,7 +16,6 @@ const DurationPreference = ({ user }: DurationPreferenceProps) => {
   const parsedUser = JSON.parse(user);
 
   const { duration: initialDurationPreference } = parsedUser;
-  console.log(initialDurationPreference);
 
   const [durationPreference, setDurationPreference] = useState(
     initialDurationPreference.toString()

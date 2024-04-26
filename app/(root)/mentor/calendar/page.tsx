@@ -26,6 +26,7 @@ const CalendarPage = async () => {
       timeZone: true,
       meetingPreference: true,
       duration: true,
+      price: true,
       weeklyAvailability: true,
       events: {
         select: {
@@ -84,6 +85,7 @@ const CalendarPage = async () => {
               timeZone={timeZone}
               duration={user.duration}
               mentorId={user.id}
+              price={user.price}
             />
           </div>
         </div>

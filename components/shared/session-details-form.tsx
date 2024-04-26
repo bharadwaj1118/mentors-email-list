@@ -36,6 +36,8 @@ interface SessionDetailsFormProps {
     | "end"
     | "menteeId"
     | "mentorId"
+    | "price"
+    | "duration"
   >;
 }
 
@@ -85,7 +87,7 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
         toast.success("Session created successfully");
       }
 
-      router.push("/dashboard/session");
+      router.push("/mentor/session");
     } catch (error) {
       console.log(error);
       toast.error("Unexpected Error...");

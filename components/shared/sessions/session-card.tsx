@@ -9,10 +9,12 @@ import Link from "next/link";
 import { formatDateToWeekDDMonth, formatDateToHHMMToHHMM } from "@/lib/format";
 import SessionAction from "@/app/(root)/_components/shared/session-action";
 import { ChevronRight } from "lucide-react";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 
 import { toast } from "sonner";
 import { updateSession } from "@/lib/actions/session.action";
 import { Role, Session, SessionStatus } from "@prisma/client";
+import { date } from "zod";
 
 type CurrentPage = "MENTOR_DASHBOARD" | "MENTOR_SESSION" | "MENTEE_SESSIONS";
 
@@ -21,6 +23,7 @@ type SessionCardProps = {
   currUser: {
     id: string;
     role: Role | null;
+    timeZone: string | null;
   };
   otherUser: {
     username: string;
@@ -32,6 +35,8 @@ type SessionCardProps = {
 const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
   const router = useRouter();
 
+  console.log(session);
+
   // Permissions based on the current Page, role and the session status
   const showViewButton = true;
   const showAcceptButton =
@@ -40,6 +45,16 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
   const showCancelButton = session.status === "ACCEPTED";
   const showActionButton =
     showAcceptButton || showDeclineButton || showCancelButton;
+
+  // Transformations for the display
+  const startInTimeZone = utcToZonedTime(
+    new Date(session.start),
+    currUser?.timeZone || "UTC"
+  );
+  const endInTimeZone = utcToZonedTime(
+    new Date(session.end),
+    currUser?.timeZone || "UTC"
+  );
 
   // 2. Define a submit handler.
   const handleAcceptSession = async () => {
@@ -53,7 +68,6 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
       });
 
       toast.success(" Accepted the session");
-      router.push("/mentor/session");
       router.refresh();
     } catch (error) {
       console.log(error);
@@ -135,13 +149,10 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="medium uppercase">
-                  {formatDateToWeekDDMonth(new Date(session.start))}
+                  {formatDateToWeekDDMonth(startInTimeZone)}
                 </p>
                 <p className="muted mt-1">
-                  {formatDateToHHMMToHHMM(
-                    new Date(session.start),
-                    new Date(session.end)
-                  )}
+                  {formatDateToHHMMToHHMM(startInTimeZone, endInTimeZone)}
                 </p>
               </div>
               <div>

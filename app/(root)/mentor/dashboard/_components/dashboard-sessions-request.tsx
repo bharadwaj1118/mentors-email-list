@@ -24,6 +24,7 @@ const DashboardSessionsRequest = async ({
         select: {
           id: true,
           role: true,
+          timeZone: true,
         },
       },
       mentee: {
