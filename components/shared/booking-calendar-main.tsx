@@ -294,6 +294,7 @@ const BookingCalendarMain = ({
               price,
               duration,
             }}
+            timeZone={timeZone}
           />
         </div>
       )}

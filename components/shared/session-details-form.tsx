@@ -24,6 +24,7 @@ import { createSession } from "@/lib/actions/session.action";
 import { formatAMPM } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { zonedTimeToUtc } from "date-fns-tz";
+import { time } from "console";
 
 interface SessionDetailsFormProps {
   session: Pick<
@@ -39,6 +40,7 @@ interface SessionDetailsFormProps {
     | "price"
     | "duration"
   >;
+  timeZone: string;
 }
 
 const FormSchema = z.object({
@@ -56,7 +58,10 @@ const FormSchema = z.object({
   }),
 });
 
-export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
+export function SessionDetailsForm({
+  session,
+  timeZone,
+}: SessionDetailsFormProps) {
   const start = new Date(session.start);
   const end = new Date(session.end);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,15 +84,14 @@ export function SessionDetailsForm({ session }: SessionDetailsFormProps) {
       const newSession = await createSession({
         ...session,
         ...values,
-        start: zonedTimeToUtc(start, "UTC"),
-        end: zonedTimeToUtc(end, "UTC"),
+        start: zonedTimeToUtc(start, timeZone),
+        end: zonedTimeToUtc(end, timeZone),
       });
 
       if (newSession) {
         toast.success("Session created successfully");
       }
-
-      router.push("/mentor/session");
+      router.push("/mentor/dashbaord");
     } catch (error) {
       console.log(error);
       toast.error("Unexpected Error...");
