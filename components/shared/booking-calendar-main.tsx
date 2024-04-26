@@ -200,7 +200,7 @@ const BookingCalendarMain = ({
   const [selectedSlot, setSelectedSlot] = React.useState<Event | null>(null);
   const [openForm, setOpenForm] = React.useState(false);
 
-  const today = new Date(); // Getting today's date
+  const today = utcToZonedTime(new Date(), timeZone); // Getting today's date
   const threeMonthsLater = new Date(); // Copying today's date
   threeMonthsLater.setMonth(today.getMonth() + 3); // Setting it to three months from now
 
@@ -210,7 +210,6 @@ const BookingCalendarMain = ({
 
   const handleSelectSlot = (slot: Event) => {
     setSelectedSlot(slot);
-    console.log(slot);
   };
 
   // Convert events to the specified timezone

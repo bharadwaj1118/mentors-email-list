@@ -58,6 +58,7 @@ const CalendarPage = async () => {
   const weeklyAvailability = user?.weeklyAvailability || {};
   const { schedule } = JSON.parse(JSON.stringify(weeklyAvailability)) || [];
   const weeklyEvents = generateEventsForNextYear(schedule);
+  //TODO: SET DEFAULT TIMEZONE IN PRISMA
   const timeZone = user?.timeZone || "America/New_York";
 
   return (
