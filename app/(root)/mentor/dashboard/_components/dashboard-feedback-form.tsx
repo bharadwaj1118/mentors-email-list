@@ -60,7 +60,7 @@ export const DashboardFeedbackForm = ({
   };
 
   return (
-    <div className="my-4 lg:my-8 p-3 border shadow rounded-lg bg-background">
+    <div className="my-4 p-3 border shadow rounded-lg bg-background">
       <div className="font-medium flex items-center justify-between">
         <p className="large">
           What else would you like to see in your dashboard?

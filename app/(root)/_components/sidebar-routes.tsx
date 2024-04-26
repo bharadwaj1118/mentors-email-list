@@ -8,6 +8,7 @@ import {
   Presentation,
   MessageSquarePlusIcon,
   LayoutDashboard,
+  CalendarCheck,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -61,6 +62,12 @@ const mentorRoutes = [
     icon: MessageSquarePlusIcon,
     label: "Messaging",
     href: "/mentor/chats",
+    color: "text-neutral-600",
+  },
+  {
+    icon: CalendarCheck,
+    label: "Calendar",
+    href: "/mentor/calendar",
     color: "text-neutral-600",
   },
   {

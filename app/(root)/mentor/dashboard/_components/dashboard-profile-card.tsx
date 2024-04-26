@@ -39,7 +39,7 @@ const DashBoardProfileCard = ({
   reviews,
 }: DashBoardProfileCardProps) => {
   return (
-    <section className="mt-4 lg:my-8 p-3 border shadow rounded-lg bg-background md:pl-6 col-span-1">
+    <section className="lg:mt-4 p-3 border shadow rounded-lg bg-background md:pl-6 col-span-1">
       <div className="flex items-center justify-center flex-col gap-1">
         <Avatar className="w-20 h-20">
           <AvatarImage src={userImage} alt={userName} />
@@ -52,8 +52,13 @@ const DashBoardProfileCard = ({
         <p className="muted">{sessions} sessions</p>
         <p className="muted">{reviews} reviews</p>
 
-        <div className="w-full flex justify-between gap-2 items-center my-2">
-          <Button variant="outline" size="sm" asChild>
+        <div className="w-full flex flex-col md:flex-row justify-between gap-2 items-center my-2">
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="w-[150px] md:w-fit"
+          >
             <Link href={`/dashboard/profile/${userId}`}>View my Profile</Link>
           </Button>
 
