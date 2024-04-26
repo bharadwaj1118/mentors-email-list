@@ -129,10 +129,11 @@ type TSession = {
   objective: string;
   category: string;
   description: string;
+  price: number;
+  duration: number;
 };
 
 export async function createSession(session: TSession) {
-  console.log(session);
   const user = await getSelfId();
   if (!user) throw new Error("User not found");
 

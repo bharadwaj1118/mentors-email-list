@@ -38,7 +38,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
   });
 
   return (
-    <div className="mx-auto h-full max-w-5xl p-6">
+    <div className="mx-auto h-full max-w-5xl p-6 mt-6">
       {/* SESSION DETAILS */}
 
       <h3 className="h4">Session Request</h3>

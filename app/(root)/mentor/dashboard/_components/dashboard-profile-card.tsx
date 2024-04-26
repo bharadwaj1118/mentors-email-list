@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import { LinkedInShareButton } from "./dashboard-actions";
+import { getInitials } from "@/lib/utils";
 
 type DashBoardProfileCardProps = {
   userId: string;
@@ -15,20 +16,6 @@ type DashBoardProfileCardProps = {
   sessions: number;
   reviews: number;
 };
-
-function getInitials(fullName: string): string {
-  // Split the name into parts based on spaces
-  const parts = fullName.trim().split(" ");
-
-  // Ensure there are at least two parts for first and last name
-  if (parts.length < 2) {
-    throw new Error("Please provide both first and last names.");
-  }
-
-  const firstInitial = parts[0][0];
-  const lastInitial = parts[parts.length - 1][0];
-  return (firstInitial + lastInitial).toUpperCase();
-}
 
 const DashBoardProfileCard = ({
   userId,

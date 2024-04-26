@@ -161,9 +161,9 @@ model Session {
   objective   String @db.Text
   description String @db.Text
   outcome     String @db.Text
-  duration    Int?
+  duration    Int
   category    String
-  price       Int?
+  price       Int
 
   mentorId String
   mentor   User   @relation("sessionsGiven", fields: [mentorId], references: [id])

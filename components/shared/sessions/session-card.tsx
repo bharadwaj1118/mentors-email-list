@@ -14,7 +14,7 @@ import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { toast } from "sonner";
 import { updateSession } from "@/lib/actions/session.action";
 import { Role, Session, SessionStatus } from "@prisma/client";
-import { date } from "zod";
+import { getInitials } from "@/lib/utils";
 
 type CurrentPage = "MENTOR_DASHBOARD" | "MENTOR_SESSION" | "MENTEE_SESSIONS";
 
@@ -111,7 +111,7 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
         <div className="p-3">
           <Avatar>
             <AvatarImage src={otherUser.imageUrl} />
-            <AvatarFallback>User</AvatarFallback>
+            <AvatarFallback>{getInitials(otherUser.username)}</AvatarFallback>
           </Avatar>
         </div>
         <div className="w-full space-y-3">
@@ -163,7 +163,7 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
             <div className="flex items-start justify-around gap-4">
               <div>
                 <p className="medium uppercase">cost</p>
-                <p className="muted mt-1">{session.price}$</p>
+                <p className="muted mt-1">${session.price}</p>
               </div>
               <div>
                 <p className="medium uppercase">Status</p>

@@ -60,7 +60,7 @@ export const DashboardFeedbackForm = ({
   };
 
   return (
-    <div className="my-4 p-3 border shadow rounded-lg bg-background">
+    <div className="my-4 p-3 md:px-6 border shadow rounded-lg bg-background">
       <div className="font-medium flex items-center justify-between">
         <p className="large">
           What else would you like to see in your dashboard?
@@ -77,7 +77,7 @@ export const DashboardFeedbackForm = ({
                 <FormControl>
                   <Textarea
                     disabled={isSubmitting}
-                    placeholder="Type your feedback here..."
+                    placeholder="Type your request here..."
                     {...field}
                     className="h-[150px] md:h-[100px]"
                   />

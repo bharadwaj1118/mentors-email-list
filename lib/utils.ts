@@ -113,3 +113,17 @@ export function splitEventToSessions(
 
   return intervals;
 }
+
+export function getInitials(fullName: string): string {
+  // Split the name into parts based on spaces
+  const parts = fullName.trim().split(" ");
+
+  // Ensure there are at least two parts for first and last name
+  if (parts.length < 2) {
+    throw new Error("Please provide both first and last names.");
+  }
+
+  const firstInitial = parts[0][0];
+  const lastInitial = parts[parts.length - 1][0];
+  return (firstInitial + lastInitial).toUpperCase();
+}

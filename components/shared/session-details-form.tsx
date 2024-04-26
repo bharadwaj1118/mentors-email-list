@@ -21,7 +21,7 @@ import { toast } from "sonner";
 
 import { Session } from "@prisma/client";
 import { createSession } from "@/lib/actions/session.action";
-import { formatAMPM } from "@/lib/format";
+import { calculatePrice, formatAMPM } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { time } from "console";
@@ -86,12 +86,13 @@ export function SessionDetailsForm({
         ...values,
         start: zonedTimeToUtc(start, timeZone),
         end: zonedTimeToUtc(end, timeZone),
+        price: calculatePrice(session.duration, session.price),
       });
 
       if (newSession) {
         toast.success("Session created successfully");
       }
-      router.push("/mentor/dashbaord");
+      router.push("/mentor/dashboard");
     } catch (error) {
       console.log(error);
       toast.error("Unexpected Error...");
