@@ -1,12 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
-import { MentorsCalendar } from "./_components/mentors-calendar";
-import { listEvents } from "@/lib/actions/google-calandar.action";
+import { Button } from "@/components/ui/button";
+import { db } from "@/lib/db";
+
 import Heading from "@/components/shared/heading";
 import RecurPage from "./_components/recurring-calandar";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
-import { db } from "@/lib/db";
-
+import { listEvents } from "@/lib/actions/google-calandar.action";
+import { MentorsCalendar } from "./_components/mentors-calendar";
+import { ArrowUpRight } from "lucide-react";
 interface MentorSchedulePageProps {
   params: {
     profileId: string;
@@ -52,20 +55,30 @@ const MentorSchedulePage = async ({
   }
 
   return (
-    <div className="max-w-5xl mx-auto pt-[80px]">
-      <div className="my-4 lg:my-8 p-3 border shadow rounded bg-background md:pl-6">
-        <Heading
-          title="Mentor Schedule"
-          description="Manage your calendar"
-          imageUrl="/assets/schedule_tab.svg"
-        />
+    <div className="max-w-5xl mx-auto pt-[80px] p-3">
+      <div className="mt-4 p-3 border shadow rounded bg-background md:pl-6">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <Heading
+            title="My Schedule"
+            description="Manage your availability"
+            imageUrl="/assets/schedule_tab.svg"
+          />
+          <Button asChild variant="link">
+            <Link href="/">
+              <>
+                Sync your Google or Microsoft calendar
+                <ArrowUpRight />
+              </>
+            </Link>
+          </Button>
+        </div>
       </div>
 
-      <div className="my-4 p-3 border shadow rounded bg-background">
+      <div className="mt-4 p-3 border shadow rounded bg-background">
         <RecurPage user={JSON.stringify(user)} />
       </div>
 
-      <div className="my-4 p-3 border shadow rounded bg-background">
+      <div className="mt-4 p-3 border shadow rounded bg-background">
         <MentorsCalendar
           user={JSON.stringify(user)}
           externalEvents={JSON.stringify(externalEvents)}

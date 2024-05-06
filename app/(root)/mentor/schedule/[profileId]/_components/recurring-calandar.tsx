@@ -174,8 +174,8 @@ const Total = ({ control }: { control: Control<FormValues> }) => {
   const totalMinutes = total % 60;
 
   return (
-    <p>
-      Your weeekly Duration: {totalHours} hours and {totalMinutes} minutes
+    <p className="small !text-base">
+      Your weeekly availability: {totalHours}h {totalMinutes}min
     </p>
   );
 };
@@ -231,10 +231,16 @@ const RecurPage = ({ user }: RecurPageProps) => {
   };
 
   return (
-    <div className="mx-auto max-w-5xl p-3 mt-6 ">
+    <div className="mx-auto max-w-5xl p-3">
+      <div className="mb-4">
+        <h3 className="text-2xl font-semibold">Weekly Recurrence</h3>
+        <p className="muted">
+          Set up your recurrent availability - set times repeat weekly
+        </p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {fields.map((field, index) => (
-          <section className="flex gap-4" key={field.id}>
+          <section className="flex gap-4 flex-wrap" key={field.id}>
             {/* <Input
               placeholder="name"
               {...register(`schedule.${index}.name` as const, {
@@ -270,25 +276,27 @@ const RecurPage = ({ user }: RecurPageProps) => {
               )}
             />
 
-            <Input
-              placeholder="Start Time"
-              type="time"
-              {...register(`schedule.${index}.startTime` as const, {
-                required: "Start time is required",
-              })}
-              className="w-fit"
-              defaultValue={field.startTime}
-            />
-            <Input
-              placeholder="End Time"
-              type="time"
-              {...register(`schedule.${index}.endTime` as const, {
-                required: "End time is required",
-              })}
-              className="w-fit"
-              defaultValue={field.endTime}
-            />
-            <Button
+            <div className="flex gap-4">
+              <Input
+                placeholder="Start Time"
+                type="time"
+                {...register(`schedule.${index}.startTime` as const, {
+                  required: "Start time is required",
+                })}
+                className="min-w-[125px] w-fit"
+                defaultValue={field.startTime}
+              />
+              <Input
+                placeholder="End Time"
+                type="time"
+                {...register(`schedule.${index}.endTime` as const, {
+                  required: "End time is required",
+                })}
+                className="min-w-[125px] w-fit"
+                defaultValue={field.endTime}
+              />
+              {/*FUTURE: Ref to order*/}
+              {/* <Button
               type="button"
               onClick={() => {
                 if (index > 0) swap(index, index - 1);
@@ -307,37 +315,40 @@ const RecurPage = ({ user }: RecurPageProps) => {
               size="icon"
             >
               <ChevronDown />
-            </Button>
-            <Button
-              type="button"
-              onClick={() => remove(index)}
-              variant="outline"
-              size="icon"
-            >
-              <TrashIcon className="w-4 h-4 text-danger" />
-            </Button>
+            </Button> */}
+              <Button
+                type="button"
+                onClick={() => remove(index)}
+                variant="outline"
+                size="icon"
+              >
+                <TrashIcon className="w-4 h-4 text-danger" />
+              </Button>
+            </div>
           </section>
         ))}
 
-        <Total control={control} />
+        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+          <div className="flex gap-4">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() =>
+                append({
+                  day: "Monday",
+                  startTime: "09:00",
+                  endTime: "18:00",
+                })
+              }
+            >
+              ADD <PlusIcon className="w-4 h-4 ml-1" />
+            </Button>
+            <Button type="submit" disabled={!isDirty}>
+              Save
+            </Button>
+          </div>
 
-        <div className="flex gap-4">
-          <Button
-            variant="outline"
-            type="button"
-            onClick={() =>
-              append({
-                day: "Monday",
-                startTime: "09:00",
-                endTime: "18:00",
-              })
-            }
-          >
-            ADD <PlusIcon className="w-4 h-4 ml-1" />
-          </Button>
-          <Button type="submit" disabled={!isDirty}>
-            Save
-          </Button>
+          <Total control={control} />
         </div>
       </form>
     </div>

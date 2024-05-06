@@ -188,7 +188,19 @@ export const MentorsCalendar = ({
   // );
 
   return (
-    <>
+    <div className="p-3">
+      <section className="flex items-start justify-between flex-col md:flex-row gap-4">
+        <div>
+          <h3 className="text-2xl font-semibold">Specific Availability</h3>
+          <p className="muted">Add specific dates and times to your calendar</p>
+        </div>
+        <div>
+          <p className="muted !font-semibold">*right click to delete event</p>
+          <p className="muted !font-semibold">
+            *click or drag to set a timeslot
+          </p>
+        </div>
+      </section>
       <AlertPopup
         title="Are you  sure?"
         description="This event will be removed from your calendar."
@@ -217,6 +229,6 @@ export const MentorsCalendar = ({
           popup
         />
       </div>
-    </>
+    </div>
   );
 };
