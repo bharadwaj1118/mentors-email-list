@@ -1,12 +1,14 @@
-import { db } from "@/lib/db";
+import React from "react";
+import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 
-import { redirect } from "next/navigation";
-import React from "react";
+import { db } from "@/lib/db";
 
-import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
 import BookingCalendarMain from "@/components/shared/booking-calendar-main";
+import Heading from "@/components/shared/heading";
+import { generateEventsForNextYear } from "@/lib/helpers/recurring";
+
 const CalendarPage = async () => {
   // Get clerk Auth return if nothing
   const { userId } = auth();
@@ -63,11 +65,20 @@ const CalendarPage = async () => {
   const timeZone = user?.timeZone || "America/New_York";
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="max-w-5xl mx-auto p-3 md:p-6 bg-background rounded border shadow">
-        <div className="flex flex-col md:flex-row">
+    <div className="pt-[80px] min-h-screen p-3">
+      <div className="w-full mt-4 max-w-5xl mx-auto p-3 border shadow rounded bg-background md:pl-6">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <Heading
+            title="[Preview] Your Calendar"
+            description="This is how mentees will see your availability when they try to request a session with you"
+            imageUrl="/assets/schedule_tab.svg"
+          />
+        </div>
+      </div>
+      <div className="w-full mt-4 max-w-5xl mx-auto p-3 bg-background rounded border shadow">
+        <div className="w-full flex flex-col md:flex-row">
           {/* Right Side: Details */}
-          <div>
+          <div className="mt-4 w-full flex justify-start items-center md:items-start md:justify-center p-3">
             <BookingCalendarDetails
               imageUrl={user.imageUrl}
               username={user.username}
@@ -78,7 +89,7 @@ const CalendarPage = async () => {
           </div>
           <hr className="h-[1px]" />
           {/* Main Calendar */}
-          <div className="flex-1">
+          <div className="w-full flex-1">
             <BookingCalendarMain
               individualEvents={individualEvents}
               weeklyEvents={weeklyEvents}

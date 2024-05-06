@@ -2,6 +2,8 @@ import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clock, Globe, VideoIcon } from "lucide-react";
+import { get } from "http";
+import { getInitials } from "@/lib/utils";
 
 type BookingCalendarDetailsProps = {
   imageUrl: string;
@@ -19,10 +21,10 @@ const BookingCalendarDetails = ({
   duration,
 }: BookingCalendarDetailsProps) => {
   return (
-    <div className="flex flex-col gap-2 pr-12">
+    <div className="flex flex-col gap-2 ">
       <Avatar>
         <AvatarImage src={imageUrl} alt={username} />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback>{getInitials(username)}</AvatarFallback>
       </Avatar>
       <p className="text-sm font-semibold">{username}</p>
       <p className="text-xl font-semibold my-2">{duration} Min Meeting</p>

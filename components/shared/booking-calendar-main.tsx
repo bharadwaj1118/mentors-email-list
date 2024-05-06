@@ -99,6 +99,14 @@ const CalanderSidebar = ({
     onOpenForm();
   };
 
+  if (selectedDay === null) {
+    return (
+      <div className="flex items-start justify-center h-fit w-[200px] border-2 rounded p-3">
+        <h1>Please choose a day based on the availability</h1>
+      </div>
+    );
+  }
+
   if (slots.length === 0) {
     return (
       <div className="flex items-center justify-center h-[400px] w-[200px] border p-3">
@@ -107,7 +115,7 @@ const CalanderSidebar = ({
     );
   }
   return (
-    <ScrollArea className="h-[400px] w-fit border p-3">
+    <ScrollArea className="h-fit max-md:max-h-[300px] md:h-[400px] w-fit border p-3">
       <div className="flex items-center justify-center flex-col">
         <h1 className="my-2">{selectedDay?.toDateString()}</h1>
         <ul className="flex flex-col gap-4">
@@ -252,9 +260,9 @@ const BookingCalendarMain = ({
   const disabledDates = getDisabledDays(uniqueAvailableTimeSlots);
 
   return (
-    <div className="w-full flex gap-4">
+    <div className="w-full">
       {!openForm && (
-        <>
+        <div className="w-full flex gap-4 flex-col md:flex-row justify-center items-center">
           <Calendar
             mode="single"
             selected={date || undefined}
@@ -265,13 +273,14 @@ const BookingCalendarMain = ({
             toMonth={threeMonthsLater}
             toDate={threeMonthsLater}
           />
+          {/* Sidebar for slots */}
           <CalanderSidebar
             slots={availableSlots}
             selectedDay={date}
             onSlotSelect={handleSelectSlot}
             onOpenForm={handleOpenForm}
           />
-        </>
+        </div>
       )}
       {openForm && (
         <div className="flex flex-col">
