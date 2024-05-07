@@ -30,6 +30,11 @@ const CalendarPage = async () => {
       duration: true,
       price: true,
       weeklyAvailability: true,
+      expertise: {
+        select: {
+          name: true,
+        },
+      },
       events: {
         select: {
           start: true,
@@ -78,7 +83,7 @@ const CalendarPage = async () => {
       <div className="w-full mt-4 max-w-5xl mx-auto p-3 bg-background rounded border shadow">
         <div className="w-full flex flex-col md:flex-row">
           {/* Right Side: Details */}
-          <div className="mt-4 w-full flex justify-start items-center md:items-start md:justify-center p-3">
+          <div className="mt-4  basis-1/4 w-full flex p-3 justify-start">
             <BookingCalendarDetails
               imageUrl={user.imageUrl}
               username={user.username}
@@ -89,7 +94,7 @@ const CalendarPage = async () => {
           </div>
           <hr className="h-[1px]" />
           {/* Main Calendar */}
-          <div className="w-full flex-1">
+          <div className="w-full basis-3/4">
             <BookingCalendarMain
               individualEvents={individualEvents}
               weeklyEvents={weeklyEvents}
@@ -97,6 +102,7 @@ const CalendarPage = async () => {
               duration={user.duration}
               mentorId={user.id}
               price={user.price}
+              expertise={user.expertise}
             />
           </div>
         </div>

@@ -21,6 +21,7 @@ type BookingCalendarMainProps = {
   duration: number;
   price: number;
   mentorId: string;
+  expertise: { name: string }[];
 };
 
 type CalanderSidebarProps = {
@@ -205,6 +206,7 @@ const BookingCalendarMain = ({
   price,
   duration,
   mentorId,
+  expertise,
 }: BookingCalendarMainProps) => {
   const [date, setDate] = React.useState<Date | null>(null);
   const [selectedSlot, setSelectedSlot] = React.useState<Event | null>(null);
@@ -283,7 +285,7 @@ const BookingCalendarMain = ({
         </div>
       )}
       {openForm && (
-        <div className="flex flex-col">
+        <div className="w-full">
           <div>
             <Button onClick={handleOpenForm} variant="outline" className="mr-0">
               Back
@@ -304,6 +306,7 @@ const BookingCalendarMain = ({
               duration,
             }}
             timeZone={timeZone}
+            expertise={expertise}
           />
         </div>
       )}

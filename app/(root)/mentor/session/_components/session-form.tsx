@@ -186,7 +186,6 @@ export function SessionForm({ session, user, menteeEmail }: SessionFormProps) {
               <FormLabel>Objective</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter your objecetive.."
                   {...field}
                   className="p-regular-16 bg-gray-50 px-4 py-3 placeholder:text-gray-500 focus-visible:ring-transparent focus-visible:ring-offset-0"
                   disabled={!enableEdit}

@@ -1,4 +1,4 @@
-import LoadingButton from "@/components/ui/loading-button";
+import { LoadingButton } from "@/components/ui/loading-button";
 import { useDebounce } from "@/hooks/use-debounce";
 import { UserResource } from "@clerk/types";
 import { ArrowLeft } from "lucide-react";

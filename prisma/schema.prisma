@@ -174,9 +174,10 @@ model Session {
   start DateTime
   end   DateTime
 
-  status    SessionStatus @default(AWAITING_HOST)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  acceptTerms Boolean
+  status      SessionStatus @default(AWAITING_HOST)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
   cancelledReason String? @db.Text
   rejectedReason  String? @db.Text

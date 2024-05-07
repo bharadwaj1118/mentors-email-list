@@ -2,7 +2,7 @@ import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clock, Globe, VideoIcon } from "lucide-react";
-import { get } from "http";
+
 import { getInitials } from "@/lib/utils";
 
 type BookingCalendarDetailsProps = {
@@ -21,7 +21,7 @@ const BookingCalendarDetails = ({
   duration,
 }: BookingCalendarDetailsProps) => {
   return (
-    <div className="flex flex-col gap-2 ">
+    <section className="flex flex-col gap-2">
       <Avatar>
         <AvatarImage src={imageUrl} alt={username} />
         <AvatarFallback>{getInitials(username)}</AvatarFallback>
@@ -34,12 +34,13 @@ const BookingCalendarDetails = ({
       </p>
       <p className="flex items-center text-neutral-600">
         <VideoIcon className="w-5 h-5 mr-1 " />
-        {meetingPreference}
+        {meetingPreference.charAt(0).toUpperCase() + meetingPreference.slice(1)}
       </p>
       <p className="flex items-center text-neutral-600">
         <Globe className="w-5 h-5 mr-1" /> {timeZone}
       </p>
-    </div>
+      <p className="muted">*sessions must be booked 48hrs in advance.</p>
+    </section>
   );
 };
 
