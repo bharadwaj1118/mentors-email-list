@@ -131,6 +131,7 @@ type TSession = {
   description: string;
   price: number;
   duration: number;
+  acceptTerms: boolean;
 };
 
 export async function createSession(session: TSession) {

@@ -304,6 +304,7 @@ const BookingCalendarMain = ({
               end: selectedSlot?.end || new Date(),
               price,
               duration,
+              acceptTerms: false,
             }}
             timeZone={timeZone}
             expertise={expertise}

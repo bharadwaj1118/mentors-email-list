@@ -42,6 +42,7 @@ interface SessionDetailsFormProps {
     | "mentorId"
     | "price"
     | "duration"
+    | "acceptTerms"
   >;
   timeZone: string;
   expertise: { name: string }[];
