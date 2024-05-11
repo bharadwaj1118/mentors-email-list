@@ -1,6 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
+import Image from "next/image";
 
 import { db } from "@/lib/db";
 
@@ -73,11 +74,27 @@ const CalendarPage = async () => {
     <div className="pt-[80px] min-h-screen p-3">
       <div className="w-full mt-4 max-w-5xl mx-auto p-3 border shadow rounded bg-background md:pl-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <Heading
-            title="[Preview] Your Calendar"
-            description="This is how mentees will see your availability when they try to request a session with you"
-            imageUrl="/assets/schedule_tab.svg"
-          />
+          <div className="flex gap-4">
+            <Image
+              src="/assets/schedule_tab.svg"
+              alt="alt"
+              width={50}
+              height={50}
+              className="shrink-0 object-fill w-24 h-24"
+            />
+            <div className="my-4">
+              <h3 className="h3 flex items-center gap-2">
+                Your Calendar{" "}
+                <span className="text-sm text-primary-600 border-1 px-3 py-1 rounded-full border-primary-600">
+                  Preview
+                </span>
+              </h3>
+              <p className="muted font-semibold">
+                This is how mentees will see your availability when they try to
+                request a session with you
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-full mt-4 max-w-5xl mx-auto p-3 bg-background rounded border shadow">

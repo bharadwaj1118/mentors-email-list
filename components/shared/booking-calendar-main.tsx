@@ -296,7 +296,6 @@ const BookingCalendarMain = ({
             session={{
               objective: "",
               category: "",
-              description: "",
               outcome: "",
               menteeId: "",
               mentorId,

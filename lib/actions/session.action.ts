@@ -1,4 +1,5 @@
 "use server";
+import { Category } from "./../../app/(root)/dashboard/profiles/_components/profile-filters";
 
 import { db } from "../db";
 import { scheduleMeeting } from "./google-calandar.action";
@@ -125,10 +126,9 @@ type TSession = {
   menteeId: string;
   start: Date;
   end: Date;
-  outcome: string;
   objective: string;
   category: string;
-  description: string;
+  outcome: string;
   price: number;
   duration: number;
   acceptTerms: boolean;

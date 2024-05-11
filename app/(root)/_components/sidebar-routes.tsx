@@ -28,7 +28,7 @@ const guestRoutes = [
   {
     icon: Clock,
     label: "Sessions",
-    href: "/dashboard/session",
+    href: "/dashboard/sessions",
     color: "text-green-500",
   },
   {
@@ -55,7 +55,7 @@ const mentorRoutes = [
   {
     icon: Presentation,
     label: "Sessions",
-    href: "/mentor/session",
+    href: "/mentor/sessions",
     color: "text-neutral-600",
   },
   {

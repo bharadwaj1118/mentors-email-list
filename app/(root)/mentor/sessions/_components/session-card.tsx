@@ -98,7 +98,7 @@ const SessionCard = ({ session }: SessionCardProps) => {
             </div>
             <div className="hidden md:flex flex-col gap-4">
               <Button asChild variant="outline">
-                <Link href={`/mentor/session/${id}`}>
+                <Link href={`/mentor/sessions/${id}`}>
                   View <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               </Button>

@@ -34,7 +34,7 @@ interface SessionDetailsFormProps {
     Session,
     | "objective"
     | "category"
-    | "description"
+    | "outcome"
     | "outcome"
     | "start"
     | "end"
@@ -136,7 +136,7 @@ export function SessionDetailsForm({
             name="objective"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Objective</FormLabel>
+                <FormLabel>Objective (in one short sentence)</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-background" />
                 </FormControl>
@@ -150,7 +150,7 @@ export function SessionDetailsForm({
             name="category"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Skill category you need help with</FormLabel>
                 <FormControl>
                   <MultipleSelector
                     value={field.value}
