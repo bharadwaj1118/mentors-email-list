@@ -118,7 +118,9 @@ const SessionDetailsCard = (props: Props) => {
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-base font-semibold">Status</p>
-          <p className="text-primary-500 font-semibold">{statusLabel}</p>
+          <p className="text-primary-500 font-semibold uppercase">
+            {statusLabel}
+          </p>
         </div>
       </div>
       <Separator className="my-4 h-[1px]" />

@@ -88,6 +88,8 @@ export const EditExpertiseModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+  if (!isModalOpen) return null;
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const id = expertise?.id;

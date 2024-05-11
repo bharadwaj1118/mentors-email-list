@@ -7,7 +7,6 @@ import { db } from "@/lib/db";
 
 import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
 import BookingCalendarMain from "@/components/shared/booking-calendar-main";
-import Heading from "@/components/shared/heading";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 
 const CalendarPage = async () => {

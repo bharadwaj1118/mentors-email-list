@@ -113,6 +113,8 @@ export const EditProfileModal = () => {
     onClose();
   };
 
+  if (!isModalOpen) return null;
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden max-w-2xl h-2/3">

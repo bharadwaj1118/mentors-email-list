@@ -113,6 +113,8 @@ export const EditToolModal = () => {
     onClose();
   };
 
+  if (!isModalOpen) return null;
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">

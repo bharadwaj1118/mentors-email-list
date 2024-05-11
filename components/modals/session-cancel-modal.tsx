@@ -3,11 +3,12 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useUser } from "@clerk/clerk-react";
+import { useRouter } from "next/navigation";
 
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -17,60 +18,47 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useParams, useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modal-store";
-import Select from "react-select";
-import { useEffect } from "react";
-import { Textarea } from "../ui/textarea";
 
-import { industryData } from "@/constants/data";
-import { FileUpload } from "@/components/shared/file-upload";
-import { updateUser } from "@/lib/actions/user.action";
+import { Textarea } from "@/components/ui/textarea";
+import { useModal } from "@/hooks/use-modal-store";
+import { updateSession } from "@/lib/actions/session.action";
 
 const formSchema = z.object({
-  bio: z.string().min(1, {
-    message: "Bio is required.",
+  reason: z.string().min(10, {
+    message: "Reason must be 10 characters atleast.",
   }),
 });
 
-export const EditBioModal = () => {
+export const CancelSessionModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
 
-  const isModalOpen = isOpen && type === "editBio";
-  const user = data?.user;
+  const isModalOpen = isOpen && type === "cancelSession";
+  const session = data?.session;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bio: user?.bio || "",
+      reason: "",
     },
   });
-
-  useEffect(() => {
-    if (user?.bio !== undefined) {
-      form.setValue("bio", user?.bio);
-    }
-  }, [user, form]);
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const id = user?.id;
-      console.log("id", id);
-      console.log("This is the id bro", id);
-      const result = await updateUser({
-        id,
-        bio: values.bio,
+      const sessionId = session?.id;
+      const sessionStatus = session?.status;
+      const { reason } = values;
+
+      const result = await updateSession({
+        id: sessionId,
+        status: sessionStatus,
+        declineReason: reason,
       });
 
       onClose();
@@ -78,7 +66,7 @@ export const EditBioModal = () => {
       router.refresh();
 
       if (result) {
-        toast.success("Updated successfully");
+        toast.success("Cancelled the session");
       } else {
         toast.error("Failed to update");
       }
@@ -97,18 +85,19 @@ export const EditBioModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Bio
-          </DialogTitle>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader>
+          <DialogTitle>Cancel Session</DialogTitle>
+          <DialogDescription>
+            Please provide a reason for cancelling the session
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4 px-6">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid items-start gap-4">
               <FormField
                 control={form.control}
-                name="bio"
+                name="reason"
                 render={({ field }) => (
                   <FormItem>
                     {/* <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
@@ -117,8 +106,8 @@ export const EditBioModal = () => {
                     <FormControl>
                       <Textarea
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 md:h-24"
-                        placeholder="Enter bio"
+                        placeholder="Enter Reason"
+                        className="min-h-[120px]"
                         {...field}
                       />
                     </FormControl>
@@ -127,8 +116,14 @@ export const EditBioModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Save</Button>
+            <DialogFooter className=" w-full pt-4 flex items-center justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="min-w-[200px] w-full mx-auto"
+              >
+                Cancel session
+              </Button>
             </DialogFooter>
           </form>
         </Form>

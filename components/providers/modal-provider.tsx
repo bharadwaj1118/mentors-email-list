@@ -17,8 +17,8 @@ import { DeleteExperienceModal } from "@/components/modals/delete-experience-mod
 import { EditExperienceModal } from "@/components/modals/edit-experience-modal";
 import { EditSocialsModal } from "../modals/edit-socials-modal";
 import { EditProfessionModal } from "../modals/edit-professional-modal";
-import { Session } from "inspector";
-import { SessionCancelModal } from "../modals/session-cancellation-modal";
+import { CancelSessionModal } from "../modals/session-cancel-modal";
+import { DeclineSessionModal } from "../modals/session-decline-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -49,7 +49,8 @@ export const ModalProvider = () => {
       <EditExperienceModal />
       <EditSocialsModal />
       <EditProfessionModal />
-      <SessionCancelModal />
+      <CancelSessionModal />
+      <DeclineSessionModal />
     </>
   );
 };

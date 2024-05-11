@@ -5,6 +5,7 @@ import { withUt } from "uploadthing/tw";
 
 const config: Config = withUt({
   darkMode: ["class"],
+  safelist: [{ pattern: /.*/ }],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",

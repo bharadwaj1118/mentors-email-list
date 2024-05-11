@@ -23,8 +23,8 @@ export type ModalType =
   | "editBio"
   | "editSocials"
   | "editProfession"
-  | "sessionCancel"
-  | "sessionRejection";
+  | "cancelSession"
+  | "declineSession";
 
 interface Industry {
   id: string;
@@ -72,6 +72,11 @@ interface Experience {
   imageUrl: string;
 }
 
+interface Session {
+  id: string;
+  status: string;
+}
+
 interface ModalData {
   industry?: Industry;
   expertise?: Expertise;
@@ -80,6 +85,7 @@ interface ModalData {
   tool?: Tool;
   user?: User;
   experience?: Experience;
+  session?: Session;
 }
 
 interface ModalStore {
