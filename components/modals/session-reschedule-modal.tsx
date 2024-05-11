@@ -35,11 +35,11 @@ const formSchema = z.object({
   }),
 });
 
-export const DeclineSessionModal = () => {
+export const RescheduleSessionModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "declineSession";
+  const isModalOpen = isOpen && type === "rescheduleSession";
   const session = data?.session;
 
   const form = useForm({
@@ -68,7 +68,7 @@ export const DeclineSessionModal = () => {
       router.refresh();
 
       if (result) {
-        toast.success("Declined the session");
+        toast.success("Rescheduled the session");
       } else {
         toast.error("Failed to update");
       }
@@ -89,9 +89,9 @@ export const DeclineSessionModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-[525px]">
         <DialogHeader>
-          <DialogTitle>Decline Session</DialogTitle>
+          <DialogTitle>Reschedule Session</DialogTitle>
           <DialogDescription>
-            Please provide a reason for declining the session
+            Please provide a reason for rescheduling the session
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -121,7 +121,7 @@ export const DeclineSessionModal = () => {
                 type="submit"
                 className="min-w-[200px] w-full mx-auto"
               >
-                Decline session
+                Reschedule session
               </Button>
             </DialogFooter>
           </form>

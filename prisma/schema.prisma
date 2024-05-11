@@ -154,6 +154,7 @@ enum SessionStatus {
   AWAITING_HOST @map("AWAITING_HOST")
   REJECTED      @map("REJECTED")
   COMPLETED     @map("COMPLETED")
+  RESCHEDULED   @map("RESCHEDULED")
 }
 
 model Session {

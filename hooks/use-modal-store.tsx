@@ -24,7 +24,8 @@ export type ModalType =
   | "editSocials"
   | "editProfession"
   | "cancelSession"
-  | "declineSession";
+  | "declineSession"
+  | "rescheduleSession";
 
 interface Industry {
   id: string;

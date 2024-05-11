@@ -37,14 +37,15 @@ export const SessionHeaderActions = ({
     role === Role.MENTOR && status === SessionStatus.AWAITING_HOST;
 
   const handleReschedule = async () => {
-    console.log("Reschedule");
+    onOpen("rescheduleSession", {
+      session: {
+        id: sessionId,
+        status: SessionStatus.RESCHEDULED,
+      },
+    });
   };
 
-  // 2. Define a submit handler.
   const handleAccept = async () => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
     try {
       await updateSession({
         id: sessionId,

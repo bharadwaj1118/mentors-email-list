@@ -19,6 +19,7 @@ import { EditSocialsModal } from "../modals/edit-socials-modal";
 import { EditProfessionModal } from "../modals/edit-professional-modal";
 import { CancelSessionModal } from "../modals/session-cancel-modal";
 import { DeclineSessionModal } from "../modals/session-decline-modal";
+import { RescheduleSessionModal } from "../modals/session-reschedule-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -51,6 +52,7 @@ export const ModalProvider = () => {
       <EditProfessionModal />
       <CancelSessionModal />
       <DeclineSessionModal />
+      <RescheduleSessionModal />
     </>
   );
 };
