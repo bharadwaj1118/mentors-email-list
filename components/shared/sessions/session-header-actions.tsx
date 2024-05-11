@@ -41,6 +41,7 @@ export const SessionHeaderActions = ({
       session: {
         id: sessionId,
         status: SessionStatus.RESCHEDULED,
+        declinedBy: role,
       },
     });
   };
@@ -65,6 +66,7 @@ export const SessionHeaderActions = ({
       session: {
         id: sessionId,
         status: SessionStatus.REJECTED,
+        declinedBy: role,
       },
     });
   };
@@ -74,6 +76,7 @@ export const SessionHeaderActions = ({
       session: {
         id: sessionId,
         status: SessionStatus.CANCELLED,
+        declinedBy: role,
       },
     });
   };

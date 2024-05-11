@@ -179,8 +179,8 @@ model Session {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
-  declineReason    String? @db.Text
-  declinedByUserId String?
+  declineReason String? @db.Text
+  declinedBy    Role?
 
   @@index([mentorId])
 }

@@ -25,6 +25,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
       duration: true,
       price: true,
       status: true,
+      declinedBy: true,
       mentee: {
         select: {
           id: true,
@@ -54,6 +55,7 @@ const SessionPage = async ({ params }: SessionPageProps) => {
         sessionId={session.id}
         role={Role.MENTOR}
         status={session.status}
+        declinedBy={session.declinedBy}
       />
 
       {/* SESSION DETAILS */}

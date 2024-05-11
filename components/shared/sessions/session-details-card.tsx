@@ -41,8 +41,6 @@ type Props = {
 const SessionDetailsCard = (props: Props) => {
   const { roleLabel, profileUrl, session, currentUser, otherUser } = props;
 
-  console.log(session.start, session.end);
-
   // Transformations for the Timezone
   const startInTimeZone = utcToZonedTime(
     new Date(session.start),

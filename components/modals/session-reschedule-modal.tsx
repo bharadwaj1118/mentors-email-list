@@ -55,12 +55,14 @@ export const RescheduleSessionModal = () => {
     try {
       const sessionId = session?.id;
       const sessionStatus = session?.status;
+      const declinedBy = session?.declinedBy;
       const { reason } = values;
 
       const result = await updateSession({
         id: sessionId,
         status: sessionStatus,
         declineReason: reason,
+        declinedBy,
       });
 
       onClose();

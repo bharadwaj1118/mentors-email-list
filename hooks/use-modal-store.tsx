@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { create } from "zustand";
 
 enum ChannelType {
@@ -76,6 +77,7 @@ interface Experience {
 interface Session {
   id: string;
   status: string;
+  declinedBy: Role;
 }
 
 interface ModalData {

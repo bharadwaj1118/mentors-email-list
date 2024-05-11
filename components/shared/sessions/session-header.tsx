@@ -1,4 +1,10 @@
-import { Clock, HeartHandshake, LucideIcon, Mail } from "lucide-react";
+import {
+  Clock,
+  HeartHandshake,
+  LucideIcon,
+  Mail,
+  AlertCircle,
+} from "lucide-react";
 
 import { Role, SessionStatus } from "@prisma/client";
 import { cn } from "@/lib/utils";
@@ -13,7 +19,8 @@ interface SessionHeaderResponse {
 
 const getContentForSessionHeader = (
   currentRole: Role,
-  status: SessionStatus
+  status: SessionStatus,
+  declinedBy: Role | null
 ): SessionHeaderResponse | undefined => {
   if (currentRole === Role.MENTOR) {
     if (status === SessionStatus.AWAITING_HOST) {
@@ -37,7 +44,7 @@ const getContentForSessionHeader = (
         header: "You declined this session",
         content:
           "You already explained to the mentee why you decided not to accept this call. If you’d like to encourage them to book again, shoot them a message.",
-        Icon: Clock,
+        Icon: AlertCircle,
         theme: "slate",
       };
     } else if (status === SessionStatus.CANCELLED) {
@@ -48,6 +55,16 @@ const getContentForSessionHeader = (
         Icon: Clock,
         theme: "slate",
       };
+    } else if (status === SessionStatus.RESCHEDULED) {
+      if (declinedBy === Role.MENTOR) {
+        return {
+          header: "You asked the mentee to reschedule",
+          content:
+            "The mentee will choose a new time from the availability set in your calendar. Please wait and confirm the requested time works in a timely manner.",
+          Icon: Clock,
+          theme: "danger",
+        };
+      }
     }
   } else if (currentRole === Role.MENTEE) {
     if (status === SessionStatus.AWAITING_HOST) {
@@ -55,7 +72,7 @@ const getContentForSessionHeader = (
         header: "Your session request was sent successfully",
         content:
           "Now you just need to wait for the mentor’s response. Questions about responsiveness? Read more here. ",
-        Icon: Mail,
+        Icon: AlertCircle,
         theme: "yellow",
       };
     } else if (status === SessionStatus.ACCEPTED) {
@@ -82,6 +99,25 @@ const getContentForSessionHeader = (
         Icon: Clock,
         theme: "slate",
       };
+    } else if (status === SessionStatus.RESCHEDULED) {
+      if (declinedBy === Role.MENTOR) {
+        return {
+          header: "The mentor rescheduled this session",
+          content:
+            "The mentor explained why they decided to reschedule this call. If you’d like to ask for more details or to discuss the possibility to book again, shoot them a message.",
+          Icon: Clock,
+          theme: "slate",
+        };
+      }
+      if (declinedBy === Role.MENTEE) {
+        return {
+          header: "The mentor rescheduled this session",
+          content:
+            "The mentor explained why they decided to reschedule this call. If you’d like to ask for more details or to discuss the possibility to book again, shoot them a message.",
+          Icon: Clock,
+          theme: "slate",
+        };
+      }
     }
   }
 };
@@ -90,10 +126,11 @@ type Props = {
   sessionId: string;
   role: Role;
   status: SessionStatus;
+  declinedBy: Role | null;
 };
 
-const SessionHeader = ({ sessionId, role, status }: Props) => {
-  const details = getContentForSessionHeader(role, status);
+const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
+  const details = getContentForSessionHeader(role, status, declinedBy);
 
   if (!details) return null;
 
