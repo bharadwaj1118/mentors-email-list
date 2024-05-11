@@ -14,16 +14,14 @@ type Props = {
   sessionId: string;
   role: Role;
   status: SessionStatus;
-  buttonBaseClasses: string;
-  buttonThemeClasses: string;
+  buttonStyles: string;
 };
 
 export const SessionHeaderActions = ({
   sessionId,
   role,
   status,
-  buttonBaseClasses,
-  buttonThemeClasses,
+  buttonStyles,
 }: Props) => {
   const router = useRouter();
   const { onOpen } = useModal();
@@ -85,7 +83,7 @@ export const SessionHeaderActions = ({
     <div className="pt-4 flex items-center justify-center gap-4 flex-col md:flex-row">
       {showReject && (
         <Button
-          className={cn(buttonBaseClasses, buttonThemeClasses)}
+          className={buttonStyles}
           variant="outline"
           onClick={handleDecline}
         >
@@ -94,7 +92,7 @@ export const SessionHeaderActions = ({
       )}
       {showCancel && (
         <Button
-          className={cn(buttonBaseClasses, buttonThemeClasses)}
+          className={buttonStyles}
           variant="outline"
           onClick={handleCancel}
         >
@@ -103,7 +101,7 @@ export const SessionHeaderActions = ({
       )}
       {showReschedule && (
         <Button
-          className={cn(buttonBaseClasses, buttonThemeClasses)}
+          className={buttonStyles}
           variant="outline"
           onClick={handleReschedule}
         >
@@ -113,7 +111,7 @@ export const SessionHeaderActions = ({
 
       {showAccept && (
         <Button
-          className={cn(buttonBaseClasses, buttonThemeClasses)}
+          className={buttonStyles}
           variant="outline"
           onClick={handleAccept}
         >

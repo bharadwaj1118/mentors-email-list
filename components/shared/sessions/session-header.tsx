@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 
 import { Role, SessionStatus } from "@prisma/client";
-import { cn } from "@/lib/utils";
 import { SessionHeaderActions } from "./session-header-actions";
 
 interface SessionHeaderResponse {
@@ -129,26 +128,41 @@ type Props = {
   declinedBy: Role | null;
 };
 
+const gradientColors: {
+  [key: string]: string;
+} = {
+  green: "from-green-300 via-slate-100 to-white text-green-500",
+  yellow: "from-yellow-300 via-slate-100 to-white text-yellow-500",
+  blue: "from-blue-300 via-slate-100 to-white text-blue-500",
+  slate: "from-slate-300 via-slate-100 to-white text-slate-500",
+  danger: "from-danger-300 via-slate-100 to-white text-danger-500",
+};
+
+const buttonColors: {
+  [key: string]: string;
+} = {
+  green: "text-green-500 border-green-500 hover:text-green-500/80",
+  yellow: "text-yellow-500 border-yellow-500 hover:text-yellow-500/80",
+  blue: "text-blue-500 border-blue-500 hover:text-blue-500/80",
+  slate: "text-slate-500 border-slate-500 hover:text-slate-500/80",
+  danger: "text-danger-500 border-danger-500 hover:text-danger-500/80",
+};
+
 const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
   const details = getContentForSessionHeader(role, status, declinedBy);
 
+  const theme: string = details?.theme || "slate";
+  const gradientClass: string = gradientColors[theme];
+
   if (!details) return null;
 
-  const buttonBaseClasses =
-    "min-w-[150px] rounded-full hover:bg-background outline border-1 font-semibold";
-  const buttonThemeClasses = `${cn(
-    `text-${details.theme}-600`,
-    `border-${details.theme}-500`,
-    `hover:text-${details.theme}-500/80`
-  )}`;
+  const buttonThemeClasses = buttonColors[theme];
+
+  const buttonStyles = `min-w-[150px] rounded-full hover:bg-background outline border-1 font-semibold ${buttonThemeClasses}`;
 
   return (
     <section
-      className={cn(
-        "p-3 md:p-6 bg-background rounded shadow ",
-        `bg-gradient-to-b from-${details.theme}-300 via-slate-100 to-white`,
-        `text-${details.theme}-600`
-      )}
+      className={`p-3 md:p-6 bg-background rounded shadow bg-gradient-to-b ${gradientClass}`}
     >
       <div className="flex flex-col items-center justify-center space-y-3">
         <details.Icon className="h-24 w-24" />
@@ -160,8 +174,7 @@ const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
           sessionId={sessionId}
           role={role}
           status={status}
-          buttonBaseClasses={buttonBaseClasses}
-          buttonThemeClasses={buttonThemeClasses}
+          buttonStyles={buttonStyles}
         />
       </div>
     </section>
