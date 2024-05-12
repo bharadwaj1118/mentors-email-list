@@ -39,7 +39,7 @@ const DashboardSessionsRequest = async ({
   return (
     <section className="my-4 p-3 border shadow rounded-lg bg-background">
       <h3 className="text-2xl font-semibold ml-3">Requested sessions</h3>
-      <div className="w-full grid grid-cols-1 gap-4 my-4 px-3 md:px-6">
+      <div className="w-full grid grid-cols-1 gap-4 my-4 md:px-6">
         {sessionRequests.length === 0 && (
           <div className="flex justify-center items-center h-[150px] border-1 bg-gray-100/50 rounded">
             <p className="text-xl font-light">No Awaiting Requests</p>

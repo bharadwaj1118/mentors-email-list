@@ -71,7 +71,7 @@ const getContentForSessionHeader = (
         header: "Your session request was sent successfully",
         content:
           "Now you just need to wait for the mentor’s response. Questions about responsiveness? Read more here. ",
-        Icon: AlertCircle,
+        Icon: Mail,
         theme: "yellow",
       };
     } else if (status === SessionStatus.ACCEPTED) {
@@ -166,7 +166,9 @@ const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
     >
       <div className="flex flex-col items-center justify-center space-y-3">
         <details.Icon className="h-24 w-24" />
-        <h3 className="font-semibold text-2xl md:text-3xl">{details.header}</h3>
+        <h3 className="px-3 text-center font-semibold text-2xl md:text-3xl">
+          {details.header}
+        </h3>
         <p className="px-3 md:px-24 text-center">{details.content}</p>
 
         {/* SESSION ACTIONS */}

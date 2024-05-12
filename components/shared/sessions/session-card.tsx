@@ -116,32 +116,21 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
         </div>
         <div className="w-full space-y-3">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex flex-col items-start">
               <p className="large max-md:line-clamp-4">{session.objective}</p>
-              <div className="mt-1 flex items-center space-x-3">
-                <p className="small">{otherUser.username}</p>
-                <Badge variant="outline" className="muted rounded-full">
+              <div className="mt-1 flex flex-col md:flex-row items-center gap-4 justify-start">
+                <p className="small text-left">{otherUser.username}</p>
+                <Badge variant="secondary" className="rounded-full">
                   {session.category}
                 </Badge>
               </div>
             </div>
             <div className="hidden md:flex flex-col gap-4">
-              <Button asChild variant="outline">
+              <Button asChild variant="outline" className="min-w-[150px]">
                 <Link href={`/mentor/sessions/${session.id}`}>
                   View <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               </Button>
-
-              {showActionButton && (
-                <SessionAction
-                  onAccept={handleAcceptSession}
-                  onDecline={handleDeclineSession}
-                  onCancel={handleCancelSession}
-                  cancel={showCancelButton}
-                  accept={showAcceptButton}
-                  decline={showDeclineButton}
-                />
-              )}
             </div>
           </div>
           <Separator className="w-full" />
@@ -178,22 +167,11 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
           {/* Button Actions */}
           <div className="block md:hidden">
             <div className="flex md:hidden gap-4">
-              <Button asChild variant="outline">
+              <Button asChild variant="outline" className="min-w-[150px]">
                 <Link href={`/mentor/session/${session.id}`}>
                   View <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               </Button>
-
-              {showActionButton && (
-                <SessionAction
-                  onAccept={handleAcceptSession}
-                  onDecline={handleDeclineSession}
-                  onCancel={handleCancelSession}
-                  cancel={showCancelButton}
-                  accept={showAcceptButton}
-                  decline={showDeclineButton}
-                />
-              )}
             </div>
           </div>
         </div>

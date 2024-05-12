@@ -15,8 +15,6 @@ const SessionPage = async () => {
 
   const sessions = await getSessionByMenteeId(user.id);
 
-  console.log(sessions);
-
   const upcomingSessions = sessions.filter((session) => {
     return session.status === SessionStatus.ACCEPTED;
   });

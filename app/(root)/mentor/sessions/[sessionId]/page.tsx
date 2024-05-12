@@ -66,8 +66,6 @@ const SessionPage = async ({ params }: SessionPageProps) => {
         otherUser={session.mentee}
         currentUser={session.mentor}
       />
-
-      <div></div>
     </div>
   );
 };
