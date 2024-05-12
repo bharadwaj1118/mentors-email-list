@@ -218,6 +218,7 @@ export const MentorsCalendar = ({
           defaultView={Views.WEEK}
           events={myEvents}
           localizer={localizer}
+          views={["day", "week"]}
           defaultDate={defaultDate}
           scrollToTime={scrollToTime}
           backgroundEvents={unmodifiedEvents}
