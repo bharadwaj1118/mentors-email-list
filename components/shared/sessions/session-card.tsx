@@ -32,6 +32,17 @@ type SessionCardProps = {
   currPage?: CurrentPage;
 };
 
+const StatusStyles: {
+  [key: string]: string;
+} = {
+  AWAITING_HOST: "text-yellow-600 border-yellow-500 bg-yellow-100",
+  ACCEPTED: "text-blue-600 border-blue-500 bg-blue-100",
+  RESCHEDULED: "text-danger-600 border-danger-500 bg-danger-100",
+  REJECTED: "text-slate-600 border-slate-500 bg-slate-200",
+  CANCELLED: "text-slate-600 border-slate-500 bg-slate-200",
+  COMPLETED: "text-green-600 border-green-500 bg-green-100",
+};
+
 export const SessionCard = ({
   session,
   currUser,
@@ -122,7 +133,7 @@ export const SessionCard = ({
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start">
               <p className="large max-md:line-clamp-4">{session.objective}</p>
-              <div className="mt-1 flex flex-col md:flex-row items-center gap-4 justify-start">
+              <div className="mt-2 flex flex-col md:flex-row items-center gap-4 justify-start">
                 <p className="small text-left">{otherUser.username}</p>
                 <Badge variant="secondary" className="rounded-full">
                   {session.category}
@@ -144,25 +155,29 @@ export const SessionCard = ({
                 <p className="medium uppercase">
                   {formatDateToWeekDDMonth(startInTimeZone)}
                 </p>
-                <p className="muted mt-1">
+                <p className="muted mt-2">
                   {formatDateToHHMMToHHMM(startInTimeZone, endInTimeZone)}
                 </p>
               </div>
               <div>
                 <p className="medium uppercase">duration</p>
-                <p className="muted mt-1">{session.duration}min</p>
+                <p className="muted mt-2">{session.duration}min</p>
               </div>
             </div>
             <div className="flex items-start justify-around gap-4">
               <div>
                 <p className="medium uppercase">cost</p>
-                <p className="muted mt-1">${session.price}</p>
+                <p className="muted mt-2">${session.price}</p>
               </div>
               <div>
                 <p className="medium uppercase">Status</p>
-                <Badge className="muted mt-1 rounded-full" variant="outline">
+                <div
+                  className={`mt-2 px-2.5 py-1 font-semibold uppercase text-sm rounded-full ${
+                    StatusStyles[session.status]
+                  }`}
+                >
                   {session.status}
-                </Badge>
+                </div>
               </div>
             </div>
           </div>
