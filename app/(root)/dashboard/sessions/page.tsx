@@ -1,19 +1,39 @@
 import React from "react";
-import { Send, Check, Video, XCircle } from "lucide-react";
 import { redirect } from "next/navigation";
+import { Send, Check, Video, XCircle } from "lucide-react";
 
+import { db } from "@/lib/db";
+import { SessionStatus } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { getSelf } from "@/lib/actions/user.action";
-import { getSessionByMenteeId } from "@/lib/actions/session.action";
-import SessionList from "./_components/session-list";
-import { SessionStatus } from "@prisma/client";
-import EmptyBookingsCard from "@/components/shared/empty-bookings-card";
+import { EmptyBookingsCard } from "@/components/shared/empty-bookings-card";
+import { SessionList } from "./_components/session-list";
+
 const SessionPage = async () => {
   const user = await getSelf();
   if (!user) return redirect("/login");
 
-  const sessions = await getSessionByMenteeId(user.id);
+  const sessions = await db.session.findMany({
+    where: {
+      mentorId: user?.id,
+    },
+    include: {
+      mentee: {
+        select: {
+          id: true,
+          role: true,
+          timeZone: true,
+        },
+      },
+      mentor: {
+        select: {
+          username: true,
+          imageUrl: true,
+        },
+      },
+    },
+  });
 
   const upcomingSessions = sessions.filter((session) => {
     return session.status === SessionStatus.ACCEPTED;
@@ -26,7 +46,10 @@ const SessionPage = async () => {
   });
 
   const cancelledSessions = sessions.filter((session) => {
-    return session.status === SessionStatus.CANCELLED;
+    return (
+      session.status === SessionStatus.REJECTED ||
+      session.status === SessionStatus.CANCELLED
+    );
   });
 
   return (
@@ -58,7 +81,7 @@ const SessionPage = async () => {
                 description="You have no requested bookings. As soon as you request the meeting will show up here."
               />
             ) : (
-              <SessionList sessions={JSON.stringify(requestedSessions)} />
+              <SessionList sessions={requestedSessions} />
             )}
           </TabsContent>
           <TabsContent value="upcoming">
@@ -68,7 +91,7 @@ const SessionPage = async () => {
                 description="You have no upcoming bookings. As soon as someone books a time with you it will show here."
               />
             ) : (
-              <SessionList sessions={JSON.stringify(upcomingSessions)} />
+              <SessionList sessions={upcomingSessions} />
             )}
           </TabsContent>
           <TabsContent value="completed">
@@ -78,7 +101,7 @@ const SessionPage = async () => {
                 description="You have no completed bookings. Your canceled bookings show up here."
               />
             ) : (
-              <SessionList sessions={JSON.stringify(completedSessions)} />
+              <SessionList sessions={completedSessions} />
             )}
           </TabsContent>
           <TabsContent value="cancelled">
@@ -88,7 +111,7 @@ const SessionPage = async () => {
                 description="You have no canceled bookings. Your canceled bookings show up here."
               />
             ) : (
-              <SessionList sessions={JSON.stringify(cancelledSessions)} />
+              <SessionList sessions={cancelledSessions} />
             )}
           </TabsContent>
         </Tabs>

@@ -2,7 +2,7 @@ import React from "react";
 
 import { db } from "@/lib/db";
 
-import SessionCard from "@/components/shared/sessions/session-card";
+import { SessionCard } from "@/components/shared/sessions/session-card";
 
 type TDashBoardSessionsRequest = {
   userId: string;

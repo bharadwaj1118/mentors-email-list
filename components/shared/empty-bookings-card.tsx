@@ -6,7 +6,10 @@ interface EmptyBookingsCardProps {
   description: string;
 }
 
-const EmptyBookingsCard = ({ title, description }: EmptyBookingsCardProps) => {
+export const EmptyBookingsCard = ({
+  title,
+  description,
+}: EmptyBookingsCardProps) => {
   return (
     <div className="flex w-full select-none flex-col items-center justify-center rounded-lg p-7 lg:p-20 border border-dashed mt-6">
       <div>
@@ -19,5 +22,3 @@ const EmptyBookingsCard = ({ title, description }: EmptyBookingsCardProps) => {
     </div>
   );
 };
-
-export default EmptyBookingsCard;

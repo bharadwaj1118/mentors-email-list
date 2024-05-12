@@ -1,21 +1,28 @@
 import React from "react";
-import SessionCard from "./session-card";
+import { SessionCard } from "@/components/shared/sessions/session-card";
+import { Session, Role, User } from "@prisma/client";
+type TSession = Session & {
+  mentor: Pick<User, "id" | "role" | "timeZone">;
+} & {
+  mentee: Pick<User, "username" | "imageUrl">;
+};
 
-interface SessionListProps {
-  sessions: string;
-}
+type SessionListProps = {
+  sessions: TSession[];
+};
 
 const SessionList = ({ sessions }: SessionListProps) => {
-  const sessionsJSON = JSON.parse(sessions);
-
   return (
     <div>
-      {sessionsJSON &&
-        sessionsJSON.map((session: any) => {
-          return (
-            <SessionCard key={session.id} session={JSON.stringify(session)} />
-          );
-        })}
+      {sessions.map((session: TSession) => (
+        <div key={session.id}>
+          <SessionCard
+            session={session}
+            currUser={session.mentor}
+            otherUser={session.mentee}
+          />
+        </div>
+      ))}
     </div>
   );
 };

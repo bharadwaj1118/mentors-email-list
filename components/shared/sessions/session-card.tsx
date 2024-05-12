@@ -32,7 +32,11 @@ type SessionCardProps = {
   currPage?: CurrentPage;
 };
 
-const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
+export const SessionCard = ({
+  session,
+  currUser,
+  otherUser,
+}: SessionCardProps) => {
   const router = useRouter();
 
   console.log(session);
@@ -179,5 +183,3 @@ const SessionCard = ({ session, currUser, otherUser }: SessionCardProps) => {
     </div>
   );
 };
-
-export default SessionCard;
