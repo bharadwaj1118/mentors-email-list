@@ -3,7 +3,7 @@
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import { parseISO } from "date-fns";
 import enUS from "date-fns/locale/en-US";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import "moment-timezone";
@@ -179,13 +179,13 @@ export const MentorsCalendar = ({
     }
   };
 
-  // const { defaultDate, scrollToTime } = useMemo(
-  //   () => ({
-  //     defaultDate: new Date(2023, 12, 19),
-  //     scrollToTime: new Date(1970, 1, 1, 6),
-  //   }),
-  //   []
-  // );
+  const { defaultDate, scrollToTime } = useMemo(
+    () => ({
+      defaultDate: new Date(),
+      scrollToTime: new Date(1970, 1, 1, 6),
+    }),
+    []
+  );
 
   return (
     <div className="p-3">
@@ -218,6 +218,8 @@ export const MentorsCalendar = ({
           defaultView={Views.WEEK}
           events={myEvents}
           localizer={localizer}
+          defaultDate={defaultDate}
+          scrollToTime={scrollToTime}
           backgroundEvents={unmodifiedEvents}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={handleSelectSlot}
