@@ -57,14 +57,14 @@ interface ProfessionalDetails {
 }
 
 interface User {
-  bio?: string;
+  bio?: string | null;
   id: string;
-  linkedinProfile?: string;
-  twitterProfile?: string;
-  facebookProfile?: string;
-  tiktokProfile?: string;
-  position?: string;
-  organization?: string;
+  linkedinProfile?: string | null;
+  twitterProfile?: string | null;
+  facebookProfile?: string | null;
+  tiktokProfile?: string | null;
+  position?: string | null;
+  organization?: string | null;
 }
 
 interface Experience {

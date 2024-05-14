@@ -1,66 +1,62 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
-  ArrowUpIcon,
   BuildingIcon,
-  Globe,
-  Languages,
   LucideFacebook,
   MapPin,
   MessageCircleIcon,
-  PencilIcon,
-  PhoneIcon,
   StarIcon,
   UserPlus as UserRoundPlus,
-  ShareIcon,
   ExternalLink,
+  Languages,
 } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
+import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import ProfileReviewPage from "./profile-review";
-import ProfileBioPage from "./profile-bio";
-
-import ListLeadingImageThreeLines from "./profile-skills-list";
 import Footer from "@/components/footer";
-import ProfileTestmonialPage from "./profile-testmonials";
-import ProfileExperience from "./profile-experience";
-import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
-import ProfileSkillList from "./profile-skill-list";
+
 import { getSelfId } from "@/lib/actions/user.action";
+import { formatMonthYear } from "@/lib/format";
+import ShareButton from "./profile-share";
+import {
+  User,
+  Industry,
+  Expertise,
+  Tool,
+  Experience,
+  Language,
+} from "@prisma/client";
+import ProfileBioPage from "./profile-bio";
+import {
+  CopyToClipboardButton,
+  RequestCallButton,
+} from "./profile-item-action";
+import ProfileSkillList from "./profile-skill-list";
 import {
   EditProfileAction,
   EditProfileDetailsAction,
   EditSocialsAction,
 } from "./edit-profile-action";
-import Profile from "@/database/profile.model";
-import Link from "next/link";
-import { formatMonthYear } from "@/lib/format";
-import {
-  CopyToClipboardButton,
-  RequestCallButton,
-} from "./profile-item-action";
-import dynamic from "next/dynamic";
-import { Share } from "next/font/google";
-import ShareButton from "./profile-share";
+import { OnboardingChecklist } from "@/components/shared/onboarding-checklist";
 
 const LinkedInShareComponent = dynamic(() => import("./profile-share"), {
   ssr: false,
 });
 
-interface ProfileDisplayPageProps {
-  user: string;
+type ProfileDisplayPageProps = {
   profileId: string;
-}
-
-function calculateHourlyCost(duration: number, price: number): number {
-  // Calculate the cost per hour by scaling the price to a full hour
-  const hourlyCost = (price / duration) * 60;
-
-  // Return the hourly cost rounded to the nearest whole number if needed
-  return Math.round(hourlyCost);
-}
+  user: User & {
+    industries: Industry[];
+    expertise: Expertise[];
+    toolkit: Tool[];
+    experiences: Experience[];
+    languages: Language[];
+  };
+};
 
 const ProfileDisplayPage = async ({
   user,
@@ -89,7 +85,7 @@ const ProfileDisplayPage = async ({
     price,
     duration,
     portfolioWebsite,
-  } = JSON.parse(user);
+  } = user;
 
   // Get the self account
   const selfAccount = await getSelfId();
@@ -107,15 +103,13 @@ const ProfileDisplayPage = async ({
   const shareSource = "https://www.example.com";
 
   return (
-    <div className="relative">
-      {/* Profile Details */}
-
-      <div className="absolute right-8 top-8">
-        {canEdit && <EditProfileAction />}
-      </div>
-      <div className="flex space-y-3 flex-col items-center justify-center bg-background rounded shadow p-3">
+    <div className="">
+      <div className="relative mt-4 mx-auto max-w-5xl flex space-y-3 flex-col items-center justify-center bg-background rounded shadow p-3 bg-gradient-to-br from-white  to-blue-100">
+        <div className="absolute right-8 top-8">
+          {canEdit && <EditProfileAction />}
+        </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-          {/* Profile Image & Reviews */}
+          {/* PROFILE IMAGE & REVIEWS */}
           <div className="flex items-center justify-center flex-col gap-4">
             {/* Profile Image */}
             <div className="relative mt-12">
@@ -128,8 +122,8 @@ const ProfileDisplayPage = async ({
               />
             </div>
 
-            {/* Reviews */}
-            <div className="flex flex-col items-center p-4  border-2 rounded-lg shadow-sm border-gray-400">
+            {/* REVIEWS */}
+            <div className="flex flex-col items-center p-4  border-2 rounded-lg shadow-sm border-gray-200">
               <div className="flex items-center justify-center">
                 <StarIcon className="w-4 h-4 fill-yellow-500 text-yellow-500 mr-1" />
                 <p className="text-xl font-bold text-black">4.99</p>
@@ -138,7 +132,7 @@ const ProfileDisplayPage = async ({
               <div>593 reviews</div>
             </div>
 
-            {/* Share component */}
+            {/* SHARE PROFILE ACTIONS */}
             {canEdit && (
               <div>
                 <ShareButton
@@ -151,10 +145,9 @@ const ProfileDisplayPage = async ({
             )}
           </div>
 
-          {/* Profile Details */}
+          {/* PROFILED ETAILS */}
           <div className="flex flex-col justify-center items-center gap-4">
-            {/* Name, Position and Organization */}
-
+            {/* NAME, POSITION and ORGANIZATION */}
             <div className="flex justify-center items-center flex-col">
               <h3 className="h3 hidden md:block">
                 {username} |{" "}
@@ -176,12 +169,8 @@ const ProfileDisplayPage = async ({
               )}
             </div>
 
-            {/* Location and Joined Date */}
+            {/* LOCATION AND JOINED DATE */}
             <div className="flex flex-col items-center justify-center muted max-md:space-y-4 md:flex-row md:justify-between md:space-x-6">
-              {/* <p className="text-base flex items-center">
-            <Globe className="h-4 w-4 text-blue-500 mr-1" />
-            Athens, Greece
-          </p> */}
               <p className="text-base flex items-center">
                 <Languages className="h-4 w-4 text-blue-500 mr-1" />
                 {languages.map((language: any) => language.name).join(", ")}
@@ -192,7 +181,7 @@ const ProfileDisplayPage = async ({
               </p>
               <p className="text-base flex items-center">
                 <BuildingIcon className="h-4 w-4 text-blue-500 mr-1" />
-                Joined {formatMonthYear(joinedAt)}
+                Joined {formatMonthYear(joinedAt?.toString())}
               </p>
             </div>
 
@@ -215,7 +204,7 @@ const ProfileDisplayPage = async ({
             </div>
 
             {/* Reviews and Available Information */}
-            <div className="w-fit mx-auto border-2 md:border-2 border-gray-400 p-4 px-6  md:px-12 rounded-lg md:rounded-full">
+            <div className="w-fit mx-auto border-2 md:border-2 border-gray-200 p-4 px-6  md:px-12 rounded-lg md:rounded-full">
               <div className="flex flex-col items-center justify-center space-y-1 md:flex-row md:justify-between gap-4 md:gap-12">
                 <div className="flex flex-col items-center muted">
                   {price === 0 ? (
@@ -279,7 +268,7 @@ const ProfileDisplayPage = async ({
               {facebookProfile && (
                 <Button variant="link" size="icon" asChild>
                   <Link
-                    href={linkedinProfile}
+                    href={facebookProfile}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -292,7 +281,7 @@ const ProfileDisplayPage = async ({
               {twitterProfile && (
                 <Button variant="link" size="icon" asChild>
                   <Link
-                    href={linkedinProfile}
+                    href={twitterProfile}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -366,7 +355,10 @@ const ProfileDisplayPage = async ({
         </div>
       </div>
 
-      {/* <ProfileReviewPage /> */}
+      {/* ONBOARDING CHECKLIST */}
+      <div className="max-w-4xl mx-auto mt-4">
+        <OnboardingChecklist user={user} />
+      </div>
 
       <div id="bio"></div>
       <ProfileBioPage canEdit={canEdit} bio={bio} dataType="bio" id={id} />

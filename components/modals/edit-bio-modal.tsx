@@ -56,7 +56,7 @@ export const EditBioModal = () => {
   });
 
   useEffect(() => {
-    if (user?.bio !== undefined) {
+    if (user !== undefined && user?.bio !== undefined && user?.bio !== null) {
       form.setValue("bio", user?.bio);
     }
   }, [user, form]);

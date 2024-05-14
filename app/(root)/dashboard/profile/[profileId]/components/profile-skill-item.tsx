@@ -46,14 +46,14 @@ const ProfileSkillItem = ({
             <Image
               src={imageUrl}
               alt="image"
-              width={16}
-              height={16}
-              className="w-16  object-cover"
+              width={20}
+              height={20}
+              className="w-20 object-cover overflow-hidden"
             />
           </div>
           <div className="flex min-h-[2rem] w-full min-w-0 flex-col items-start justify-start gap-0">
-            <h4 className="text-base text-slate-700 ">{name} </h4>
-            <p className="w-full text-sm text-slate-500">{description}</p>
+            <h4 className="large text-slate-800 ">{name} </h4>
+            <p className="w-full text-base text-slate-700">{description}</p>
           </div>
           <div>
             {canEdit && (

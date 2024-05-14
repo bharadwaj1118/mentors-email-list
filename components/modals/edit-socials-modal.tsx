@@ -61,16 +61,16 @@ export const EditSocialsModal = () => {
   });
 
   useEffect(() => {
-    if (user?.linkedinProfile !== undefined) {
+    if (user?.linkedinProfile !== undefined && user?.linkedinProfile !== null) {
       form.setValue("linkedinProfile", user?.linkedinProfile);
     }
-    if (user?.twitterProfile !== undefined) {
+    if (user?.twitterProfile !== undefined && user?.twitterProfile !== null) {
       form.setValue("twitterProfile", user?.twitterProfile);
     }
-    if (user?.facebookProfile !== undefined) {
+    if (user?.facebookProfile !== undefined && user?.facebookProfile !== null) {
       form.setValue("facebookProfile", user?.facebookProfile);
     }
-    if (user?.tiktokProfile !== undefined) {
+    if (user?.tiktokProfile !== undefined && user?.tiktokProfile !== null) {
       form.setValue("tiktokProfile", user?.tiktokProfile);
     }
   }, [user, form]);

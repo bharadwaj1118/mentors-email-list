@@ -10,17 +10,17 @@ import { UserProfile } from "@clerk/nextjs";
 
 interface EditBioActionProps {
   dataType: string;
-  bio: string;
+  bio: string | null;
   id: string;
 }
 
 interface EditSocialActionProps {
   dataType: string;
   id: string;
-  linkedinProfile?: string;
-  twitterProfile?: string;
-  facebookProfile?: string;
-  tiktokProfile?: string;
+  linkedinProfile: string | null;
+  twitterProfile: string | null;
+  facebookProfile: string | null;
+  tiktokProfile: string | null;
 }
 
 export function EditProfileAction() {
@@ -115,8 +115,8 @@ export function EditSocialsAction({
 
 interface EditProfileDetailsActionProps {
   id: string;
-  position: string;
-  organization: string;
+  position: string | null;
+  organization: string | null;
 }
 
 export function EditProfileDetailsAction({

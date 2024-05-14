@@ -13,45 +13,28 @@ interface Props {
 const page = async ({ params }: Props) => {
   const { profileId } = params;
 
-  if (profileId === null) {
-    return <div>Profile not found</div>;
-  }
-
-  addProfileViewCount({ profileId });
+  await addProfileViewCount({ profileId });
 
   const user = await db.user.findUnique({
     where: {
       id: profileId,
     },
-    select: {
-      id: true,
-      imageUrl: true,
-      position: true,
-      organization: true,
-      bio: true,
-      city: true,
-      country: true,
-      location: true,
-      linkedinProfile: true,
-      twitterProfile: true,
-      facebookProfile: true,
-      tiktokProfile: true,
+    include: {
       expertise: true,
+      experiences: true,
+      toolkit: true,
       industries: true,
       languages: true,
-      toolkit: true,
-      experiences: true,
-      joinedAt: true,
-      username: true,
-      duration: true,
-      price: true,
-      portfolioWebsite: true,
     },
   });
 
+  if (!user) {
+    return <div>Profile not found</div>;
+  }
+
   return (
     <div className="pt-[80px]">
-      <ProfileDisplayPage user={JSON.stringify(user)} profileId={profileId} />
+      <ProfileDisplayPage user={user} profileId={profileId} />
     </div>
   );
 };

@@ -29,6 +29,7 @@ import {
 import { ROLES } from "@/constants/data";
 import { updateUser } from "@/lib/actions/user.action";
 import { useModal } from "@/hooks/use-modal-store";
+import { user } from "@nextui-org/react";
 
 const formSchema = z.object({
   position: z
@@ -65,7 +66,7 @@ export const EditProfessionModal = () => {
 
   useEffect(() => {
     if (user) {
-      if (user?.organization !== undefined) {
+      if (user?.organization !== undefined && user?.organization !== null) {
         form.setValue("organization", user?.organization);
       }
       if (user?.position) {
@@ -116,7 +117,7 @@ export const EditProfessionModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Add Industry
+            Your Role and Current Organization
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -149,7 +150,7 @@ export const EditProfessionModal = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Industry
+                      Current Organization
                     </FormLabel>
                     <FormControl>
                       <Select {...field} isMulti={false} options={ROLES} />

@@ -11,6 +11,7 @@ import DashBoardSessionCount from "./_components/dashbord-session-count";
 import DashBoardUsersBooked from "./_components/dashboard-users-booked";
 import DashboardSessionsUpcoming from "./_components/dashboard-sessions-upcoming";
 import DashboardSessionsRequest from "./_components/dashboard-sessions-request";
+import { OnboardingChecklist } from "@/components/shared/onboarding-checklist";
 
 type MentorDashboardPageProps = {
   id: string;
@@ -28,10 +29,11 @@ const MentorDashboardPage = async () => {
     where: {
       clerkId: userId,
     },
-    select: {
-      id: true,
-      imageUrl: true,
-      username: true,
+    include: {
+      expertise: true,
+      experiences: true,
+      toolkit: true,
+      industries: true,
     },
   });
 
@@ -41,9 +43,9 @@ const MentorDashboardPage = async () => {
 
   return (
     <div className="max-w-5xl mx-auto pt-[80px] p-3">
-      {/* Page Title */}
+      {/* PAGE TITLE */}
       <div className="w-full flex flex-col lg:flex-row gap-4">
-        {/* Welcome Back and Details*/}
+        {/* WELCOME BACK AND STATS*/}
         <section className="w-full mt-4 p-3 border shadow rounded-lg bg-background md:pl-6 col-start-1 col-span-2">
           <h1 className="text-2xl font-semibold">Welcome back {username}!</h1>
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 my-4 md:px-4">
@@ -53,7 +55,7 @@ const MentorDashboardPage = async () => {
           </div>
         </section>
 
-        {/* Profile and Details */}
+        {/* PROFILE AND SHARE DETAILS */}
         <div className="col-span-1">
           <DashBoardProfileCard
             userId={id}
@@ -66,11 +68,14 @@ const MentorDashboardPage = async () => {
         </div>
       </div>
 
-      {/* Sessions Request */}
+      {/* ONBOARDING CHECKLIST */}
+      <OnboardingChecklist user={user} route="dashboard" />
+
+      {/* SESSIONS REQUESTS */}
       <DashboardSessionsRequest userId={id} />
       <DashboardSessionsUpcoming userId={id} />
 
-      {/* Feedback Form */}
+      {/* FEATURE REQUEST FORM */}
       <div className="w-full col-span-3">
         <DashboardFeedbackForm userId={id} />
       </div>
