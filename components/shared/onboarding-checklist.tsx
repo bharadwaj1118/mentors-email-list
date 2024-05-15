@@ -10,7 +10,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Experience, Expertise, Industry, Tool, User } from "@prisma/client";
 import { OnboardingChecklistActions } from "@/components/shared/onboarding-checklist-actions";
-import { Item } from "@radix-ui/react-radio-group";
 
 type OnboardingChecklistProps = {
   user: User & {
@@ -27,11 +26,13 @@ const ChecklistItem = ({
   text,
   dataType,
   route,
+  profileId,
 }: {
   isChecked: boolean;
   text: string;
   dataType: string;
   route?: string;
+  profileId: string;
 }) => (
   <li className="flex items-center">
     <div className="flex items-center">
@@ -44,7 +45,11 @@ const ChecklistItem = ({
       {text}
     </div>
     {!isChecked && (
-      <OnboardingChecklistActions dataType={dataType} route={route} />
+      <OnboardingChecklistActions
+        dataType={dataType}
+        route={route}
+        profileId={profileId}
+      />
     )}
   </li>
 );
@@ -66,8 +71,7 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
     hasExpertise,
     hasIndustries,
     hasTools,
-    hasProfession,
-    hasOrganization,
+    hasProfession && hasOrganization,
   ];
 
   const completedItemsCount: number =
@@ -80,6 +84,11 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
   // List of all profile completion checks
   const checklist = [
     { isChecked: hasBio, label: "Add your Bio", dataType: "bio" },
+    {
+      isChecked: hasProfession && hasOrganization,
+      label: "Add your current role",
+      dataType: "profession",
+    },
     {
       isChecked: hasExperiences,
       label: "Add your Experience",
@@ -131,6 +140,7 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
                       text={item.label}
                       dataType={item.dataType}
                       route={route}
+                      profileId={user.id}
                     />
                   </div>
                 );
