@@ -25,7 +25,7 @@ const Onboard5Page = () => {
     if (role === "mentee") {
       router.push("/pricing");
     } else {
-      router.push("/dashboard/profiles");
+      router.push("/dashboard/search");
     }
   };
 

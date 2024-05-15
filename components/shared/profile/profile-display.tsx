@@ -60,7 +60,7 @@ type ProfileDisplayPageProps = {
   };
 };
 
-const ProfileDisplayPage = async ({
+export const ProfileDisplayPage = async ({
   user,
   profileId,
 }: ProfileDisplayPageProps) => {
@@ -312,5 +312,3 @@ const ProfileDisplayPage = async ({
     </div>
   );
 };
-
-export default ProfileDisplayPage;

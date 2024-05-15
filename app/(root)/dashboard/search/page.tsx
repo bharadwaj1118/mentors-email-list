@@ -13,7 +13,7 @@ interface ProfilesPageProps {
   };
 }
 
-const profilesPage = async ({ searchParams }: ProfilesPageProps) => {
+const searchPage = async ({ searchParams }: ProfilesPageProps) => {
   const users = await getUsersWithProfileFilters(searchParams);
 
   return (
@@ -35,4 +35,4 @@ const profilesPage = async ({ searchParams }: ProfilesPageProps) => {
   );
 };
 
-export default profilesPage;
+export default searchPage;

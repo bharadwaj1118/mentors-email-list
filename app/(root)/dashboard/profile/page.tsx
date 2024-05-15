@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
-const MentorProfilePage = async () => {
+const MenteeProfilePage = async () => {
   const { userId } = auth();
 
   // If the user is not authenticated, redirect to sign-in page immediately
@@ -32,4 +32,4 @@ const MentorProfilePage = async () => {
   return <div>Profile Page</div>;
 };
 
-export default MentorProfilePage;
+export default MenteeProfilePage;

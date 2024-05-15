@@ -1,5 +1,4 @@
 "use server";
-import { Category } from "./../../app/(root)/dashboard/profiles/_components/profile-filters";
 
 import { db } from "../db";
 import { scheduleMeeting } from "./google-calandar.action";

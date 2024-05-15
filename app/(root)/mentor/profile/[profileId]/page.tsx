@@ -2,7 +2,6 @@ import React from "react";
 
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
-import { addProfileViewCount } from "@/lib/actions/helper.action";
 
 interface Props {
   params: {
@@ -12,8 +11,6 @@ interface Props {
 
 const page = async ({ params }: Props) => {
   const { profileId } = params;
-
-  await addProfileViewCount({ profileId });
 
   const user = await db.user.findUnique({
     where: {

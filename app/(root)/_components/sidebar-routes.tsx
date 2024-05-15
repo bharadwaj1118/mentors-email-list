@@ -9,6 +9,8 @@ import {
   MessageSquarePlusIcon,
   LayoutDashboard,
   CalendarCheck,
+  User2,
+  Search,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -20,9 +22,9 @@ const poppins = Montserrat({ weight: "600", subsets: ["latin"] });
 
 const guestRoutes = [
   {
-    icon: Layout,
-    label: "Dashboard",
-    href: "/dashboard/profiles",
+    icon: Search,
+    label: "Search",
+    href: "/dashboard/search",
     color: "text-blue-500",
   },
   {
@@ -36,6 +38,12 @@ const guestRoutes = [
     label: "Messaging",
     href: "/dashboard/chats",
     color: "text-blue-500",
+  },
+  {
+    icon: User2,
+    label: "Profile",
+    href: "/dashboard/profile",
+    color: "text-neutral-600",
   },
 ];
 
@@ -74,6 +82,12 @@ const mentorRoutes = [
     icon: Settings,
     label: "Settings",
     href: "/mentor/settings",
+    color: "text-neutral-600",
+  },
+  {
+    icon: User2,
+    label: "Profile",
+    href: "/mentor/profile",
     color: "text-neutral-600",
   },
 ];

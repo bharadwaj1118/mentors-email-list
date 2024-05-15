@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut } from "lucide-react";
+import { LogInIcon, LogOut } from "lucide-react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -47,16 +47,17 @@ export const NavbarRoutes = () => {
       </div>
       <div className="flex gap-x-2 ml-auto">
         {isMentorPage ? (
-          <Link href="/dashboard/profiles">
+          <Link href="/dashboard/search">
             <Button size="sm" variant="ghost">
               <LogOut className="h-4 w-4 mr-2" />
-              Exit
+              Mentee Mode
             </Button>
           </Link>
         ) : (
-          <Link href="/mentor/schedule">
+          <Link href="/mentor/dashboard">
             <Button size="sm" variant="ghost">
               Mentor mode
+              <LogInIcon className="h-4 w-4 ml-2" />
             </Button>
           </Link>
         )}
