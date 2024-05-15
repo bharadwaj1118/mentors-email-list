@@ -1,7 +1,8 @@
 import { subMonths, addMonths, formatISO } from "date-fns";
-import { OAuth2Client } from "google-auth-library";
 import { google } from "googleapis";
-import { getOathToken } from "./clerk.action";
+import { getOauthToken } from "./clerk.action";
+
+import { OAuth2Client, Credentials } from "google-auth-library";
 
 /**
  * Lists the next 10 events on the user's primary calendar.
@@ -9,41 +10,48 @@ import { getOathToken } from "./clerk.action";
  */
 
 export async function listEvents(email: string) {
-  const auth = await getOathToken();
+  const auth = await getOauthToken();
+  if (!auth) {
+    console.error("Failed to retrieve OAuth token.");
+    return [];
+  }
+
   const oAuth2Client = new OAuth2Client();
+  const YOUR_OAUTH2_TOKEN: Credentials = {
+    access_token: auth,
+    scope: "https://www.googleapis.com/auth/calendar",
+    token_type: "Bearer",
+  };
+
+  oAuth2Client.setCredentials(YOUR_OAUTH2_TOKEN);
+
+  const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+
+  // Calculate time range: last 1 month to next 3 months
+  const timeMin = subMonths(new Date(), 1);
+  const timeMax = addMonths(new Date(), 3);
 
   try {
-    const YOUR_OAUTH2_TOKEN = {
-      access_token: auth,
-      scope: "https://www.googleapis.com/auth/calendar",
-      token_type: "Bearer",
-    };
-    oAuth2Client.setCredentials(YOUR_OAUTH2_TOKEN);
-
-    const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
-
-    // Calculate time range: last 1 months to next 2 months
-    const timeMin = subMonths(new Date(), 1);
-    const timeMax = addMonths(new Date(), 3);
-
     const res = await calendar.events.list({
       calendarId: email,
-      maxResults: 2000, // Updated maxResults to 2000
+      maxResults: 2000,
       singleEvents: true,
       orderBy: "startTime",
-      timeMin: formatISO(timeMin), // ISO string for start time
-      timeMax: formatISO(timeMax), // ISO string for end time
+      timeMin: formatISO(timeMin),
+      timeMax: formatISO(timeMax),
     });
 
     const events = res.data.items;
+
     if (!events || events.length === 0) {
       console.log("No upcoming events found.");
-      return;
+      return [];
     }
 
     return events;
   } catch (error) {
-    console.error("Error fetching google calander events:", error);
+    console.error("Error fetching Google Calendar events:", error);
+    return [];
   }
 }
 
@@ -53,7 +61,7 @@ export async function scheduleMeeting(
   startTime: string,
   endTime: string
 ) {
-  const auth = await getOathToken();
+  const auth = await getOauthToken();
   const oAuth2Client = new OAuth2Client();
 
   const YOUR_OAUTH2_TOKEN = {

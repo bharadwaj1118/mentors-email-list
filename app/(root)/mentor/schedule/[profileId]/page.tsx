@@ -44,13 +44,14 @@ const MentorSchedulePage = async ({
     return <div>You cannot access this page!</div>;
   }
 
+  // TODO: Gmail and Outlook calendar sync
   const email = user?.email;
   let externalEvents = await listEvents(user?.email);
   const weeklyAvailability = user?.weeklyAvailability || {};
   const { schedule } = JSON.parse(JSON.stringify(weeklyAvailability)) || [];
   const events = generateEventsForNextYear(schedule);
 
-  if (externalEvents === undefined) {
+  if (externalEvents === undefined || externalEvents === null) {
     externalEvents = [];
   }
 
