@@ -36,20 +36,19 @@ export const ShareSocialModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[525px]">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[475px]">
+        <DialogHeader className="flex flex-col items-center ">
           <DialogTitle>Share in a Post</DialogTitle>
           <DialogDescription>
             Please select your social provider
           </DialogDescription>
-
-          <ShareButton property={{}} />
-
-          <div className="py-4 flex items-center justify-center gap-4">
-            <Input value={shareDetails.url} />
-            <CopyToClipboardButton value={shareDetails.url} />
-          </div>
         </DialogHeader>
+        <ShareButton property={{}} />
+
+        <div className="py-4 flex items-center justify-center gap-4">
+          <Input value={shareDetails.url} />
+          <CopyToClipboardButton value={shareDetails.url} />
+        </div>
       </DialogContent>
     </Dialog>
   );
