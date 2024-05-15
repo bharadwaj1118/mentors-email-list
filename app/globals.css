@@ -4,6 +4,10 @@
 
 @import "~stream-chat-react/dist/css/v2/index.css";
 
+html {
+  scroll-behavior: smooth;
+}
+
 .str-chat {
   --str-chat__primary-color: theme(colors.blue.500);
   --str-chat__active-primary-color: theme(colors.blue.600);

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { db } from "@/lib/db";
-import ProfileDisplayPage from "./components/profile-display";
+import ProfileDisplayPage from "@/components/shared/profile/profile-display";
 import { addProfileViewCount } from "@/lib/actions/helper.action";
 
 interface Props {
