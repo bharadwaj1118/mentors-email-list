@@ -26,7 +26,8 @@ export type ModalType =
   | "editProfession"
   | "cancelSession"
   | "declineSession"
-  | "rescheduleSession";
+  | "rescheduleSession"
+  | "socialShare";
 
 interface Industry {
   id: string;
@@ -47,6 +48,10 @@ interface Expertise {
   name: string;
   description: string;
   imageUrl: string;
+}
+
+interface SocialShare {
+  url: string;
 }
 
 interface ProfessionalDetails {
@@ -89,6 +94,7 @@ interface ModalData {
   user?: User;
   experience?: Experience;
   session?: Session;
+  socialShare?: SocialShare;
 }
 
 interface ModalStore {

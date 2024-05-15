@@ -138,19 +138,17 @@ export function RequestCallButton({ id }: RequestCallButtonProps) {
 }
 
 interface CopyToClipboardButtonProps {
-  id: string;
+  value: string;
 }
 
-export function CopyToClipboardButton({ id }: CopyToClipboardButtonProps) {
+export function CopyToClipboardButton({ value }: CopyToClipboardButtonProps) {
   const handleCopy = () => {
-    navigator.clipboard.writeText(
-      `${window.location.origin}/dashboard/profile/${id}`
-    );
+    navigator.clipboard.writeText(value);
     toast.success("Link copied");
   };
   return (
-    <Button variant="link" onClick={handleCopy}>
-      Profile link <CopyIcon className="w-4 h-4 ml-2" />
+    <Button variant="secondary" onClick={handleCopy}>
+      <CopyIcon className="w-4 h-4 " />
     </Button>
   );
 }

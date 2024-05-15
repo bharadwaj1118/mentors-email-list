@@ -15,11 +15,12 @@ import { EditExpertiseModal } from "@/components/modals/edit-expertise-modal";
 import { EditBioModal } from "@/components/modals/edit-bio-modal";
 import { DeleteExperienceModal } from "@/components/modals/delete-experience-modal";
 import { EditExperienceModal } from "@/components/modals/edit-experience-modal";
-import { EditSocialsModal } from "../modals/edit-socials-modal";
-import { EditProfessionModal } from "../modals/edit-professional-modal";
-import { CancelSessionModal } from "../modals/session-cancel-modal";
-import { DeclineSessionModal } from "../modals/session-decline-modal";
-import { RescheduleSessionModal } from "../modals/session-reschedule-modal";
+import { EditSocialsModal } from "@/components/modals/edit-socials-modal";
+import { EditProfessionModal } from "@/components/modals/edit-professional-modal";
+import { CancelSessionModal } from "@/components/modals/session-cancel-modal";
+import { DeclineSessionModal } from "@/components/modals/session-decline-modal";
+import { RescheduleSessionModal } from "@/components/modals/session-reschedule-modal";
+import { ShareSocialModal } from "@/components/modals/share-social-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -53,6 +54,7 @@ export const ModalProvider = () => {
       <CancelSessionModal />
       <DeclineSessionModal />
       <RescheduleSessionModal />
+      <ShareSocialModal />
     </>
   );
 };

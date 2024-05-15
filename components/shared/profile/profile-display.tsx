@@ -13,7 +13,11 @@ import {
   Languages,
 } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
-import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import {
+  LinkedInLogoIcon,
+  Share2Icon,
+  TwitterLogoIcon,
+} from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -21,11 +25,7 @@ import Footer from "@/components/footer";
 
 import { getSelfId } from "@/lib/actions/user.action";
 import { formatMonthYear } from "@/lib/format";
-import ShareButton from "./profile-share";
-import {
-  CopyToClipboardButton,
-  RequestCallButton,
-} from "./profile-item-action";
+import { RequestCallButton } from "./profile-item-action";
 import ProfileSkillList from "./profile-skill-list";
 import {
   EditProfileAction,
@@ -44,10 +44,7 @@ import {
 } from "@prisma/client";
 import ProfileBioPage from "./profile-bio";
 import ProfileLinks from "./profile-links";
-
-const LinkedInShareComponent = dynamic(() => import("./profile-share"), {
-  ssr: false,
-});
+import ShareOwnProfile from "./share-my-profile";
 
 type ProfileDisplayPageProps = {
   profileId: string;
@@ -109,13 +106,16 @@ export const ProfileDisplayPage = async ({
         <div className="flex flex-col items-center justify-center">
           {/* Profile Image & Reviews */}
           <div className="flex flex-col items-center gap-4">
-            <Image
-              src={imageUrl}
-              alt="avatar"
-              width={100}
-              height={100}
-              className="h-32 w-32 rounded-full object-cover overflow-hidden"
-            />
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <Image
+                src={imageUrl}
+                alt="avatar"
+                width={100}
+                height={100}
+                className="h-32 w-32 rounded-full object-cover overflow-hidden"
+              />
+              <div>{canEdit ? <ShareOwnProfile /> : null}</div>
+            </div>
             <div className="flex flex-col items-center gap-2">
               <h3 className="h3">{username}</h3>
               <h4 className="large text-slate-800">
@@ -265,7 +265,7 @@ export const ProfileDisplayPage = async ({
 
       {/* Onboarding Checklist */}
       <div className="max-w-4xl mx-auto mt-4">
-        <OnboardingChecklist user={user} />
+        {canEdit ? <OnboardingChecklist user={user} /> : null}
       </div>
 
       <div id="bio"></div>

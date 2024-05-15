@@ -5,17 +5,32 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
   EmailShareButton,
+  FacebookShareButton,
   TwitterIcon,
   WhatsappIcon,
   EmailIcon,
   LinkedinIcon,
+  FacebookIcon,
 } from "react-share";
 
-//TODO: Add type for property
-interface ShareButtonProps {
-  property: any;
+// Define types for the property object
+interface Property {
+  name?: string;
+  description?: string;
+  type?: string;
 }
-const ShareButton = ({ property }: ShareButtonProps) => {
+
+// Define the props interface for the ShareButton component
+interface ShareButtonProps {
+  property: Property;
+}
+
+export const ShareButton = ({ property }: ShareButtonProps) => {
+  property = {
+    name: "MentorsCX",
+    description: "MentorsCX is a platform that connects mentors with mentees.",
+    type: "Mentorship",
+  };
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -30,39 +45,58 @@ const ShareButton = ({ property }: ShareButtonProps) => {
 
   return (
     <>
-      <h3 className="text-center py-4">Share Your Profile</h3>
-      <div className="flex gap-3 justify-center pb-5">
+      <section className="flex gap-3 justify-center py-4">
         <LinkedinShareButton
           url={shareUrl}
           title={property.name}
           summary={property.description}
         >
-          <LinkedinIcon size={40} round={true} />
+          <div className="flex flex-col items-center gap-2">
+            <LinkedinIcon size={40} round />
+            <p className="muted">LinkedIn</p>
+          </div>
         </LinkedinShareButton>
+
+        <FacebookShareButton url={shareUrl} hashtag="#MentorsCX">
+          <div className="flex flex-col items-center gap-2">
+            <FacebookIcon size={40} round />
+            <p className="muted">Facebook</p>
+          </div>
+        </FacebookShareButton>
 
         <TwitterShareButton
           url={shareUrl}
           title={property.name}
           hashtags={[`${property.type}ForCall`, `Mentorship`]}
         >
-          <TwitterIcon size={40} round={true} />
+          <div className="flex flex-col items-center gap-2">
+            <TwitterIcon size={40} round />
+            <p className="muted">Twitter</p>
+          </div>
         </TwitterShareButton>
+
         <WhatsappShareButton
           url={shareUrl}
           title={property.name}
           separator=":: "
         >
-          <WhatsappIcon size={40} round={true} />
+          <div className="flex flex-col items-center gap-2">
+            <WhatsappIcon size={40} round />
+            <p className="muted">WhatsApp</p>
+          </div>
         </WhatsappShareButton>
+
         <EmailShareButton
           url={shareUrl}
           subject={property.name}
           body={`Check out this property: ${shareUrl}`}
         >
-          <EmailIcon size={40} round={true} />
+          <div className="flex flex-col items-center gap-2">
+            <EmailIcon size={40} round />
+            <p className="muted">Email</p>
+          </div>
         </EmailShareButton>
-      </div>
+      </section>
     </>
   );
 };
-export default ShareButton;
