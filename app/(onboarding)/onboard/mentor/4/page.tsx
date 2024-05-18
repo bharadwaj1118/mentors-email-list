@@ -34,6 +34,9 @@ import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 import { useRouter } from "next/navigation";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { MentorApplication } from "@prisma/client";
+
+import { saveMentorApplication } from "@/lib/actions/helper.action";
 
 const roles = [
   {
@@ -130,69 +133,76 @@ const sessionOptions = [
 ] as const;
 
 const FormSchema = z.object({
-  videoAccepted: z.string().min(2, {
+  preferVideoSharing: z.string().min(2, {
     message: "Please choose an option.",
   }),
-  sessions: z.string().min(0, {
+  weeklySessions: z.string().min(0, {
     message: "Please enter a valid option",
   }),
-  priorExperience: z.string().min(2, { message: "Please choose an option." }),
-  firstPersonView: z
+  priorMentorshipExperience: z
+    .string()
+    .min(2, { message: "Please choose an option." }),
+  profileStatement: z
     .string()
     .min(20, { message: "Please enter short description." }),
-  cxDefination: z
+  descriptionCustomerExperience: z
     .string()
     .min(20, { message: "Please enter short description." }),
-  challangeSolved: z
+  challengeSolved: z
     .string()
     .min(20, { message: "Please enter short description." }),
-  menteePreference: z.string().min(0, {
+  interests: z.string().min(0, {
     message: "Please choose a valid option",
   }),
 });
 
+const emptyFormValues = {
+  preferVideoSharing: "",
+  weeklySessions: "",
+  priorMentorshipExperience: "",
+  profileStatement: "",
+  descriptionCustomerExperience: "",
+  challengeSolved: "",
+  interests: "",
+};
+
+type TMentor = Omit<MentorApplication, "id">;
+
 const ProfileInfoPage = () => {
   const isClient = useIsClient();
   const router = useRouter();
-  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
-    "mentorOnboardingData",
-    {},
-    { initializeWithValue: false }
-  );
-
-  const data = useReadLocalStorage("mentorOnboardingData");
-  const {
-    videoAccepted,
-    sessions,
-    priorExperience,
-    firstPersonView,
-    cxDefination,
-    challangeSolved,
-    menteePreference,
-    charge,
-  } = JSON.parse(JSON.stringify(data || {}));
-
-  const handleClickClearStorage = () => {
-    console.log(JSON.stringify(mentorOnboardData));
-  };
+  const [mentorOnboardData, setMentorOnboardData] =
+    useLocalStorage<TMentor | null>("mentorOnboardingData", null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      videoAccepted: videoAccepted || "",
-      sessions: sessions || 0,
-      priorExperience: priorExperience || "",
-      firstPersonView: firstPersonView || "",
-      cxDefination: cxDefination || "",
-      challangeSolved: challangeSolved || "",
-      menteePreference: menteePreference || "",
+      preferVideoSharing: mentorOnboardData?.preferVideoSharing || "",
+      weeklySessions: mentorOnboardData?.weeklySessions?.toString() || "",
+      priorMentorshipExperience:
+        mentorOnboardData?.priorMentorshipExperience || "",
+      profileStatement: mentorOnboardData?.profileStatement || "",
+      descriptionCustomerExperience:
+        mentorOnboardData?.descriptionCustomerExperience || "",
+      challengeSolved: mentorOnboardData?.challengeSolved || "",
+      interests: mentorOnboardData?.interests || "",
     },
   });
 
+  const handleClickClearStorage = () => {
+    form.reset();
+  };
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    await setMentorOnboardData({ ...mentorOnboardData, ...data });
-    toast.success("Your data has been submitted successfully!");
-    router.push("/onboard/mentor/thankyou");
+    form.reset();
+    const applicationData = {
+      ...mentorOnboardData,
+      ...data,
+    };
+
+    // await setMentorOnboardData(null);
+    await saveMentorApplication(applicationData);
+    // router.push("/onboard/mentor/thankyou");
   };
 
   if (!isClient) return null;
@@ -210,7 +220,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="videoAccepted"
+                name="preferVideoSharing"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -247,12 +257,12 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="sessions"
+                name="weeklySessions"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
-                      Ideally, how many 30-minute mentorship sessions would you
-                      aim to conduct each week?{" "}
+                      Ideally, how many 30-minute mentorship weeklySessions
+                      would you aim to conduct each week?{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -302,7 +312,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="priorExperience"
+                name="priorMentorshipExperience"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -338,7 +348,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="firstPersonView"
+                name="profileStatement"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
@@ -362,7 +372,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="cxDefination"
+                name="descriptionCustomerExperience"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
@@ -385,7 +395,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="challangeSolved"
+                name="challengeSolved"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
@@ -410,7 +420,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="menteePreference"
+                name="interests"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -450,7 +460,7 @@ const ProfileInfoPage = () => {
                 <Button type="button">
                   <Link
                     href={
-                      charge === "no"
+                      mentorOnboardData?.anticipatedSessionRate === "no"
                         ? "/onboard/mentor/2"
                         : "/onboard/mentor/3"
                     }
@@ -465,6 +475,7 @@ const ProfileInfoPage = () => {
                 variant="link"
                 type="button"
                 onClick={handleClickClearStorage}
+                className="invisible"
               >
                 Clear form
               </Button>

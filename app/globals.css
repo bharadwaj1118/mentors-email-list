@@ -379,7 +379,7 @@ html {
 }
 
 .form-container {
-  @apply max-w-3xl mx-auto px-6 lg:px-8;
+  @apply max-w-3xl mx-auto px-3 lg:px-8;
 }
 
 .card-block {

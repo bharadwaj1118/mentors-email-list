@@ -2,8 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import React from "react";
+import { infer, z } from "zod";
+import React, { useEffect } from "react";
 import {
   Form,
   FormControl,
@@ -24,46 +24,54 @@ import { useRouter } from "next/navigation";
 import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
 const FormSchema = z.object({
-  role: z.string().min(2, {
+  currentPosition: z.string().min(2, {
     message: "Please choose an option.",
   }),
-  reason: z.string().min(20, {
+  motivation: z.string().min(20, {
     message: "Please enter atleast 20 letters..",
   }),
-  charge: z.string().min(2, {
+  anticipatedSessionRate: z.string().min(2, {
     message: "Please choose an option..",
   }),
 });
+
+const emptyData = {
+  currentPosition: "",
+  motivation: "",
+  anticipatedSessionRate: "",
+};
 
 const ProfileInfoPage = () => {
   const router = useRouter();
   const isClient = useIsClient();
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
-    {},
-    { initializeWithValue: false }
+    emptyData
   );
 
-  const data = useReadLocalStorage("mentorOnboardingData");
-  const { role, reason, charge } = JSON.parse(JSON.stringify(data || {}));
-
-  const handleClickStorage = () => {
-    console.log(JSON.stringify(mentorOnboardData));
-  };
-
+  // Inside your component
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      role: role || "",
-      reason: reason || "",
-      charge: charge || "",
+      currentPosition: mentorOnboardData?.currentPosition || "",
+      motivation: mentorOnboardData?.motivation || "",
+      anticipatedSessionRate: mentorOnboardData?.anticipatedSessionRate || "",
     },
   });
 
+  const handleClearStorage = () => {
+    setMentorOnboardData({
+      ...mentorOnboardData,
+      ...emptyData,
+    });
+
+    form.reset();
+  };
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setMentorOnboardData({ ...mentorOnboardData, ...data });
-    const charge = data?.charge;
-    charge === "no"
+    const anticipatedSessionRate = data?.anticipatedSessionRate;
+    anticipatedSessionRate === "no"
       ? router.push("/onboard/mentor/4")
       : router.push("/onboard/mentor/3");
   }
@@ -83,7 +91,7 @@ const ProfileInfoPage = () => {
             <div className="card-block">
               <FormField
                 control={form.control}
-                name="role"
+                name="currentPosition"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -145,7 +153,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="reason"
+                name="motivation"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
@@ -156,7 +164,7 @@ const ProfileInfoPage = () => {
                       <Textarea
                         placeholder="Your answer"
                         {...field}
-                        className="w-full"
+                        className="w-full min-h-[150px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -168,7 +176,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="charge"
+                name="anticipatedSessionRate"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -218,7 +226,12 @@ const ProfileInfoPage = () => {
                 <Button type="submit">Next</Button>
               </div>
 
-              <Button variant="link" onClick={handleClickStorage} type="button">
+              <Button
+                variant="link"
+                onClick={handleClearStorage}
+                type="button"
+                className="hidden"
+              >
                 Clear form
               </Button>
             </div>

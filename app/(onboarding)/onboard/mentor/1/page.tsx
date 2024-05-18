@@ -1,47 +1,47 @@
 "use client";
 
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React, { use } from "react";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { fi } from "date-fns/locale";
-import { link } from "fs";
-import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
-import { set } from "mongoose";
+import { useLocalStorage, useIsClient } from "usehooks-ts";
+import { empty } from "@prisma/client/runtime/library";
+import { saveMentorApplication } from "@/lib/actions/helper.action";
 
 const FormSchema = z.object({
-  lastname: z.string().min(2, {
-    message: "Last name must be at least 2 characters.",
-  }),
-  firstname: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  linkedinUrl: z.string().url({
-    message: "Please enter a valid URL.",
-  }),
-  experienced: z.string().nonempty({
-    message: "Please select an option.",
-  }),
+  lastname: z
+    .string()
+    .min(2, { message: "Last name must be at least 2 characters." }),
+  firstname: z
+    .string()
+    .min(2, { message: "First name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  linkedinUrl: z.string().url({ message: "Please enter a valid URL." }),
+  hasEnoughExperience: z
+    .string()
+    .nonempty({ message: "Please select an option." }),
 });
+
+const emptyData = {
+  firstname: "",
+  lastname: "",
+  email: "",
+  linkedinUrl: "",
+  hasEnoughExperience: "",
+};
 
 const ProfileInfoPage = () => {
   const router = useRouter();
@@ -49,45 +49,47 @@ const ProfileInfoPage = () => {
 
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
-    {},
-    { initializeWithValue: false }
+    emptyData
   );
-
-  const data = useReadLocalStorage("mentorOnboardingData");
-  const { firstname, lastname, email, linkedinUrl, experienced } = JSON.parse(
-    JSON.stringify(data || {})
-  );
-
-  const handleClickStorage = () => {
-    // setMentorOnboardData({});
-    console.log(JSON.stringify(mentorOnboardData));
-  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      firstname: firstname || "",
-      lastname: lastname || "",
-      email: email || "",
-      linkedinUrl: linkedinUrl || "",
-      experienced: experienced || undefined,
+      firstname: mentorOnboardData?.firstname || "",
+      lastname: mentorOnboardData?.lastname || "",
+      email: mentorOnboardData?.email || "",
+      linkedinUrl: mentorOnboardData?.linkedinUrl || "",
+      hasEnoughExperience: mentorOnboardData?.hasEnoughExperience || "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    setMentorOnboardData({ ...mentorOnboardData, ...data });
-    router.push("/onboard/mentor/2");
-  }
+  const handleClearStorage = () => {
+    setMentorOnboardData(emptyData);
+    form.reset();
+    router.refresh();
+  };
+
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    console.log();
+    const hasEnoughExperience = data.hasEnoughExperience === "yes";
+    if (hasEnoughExperience) {
+      await setMentorOnboardData({ ...mentorOnboardData, ...data });
+      router.push("/onboard/mentor/2");
+    } else {
+      await setMentorOnboardData(emptyData);
+      await saveMentorApplication(data);
+      router.push("/onboard/mentor/thankyou");
+    }
+  };
 
   if (!isClient) return null;
 
   return (
-    <div className="min-h-screen  bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] mb-12">
-      {/* Form content here */}
+    <div className="min-h-screen bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)] mb-12">
       <div className="form-container pt-10 space-y-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
-            <div className="card-block !bg-primary ">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="card-block !bg-primary">
               <p className="text-white font-bold text-lg">Profile Info</p>
             </div>
 
@@ -112,7 +114,8 @@ const ProfileInfoPage = () => {
                 )}
               />
             </div>
-            <div className="card-block ">
+
+            <div className="card-block">
               <FormField
                 control={form.control}
                 name="lastname"
@@ -126,10 +129,6 @@ const ProfileInfoPage = () => {
                         placeholder="Your Last Name"
                         {...field}
                         className="w-full md:w-1/2"
-                        defaultValue={
-                          mentorOnboardData &&
-                          JSON.parse(JSON.stringify(mentorOnboardData)).lastname
-                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -137,8 +136,8 @@ const ProfileInfoPage = () => {
                 )}
               />
             </div>
-            <div className="card-block ">
-              {" "}
+
+            <div className="card-block">
               <FormField
                 control={form.control}
                 name="email"
@@ -159,7 +158,8 @@ const ProfileInfoPage = () => {
                 )}
               />
             </div>
-            <div className="card-block ">
+
+            <div className="card-block">
               <FormField
                 control={form.control}
                 name="linkedinUrl"
@@ -181,11 +181,11 @@ const ProfileInfoPage = () => {
                 )}
               />
             </div>
-            <div className="card-block ">
-              {" "}
+
+            <div className="card-block">
               <FormField
                 control={form.control}
-                name="experienced"
+                name="hasEnoughExperience"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -196,7 +196,7 @@ const ProfileInfoPage = () => {
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                         className="flex flex-col space-y-1"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
@@ -219,7 +219,6 @@ const ProfileInfoPage = () => {
               />
             </div>
 
-            {/* Form footer */}
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
                 <Button type="button">
@@ -228,7 +227,12 @@ const ProfileInfoPage = () => {
                 <Button type="submit">Next</Button>
               </div>
 
-              <Button variant="link" onClick={handleClickStorage}>
+              <Button
+                variant="link"
+                onClick={handleClearStorage}
+                type="button"
+                className="hidden"
+              >
                 Clear form
               </Button>
             </div>

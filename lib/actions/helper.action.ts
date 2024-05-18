@@ -1,4 +1,5 @@
 "use server";
+import { MentorApplication } from "@prisma/client";
 
 import { db } from "@/lib/db";
 import { getSelfId } from "@/lib/actions/user.action";
@@ -98,5 +99,18 @@ export async function getSessionsCompletedLastMonth(userId: string) {
     return sessions.length;
   } catch (err) {
     console.log("Error in getSessionsCompletedLastMonth", err);
+  }
+}
+
+type TMentorApplication = Omit<MentorApplication, "id">;
+export async function saveMentorApplication(mentorApplication: any) {
+  try {
+    const application = await db.mentorApplication.create({
+      data: mentorApplication,
+    });
+
+    return application;
+  } catch (err) {
+    console.log("Error in saveMentorApplication", err);
   }
 }

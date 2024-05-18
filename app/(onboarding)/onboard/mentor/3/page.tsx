@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
-const sessionCountOptions = [
+const financialMotivationFactorOptions = [
   { label: "1", value: "1" },
   { label: "2", value: "2" },
   { label: "3", value: "3" },
@@ -29,7 +29,7 @@ const sessionCountOptions = [
   { label: "5", value: "5" },
 ];
 
-const priceOptions = [
+const anticipatedSessionRateOptions = [
   { label: "Free", value: "Free" },
   { label: "1-25", value: "1-25" },
   { label: "26-50", value: "26-50" },
@@ -39,35 +39,45 @@ const priceOptions = [
 ];
 
 const FormSchema = z.object({
-  price: z.string().min(1, { message: "Please enter a valid number" }),
-  sessionCount: z.string().min(1, { message: "Please select a valid number" }),
-  priceAcceptance: z.string().min(1, { message: "Please select an option" }),
+  anticipatedSessionRate: z
+    .string()
+    .min(1, { message: "Please enter a valid number" }),
+  financialMotivationFactor: z
+    .string()
+    .min(1, { message: "Please select a valid number" }),
+  feePolicyAcceptance: z
+    .string()
+    .min(1, { message: "Please select an option" }),
 });
+
+const emptyFormValues = {
+  anticipatedSessionRate: "",
+  financialMotivationFactor: "",
+  feePolicyAcceptance: "",
+};
 
 const ProfileInfoPage = () => {
   const router = useRouter();
   const isClient = useIsClient();
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
-    {},
-    { initializeWithValue: false }
-  );
-
-  const data = useReadLocalStorage("mentorOnboardingData");
-
-  const { sessionCount, price, priceAcceptance } = JSON.parse(
-    JSON.stringify(data || {})
+    emptyFormValues
   );
 
   const handleClickClearStorage = () => {
-    console.log(JSON.stringify(mentorOnboardData));
+    setMentorOnboardData({
+      ...mentorOnboardData,
+      ...emptyFormValues,
+    });
   };
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      sessionCount: sessionCount || undefined,
-      price: price || undefined,
-      priceAcceptance: priceAcceptance || "",
+      financialMotivationFactor:
+        mentorOnboardData?.financialMotivationFactor || undefined,
+      anticipatedSessionRate:
+        mentorOnboardData?.anticipatedSessionRate || undefined,
+      feePolicyAcceptance: mentorOnboardData?.feePolicyAcceptance || "",
     },
   });
 
@@ -83,7 +93,7 @@ const ProfileInfoPage = () => {
       {/* Form content here */}
       <div className="form-container pt-10 space-y-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="card-block !bg-primary ">
               <p className="text-white font-bold text-lg">Financial talk</p>
             </div>
@@ -91,7 +101,7 @@ const ProfileInfoPage = () => {
             <div className="card-block">
               <FormField
                 control={form.control}
-                name="price"
+                name="anticipatedSessionRate"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -106,7 +116,7 @@ const ProfileInfoPage = () => {
                         defaultValue={field.value}
                         className="flex flex-row gap-4 flex-wrap "
                       >
-                        {priceOptions.map((option) => (
+                        {anticipatedSessionRateOptions.map((option) => (
                           <FormItem
                             key={option.value}
                             className="flex items-center space-x-1 space-y-0"
@@ -130,7 +140,7 @@ const ProfileInfoPage = () => {
             <div className="card-block">
               <FormField
                 control={form.control}
-                name="sessionCount"
+                name="financialMotivationFactor"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -146,7 +156,7 @@ const ProfileInfoPage = () => {
                         defaultValue={field.value}
                         className="flex flex-row space-x-3"
                       >
-                        {sessionCountOptions.map((option) => (
+                        {financialMotivationFactorOptions.map((option) => (
                           <FormItem
                             key={option.value}
                             className="flex items-center space-x-1 space-y-0"
@@ -189,7 +199,7 @@ const ProfileInfoPage = () => {
             <div className="card-block ">
               <FormField
                 control={form.control}
-                name="priceAcceptance"
+                name="feePolicyAcceptance"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
@@ -244,6 +254,7 @@ const ProfileInfoPage = () => {
                 variant="link"
                 onClick={handleClickClearStorage}
                 type="button"
+                className="hidden"
               >
                 Clear form
               </Button>
