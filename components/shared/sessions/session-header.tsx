@@ -131,21 +131,25 @@ type Props = {
 const gradientColors: {
   [key: string]: string;
 } = {
-  green: "from-green-300 via-slate-100 to-white text-green-500",
-  yellow: "from-yellow-300 via-slate-100 to-white text-yellow-500",
-  blue: "from-blue-300 via-slate-100 to-white text-blue-500",
-  slate: "from-slate-300 via-slate-100 to-white text-slate-500",
-  danger: "from-danger-300 via-slate-100 to-white text-danger-500",
+  green: "from-green-200/60 to-white text-green-500",
+  yellow: "from-yellow-200/60 to-white text-yellow-500",
+  blue: "from-blue-300/60 to-white text-blue-500",
+  slate: "from-slate-300/60 to-white text-slate-500",
+  danger: "from-danger-200/60 to-white text-danger-500",
 };
 
 const buttonColors: {
   [key: string]: string;
 } = {
-  green: "text-green-500 border-green-500 hover:text-green-500/80",
-  yellow: "text-yellow-500 border-yellow-500 hover:text-yellow-500/80",
-  blue: "text-blue-500 border-blue-500 hover:text-blue-500/80",
-  slate: "text-slate-500 border-slate-500 hover:text-slate-500/80",
-  danger: "text-danger-500 border-danger-500 hover:text-danger-500/80",
+  green:
+    "text-green-500 border-green-500 hover:text-green-500/80 hover:bg-green-500/10",
+  yellow:
+    "text-yellow-500 border-yellow-500 hover:text-yellow-500/80 hover:bg-yellow-500/10",
+  blue: "text-blue-500 border-blue-500 hover:text-blue-500/80 hover:bg-blue-500/10",
+  slate:
+    "text-slate-500 border-slate-500 hover:text-slate-500/80 hover:bg-slate-500/10",
+  danger:
+    "text-danger-500 border-danger-500 hover:text-danger-500/80 hover:bg-danger-500/10",
 };
 
 const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
@@ -158,7 +162,7 @@ const SessionHeader = ({ sessionId, role, status, declinedBy }: Props) => {
 
   const buttonThemeClasses = buttonColors[theme];
 
-  const buttonStyles = `min-w-[150px] rounded-full hover:bg-background outline border-1 font-semibold ${buttonThemeClasses}`;
+  const buttonStyles = `rounded-full hover:bg-background border-1 font-semibold ${buttonThemeClasses}`;
 
   return (
     <section

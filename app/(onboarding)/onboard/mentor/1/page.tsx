@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
 import { useLocalStorage, useIsClient } from "usehooks-ts";
-import { empty } from "@prisma/client/runtime/library";
+
 import { saveMentorApplication } from "@/lib/actions/helper.action";
 
 const FormSchema = z.object({
@@ -73,11 +73,14 @@ const ProfileInfoPage = () => {
     console.log();
     const hasEnoughExperience = data.hasEnoughExperience === "yes";
     if (hasEnoughExperience) {
-      await setMentorOnboardData({ ...mentorOnboardData, ...data });
+      await setMentorOnboardData({
+        ...mentorOnboardData,
+        ...data,
+      });
       router.push("/onboard/mentor/2");
     } else {
       await setMentorOnboardData(emptyData);
-      await saveMentorApplication(data);
+      await saveMentorApplication({ ...data, applicationStatus: "DECLINED" });
       router.push("/onboard/mentor/thankyou");
     }
   };

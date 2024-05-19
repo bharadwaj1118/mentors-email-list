@@ -57,13 +57,15 @@ export const DeclineSessionModal = () => {
       const sessionStatus = session?.status;
       const { reason } = values;
 
+      toast.loading("Declining the session...");
+      onClose();
+
       const result = await updateSession({
         id: sessionId,
         status: sessionStatus,
         declineReason: reason,
       });
 
-      onClose();
       form.reset();
       router.refresh();
 

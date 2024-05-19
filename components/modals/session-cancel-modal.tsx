@@ -55,13 +55,15 @@ export const CancelSessionModal = () => {
       const sessionStatus = session?.status;
       const { reason } = values;
 
+      toast.loading("Cancelling the session...");
+      onClose();
+
       const result = await updateSession({
         id: sessionId,
         status: sessionStatus,
         declineReason: reason,
       });
 
-      onClose();
       form.reset();
       router.refresh();
 

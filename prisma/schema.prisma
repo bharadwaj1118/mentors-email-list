@@ -250,7 +250,7 @@ model FeatureRequest {
 enum ApplicationStatus {
   PENDING
   APPROVED
-  REJECTED
+  DECLINED
 }
 
 model MentorApplication {

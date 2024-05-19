@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,8 @@ export const SessionHeaderActions = ({
   const router = useRouter();
   const { onOpen } = useModal();
 
+  const [disabled, setDisabled] = useState(false);
+
   const showReschedule: Boolean =
     status === SessionStatus.ACCEPTED || status === SessionStatus.AWAITING_HOST;
   const showCancel: Boolean = status === SessionStatus.ACCEPTED;
@@ -46,12 +48,14 @@ export const SessionHeaderActions = ({
 
   const handleAccept = async () => {
     try {
+      setDisabled(true);
+      toast.loading("Accepting the session");
       await updateSession({
         id: sessionId,
         status: "ACCEPTED",
       });
-
-      toast.success(" Accepted the session");
+      toast.success("Accepted the session");
+      setDisabled(false);
       router.refresh();
     } catch (error) {
       console.log(error);
@@ -60,6 +64,7 @@ export const SessionHeaderActions = ({
   };
 
   const handleDecline = async () => {
+    setDisabled(true);
     onOpen("declineSession", {
       session: {
         id: sessionId,
@@ -67,9 +72,11 @@ export const SessionHeaderActions = ({
         declinedBy: role,
       },
     });
+    setDisabled(false);
   };
 
   const handleCancel = async () => {
+    setDisabled(true);
     onOpen("cancelSession", {
       session: {
         id: sessionId,
@@ -77,6 +84,7 @@ export const SessionHeaderActions = ({
         declinedBy: role,
       },
     });
+    setDisabled(false);
   };
 
   return (
@@ -86,6 +94,7 @@ export const SessionHeaderActions = ({
           className={buttonStyles}
           variant="outline"
           onClick={handleDecline}
+          disabled={disabled}
         >
           Decline
         </Button>
@@ -95,6 +104,7 @@ export const SessionHeaderActions = ({
           className={buttonStyles}
           variant="outline"
           onClick={handleCancel}
+          disabled={disabled}
         >
           Cancel
         </Button>
@@ -104,6 +114,7 @@ export const SessionHeaderActions = ({
           className={buttonStyles}
           variant="outline"
           onClick={handleReschedule}
+          disabled={disabled}
         >
           Reschedule
         </Button>
@@ -114,6 +125,7 @@ export const SessionHeaderActions = ({
           className={buttonStyles}
           variant="outline"
           onClick={handleAccept}
+          disabled={disabled}
         >
           Accept
         </Button>

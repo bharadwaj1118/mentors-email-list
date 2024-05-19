@@ -58,6 +58,9 @@ export const RescheduleSessionModal = () => {
       const declinedBy = session?.declinedBy;
       const { reason } = values;
 
+      toast.loading("Rescheduling the session...");
+      onClose();
+
       const result = await updateSession({
         id: sessionId,
         status: sessionStatus,
@@ -65,7 +68,6 @@ export const RescheduleSessionModal = () => {
         declinedBy,
       });
 
-      onClose();
       form.reset();
       router.refresh();
 
