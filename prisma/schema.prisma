@@ -275,5 +275,8 @@ model MentorApplication {
   applicationStatus             String @default("PENDING") @map("application_status")
   applicationNotes              String @default("NA") @map("application_notes") @db.Text
 
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
   @@map("mentor_applications")
 }

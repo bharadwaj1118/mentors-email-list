@@ -1,18 +1,23 @@
-import { FancyBox } from "@/components/ui/fancy-box";
 import React from "react";
+import { notFound, redirect } from "next/navigation";
+import { auth, clerkClient } from "@clerk/nextjs";
 
-const AdminPage = () => {
+const AdminPage = async () => {
+  const { userId } = await auth();
+  if (!userId) {
+    redirect("/sign-in");
+  }
+  const user = await clerkClient.users.getUser(userId);
+  const isAdmin = user.privateMetadata?.admin;
+
+  if (!isAdmin) {
+    throw notFound();
+  }
+
   return (
     <div className="w-screen h-screen">
       <div className="w-full h-full flex items-center justify-center flex-col">
-        <div className="flex items-center justify-center">
-          <div className="font-bold mr-6 ">Technologies:</div>
-          <FancyBox />
-        </div>
-        <div className="flex items-center justify-center">
-          <div className="font-bold mr-6 ">Technologies:</div>
-          <FancyBox />
-        </div>
+        This is the dashboard!
       </div>
     </div>
   );
