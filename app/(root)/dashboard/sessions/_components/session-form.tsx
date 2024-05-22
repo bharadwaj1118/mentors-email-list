@@ -76,7 +76,7 @@ export function SessionForm({ session, user }: SessionFormProps) {
     if (status === SessionStatus.AVAILABLE) {
       setEnableEdit(true);
     }
-  }, []);
+  }, [status]);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({

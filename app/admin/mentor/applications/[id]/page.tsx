@@ -4,6 +4,10 @@ import { notFound, redirect } from "next/navigation";
 import { auth, clerkClient } from "@clerk/nextjs";
 
 import { db } from "@/lib/db";
+import {
+  AcceptApplicationButton,
+  RejectApplicationButton,
+} from "../../_components/application-actions";
 
 type TMentorApplicationPageProps = {
   params: {
@@ -80,15 +84,28 @@ const MentorApplicationPage = async ({
   console.log(application);
 
   return (
-    <section className="max-w-5xl mx-auto px-3 md:px-6 space-y-4">
-      {fields.map((field) => (
-        <FieldDisplay
-          key={field.key}
-          label={field.label}
-          value={application[field.key]?.toString() || "NA"}
-        />
-      ))}
-    </section>
+    <div className="max-w-5xl mx-auto px-3 md:px-6 ">
+      {/* Application fields */}
+      <section className="space-y-4">
+        {fields.map((field) => (
+          <FieldDisplay
+            key={field.key}
+            label={field.label}
+            value={application[field.key]?.toString() || "NA"}
+          />
+        ))}
+      </section>
+
+      {/* Accept and Reject buttons */}
+      <div className="flex items-center justify-center gap-4 mt-8 border-slate-400 px-6 py-3 border-1 rounded">
+        {application.applicationStatus !== "ACCEPTED" && (
+          <AcceptApplicationButton id={application.id} />
+        )}
+        {application.applicationStatus !== "DECLINED" && (
+          <RejectApplicationButton id={application.id} />
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -91,11 +91,13 @@ export default function PricingTables() {
                 <div className="mb-4">
                   <div className="text-lg font-bold mb-1">Eclipse</div>
                   <div className="inline-flex items-baseline mb-2">
-                    <span className="text-3xl font-bold">$</span>
+                    {/* <span className="text-3xl font-bold">$</span>
                     <span className="text-4xl font-bold">
-                      {annual ? "31" : "39"}
+                       {annual ? "31" : "39"} 
+                      coming soon!
                     </span>
-                    <span className="text-gray-600 pl-2">/month</span>
+                     <span className="text-gray-600 pl-2">/month</span>  */}
+                    coming soon!
                   </div>
                   <div className="text-lg text-gray-800">
                     For those exploring the mentorship world
@@ -171,11 +173,12 @@ export default function PricingTables() {
                 <div className="mb-4">
                   <div className="text-lg font-bold mb-1">Moon</div>
                   <div className="inline-flex items-baseline mb-2">
-                    <span className="text-3xl font-bold">$</span>
-                    <span className="text-4xl font-bold">
+                    {/* <span className="text-3xl font-bold">$</span> */}
+                    {/* <span className="text-4xl font-bold">
                       {annual ? "49" : "59"}
                     </span>
-                    <span className="text-gray-600 pl-2">/month</span>
+                    <span className="text-gray-600 pl-2">/month</span> */}
+                    coming soon
                   </div>
                   <div className="text-lg text-gray-800">
                     For those committed to a more sustainable growth
@@ -242,13 +245,14 @@ export default function PricingTables() {
                 data-aos-delay="450"
               >
                 <div className="mb-4">
-                  <div className="text-lg font-bold mb-1">Sun(coming soon)</div>
+                  <div className="text-lg font-bold mb-1">Sun</div>
                   <div className="inline-flex items-baseline mb-2">
-                    <span className="text-3xl font-bold">$</span>
+                    {/* <span className="text-3xl font-bold">$</span>
                     <span className="text-4xl font-bold">
                       {annual ? "159" : "199"}
                     </span>
-                    <span className="text-gray-600 pl-2">/month</span>
+                    <span className="text-gray-600 pl-2">/month</span> */}
+                    coming soon!
                   </div>
                   <div className="text-lg text-gray-800">
                     For teams that want to grow & develop together

@@ -33,7 +33,7 @@ export const generateEventsForNextYear = (
 
       events.push({
         id: uuidv4(),
-        title: `Event on ${item.day}`,
+        title: `CX Availability`,
         start: eventStart,
         end: eventEnd,
       });
