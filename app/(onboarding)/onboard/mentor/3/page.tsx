@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import React from "react";
 import {
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
@@ -59,6 +60,7 @@ const emptyFormValues = {
 const ProfileInfoPage = () => {
   const router = useRouter();
   const isClient = useIsClient();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
     emptyFormValues
@@ -82,8 +84,15 @@ const ProfileInfoPage = () => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    setMentorOnboardData({ ...mentorOnboardData, ...data });
-    router.push("/onboard/mentor/4");
+    try {
+      setIsSubmitting(true);
+      setMentorOnboardData({ ...mentorOnboardData, ...data });
+      router.push("/onboard/mentor/4");
+    } catch (e) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!isClient) return null;
@@ -244,10 +253,26 @@ const ProfileInfoPage = () => {
             {/* Form footer */}
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
-                <Button type="button">
-                  <Link href="/onboard/mentor/2">Back</Link>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-w-[100px]"
+                  asChild
+                >
+                  <Link href="/onboard/2">Back</Link>
                 </Button>
-                <Button type="submit">Next</Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="min-w-[100px]"
+                >
+                  <span>Next</span>
+                  <span>
+                    {isSubmitting && (
+                      <Loader2 className="animate-spin h-4 w-4 ml-1" />
+                    )}
+                  </span>
+                </Button>
               </div>
 
               <Button

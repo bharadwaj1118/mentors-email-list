@@ -110,7 +110,16 @@ export async function saveMentorApplication(mentorApplication: any) {
     });
 
     return application;
-  } catch (err) {
-    console.log("Error in saveMentorApplication", err);
+  } catch (err: any) {
+    if (err.code === "P2002" && err.meta?.target.includes("email")) {
+      // Log the error occurrence without the stack trace
+      console.warn(`Duplicate email submission attempt: ${err.meta.target}`);
+      throw new Error(
+        "It looks like you have already submitted an application with this email."
+      );
+    }
+
+    console.error("Unexpected error in saveMentorApplication", err);
+    throw err;
   }
 }

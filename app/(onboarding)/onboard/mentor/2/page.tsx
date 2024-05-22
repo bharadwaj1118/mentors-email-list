@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { infer, z } from "zod";
 import React, { useEffect } from "react";
@@ -14,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -23,6 +23,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocalStorage, useReadLocalStorage, useIsClient } from "usehooks-ts";
 
+import { toast } from "sonner";
 const FormSchema = z.object({
   currentPosition: z.string().min(2, {
     message: "Please choose an option.",
@@ -44,6 +45,7 @@ const emptyData = {
 const ProfileInfoPage = () => {
   const router = useRouter();
   const isClient = useIsClient();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
     emptyData
@@ -69,11 +71,18 @@ const ProfileInfoPage = () => {
   };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    setMentorOnboardData({ ...mentorOnboardData, ...data });
-    const anticipatedSessionRate = data?.anticipatedSessionRate;
-    anticipatedSessionRate === "no"
-      ? router.push("/onboard/mentor/4")
-      : router.push("/onboard/mentor/3");
+    try {
+      setIsSubmitting(true);
+      setMentorOnboardData({ ...mentorOnboardData, ...data });
+      const anticipatedSessionRate = data?.anticipatedSessionRate;
+      anticipatedSessionRate === "no"
+        ? router.push("/onboard/mentor/4")
+        : router.push("/onboard/mentor/3");
+    } catch (e) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!isClient) return null;
@@ -220,10 +229,26 @@ const ProfileInfoPage = () => {
             {/* Form footer */}
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
-                <Button type="button">
-                  <Link href="/onboard/mentor/1">Back</Link>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-w-[100px]"
+                  asChild
+                >
+                  <Link href="/onboard/1">Back</Link>
                 </Button>
-                <Button type="submit">Next</Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="min-w-[100px]"
+                >
+                  <span>Next</span>
+                  <span>
+                    {isSubmitting && (
+                      <Loader2 className="animate-spin h-4 w-4 ml-1" />
+                    )}
+                  </span>
+                </Button>
               </div>
 
               <Button

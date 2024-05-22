@@ -18,8 +18,10 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
 import { useLocalStorage, useIsClient } from "usehooks-ts";
+import { toast } from "sonner";
 
 import { saveMentorApplication } from "@/lib/actions/helper.action";
+import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
   lastname: z
@@ -46,6 +48,7 @@ const emptyData = {
 const ProfileInfoPage = () => {
   const router = useRouter();
   const isClient = useIsClient();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
     "mentorOnboardingData",
@@ -70,7 +73,7 @@ const ProfileInfoPage = () => {
   };
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    console.log();
+    setIsSubmitting(true);
     const hasEnoughExperience = data.hasEnoughExperience === "yes";
     if (hasEnoughExperience) {
       await setMentorOnboardData({
@@ -79,10 +82,16 @@ const ProfileInfoPage = () => {
       });
       router.push("/onboard/mentor/2");
     } else {
-      await setMentorOnboardData(emptyData);
-      await saveMentorApplication({ ...data, applicationStatus: "DECLINED" });
-      router.push("/onboard/mentor/thankyou");
+      try {
+        await saveMentorApplication({ ...data, applicationStatus: "DECLINED" });
+        await setMentorOnboardData(emptyData);
+        toast.success("Application Submitted!");
+        router.push("/onboard/mentor/thankyou");
+      } catch (error: any) {
+        toast.error(error?.message || "Submission Failed!");
+      }
     }
+    setIsSubmitting(false);
   };
 
   if (!isClient) return null;
@@ -224,10 +233,25 @@ const ProfileInfoPage = () => {
 
             <div className="form-container mt-4 flex items-center justify-between p-3">
               <div className="space-x-4">
-                <Button type="button">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-w-[100px]"
+                >
                   <Link href="/onboard/mentor">Back</Link>
                 </Button>
-                <Button type="submit">Next</Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="min-w-[100px]"
+                >
+                  <span>Next</span>
+                  <span>
+                    {isSubmitting && (
+                      <Loader2 className="animate-spin h-4 w-4 ml-1" />
+                    )}
+                  </span>
+                </Button>
               </div>
 
               <Button
