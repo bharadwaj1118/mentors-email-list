@@ -29,10 +29,10 @@ const FormSchema = z.object({
     message: "Please choose an option.",
   }),
   motivation: z.string().min(20, {
-    message: "Please enter atleast 20 letters..",
+    message: "Please enter atleast 20 letters.",
   }),
   anticipatedSessionRate: z.string().min(2, {
-    message: "Please choose an option..",
+    message: "Please choose an option.",
   }),
 });
 
@@ -176,6 +176,10 @@ const ProfileInfoPage = () => {
                         className="w-full min-h-[150px]"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {form.getValues("motivation").length} characters (20
+                      minimum)
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -235,7 +239,7 @@ const ProfileInfoPage = () => {
                   className="min-w-[100px]"
                   asChild
                 >
-                  <Link href="/onboard/1">Back</Link>
+                  <Link href="/onboard/mentor/1">Back</Link>
                 </Button>
                 <Button
                   type="submit"

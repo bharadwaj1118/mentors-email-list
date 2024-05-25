@@ -137,23 +137,23 @@ const FormSchema = z.object({
   preferVideoSharing: z.string().min(2, {
     message: "Please choose an option.",
   }),
-  weeklySessions: z.string().min(0, {
-    message: "Please enter a valid option",
+  weeklySessions: z.string().min(1, {
+    message: "Please enter a valid option.",
   }),
   priorMentorshipExperience: z
     .string()
     .min(2, { message: "Please choose an option." }),
   profileStatement: z
     .string()
-    .min(20, { message: "Please enter short description." }),
+    .min(60, { message: "Please enter atleast 60 characters." }),
   descriptionCustomerExperience: z
     .string()
-    .min(20, { message: "Please enter short description." }),
+    .min(60, { message: "Please enter atleast 60 characters." }),
   challengeSolved: z
     .string()
-    .min(20, { message: "Please enter short description." }),
-  interests: z.string().min(0, {
-    message: "Please choose a valid option",
+    .min(60, { message: "Please enter atleast 60 characters." }),
+  interests: z.string().min(1, {
+    message: "Please choose an option",
   }),
 });
 
@@ -382,6 +382,10 @@ const ProfileInfoPage = () => {
                         className="w-full h-[150px]"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {form.getValues("profileStatement").length} characters (60
+                      minimum)
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -405,6 +409,10 @@ const ProfileInfoPage = () => {
                         className="w-full h-[150px]"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {form.getValues("descriptionCustomerExperience").length}{" "}
+                      characters (60 minimum)
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -430,6 +438,10 @@ const ProfileInfoPage = () => {
                         className="w-full h-[150px]"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {form.getValues("challengeSolved").length} characters (60
+                      minimum)
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

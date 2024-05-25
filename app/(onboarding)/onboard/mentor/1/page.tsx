@@ -24,14 +24,10 @@ import { saveMentorApplication } from "@/lib/actions/helper.action";
 import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
-  lastname: z
-    .string()
-    .min(2, { message: "Last name must be at least 2 characters." }),
-  firstname: z
-    .string()
-    .min(2, { message: "First name must be at least 2 characters." }),
+  lastname: z.string().min(2, { message: "Last name is required" }),
+  firstname: z.string().min(2, { message: "First name is required" }),
   email: z.string().email({ message: "Please enter a valid email address." }),
-  linkedinUrl: z.string().url({ message: "Please enter a valid URL." }),
+  linkedinUrl: z.string().url().optional().or(z.literal("")),
   hasEnoughExperience: z
     .string()
     .nonempty({ message: "Please select an option." }),
@@ -50,10 +46,9 @@ const ProfileInfoPage = () => {
   const isClient = useIsClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage(
-    "mentorOnboardingData",
-    emptyData
-  );
+  const [mentorOnboardData, setMentorOnboardData] = useLocalStorage<z.infer<
+    typeof FormSchema
+  > | null>("mentorOnboardingData", null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -74,24 +69,21 @@ const ProfileInfoPage = () => {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     setIsSubmitting(true);
-    const hasEnoughExperience = data.hasEnoughExperience === "yes";
-    if (hasEnoughExperience) {
-      await setMentorOnboardData({
-        ...mentorOnboardData,
-        ...data,
-      });
-      router.push("/onboard/mentor/2");
-    } else {
-      try {
+    try {
+      if (data.hasEnoughExperience === "yes") {
+        await setMentorOnboardData(data); // Update only once here
+        router.push("/onboard/mentor/2");
+      } else {
         await saveMentorApplication({ ...data, applicationStatus: "DECLINED" });
-        await setMentorOnboardData(emptyData);
+        await setMentorOnboardData(emptyData); // Clear data on successful submission
         toast.success("Application Submitted!");
         router.push("/onboard/mentor/thankyou");
-      } catch (error: any) {
-        toast.error(error?.message || "Submission Failed!");
       }
+    } catch (error: any) {
+      toast.error(error?.message || "Submission Failed!");
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   if (!isClient) return null;
@@ -178,8 +170,7 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
-                      What is your LinkedIn profile?{" "}
-                      <span className="text-red-500">*</span>
+                      What is your LinkedIn profile?
                     </FormLabel>
                     <FormControl>
                       <Input

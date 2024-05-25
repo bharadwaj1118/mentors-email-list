@@ -39,16 +39,11 @@ const anticipatedSessionRateOptions = [
   { label: "100+", value: "100+" },
 ];
 
+// Define your Zod schema for the form
 const FormSchema = z.object({
-  anticipatedSessionRate: z
-    .string()
-    .min(1, { message: "Please enter a valid number" }),
-  financialMotivationFactor: z
-    .string()
-    .min(1, { message: "Please select a valid number" }),
-  feePolicyAcceptance: z
-    .string()
-    .min(1, { message: "Please select an option" }),
+  anticipatedSessionRate: z.string().nonempty("Please select a rate."),
+  financialMotivationFactor: z.string().nonempty("Please select a factor."),
+  feePolicyAcceptance: z.string().nonempty("Please select an option."),
 });
 
 const emptyFormValues = {
@@ -66,12 +61,6 @@ const ProfileInfoPage = () => {
     emptyFormValues
   );
 
-  const handleClickClearStorage = () => {
-    setMentorOnboardData({
-      ...mentorOnboardData,
-      ...emptyFormValues,
-    });
-  };
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -79,7 +68,7 @@ const ProfileInfoPage = () => {
         mentorOnboardData?.financialMotivationFactor || undefined,
       anticipatedSessionRate:
         mentorOnboardData?.anticipatedSessionRate || undefined,
-      feePolicyAcceptance: mentorOnboardData?.feePolicyAcceptance || "",
+      feePolicyAcceptance: mentorOnboardData?.feePolicyAcceptance || "yes",
     },
   });
 
@@ -277,15 +266,6 @@ const ProfileInfoPage = () => {
                   </span>
                 </Button>
               </div>
-
-              <Button
-                variant="link"
-                onClick={handleClickClearStorage}
-                type="button"
-                className="hidden"
-              >
-                Clear form
-              </Button>
             </div>
           </form>
         </Form>

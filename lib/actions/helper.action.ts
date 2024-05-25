@@ -105,8 +105,16 @@ export async function getSessionsCompletedLastMonth(userId: string) {
 type TMentorApplication = Omit<MentorApplication, "id">;
 export async function saveMentorApplication(mentorApplication: any) {
   try {
+    if (
+      !mentorApplication?.email ||
+      !mentorApplication?.firstname ||
+      !mentorApplication?.lastname ||
+      !mentorApplication?.hasEnoughExperience
+    ) {
+      throw new Error("Application not submitted! Missing required details.");
+    }
     const application = await db.mentorApplication.create({
-      data: mentorApplication,
+      data: mentorApplication as TMentorApplication,
     });
 
     return application;
