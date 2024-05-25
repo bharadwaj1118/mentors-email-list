@@ -271,8 +271,8 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
-                      Ideally, how many 30-minute mentorship weeklySessions
-                      would you aim to conduct each week?{" "}
+                      <span></span>Ideally, how many 30-minute mentorship weekly
+                      sessions would you aim to conduct each week?{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -326,7 +326,10 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      Have you had any prior experience mentoring others?{" "}
+                      <span>
+                        Which groups of people looking for guidance are you most
+                        excited to support as a mentor?
+                      </span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -362,8 +365,15 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="md:text-base">
-                      If you become a mentor, your response to this question
-                      will be added to your mentor profile
+                      <span>
+                        Please share a brief self-description in a few sentences
+                        (in first person).
+                      </span>
+                      <span>
+                        If you become a mentor, your response to this question
+                        will be added to your mentor profile{" "}
+                      </span>
+                      <span>(you’ll be able to edit it later)</span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -434,7 +444,10 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      Have you had any prior experience mentoring others?{" "}
+                      <span>
+                        Which groups of people looking for guidance are you most
+                        excited to support as a mentor?
+                      </span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>

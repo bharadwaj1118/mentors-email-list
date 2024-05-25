@@ -212,10 +212,13 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      You won&apos;t have the ability to set a fee until you
-                      receive your initial three reviews. Additionally, you
-                      won&apos;t be able to charge more than $100 per hour until
-                      you accumulate ten reviews. Is this acceptable to you?{" "}
+                      <span>
+                        You won&apos;t have the ability to set a fee until you
+                        receive your initial four reviews. Additionally, you
+                        won&apos;t be able to charge more than $120 per hour
+                        until you accumulate ten reviews. Is this acceptable to
+                        you?
+                      </span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
