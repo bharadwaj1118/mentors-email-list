@@ -327,8 +327,7 @@ const ProfileInfoPage = () => {
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
                       <span>
-                        Which groups of people looking for guidance are you most
-                        excited to support as a mentor?
+                        Have you had any prior experience mentoring others?
                       </span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
@@ -367,13 +366,13 @@ const ProfileInfoPage = () => {
                     <FormLabel className="md:text-base">
                       <span>
                         Please share a brief self-description in a few sentences
-                        (in first person).
+                        (in first person).{" "}
                       </span>
                       <span>
                         If you become a mentor, your response to this question
                         will be added to your mentor profile{" "}
                       </span>
-                      <span>(you’ll be able to edit it later)</span>
+                      <span>(you’ll be able to edit it later).</span>
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
