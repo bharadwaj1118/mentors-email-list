@@ -3,6 +3,8 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import ShimmerButton from "@/components/ui/shimmer-button";
+import Link from "next/link";
 
 const ThankyouPage = () => {
   const router = useRouter();
@@ -25,13 +27,11 @@ const ThankyouPage = () => {
       <h2 className="h2-bold mb-6">Thank you! Your response has been saved!</h2>
       <h3 className="h3 mb-6">We will get back to you shortly!</h3>
 
-      <Button
-        size="lg"
-        className="text-lg animate-buttonheartbeat"
-        onClick={handleClick}
-      >
-        Continue to website
-      </Button>
+      <ShimmerButton className="shadow-2xl" onClick={handleClick}>
+        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight lg:text-lg">
+          Continue to Website
+        </span>
+      </ShimmerButton>
     </div>
   );
 };
