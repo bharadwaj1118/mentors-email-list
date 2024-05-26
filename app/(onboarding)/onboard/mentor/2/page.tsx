@@ -104,7 +104,7 @@ const ProfileInfoPage = () => {
                 render={({ field }) => (
                   <FormItem className="space-y-3">
                     <FormLabel className="md:text-base">
-                      What do you do?
+                      What describes you best?
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
