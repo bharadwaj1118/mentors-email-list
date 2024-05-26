@@ -92,8 +92,9 @@ export function OnboardStepTwoForm({ user }: Props) {
         currentRole: data.role?.value,
         linkedinProfile: data.linkedinProfile,
       });
-      toast.success("Company and role details saved!");
+
       router.push("/onboard/3");
+      toast.success("Company and role details saved!");
     } catch (e) {
       console.log(e);
       toast.error("Unexpected error, Please try again.");
@@ -124,7 +125,9 @@ export function OnboardStepTwoForm({ user }: Props) {
           name="companySize"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>How big is your company?</FormLabel>
+              <FormLabel>
+                How big is your company? <span className="text-red-400">*</span>
+              </FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -156,9 +159,17 @@ export function OnboardStepTwoForm({ user }: Props) {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your current role</FormLabel>
+              <FormLabel>
+                Your current role <span className="text-red-400">*</span>
+              </FormLabel>
               <FormControl>
-                <Select {...field} isMulti={false} options={ROLES} />
+                <Select
+                  {...field}
+                  isMulti={false}
+                  options={ROLES}
+                  isSearchable={true}
+                  isClearable={true}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
