@@ -582,10 +582,10 @@ export async function saveUserBasicDetailsById({
 
 interface ISaveUserCompanyAndRoleById {
   userId: string;
-  company: string;
-  companySize: string;
-  currentRole: string;
-  linkedinProfile: string;
+  company: string | undefined;
+  companySize: string | undefined;
+  currentRole: string | undefined;
+  linkedinProfile: string | undefined;
 }
 
 export async function saveUserCompanyAndRoleById({

@@ -2,8 +2,15 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Check, ChevronsUpDown } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  ArrowRightIcon,
+  Loader2Icon,
+} from "lucide-react";
 import { z } from "zod";
+import { useState } from "react";
+import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 
@@ -93,6 +100,7 @@ export function OnboardChallengeForm({
   meetingPreference,
 }: RecommendedByFormProps) {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -101,16 +109,24 @@ export function OnboardChallengeForm({
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    saveUserChallengeById({
-      userId,
-      timeZone: data.timeZone,
-      meetingPreference: data.meetingPreference,
-      meetingURL: data.meetingURL,
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await saveUserChallengeById({
+        userId,
+        timeZone: data.timeZone,
+        meetingPreference: data.meetingPreference,
+        meetingURL: data.meetingURL,
+      });
+      router.push("/onboard/4");
+      toast.success("Meeting preference saved successfully.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Unexpected error, Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
 
     router.refresh();
-    router.push("/onboard/4");
   }
 
   const meetingPref = form.watch("meetingPreference");
@@ -133,8 +149,7 @@ export function OnboardChallengeForm({
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[400px] justify-between",
-                        !field.value && "text-muted-foreground"
+                        "max-w-[400px] justify-between hover:text-muted-foreground text-muted-foreground"
                       )}
                     >
                       {field.value
@@ -192,7 +207,7 @@ export function OnboardChallengeForm({
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="text-muted-foreground">
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
@@ -212,7 +227,7 @@ export function OnboardChallengeForm({
             name="meetingURL"
             control={form.control}
             render={({ field }) => (
-              <FormItem className="w-[400px]">
+              <FormItem className="w-full">
                 <FormLabel>
                   {meetingPref === "zoom" ? "Zoom" : "Google Meet"} URL
                 </FormLabel>
@@ -229,8 +244,19 @@ export function OnboardChallengeForm({
         )}
 
         <div className="flex items-start justify-end">
-          <Button type="submit" className="rounded-full">
-            Next
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="min-w-[100px] rounded-full"
+          >
+            <span>Next</span>
+            <span>
+              {isSubmitting ? (
+                <Loader2Icon className="animate-spin h-4 w-4 ml-1" />
+              ) : (
+                <ArrowRightIcon className="h-4 w-4 ml-1" />
+              )}
+            </span>
           </Button>
         </div>
       </form>

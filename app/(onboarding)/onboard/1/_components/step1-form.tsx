@@ -3,8 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,17 +25,19 @@ import Select from "react-select";
 import { saveUserBasicDetailsById } from "@/lib/actions/user.action";
 
 const FormSchema = z.object({
-  city: z.string().min(2, "Please enter city name"),
+  city: z.string().min(2, "Please enter a city name"),
   country: z.object({
-    label: z.string(),
-    value: z.string(),
+    label: z.string().min(1, "Country label is required"),
+    value: z.string().min(1, "Country value is required"),
   }),
-  languages: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-    })
-  ),
+  languages: z
+    .array(
+      z.object({
+        label: z.string().min(1, "Language label is required"),
+        value: z.string().min(1, "Language value is required"),
+      })
+    )
+    .min(1, "At least one language must be selected"),
 });
 
 interface Props {
@@ -42,6 +46,7 @@ interface Props {
 
 export function OnboardStepOneForm({ user }: Props) {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { id, city, country, languages } = JSON.parse(user);
   let initialLocation = {};
@@ -65,15 +70,23 @@ export function OnboardStepOneForm({ user }: Props) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    saveUserBasicDetailsById({
-      userId: id,
-      city: data.city,
-      country: data.country.value,
-      languages: data.languages,
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsSubmitting(true);
+    try {
+      await saveUserBasicDetailsById({
+        userId: id,
+        city: data.city,
+        country: data.country.value,
+        languages: data.languages,
+      });
 
-    router.push("/onboard/2");
+      toast.success("Basic details saved successfully.");
+      router.push("/onboard/2");
+    } catch (error) {
+      toast.error("Unexpected error, Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -89,7 +102,7 @@ export function OnboardStepOneForm({ user }: Props) {
                   City <span className="text-red-400">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} type="text" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -140,8 +153,19 @@ export function OnboardStepOneForm({ user }: Props) {
         </div>
 
         <div className="flex items-center justify-end">
-          <Button type="submit" className="rounded-full">
-            Next
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="min-w-[100px] rounded-full"
+          >
+            <span>Next</span>
+            <span>
+              {isSubmitting ? (
+                <Loader2Icon className="animate-spin h-4 w-4 ml-1" />
+              ) : (
+                <ArrowRightIcon className="h-4 w-4 ml-1" />
+              )}
+            </span>
           </Button>
         </div>
       </form>

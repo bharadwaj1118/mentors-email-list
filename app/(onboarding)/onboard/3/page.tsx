@@ -34,7 +34,7 @@ const OnboardChallengePage = async () => {
         <div className="card-block space-y-4 !pb-12">
           <OnboardHeading
             step={3}
-            title="Your #1 growth challenge right now?"
+            title="Meeting preference"
             imageUrl="/assets/undraw_programming.svg"
           />
 
@@ -46,7 +46,7 @@ const OnboardChallengePage = async () => {
 
           <AlertComponent
             title="Why are we asking this?"
-            description="This information helps us match you with the most relavant mentors."
+            description="This information helps us to schedule meetings based on your timezone"
             name="Info"
           />
         </div>

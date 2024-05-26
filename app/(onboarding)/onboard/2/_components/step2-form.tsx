@@ -3,6 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,19 +34,25 @@ const rangeOptions = [
 ];
 
 const FormSchema = z.object({
-  company: z.string().min(2, {
-    message: "Please enter company name",
-  }),
-  companySize: z.string().min(2, {
-    message: "Please select an option.",
-  }),
-  role: z.object({
-    label: z.string(),
-    value: z.string(),
-  }),
-  linkedinProfile: z.string().url({
-    message: "Please enter a valid URL.",
-  }),
+  company: z
+    .string()
+    .optional()
+    .refine((value) => !value || value.length >= 2, {
+      message: "Please enter a company name with at least 2 characters",
+    }),
+  companySize: z.string().optional(),
+  role: z
+    .object({
+      label: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .optional(),
+  linkedinProfile: z
+    .string()
+    .optional()
+    .refine((value) => !value || z.string().url().safeParse(value).success, {
+      message: "Please enter a valid URL.",
+    }),
 });
 
 interface Props {
@@ -52,6 +61,7 @@ interface Props {
 
 export function OnboardStepTwoForm({ user }: Props) {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { id, organization, companySize, position, linkedinProfile } =
     JSON.parse(user);
@@ -72,15 +82,24 @@ export function OnboardStepTwoForm({ user }: Props) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    saveUserCompanyAndRoleById({
-      userId: id,
-      company: data.company,
-      companySize: data.companySize,
-      currentRole: data.role.value,
-      linkedinProfile: data.linkedinProfile,
-    });
-    router.push("/onboard/3");
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      setIsSubmitting(true);
+      await saveUserCompanyAndRoleById({
+        userId: id,
+        company: data.company,
+        companySize: data.companySize,
+        currentRole: data.role?.value,
+        linkedinProfile: data.linkedinProfile,
+      });
+      toast.success("Company and role details saved!");
+      router.push("/onboard/3");
+    } catch (e) {
+      console.log(e);
+      toast.error("Unexpected error, Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -161,8 +180,19 @@ export function OnboardStepTwoForm({ user }: Props) {
         />
 
         <div className="flex items-start justify-end">
-          <Button type="submit" className="rounded-full">
-            Next
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="min-w-[100px] rounded-full"
+          >
+            <span>Next</span>
+            <span>
+              {isSubmitting ? (
+                <Loader2Icon className="animate-spin h-4 w-4 ml-1" />
+              ) : (
+                <ArrowRightIcon className="h-4 w-4 ml-1" />
+              )}
+            </span>
           </Button>
         </div>
       </form>

@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect, useRef, useState } from "react";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +52,7 @@ export function RecommendedByForm({
   otherRecommendation,
 }: RecommendedByFormProps) {
   const [otherLabelChecked, setOtherLabelChecked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -67,14 +70,21 @@ export function RecommendedByForm({
   }, [recommenedBy]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    saveUserReferenceById({
-      userId,
-      recommendedBy: data.recommendedBy,
-      otherRecommendation:
-        data.recommendedBy === "Other" ? data?.otherRecommendation || "" : "",
-    });
-    router.refresh();
-    router.push("/onboard/code-of-conduct");
+    try {
+      setIsSubmitting(true);
+      await saveUserReferenceById({
+        userId,
+        recommendedBy: data.recommendedBy,
+        otherRecommendation:
+          data.recommendedBy === "Other" ? data?.otherRecommendation || "" : "",
+      });
+      router.push("/onboard/code-of-conduct");
+      toast.success("Details submitted successfully.");
+    } catch (err) {
+      toast.error("Unexpected error, Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -148,8 +158,19 @@ export function RecommendedByForm({
         )}
 
         <div className="flex items-start justify-end">
-          <Button type="submit" className="rounded-full">
-            Submit
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="min-w-[100px] rounded-full"
+          >
+            <span>Next</span>
+            <span>
+              {isSubmitting ? (
+                <Loader2Icon className="animate-spin h-4 w-4 ml-1" />
+              ) : (
+                <ArrowRightIcon className="h-4 w-4 ml-1" />
+              )}
+            </span>
           </Button>
         </div>
       </form>
