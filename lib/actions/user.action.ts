@@ -492,26 +492,47 @@ export async function saveUserReferenceById({
 
 interface IsaveUserChallengeById {
   userId: string;
-  challenge: string;
+  timeZone?: string;
+  meetingPreference?: string;
+  meetingURL?: string;
 }
 
 export async function saveUserChallengeById({
   userId,
-  challenge,
+  timeZone,
+  meetingPreference,
+  meetingURL,
 }: IsaveUserChallengeById) {
   try {
+    const updateData: {
+      timeZone?: string;
+      meetingPreference?: string;
+      zoomLink?: string | null;
+      googleMeetLink?: string | null;
+    } = {
+      timeZone,
+      meetingPreference,
+    };
+
+    if (meetingPreference === "zoom") {
+      updateData.zoomLink = meetingURL || null;
+    } else if (meetingPreference === "google-meet") {
+      updateData.googleMeetLink = meetingURL || null;
+    }
+
+    console.log(meetingURL);
+
     const user = await db.user.update({
       where: {
         id: userId,
       },
-      data: {
-        challenge,
-      },
+      data: updateData,
     });
+
     return user;
   } catch (error) {
-    console.log(error);
-    throw Error("SAVE_USER_CHALLENGE_ERROR, " + error);
+    console.error("Error updating user challenge:", error);
+    throw new Error("SAVE_USER_CHALLENGE_ERROR, " + error);
   }
 }
 

@@ -19,7 +19,8 @@ const OnboardChallengePage = async () => {
     },
     select: {
       id: true,
-      challenge: true,
+      timeZone: true,
+      meetingPreference: true,
     },
   });
 
@@ -39,7 +40,8 @@ const OnboardChallengePage = async () => {
 
           <OnboardChallengeForm
             userId={user.id}
-            challenge={user.challenge || ""}
+            timeZone={user?.timeZone || ""}
+            meetingPreference={user?.meetingPreference || ""}
           />
 
           <AlertComponent
