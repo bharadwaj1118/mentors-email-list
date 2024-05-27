@@ -4,6 +4,7 @@ import { User, Bell, Clock, LayoutList, Calendar } from "lucide-react";
 import { getSelf, getSelfWithEvents } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { Role } from "@prisma/client";
 
 import AvailabilityForm from "./_components/availability-form";
 import { DisplayForm } from "./_components/notification-form";
@@ -15,6 +16,11 @@ import { GoogleCalandarForm } from "./_components/google-calendar-form";
 const SettingsPage = async () => {
   const user = await getSelfWithEvents();
   if (!user) return redirect("/login");
+
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
+  }
 
   return (
     <div className="mx-auto max-w-5xl pt-[80px]">

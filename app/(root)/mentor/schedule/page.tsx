@@ -3,6 +3,7 @@ import { MyCalendar } from "./_components/mentor-calendar";
 import React from "react";
 import { getSelf } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
+import { Role } from "@prisma/client";
 
 const SchedulePage = async () => {
   const currUser = await getSelf();
@@ -20,6 +21,11 @@ const SchedulePage = async () => {
   //TODO: Add access error
   if (!user) {
     return <div>You cannot access this page!</div>;
+  }
+
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
   }
 
   redirect("/mentor/schedule/" + user.id);

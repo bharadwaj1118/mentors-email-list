@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { db } from "@/lib/db";
 
+import { Role } from "@prisma/client";
 import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
 import BookingCalendarMain from "@/components/shared/booking-calendar-main";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
@@ -30,6 +31,7 @@ const CalendarPage = async () => {
       duration: true,
       price: true,
       weeklyAvailability: true,
+      role: true,
       expertise: {
         select: {
           name: true,
@@ -45,6 +47,10 @@ const CalendarPage = async () => {
   });
 
   if (!user) return null;
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
+  }
 
   // Get rrule for next one year recurring events
   // Get Available events from the database

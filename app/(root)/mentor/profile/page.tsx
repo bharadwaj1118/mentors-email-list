@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
+import { Role } from "@prisma/client";
+
 const MentorProfilePage = async () => {
   const { userId } = auth();
 
@@ -17,12 +19,18 @@ const MentorProfilePage = async () => {
     },
     select: {
       id: true,
+      role: true,
     },
   });
 
   // If the user profile is not found, return an appropriate message
   if (!currUser) {
     return <div>Profile not found</div>;
+  }
+
+  // Redirect if the user is not MENTOR
+  if (currUser.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
   }
 
   if (currUser) {

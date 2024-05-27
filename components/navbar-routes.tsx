@@ -49,8 +49,8 @@ export const NavbarRoutes = () => {
         {isMentorPage ? (
           <Link href="/dashboard/search">
             <Button size="sm" variant="ghost">
-              <LogOut className="h-4 w-4 mr-2" />
               Mentee Mode
+              <LogInIcon className="h-4 w-4 mr-2" />
             </Button>
           </Link>
         ) : (

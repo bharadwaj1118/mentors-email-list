@@ -10,6 +10,8 @@ import { generateEventsForNextYear } from "@/lib/helpers/recurring";
 import { listEvents } from "@/lib/actions/google-calandar.action";
 import { MentorsCalendar } from "./_components/mentors-calendar";
 import { ArrowUpRight } from "lucide-react";
+import { Role } from "@prisma/client";
+import { redirect } from "next/navigation";
 interface MentorSchedulePageProps {
   params: {
     profileId: string;
@@ -28,6 +30,7 @@ const MentorSchedulePage = async ({
       duration: true,
       timeZone: true,
       weeklyAvailability: true,
+      role: true,
       events: {
         select: {
           id: true,
@@ -42,6 +45,11 @@ const MentorSchedulePage = async ({
   // TODO: Add access error
   if (!user) {
     return <div>You cannot access this page!</div>;
+  }
+
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
   }
 
   // TODO: Gmail and Outlook calendar sync

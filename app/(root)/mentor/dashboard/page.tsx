@@ -12,6 +12,7 @@ import DashBoardUsersBooked from "./_components/dashboard-users-booked";
 import DashboardSessionsUpcoming from "./_components/dashboard-sessions-upcoming";
 import DashboardSessionsRequest from "./_components/dashboard-sessions-request";
 import { OnboardingChecklist } from "@/components/shared/onboarding-checklist";
+import { Role } from "@prisma/client";
 
 type MentorDashboardPageProps = {
   id: string;
@@ -38,6 +39,11 @@ const MentorDashboardPage = async () => {
   });
 
   if (!user) return null;
+
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
+  }
 
   const { id, imageUrl, username } = user;
 

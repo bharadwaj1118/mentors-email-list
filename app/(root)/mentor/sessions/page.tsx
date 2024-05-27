@@ -7,14 +7,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSelf } from "@/lib/actions/user.action";
 
 import { db } from "@/lib/db";
+import { Role, SessionStatus } from "@prisma/client";
 import SessionList from "./_components/session-list";
-import { SessionStatus } from "@prisma/client";
 import { EmptyBookingsCard } from "@/components/shared/empty-bookings-card";
 import Heading from "@/components/shared/heading";
 
 const SessionPage = async () => {
   const user = await getSelf();
   if (!user) return redirect("/login");
+
+  // Redirect if the user is not MENTOR
+  if (user.role !== Role.MENTOR) {
+    redirect("/dashboard/search");
+  }
 
   const sessions = await db.session.findMany({
     where: {
