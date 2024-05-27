@@ -33,10 +33,12 @@ export const OnboardingChecklistActions = ({
   return (
     <div>
       <Button
-        className="text-blue-200 bg-blue-950 hover:bg-blue-950/90"
         onClick={handleClick}
+        variant="link"
+        size="sm"
+        className="text-white"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className="w-5 h-5 p-0" />
       </Button>
     </div>
   );

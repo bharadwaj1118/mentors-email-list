@@ -35,14 +35,16 @@ const ChecklistItem = ({
   profileId: string;
 }) => (
   <li className="flex items-center">
-    <div className="flex items-center">
+    <div className="flex items-center text-base">
       <Check
         className={cn(
-          "w-6 h-6 mr-2",
-          isChecked ? "text-emerald-500" : "text-blue-200"
+          "w-5 h-5 mr-2",
+          isChecked ? "text-emerald-400" : "text-white"
         )}
       />
-      {text}
+      <span className={cn(isChecked ? "text-slate-500" : "text-white")}>
+        {text}
+      </span>
     </div>
     {!isChecked && (
       <OnboardingChecklistActions
@@ -116,10 +118,10 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
           <AccordionTrigger className="w-full flex items-center justify-start gap-4">
             <div
               className={cn(
-                "flex items-center justify-center w-14 h-14 p-3 rounded-full border",
+                "flex items-center justify-center w-14 h-14 p-3 rounded-full border-2 text-base font-semibold",
                 completionPercentage === 100
                   ? "text-emerald-500 border-green-500"
-                  : "text-blue-200 border-blue-200"
+                  : "text-white border-white"
               )}
             >
               {completionPercentage}%
@@ -131,7 +133,7 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <ul className="text-base space-y-4">
+            <ul className="text-base space-y-3">
               {checklist.map((item) => {
                 return (
                   <div key={item.label}>
