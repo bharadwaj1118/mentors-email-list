@@ -42,13 +42,13 @@ const FormSchema = z.object({
 
 interface RecommendedByFormProps {
   userId: string;
-  recommenedBy: string;
-  otherRecommendation: string;
+  recommendedBy: string | null;
+  otherRecommendation: string | null;
 }
 
 export function RecommendedByForm({
   userId,
-  recommenedBy,
+  recommendedBy,
   otherRecommendation,
 }: RecommendedByFormProps) {
   const [otherLabelChecked, setOtherLabelChecked] = useState(false);
@@ -58,16 +58,16 @@ export function RecommendedByForm({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      recommendedBy: recommenedBy || "",
-      otherRecommendation: otherRecommendation || "",
+      recommendedBy: recommendedBy || undefined,
+      otherRecommendation: otherRecommendation || undefined,
     },
   });
 
   useEffect(() => {
-    if (recommenedBy === "Other") {
+    if (recommendedBy === "Other") {
       setOtherLabelChecked(true);
     }
-  }, [recommenedBy]);
+  }, [recommendedBy]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
@@ -147,7 +147,7 @@ export function RecommendedByForm({
                   <Input
                     className="w-2/3"
                     {...field}
-                    defaultValue={otherRecommendation}
+                    defaultValue={otherRecommendation || ""}
                   />
                 </FormControl>
                 <FormDescription>How do you know about us?</FormDescription>

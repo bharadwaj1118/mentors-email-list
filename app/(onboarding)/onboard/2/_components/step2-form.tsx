@@ -75,10 +75,10 @@ export function OnboardStepTwoForm({ user }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      company: organization || "",
-      companySize: companySize || "",
-      role: initialRole || {},
-      linkedinProfile: linkedinProfile || "",
+      company: organization,
+      companySize,
+      role: initialRole,
+      linkedinProfile,
     },
   });
 

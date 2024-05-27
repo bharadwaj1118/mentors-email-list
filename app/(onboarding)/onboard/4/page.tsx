@@ -40,8 +40,8 @@ const OnboardRecommendedByPage = async () => {
 
           <RecommendedByForm
             userId={user.id}
-            recommenedBy={user.recommendedBy || ""}
-            otherRecommendation={user.otherRecommendation || ""}
+            recommendedBy={user.recommendedBy}
+            otherRecommendation={user.otherRecommendation}
           />
         </div>
       </div>

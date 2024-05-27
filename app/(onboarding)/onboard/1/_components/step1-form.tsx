@@ -64,9 +64,9 @@ export function OnboardStepOneForm({ user }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      city: city || "",
-      country: initialLocation || {},
-      languages: initialLanguages || [],
+      city,
+      country: initialLocation,
+      languages: initialLanguages,
     },
   });
 

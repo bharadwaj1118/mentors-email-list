@@ -40,8 +40,8 @@ const OnboardChallengePage = async () => {
 
           <OnboardChallengeForm
             userId={user.id}
-            timeZone={user?.timeZone || ""}
-            meetingPreference={user?.meetingPreference || ""}
+            timeZone={user?.timeZone}
+            meetingPreference={user?.meetingPreference}
           />
 
           <AlertComponent

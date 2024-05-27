@@ -90,8 +90,8 @@ const FormSchema = z.object({
 
 interface RecommendedByFormProps {
   userId: string;
-  timeZone: string;
-  meetingPreference: string;
+  timeZone: string | null;
+  meetingPreference: string | null;
 }
 
 export function OnboardChallengeForm({
@@ -104,8 +104,8 @@ export function OnboardChallengeForm({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      timeZone,
-      meetingPreference,
+      timeZone: timeZone || undefined,
+      meetingPreference: meetingPreference || undefined,
     },
   });
 
