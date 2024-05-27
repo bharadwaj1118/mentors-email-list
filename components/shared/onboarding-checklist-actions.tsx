@@ -28,6 +28,9 @@ export const OnboardingChecklistActions = ({
     else if (dataType === "tool") onOpen("addTool");
     else if (dataType === "bio") onOpen("editBio");
     else if (dataType === "profession") onOpen("editProfession");
+    else if (dataType === "availability") {
+      router.push(`/mentor/schedule`);
+    }
   };
 
   return (

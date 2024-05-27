@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Experience, Expertise, Industry, Tool, User } from "@prisma/client";
 import { OnboardingChecklistActions } from "@/components/shared/onboarding-checklist-actions";
+import { db } from "@/lib/db";
 
 type OnboardingChecklistProps = {
   user: User & {
@@ -56,24 +57,32 @@ const ChecklistItem = ({
   </li>
 );
 
-export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
+export async function OnboardingChecklist({
+  user,
+  route,
+}: OnboardingChecklistProps) {
   if (!user) return null;
 
+  const sessionCount = await db.event.count({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  const hasSessions: boolean = sessionCount > 0;
   const hasBio: boolean = Boolean(user.bio);
-  const hasExperiences: boolean = user.experiences.length > 0;
   const hasExpertise: boolean = user.expertise.length > 0;
   const hasIndustries: boolean = user.industries.length > 0;
-  const hasTools: boolean = user.toolkit.length > 0;
+
   const hasProfession: boolean = Boolean(user.position);
   const hasOrganization: boolean = Boolean(user.organization);
 
   const profileCompletionChecks: boolean[] = [
     hasBio,
-    hasExperiences,
     hasExpertise,
     hasIndustries,
-    hasTools,
     hasProfession && hasOrganization,
+    hasSessions,
   ];
 
   const completedItemsCount: number =
@@ -92,11 +101,6 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
       dataType: "profession",
     },
     {
-      isChecked: hasExperiences,
-      label: "Add your Experience",
-      dataType: "experience",
-    },
-    {
       isChecked: hasExpertise,
       label: "Add your Expertise",
       dataType: "expertise",
@@ -106,7 +110,11 @@ export function OnboardingChecklist({ user, route }: OnboardingChecklistProps) {
       label: "Add your Industry",
       dataType: "industry",
     },
-    { isChecked: hasTools, label: "Add your Tool", dataType: "tool" },
+    {
+      isChecked: hasSessions,
+      label: "Add your availability",
+      dataType: "availability",
+    },
   ];
 
   if (completionPercentage === 100) return null;
