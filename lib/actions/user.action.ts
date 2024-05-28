@@ -431,6 +431,8 @@ export async function updateUser(user: any) {
   try {
     const { id } = user;
 
+    console.log(user);
+
     if (!id) throw new Error("User id is required");
 
     const updatedUser = await db.user.update({
@@ -441,6 +443,7 @@ export async function updateUser(user: any) {
         ...user,
       },
     });
+    console.log(updatedUser);
     return updatedUser;
   } catch (error) {
     console.log(error);

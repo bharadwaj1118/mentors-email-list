@@ -5,14 +5,8 @@ interface AddToolProps {
   userId: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
-export async function addTool({
-  userId,
-  name,
-  description,
-  imageUrl,
-}: AddToolProps) {
+export async function addTool({ userId, name, description }: AddToolProps) {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -32,7 +26,6 @@ export async function addTool({
         userId: user.id,
         name,
         description,
-        imageUrl,
       },
     });
 
@@ -61,15 +54,9 @@ interface IUpdateTool {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
 
-export async function updateTool({
-  id,
-  name,
-  description,
-  imageUrl,
-}: IUpdateTool) {
+export async function updateTool({ id, name, description }: IUpdateTool) {
   try {
     const tool = await db.tool.update({
       where: {
@@ -78,7 +65,6 @@ export async function updateTool({
       data: {
         name,
         description,
-        imageUrl,
       },
     });
     return tool;

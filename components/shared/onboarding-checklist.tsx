@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, Square } from "lucide-react";
 
 import {
   Accordion,
@@ -37,13 +37,14 @@ const ChecklistItem = ({
 }) => (
   <li className="flex items-center">
     <div className="flex items-center text-base">
-      <Check
-        className={cn(
-          "w-5 h-5 mr-2",
-          isChecked ? "text-emerald-400" : "text-white"
-        )}
-      />
-      <span className={cn(isChecked ? "text-slate-500" : "text-white")}>
+      {isChecked ? (
+        <Check className="w-5 h-5 mr-2 text-emerald-400" />
+      ) : (
+        <Square className="w-5 h-5 mr-2 text-white" />
+      )}
+      <span
+        className={cn(isChecked ? "text-slate-500 line-through" : "text-white")}
+      >
         {text}
       </span>
     </div>

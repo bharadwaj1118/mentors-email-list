@@ -1,18 +1,15 @@
 "use server";
 import { db } from "@/lib/db";
-import { th } from "date-fns/locale";
 
 interface AddIndustryProps {
   userId: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
 export async function addIndustry({
   userId,
   name,
   description,
-  imageUrl,
 }: AddIndustryProps) {
   try {
     const user = await db.user.findUnique({
@@ -33,7 +30,6 @@ export async function addIndustry({
         userId: user.id,
         name,
         description,
-        imageUrl,
       },
     });
 
@@ -62,14 +58,12 @@ interface IUpdateIndustry {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
 
 export async function updateIndustry({
   id,
   name,
   description,
-  imageUrl,
 }: IUpdateIndustry) {
   try {
     const industry = await db.industry.update({
@@ -79,7 +73,6 @@ export async function updateIndustry({
       data: {
         name,
         description,
-        imageUrl,
       },
     });
     return industry;

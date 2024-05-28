@@ -49,15 +49,15 @@ export const NavbarRoutes = () => {
         {isMentorPage ? (
           <Link href="/dashboard/search">
             <Button size="sm" variant="ghost">
-              Mentee Mode
               <LogInIcon className="h-4 w-4 mr-2" />
+              Mentee Mode
             </Button>
           </Link>
         ) : (
           <Link href="/mentor/dashboard">
             <Button size="sm" variant="ghost">
+              <LogInIcon className="h-4 w-4 mr-2" />
               Mentor mode
-              <LogInIcon className="h-4 w-4 ml-2" />
             </Button>
           </Link>
         )}

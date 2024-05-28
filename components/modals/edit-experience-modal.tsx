@@ -4,10 +4,12 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useUser } from "@clerk/clerk-react";
+import { Loader2Icon } from "lucide-react";
 
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -107,15 +109,14 @@ export const EditExperienceModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Add Experience
-          </DialogTitle>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader className="w-full flex justify-center">
+          <DialogTitle>Experience</DialogTitle>
+          <DialogDescription>Edit your experience</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4 px-6">
+            <div className="space-y-4">
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
@@ -149,7 +150,6 @@ export const EditExperienceModal = () => {
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 "
                         placeholder="Enter company name"
                         {...field}
                       />
@@ -170,7 +170,7 @@ export const EditExperienceModal = () => {
                     <FormControl>
                       <Textarea
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 md:h-24"
+                        className="h-[120px]"
                         placeholder="Enter description"
                         {...field}
                       />
@@ -180,8 +180,17 @@ export const EditExperienceModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Save</Button>
+            <DialogFooter className=" w-full pt-4 flex items-center justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="min-w-[200px] w-full mx-auto"
+              >
+                Update Experience
+                {isLoading && (
+                  <Loader2Icon className="animate-spin w-4 h-4 ml-1" />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -516,53 +516,125 @@ export interface expert {
   readonly color?: string;
   readonly isFixed?: boolean;
   readonly isDisabled?: boolean;
+  readonly filePath?: string;
 }
 
-export const EXPERTISE: readonly expert[] = [
-  { value: "Remote Work", label: "Remote Work" },
-  { value: "Building a Team", label: "Building a Team" },
-  { value: "Team Management", label: "Team Management" },
-  { value: "Onboarding", label: "Onboarding" },
-  { value: "Customer Journey Mapping", label: "Customer Journey Mapping" },
+export const EXPERTISE = [
   {
-    value: "User Experience (UX) Design",
+    label: "Remote Work",
+    value: "Remote Work",
+    filePath: "/assets/expertise/remote_work.svg",
+  },
+  {
+    label: "Building a Team",
+    value: "Building a Team",
+    filePath: "/assets/expertise/building_a_team.svg",
+  },
+  {
+    label: "Team Management",
+    value: "Team Management",
+    filePath: "/assets/expertise/team_management.svg",
+  },
+  {
+    label: "Onboarding",
+    value: "Onboarding",
+    filePath: "/assets/expertise/onboarding.svg",
+  },
+  {
+    label: "Customer Journey Mapping",
+    value: "Customer Journey Mapping",
+    filePath: "/assets/expertise/customer_journey_mapping.svg",
+  },
+  {
     label: "User Experience (UX) Design",
+    value: "User Experience (UX) Design",
+    filePath: "/assets/expertise/user_experience_ux_design.svg",
   },
   {
-    value: "Customer Service and Support",
     label: "Customer Service and Support",
+    value: "Customer Service and Support",
+    filePath: "/assets/expertise/customer_service_and_support.svg",
   },
-  { value: "Data Analysis and Insights", label: "Data Analysis and Insights" },
   {
-    value: "Voice of the Customer (VoC) Programs",
+    label: "Data Analysis and Insights",
+    value: "Data Analysis and Insights",
+    filePath: "/assets/expertise/data_analysis_and_insights.svg",
+  },
+  {
     label: "Voice of the Customer (VoC) Programs",
+    value: "Voice of the Customer (VoC) Programs",
+    filePath: "/assets/expertise/voice_of_the_customer_voc_programs.svg",
   },
   {
-    value: "Customer Feedback and Surveys",
     label: "Customer Feedback and Surveys",
+    value: "Customer Feedback and Surveys",
+    filePath: "/assets/expertise/customer_feedback_and_surveys.svg",
   },
   {
-    value: "Customer Loyalty and Retention",
     label: "Customer Loyalty and Retention",
+    value: "Customer Loyalty and Retention",
+    filePath: "/assets/expertise/customer_loyalty_and_retention.svg",
   },
   {
-    value: "Employee Training and Engagement",
     label: "Employee Training and Engagement",
+    value: "Employee Training and Engagement",
+    filePath: "/assets/expertise/employee_training_and_engagement.svg",
   },
-  { value: "Omni-channel Experience", label: "Omni-channel Experience" },
-  { value: "Personalization", label: "Personalization" },
   {
-    value: "Customer Success Management",
-    label: "Customer Success Management",
+    label: "Omni-channel Experience",
+    value: "Omni-channel Experience",
+    filePath: "/assets/expertise/omni_channel_experience.svg",
   },
-  { value: "Crisis Management", label: "Crisis Management" },
-  { value: "Technology Integration", label: "Technology Integration" },
-  { value: "Brand Experience", label: "Brand Experience" },
-  { value: "Social Media Management", label: "Social Media Management" },
-  { value: "Customer Advocacy", label: "Customer Advocacy" },
-  { value: "Outsourcing", label: "Outsourcing" },
-  { value: "Vendor Management", label: "Vendor Management" },
-  { value: "Customer-led Growth", label: "Customer-led Growth" },
+  {
+    label: "Personalization",
+    value: "Personalization",
+    filePath: "/assets/expertise/personalization.svg",
+  },
+  {
+    label: "Customer Success Management",
+    value: "Customer Success Management",
+    filePath: "/assets/expertise/customer_success_management.svg",
+  },
+  {
+    label: "Crisis Management",
+    value: "Crisis Management",
+    filePath: "/assets/expertise/crisis_management.svg",
+  },
+  {
+    label: "Technology Integration",
+    value: "Technology Integration",
+    filePath: "/assets/expertise/technology_integration.svg",
+  },
+  {
+    label: "Brand Experience",
+    value: "Brand Experience",
+    filePath: "/assets/expertise/brand_experience.svg",
+  },
+  {
+    label: "Social Media Management",
+    value: "Social Media Management",
+    filePath: "/assets/expertise/social_media_management.svg",
+  },
+  {
+    label: "Customer Advocacy",
+    value: "Customer Advocacy",
+    filePath: "/assets/expertise/customer_advocacy.svg",
+  },
+  {
+    label: "Outsourcing",
+    value: "Outsourcing",
+    filePath: "/assets/expertise/outsourcing.svg",
+  },
+  {
+    label: "Vendor Management",
+    value: "Vendor Management",
+    filePath: "/assets/expertise/vendor_management.svg",
+  },
+  {
+    label: "Customer-led Growth",
+    value: "Customer-led Growth",
+    filePath: "/assets/expertise/customer_led_growth.svg",
+  },
 ];
 
 export interface industry {

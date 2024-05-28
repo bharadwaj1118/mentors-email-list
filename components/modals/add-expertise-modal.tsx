@@ -8,6 +8,7 @@ import { useUser } from "@clerk/clerk-react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -20,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Loader2Icon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -45,9 +47,6 @@ const formSchema = z.object({
   description: z.string().min(1, {
     message: "Description is required.",
   }),
-  imageUrl: z.string().min(1, {
-    message: "Upload Logo",
-  }),
 });
 
 export const AddExpertiseModal = () => {
@@ -65,7 +64,6 @@ export const AddExpertiseModal = () => {
         value: "",
       },
       description: "",
-      imageUrl: "",
     },
   });
 
@@ -104,37 +102,14 @@ export const AddExpertiseModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Add Expertise
-          </DialogTitle>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader className="w-full flex justify-center">
+          <DialogTitle>Expertise</DialogTitle>
+          <DialogDescription>Add your Expertise</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4 px-6">
-              <div className="flex items-center justify-center text-center">
-                <FormField
-                  control={form.control}
-                  name="imageUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Upload Logo
-                      </FormLabel>
-                      <FormControl>
-                        <FileUpload
-                          endpoint="serverImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
+            <div className="space-y-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -162,7 +137,7 @@ export const AddExpertiseModal = () => {
                     <FormControl>
                       <Textarea
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 md:h-24"
+                        className="min-h-[120px]"
                         placeholder="Enter description"
                         {...field}
                       />
@@ -172,8 +147,17 @@ export const AddExpertiseModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Add</Button>
+            <DialogFooter className=" w-full pt-4 flex items-center justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="min-w-[200px] w-full mx-auto"
+              >
+                Add Expertise
+                {isLoading && (
+                  <Loader2Icon className="animate-spin w-4 h-4 ml-1" />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

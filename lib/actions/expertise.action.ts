@@ -5,13 +5,11 @@ interface AddExpertiseProps {
   userId: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
 export async function addExpertise({
   userId,
   name,
   description,
-  imageUrl,
 }: AddExpertiseProps) {
   try {
     const user = await db.user.findUnique({
@@ -32,7 +30,6 @@ export async function addExpertise({
         userId: user.id,
         name,
         description,
-        imageUrl,
       },
     });
 
@@ -61,14 +58,12 @@ interface IUpdateExpertise {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
 }
 
 export async function updateExpertise({
   id,
   name,
   description,
-  imageUrl,
 }: IUpdateExpertise) {
   try {
     const expertise = await db.expertise.update({
@@ -78,7 +73,6 @@ export async function updateExpertise({
       data: {
         name,
         description,
-        imageUrl,
       },
     });
     return expertise;

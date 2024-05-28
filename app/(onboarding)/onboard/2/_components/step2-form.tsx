@@ -38,15 +38,15 @@ const FormSchema = z.object({
     .string()
     .optional()
     .refine((value) => !value || value.length >= 2, {
-      message: "Please enter a company name with at least 2 characters",
+      message: "Please enter a company name",
     }),
   companySize: z.string().optional(),
   role: z
-    .object({
-      label: z.string().optional(),
-      value: z.string().optional(),
-    })
-    .optional(),
+    .string()
+    .optional()
+    .refine((value) => !value || value.length >= 2, {
+      message: "Please enter your current role",
+    }),
   linkedinProfile: z
     .string()
     .optional()
@@ -66,18 +66,12 @@ export function OnboardStepTwoForm({ user }: Props) {
   const { id, organization, companySize, position, linkedinProfile } =
     JSON.parse(user);
 
-  // convert the indutries to match the select input
-  let initialRole = {};
-  if (position !== null) {
-    initialRole = { label: position, value: position };
-  }
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       company: organization,
       companySize,
-      role: initialRole,
+      role: position,
       linkedinProfile,
     },
   });
@@ -89,7 +83,7 @@ export function OnboardStepTwoForm({ user }: Props) {
         userId: id,
         company: data.company,
         companySize: data.companySize,
-        currentRole: data.role?.value,
+        currentRole: data.role,
         linkedinProfile: data.linkedinProfile,
       });
 
@@ -108,10 +102,24 @@ export function OnboardStepTwoForm({ user }: Props) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
+          name="role"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Your current role</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="company"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company</FormLabel>
+              <FormLabel>Your current organization</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -125,9 +133,7 @@ export function OnboardStepTwoForm({ user }: Props) {
           name="companySize"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>
-                How big is your company? <span className="text-red-400">*</span>
-              </FormLabel>
+              <FormLabel>How big is your company?</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -148,28 +154,6 @@ export function OnboardStepTwoForm({ user }: Props) {
                     </FormItem>
                   ))}
                 </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Your current role <span className="text-red-400">*</span>
-              </FormLabel>
-              <FormControl>
-                <Select
-                  {...field}
-                  isMulti={false}
-                  options={ROLES}
-                  isSearchable={true}
-                  isClearable={true}
-                />
               </FormControl>
               <FormMessage />
             </FormItem>

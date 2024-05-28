@@ -12,6 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -29,6 +30,7 @@ import { toast } from "sonner";
 import { useModal } from "@/hooks/use-modal-store";
 import { FileUpload } from "@/components/shared/file-upload";
 import { addExperience } from "@/lib/actions/experience.action";
+import { Loader2Icon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -43,7 +45,10 @@ const formSchema = z.object({
 });
 
 export const AddExperienceModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
+  const isOpen = useModal((state) => state.isOpen);
+  const onClose = useModal((state) => state.onClose);
+  const type = useModal((state) => state.type);
+  const data = useModal((state) => state.isOpen);
   const { isLoaded, user } = useUser();
   const router = useRouter();
   const params = useParams();
@@ -99,15 +104,14 @@ export const AddExperienceModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Add Experience
-          </DialogTitle>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader className="w-full flex justify-center">
+          <DialogTitle>Experience</DialogTitle>
+          <DialogDescription>Add your Experience</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4 px-6">
+            <div className="space-y-4">
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
@@ -141,7 +145,6 @@ export const AddExperienceModal = () => {
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                         placeholder="Enter company name"
                         {...field}
                       />
@@ -162,9 +165,9 @@ export const AddExperienceModal = () => {
                     <FormControl>
                       <Textarea
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 md:h-24"
                         placeholder="Enter description about role"
                         {...field}
+                        className="min-h-[120px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -172,8 +175,17 @@ export const AddExperienceModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Add</Button>
+            <DialogFooter className=" w-full pt-4 flex items-center justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="min-w-[200px] w-full mx-auto"
+              >
+                Add Experience
+                {isLoading && (
+                  <Loader2Icon className="animate-spin w-4 h-4 ml-1" />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

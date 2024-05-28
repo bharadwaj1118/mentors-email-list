@@ -5,9 +5,9 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { Loader2Icon } from "lucide-react";
 
 import { toast } from "sonner";
-import Select from "react-select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
@@ -26,20 +27,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { ROLES } from "@/constants/data";
 import { updateUser } from "@/lib/actions/user.action";
 import { useModal } from "@/hooks/use-modal-store";
-import { user } from "@nextui-org/react";
 
 const formSchema = z.object({
-  position: z
-    .object({
-      label: z.string(),
-      value: z.string(),
-    })
-    .refine((data) => data.value, {
-      message: "Role is required.",
-    }),
+  position: z.string().min(1, {
+    message: "Current role is required.",
+  }),
   organization: z.string().min(1, {
     message: "Company name is required.",
   }),
@@ -56,28 +50,19 @@ export const EditProfessionModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      position: {
-        label: user?.position || "",
-        value: user?.position || "",
-      },
+      position: user?.position || "",
       organization: user?.organization || "",
     },
   });
 
   useEffect(() => {
-    if (user) {
-      if (user?.organization !== undefined && user?.organization !== null) {
-        form.setValue("organization", user?.organization);
-      }
-      if (user?.position) {
-        const position = {
-          label: user.position,
-          value: user.position,
-        };
-        form.setValue("position", position);
-      }
+    if (user?.organization !== undefined && user?.organization !== null) {
+      form.setValue("organization", user?.organization);
     }
-  }, [user, form]);
+    if (user?.position) {
+      form.setValue("position", user?.position);
+    }
+  }, [user?.organization, form, user?.position]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -86,11 +71,11 @@ export const EditProfessionModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const id = user?.id;
+
       if (id) {
         const user = await updateUser({
           id,
           ...values,
-          position: values.position.value,
         });
       }
       onClose();
@@ -114,28 +99,28 @@ export const EditProfessionModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Your Role and Current Organization
-          </DialogTitle>
+      <DialogContent className="sm:max-w-[525px]">
+        <DialogHeader className="w-full flex justify-center">
+          <DialogTitle>Professional Information</DialogTitle>
+          <DialogDescription>
+            Edit your current role and company
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-4 px-6">
+            <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="organization"
+                name="position"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      company name
+                    <FormLabel className="uppercase text-xs font-semibold">
+                      Current Role
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter company name"
+                        placeholder="Enter current role"
                         {...field}
                       />
                     </FormControl>
@@ -146,14 +131,18 @@ export const EditProfessionModal = () => {
 
               <FormField
                 control={form.control}
-                name="position"
+                name="organization"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Current Organization
+                    <FormLabel className="uppercase text-xs font-semibold">
+                      company name
                     </FormLabel>
                     <FormControl>
-                      <Select {...field} isMulti={false} options={ROLES} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enter company name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -161,8 +150,17 @@ export const EditProfessionModal = () => {
               />
             </div>
             <div className="w-full h-24"></div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Save</Button>
+            <DialogFooter className=" w-full pt-4 flex items-center justify-center">
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="min-w-[200px] w-full mx-auto"
+              >
+                Update Experience
+                {isLoading && (
+                  <Loader2Icon className="animate-spin w-4 h-4 ml-1" />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

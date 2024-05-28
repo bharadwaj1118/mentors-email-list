@@ -20,19 +20,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useModal } from "@/hooks/use-modal-store";
-import { Expertise, Tool } from "@prisma/client";
+import { Experience, Expertise, Tool, Industry } from "@prisma/client";
 import { useEditProfileStore } from "@/hooks/use-edit-profile-store";
 import { toast } from "sonner";
 
-interface Industry {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-}
-
 interface ProfileItemActionProps {
-  data: Industry | Expertise | Tool;
+  data: {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+  };
   dataType: string;
 }
 
