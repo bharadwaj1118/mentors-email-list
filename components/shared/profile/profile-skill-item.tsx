@@ -8,7 +8,7 @@ import { EXPERTISE } from "@/constants/data";
 
 interface ProfileSkillItemProps {
   dataType: string;
-  imageUrl: string | null;
+  imageUrl: string | undefined;
   name: string;
   description: string;
   id: string;
