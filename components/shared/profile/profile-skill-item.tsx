@@ -4,11 +4,11 @@ import Image from "next/image";
 import { id } from "date-fns/locale";
 
 import ProfileItemAction from "./profile-item-action";
-import { EXPERTISE } from "@/constants/data";
+import { EXPERTISE, INDUSTRIES, TOOLS, industryData } from "@/constants/data";
 
 interface ProfileSkillItemProps {
   dataType: string;
-  imageUrl: string | undefined;
+  imageUrl: string | null;
   name: string;
   description: string;
   id: string;
@@ -18,6 +18,10 @@ interface ProfileSkillItemProps {
 const getImage = (label: string, dataType: string) => {
   if (dataType === "expertise") {
     return EXPERTISE.find((item) => item.label === label)?.filePath;
+  } else if (dataType === "industry") {
+    return industryData.find((item) => item.label === label)?.filePath;
+  } else if (dataType === "tool") {
+    return TOOLS.find((item) => item.label === label)?.filePath;
   }
 };
 
