@@ -44,7 +44,7 @@ const ProfileSkillItem = ({
     <div>
       <ul className="divide-y divide-slate-100">
         <li className="flex items-start gap-4 px-4 py-3">
-          <div className="flex shrink-0 items-center">
+          <div className="flex shrink-0 items-center ">
             <Image
               src={imageUrl}
               alt="image"

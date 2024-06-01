@@ -154,9 +154,9 @@ export const ProfileDisplayPage = async ({
                 <div className="flex flex-col items-center muted">
                   <div className="flex items-center">
                     <StarIcon className="w-4 h-4 fill-yellow-500 text-yellow-500 mr-1" />
-                    <p className="text-xl font-bold text-black">4.99</p>
+                    <p className="text-xl font-bold text-black">NA</p>
                   </div>
-                  <div>512 reviews</div>
+                  <div>0 reviews</div>
                 </div>
                 <Separator className="h-[2px] lg:hidden" />
                 <div className="flex flex-col items-center muted">
@@ -179,7 +179,7 @@ export const ProfileDisplayPage = async ({
                 <Separator className="h-[2px] lg:hidden" />
                 <div className="flex flex-col items-center muted">
                   <div className="flex items-center">
-                    <p className="text-xl font-bold text-black">May 26</p>
+                    <p className="text-xl font-bold text-black">Soon.</p>
                   </div>
                   <div>Next Available day</div>
                 </div>
@@ -205,7 +205,7 @@ export const ProfileDisplayPage = async ({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className="text-base">Personal Website</span>{" "}
+                <span className="text-base">Personal website</span>
                 <ExternalLink className="w-4 h-4 ml-1" />
               </Link>
             </Button>
@@ -256,6 +256,16 @@ export const ProfileDisplayPage = async ({
                 </Link>
               </Button>
             )}
+
+            <EditSocialsAction
+              dataType="socials"
+              id={id}
+              portfolioWebsite={portfolioWebsite ?? ""}
+              linkedinProfile={linkedinProfile ?? ""}
+              twitterProfile={twitterProfile ?? ""}
+              facebookProfile={facebookProfile ?? ""}
+              tiktokProfile={tiktokProfile ?? ""}
+            />
           </div>
         </div>
 

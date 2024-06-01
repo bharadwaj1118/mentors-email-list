@@ -17,10 +17,11 @@ interface EditBioActionProps {
 interface EditSocialActionProps {
   dataType: string;
   id: string;
-  linkedinProfile: string | null;
-  twitterProfile: string | null;
-  facebookProfile: string | null;
-  tiktokProfile: string | null;
+  portfolioWebsite: string;
+  linkedinProfile: string;
+  twitterProfile: string;
+  facebookProfile: string;
+  tiktokProfile: string;
 }
 
 export function EditProfileAction() {
@@ -67,9 +68,10 @@ export function EditBioAction({ dataType, id, bio }: EditBioActionProps) {
       variant="outline"
       className="flex items-center"
       onClick={handleClick}
+      size="sm"
     >
       <PencilIcon className="w-4 h-4 mr-1" />
-      Edit
+      Edit Bio
     </Button>
   );
 }
@@ -77,6 +79,7 @@ export function EditBioAction({ dataType, id, bio }: EditBioActionProps) {
 export function EditSocialsAction({
   dataType,
   id,
+  portfolioWebsite,
   linkedinProfile,
   twitterProfile,
   facebookProfile,
@@ -89,6 +92,7 @@ export function EditSocialsAction({
     onOpen("editSocials", {
       user: {
         id,
+        portfolioWebsite,
         linkedinProfile,
         twitterProfile,
         facebookProfile,
@@ -108,7 +112,7 @@ export function EditSocialsAction({
       size="sm"
     >
       <PencilIcon className="w-4 h-4 mr-1" />
-      Edit
+      Edit Socials
     </Button>
   );
 }

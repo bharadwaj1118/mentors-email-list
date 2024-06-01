@@ -64,10 +64,11 @@ interface ProfessionalDetails {
 interface User {
   bio?: string | null;
   id: string;
-  linkedinProfile?: string | null;
-  twitterProfile?: string | null;
-  facebookProfile?: string | null;
-  tiktokProfile?: string | null;
+  portfolioWebsite?: string;
+  linkedinProfile?: string;
+  twitterProfile?: string;
+  facebookProfile?: string;
+  tiktokProfile?: string;
   position?: string | null;
   organization?: string | null;
 }
