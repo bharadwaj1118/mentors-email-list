@@ -176,7 +176,9 @@ export const SessionCard = ({
                     StatusStyles[session.status]
                   }`}
                 >
-                  {session.status}
+                  {session.status === "AWAITING_HOST"
+                    ? "PENDING"
+                    : session.status}
                 </div>
               </div>
             </div>

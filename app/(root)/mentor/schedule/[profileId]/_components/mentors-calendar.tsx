@@ -195,10 +195,10 @@ export const MentorsCalendar = ({
           <p className="muted">Add specific dates and times to your calendar</p>
         </div>
         <div>
-          <p className="muted !font-semibold">*right click to delete event</p>
           <p className="muted !font-semibold">
             *click or drag to set a timeslot
           </p>
+          <p className="muted !font-semibold">*right click to delete event</p>
         </div>
       </section>
       <AlertPopup

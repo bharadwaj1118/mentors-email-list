@@ -34,7 +34,7 @@ const MentorProfilePage = async () => {
   }
 
   if (currUser) {
-    redirect(`/dashboard/profile/${currUser.id}`);
+    redirect(`/mentor/profile/${currUser.id}`);
   }
 
   return <div>Profile Page</div>;
