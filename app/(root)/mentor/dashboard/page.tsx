@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -13,6 +13,12 @@ import DashboardSessionsUpcoming from "./_components/dashboard-sessions-upcoming
 import DashboardSessionsRequest from "./_components/dashboard-sessions-request";
 import { OnboardingChecklist } from "@/components/shared/onboarding-checklist";
 import { Role } from "@prisma/client";
+import { Skeleton } from "@nextui-org/react";
+import {
+  DashboardCardSkelton,
+  DashboardProfileSkelton,
+  DashboardSessionSkeleton,
+} from "./_components/dashboard-skelton";
 
 type MentorDashboardPageProps = {
   id: string;
@@ -55,22 +61,30 @@ const MentorDashboardPage = async () => {
         <section className="w-full mt-4 p-3 border shadow rounded-lg bg-background md:pl-6 col-start-1 col-span-2">
           <h1 className="text-2xl font-semibold">Welcome back {username}!</h1>
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 my-4 md:px-4">
-            <DashBoardProfileViews userId={id} />
-            <DashBoardUsersBooked userId={id} />
-            <DashBoardSessionCount userId={id} />
+            <Suspense fallback={<DashboardCardSkelton />}>
+              <DashBoardProfileViews userId={id} />
+            </Suspense>
+            <Suspense fallback={<DashboardCardSkelton />}>
+              <DashBoardUsersBooked userId={id} />
+            </Suspense>
+            <Suspense fallback={<DashboardCardSkelton />}>
+              <DashBoardSessionCount userId={id} />
+            </Suspense>
           </div>
         </section>
 
         {/* PROFILE AND SHARE DETAILS */}
         <div className="col-span-1">
-          <DashBoardProfileCard
-            userId={id}
-            userImage={imageUrl}
-            userName={username}
-            rating={4.51}
-            sessions={345}
-            reviews={342}
-          />
+          <Suspense fallback={<DashboardProfileSkelton />}>
+            <DashBoardProfileCard
+              userId={id}
+              userImage={imageUrl}
+              userName={username}
+              rating={4.51}
+              sessions={345}
+              reviews={342}
+            />
+          </Suspense>
         </div>
       </div>
 
@@ -78,8 +92,12 @@ const MentorDashboardPage = async () => {
       <OnboardingChecklist user={user} route="dashboard" />
 
       {/* SESSIONS REQUESTS */}
-      <DashboardSessionsRequest userId={id} />
-      <DashboardSessionsUpcoming userId={id} />
+      <Suspense fallback={<DashboardSessionSkeleton />}>
+        <DashboardSessionsRequest userId={id} />
+      </Suspense>
+      <Suspense fallback={<DashboardSessionSkeleton />}>
+        <DashboardSessionsUpcoming userId={id} />
+      </Suspense>
 
       {/* FEATURE REQUEST FORM */}
       <div className="w-full col-span-3">
