@@ -3,6 +3,7 @@ import React from "react";
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
 import ProfileMeta from "@/components/shared/metadata/ProfileMeta";
+import { env } from "@/env";
 
 interface Props {
   params: {
@@ -36,6 +37,7 @@ const page = async ({ params }: Props) => {
         title="title"
         description="description"
         image={user.imageUrl}
+        url={`${env.NEXT_PUBLIC_WEBSITE_URL}/dashboard/profile/${user.id}`}
       />
       <ProfileDisplayPage user={user} profileId={profileId} />
     </div>

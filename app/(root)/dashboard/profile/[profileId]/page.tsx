@@ -1,4 +1,5 @@
 import React from "react";
+import { env } from "@/env";
 
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
@@ -39,6 +40,7 @@ const page = async ({ params }: Props) => {
         title="title"
         description="description"
         image={user.imageUrl}
+        url={`${env.NEXT_PUBLIC_WEBSITE_URL}/dashboard/profile/${user.id}`}
       />
       <ProfileDisplayPage user={user} profileId={profileId} />
     </div>
