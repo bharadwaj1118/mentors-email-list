@@ -3,6 +3,7 @@ import React from "react";
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
 import { addProfileViewCount } from "@/lib/actions/helper.action";
+import ProfileMeta from "@/components/shared/metadata/ProfileMeta";
 
 interface Props {
   params: {
@@ -34,6 +35,11 @@ const page = async ({ params }: Props) => {
 
   return (
     <div className="pt-[80px]">
+      <ProfileMeta
+        title="title"
+        description="description"
+        image={user.imageUrl}
+      />
       <ProfileDisplayPage user={user} profileId={profileId} />
     </div>
   );
