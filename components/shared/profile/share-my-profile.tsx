@@ -1,23 +1,31 @@
 "use client";
 import { Share2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { env } from "@/env";
 
 import { useModal } from "@/hooks/use-modal-store";
 
-const ShareOwnProfile = () => {
+type ShareOwnProfileProps = {
+  path: string;
+  title: string;
+};
+
+const ShareOwnProfile = ({ path, title }: ShareOwnProfileProps) => {
   const { onOpen } = useModal();
+
+  const url = env.NEXT_PUBLIC_WEBSITE_URL + path;
 
   const handleClick = () => {
     onOpen("socialShare", {
       socialShare: {
-        url: "https://mentorscx.vercel.app/",
+        url,
       },
     });
   };
   return (
     <div>
       <Button variant="secondary" onClick={handleClick}>
-        Share your profile
+        {title}
         <Share2Icon className="w-4 h-4 ml-2" />
       </Button>
     </div>

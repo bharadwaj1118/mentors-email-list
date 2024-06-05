@@ -53,7 +53,10 @@ const DashBoardProfileCard = ({
             </Link>
           </Button>
 
-          <ShareOwnProfile />
+          <ShareOwnProfile
+            path={`dashboard/profile/${userId}`}
+            title="Share your profile"
+          />
         </div>
       </div>
     </section>

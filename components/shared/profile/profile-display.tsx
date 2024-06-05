@@ -114,7 +114,14 @@ export const ProfileDisplayPage = async ({
                 height={100}
                 className="h-32 w-32 rounded-full object-cover overflow-hidden"
               />
-              <div>{canEdit ? <ShareOwnProfile /> : null}</div>
+              <div>
+                {canEdit ? (
+                  <ShareOwnProfile
+                    path={`dashboard/profile/${id}`}
+                    title="Share your profile"
+                  />
+                ) : null}
+              </div>
             </div>
             <div className="flex flex-col items-center gap-2">
               <h3 className="h3">{username}</h3>
