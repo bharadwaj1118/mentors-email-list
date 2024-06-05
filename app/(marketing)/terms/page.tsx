@@ -1,5 +1,13 @@
 import React from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | Mentors CX",
+  description:
+    "Review the terms and conditions of using Mentors CX. Understand your rights and responsibilities as a user.",
+};
+
 const TermsPage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6">

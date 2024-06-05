@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { MyCalendar } from "./_components/mentor-calendar";
 import React from "react";
 import { getSelf } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 import { Role } from "@prisma/client";
+
+export const metadata: Metadata = {
+  title: "Schedule | Mentors CX",
+  description:
+    "Organize your mentorship sessions. Use the Mentors CX scheduling tool to plan your calls with ease.",
+};
 
 const SchedulePage = async () => {
   const currUser = await getSelf();

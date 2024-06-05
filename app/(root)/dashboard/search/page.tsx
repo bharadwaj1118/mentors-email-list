@@ -3,6 +3,13 @@ import ProfileFilters from "./_components/profile-filters";
 import { getUsersWithProfileFilters } from "@/lib/actions/user.action";
 import ProfileSearchFilters from "./_components/profile-search-filters";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Search Mentors | Mentors CX",
+  description:
+    "Find the perfect mentor for your customer experience needs. Browse our curated list of expert mentors on Mentors CX.",
+};
+
 interface ProfilesPageProps {
   searchParams: {
     countries?: string;

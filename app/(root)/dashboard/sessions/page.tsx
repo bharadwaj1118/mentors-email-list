@@ -1,6 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { Send, Check, Video, XCircle } from "lucide-react";
+import type { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { SessionStatus } from "@prisma/client";
@@ -9,6 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSelf } from "@/lib/actions/user.action";
 import { EmptyBookingsCard } from "@/components/shared/empty-bookings-card";
 import { SessionList } from "./_components/session-list";
+
+export const metadata: Metadata = {
+  title: "Sessions | Mentors CX",
+  description:
+    "Manage your mentorship sessions. View upcoming and past sessions on Mentors CX.",
+};
 
 const SessionPage = async () => {
   const user = await getSelf();

@@ -1,4 +1,6 @@
 import React from "react";
+import type { Metadata } from "next";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, Bell, Clock, LayoutList, Calendar } from "lucide-react";
 import { getSelf, getSelfWithEvents } from "@/lib/actions/user.action";
@@ -6,12 +8,17 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Role } from "@prisma/client";
 
-import AvailabilityForm from "./_components/availability-form";
 import { DisplayForm } from "./_components/notification-form";
 import SessionForm from "./_components/session-form";
 import { CalandarForm } from "./_components/calandar-form";
 import { AccountForm } from "./_components/account-form";
 import { GoogleCalandarForm } from "./_components/google-calendar-form";
+
+export const metadata: Metadata = {
+  title: "Settings | Mentors CX",
+  description:
+    "Customize your Mentors CX experience. Access and update your account settings and preferences.",
+};
 
 const SettingsPage = async () => {
   const user = await getSelfWithEvents();

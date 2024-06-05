@@ -1,11 +1,13 @@
+import type { Metadata } from "next";
 import { allPosts, Post } from "contentlayer/generated";
 import PostItem from "@/components/post-item";
 import PopularPosts from "./popular-posts";
 import Topics from "./topics";
 
-export const metadata = {
-  title: "Blog - Mentors CX",
-  description: "Blogs about Mentors CX and the world of customer experience",
+export const metadata: Metadata = {
+  title: "Blog | Mentors CX",
+  description:
+    "Stay updated with the latest insights and tips in customer experience from our expert mentors on the Mentors CX blog.",
 };
 
 export default function Blog() {

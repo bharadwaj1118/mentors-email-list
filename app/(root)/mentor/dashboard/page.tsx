@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 
 import { db } from "@/lib/db";
 
@@ -19,6 +20,12 @@ import {
   DashboardProfileSkelton,
   DashboardSessionSkeleton,
 } from "./_components/dashboard-skelton";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Mentors CX",
+  description:
+    "Access your Mentors CX dashboard. Manage your mentorship activities and track your progress.",
+};
 
 type MentorDashboardPageProps = {
   id: string;

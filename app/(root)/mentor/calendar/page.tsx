@@ -2,6 +2,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
+import type { Metadata } from "next";
 
 import { db } from "@/lib/db";
 
@@ -9,6 +10,12 @@ import { Role } from "@prisma/client";
 import BookingCalendarDetails from "@/components/shared/booking-calendar-details";
 import BookingCalendarMain from "@/components/shared/booking-calendar-main";
 import { generateEventsForNextYear } from "@/lib/helpers/recurring";
+
+export const metadata: Metadata = {
+  title: "Calendar | Mentors CX",
+  description:
+    "Keep track of your mentorship appointments. Sync and manage your calendar on Mentors CX.",
+};
 
 const CalendarPage = async () => {
   // Get clerk Auth return if nothing

@@ -1,10 +1,16 @@
 import React from "react";
-import { env } from "@/env";
 
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
 import { addProfileViewCount } from "@/lib/actions/helper.action";
 import ProfileMeta from "@/components/shared/metadata/ProfileMeta";
+
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Profile | Mentors CX",
+  description:
+    "Update and personalize your Mentors CX profile. Ensure your information is up-to-date.",
+};
 
 interface Props {
   params: {
@@ -40,7 +46,7 @@ const page = async ({ params }: Props) => {
         title="title"
         description="description"
         image={user.imageUrl}
-        url={`${env.NEXT_PUBLIC_WEBSITE_URL}/dashboard/profile/${user.id}`}
+        url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}dashboard/profile/${user.id}`}
       />
       <ProfileDisplayPage user={user} profileId={profileId} />
     </div>

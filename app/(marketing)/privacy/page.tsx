@@ -1,5 +1,13 @@
 import React from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Mentors CX",
+  description:
+    "Learn how Mentors CX protects your privacy. Read our privacy policy for details on data usage and security.",
+};
+
 const PrivacyPage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6">

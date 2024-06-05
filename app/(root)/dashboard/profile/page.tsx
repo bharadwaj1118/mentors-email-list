@@ -3,6 +3,13 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Profile | Mentors CX",
+  description:
+    "Update and personalize your Mentors CX profile. Ensure your information is up-to-date.",
+};
+
 const MenteeProfilePage = async () => {
   const { userId } = auth();
 

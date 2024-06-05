@@ -1,9 +1,15 @@
-"use router";
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
 import { Role } from "@prisma/client";
+
+export const metadata: Metadata = {
+  title: "Profile | Mentors CX",
+  description:
+    "Update and personalize your Mentors CX profile. Ensure your information is up-to-date.",
+};
 
 const MentorProfilePage = async () => {
   const { userId } = auth();
