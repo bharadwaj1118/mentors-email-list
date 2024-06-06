@@ -10,6 +10,7 @@ export default authMiddleware({
     "/subscribe",
     "/support",
     "/docs/(.*)",
+    "/dashboard/profile/(.*)",
     "/privacy",
     "/about",
     "/pricing",

@@ -24,11 +24,21 @@ export async function generateMetadata({
 
   if (!post) return;
 
-  const { title, summary: description } = post;
+  const { title, summary: description, image } = post;
 
   return {
     title,
-    description,
+    description: `${description} | Mentors CX`,
+    openGraph: {
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: `${description} | Mentors CX`,
+
+      images: [image], // Must be an absolute URL
+    },
   };
 }
 
