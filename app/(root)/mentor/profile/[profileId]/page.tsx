@@ -3,13 +3,37 @@ import type { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { ProfileDisplayPage } from "@/components/shared/profile/profile-display";
-import ProfileMeta from "@/components/shared/metadata/ProfileMeta";
 
-export const metadata: Metadata = {
-  title: "Profile | Mentors CX",
-  description:
-    "Update and personalize your Mentors CX profile. Ensure your information is up-to-date.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { profileId: string };
+}): Promise<Metadata> {
+  // read route params
+  const { profileId } = params;
+
+  // fetch data
+  const user = await db.user.findUnique({
+    where: {
+      id: profileId,
+    },
+    select: {
+      username: true,
+      imageUrl: true,
+    },
+  });
+
+  // Get image or default to Parent metadata
+  const imageUrl = user?.imageUrl || "/mentors-cx.png";
+
+  return {
+    title: `${user?.username} profile | Mentors CX`,
+    description: `Book an appointment with ${user?.username}`,
+    openGraph: {
+      images: [imageUrl],
+    },
+  };
+}
 
 interface Props {
   params: {
@@ -39,12 +63,6 @@ const page = async ({ params }: Props) => {
 
   return (
     <div className="pt-[80px]">
-      <ProfileMeta
-        title="title"
-        description="description"
-        image={user.imageUrl}
-        url={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/dashboard/profile/${user.id}`}
-      />
       <ProfileDisplayPage user={user} profileId={profileId} />
     </div>
   );
